@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/CRUDAPP.iml" filepath="$PROJECT_DIR$/CRUDAPP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HPMS.iml" filepath="$PROJECT_DIR$/HPMS.iml" />
     </modules>
   </component>
 </project>
