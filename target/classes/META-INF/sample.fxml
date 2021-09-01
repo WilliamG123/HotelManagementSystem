@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <Pane prefHeight="509.0" prefWidth="395.0">
+         <children>
+            <Button fx:id="BTN_insert" layoutX="86.0" layoutY="185.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="204.0" text="INSERT NEW DATA" />
+            <Button fx:id="BTN_update" layoutX="86.0" layoutY="243.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="204.0" text="UPDATE NEW DATA" />
+            <Button fx:id="BTN_delete" layoutX="86.0" layoutY="296.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="204.0" text="DELETE EXISTING DATA" />
+            <Button fx:id="BTN_view" layoutX="86.0" layoutY="362.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="204.0" text="VIEW EXISTING DATA" />
+            <TextArea fx:id="TA_name" layoutX="56.0" layoutY="39.0" prefHeight="36.0" prefWidth="264.0" promptText="Name" />
+            <TextArea fx:id="TA_email" layoutX="56.0" layoutY="88.0" prefHeight="36.0" prefWidth="264.0" promptText="E-mail" />
+            <TextArea fx:id="TA_dob" layoutX="56.0" layoutY="136.0" prefHeight="36.0" prefWidth="264.0" promptText="DOB" />
+         </children>
+      </Pane>
+   </children>
+</GridPane>
