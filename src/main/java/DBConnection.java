@@ -16,7 +16,7 @@ public class DBConnection {
 
         public Connection getConnection(){
 
-        String query ="Select * from consumer";
+       // String query ="Select * from consumer";
 
         try {
 

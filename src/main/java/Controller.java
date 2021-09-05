@@ -1,19 +1,15 @@
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -62,6 +58,45 @@ public class Controller implements Initializable {
                 e.printStackTrace();
             }
         });
+
+
+
+        BTN_delete.setOnAction(event ->{
+            String name = TA_name.getText();
+            String email = TA_email.getText();
+            LocalDate dob = TA_dob.getValue();
+
+            try {
+                if(instance.deleteconsumer(email)){
+                    System.out.println("insertion successful");
+                }
+                else{
+                    System.out.println("insertion failed");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        BTN_view.setOnAction(event ->{
+            String name = TA_name.getText();
+            String email = TA_email.getText();
+            LocalDate dob = TA_dob.getValue();
+
+            try {
+               ResultSet rs= instance.viewconsumer(email);
+                if(rs != null){
+                    System.out.println("insertion successful");
+                }
+                else{
+                    System.out.println("insertion failed");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+
 
 
 
