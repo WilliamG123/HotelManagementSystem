@@ -40,8 +40,10 @@ public class UserSignupController extends User implements Initializable {
     **/
     public void validateUserName() throws SQLException {
         if (validate(signupUsernameField.getText(), signupPasswordField.getText())== true){ //already set userId
+            signupUserNameGood.setText("");
             signupUserNameBad.setText("Sorry username already exist");
         }else {
+            signupUserNameBad.setText("");
             signupUserNameGood.setText("Great choice!");
         }
     }
@@ -60,7 +62,7 @@ public class UserSignupController extends User implements Initializable {
             }
         });
 
-        signupUsernameField.setOnKeyTyped(event -> {
+        signupUsernameField.setOnKeyReleased(event -> {
             try {
                 validateUserName();
             } catch (SQLException e) {

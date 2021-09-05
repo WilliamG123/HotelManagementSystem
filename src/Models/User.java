@@ -125,7 +125,7 @@ public class User {
         DBConnection connectNow = new DBConnection();
         try (Connection connectDB = connectNow.getConnection()) {
             String verifyUserId = "SELECT userid FROM customer WHERE username= '" + userName + "' AND Password = '" + password + "'";
-            String verifyUsername = "SELECT Count(1) FROM customer WHERE username = '" + userName + "' AND Password= '" + password + "'";
+            String verifyUsername = "SELECT Count(1) FROM customer WHERE username = '" + userName+"'";
 
             PreparedStatement st = connectDB.prepareStatement(verifyUsername);
             ResultSet rs = st.executeQuery();

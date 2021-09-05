@@ -30,8 +30,8 @@
       <TextField fx:id="signupPhoneField" layoutX="228.0" layoutY="260.0" />
       <DatePicker fx:id="signupDOBField" layoutX="227.0" layoutY="299.0" />
       <Button fx:id="signupButton" layoutX="245.0" layoutY="346.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" text="Sign Up" />
-      <Label fx:id="signupUserNameGood" layoutX="387.0" layoutY="70.0" prefHeight="28.0" prefWidth="111.0" textFill="#05ae19" />
+      <Label fx:id="signupUserNameGood" layoutX="387.0" layoutY="70.0" prefHeight="28.0" prefWidth="156.0" textFill="#05ae19" />
       <Label fx:id="signupResultLabel" layoutX="375.0" layoutY="346.0" prefHeight="25.0" prefWidth="121.0" />
-      <Label fx:id="signupUserNameBad" layoutX="387.0" layoutY="68.0" prefHeight="28.0" prefWidth="111.0" textFill="#fc0101" />
+      <Label fx:id="signupUserNameBad" layoutX="387.0" layoutY="68.0" prefHeight="39.0" prefWidth="203.0" textFill="#fc0101" />
    </children>
 </AnchorPane>
