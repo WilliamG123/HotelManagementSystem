@@ -1,16 +1,14 @@
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -21,8 +19,9 @@ import java.util.ResourceBundle;
 
 
 public class LoginController extends User implements Initializable {
+    @FXML public Button exitButton;
     @FXML private TextField usernameLoginField;
-    @FXML private TextField passwordLoginField;
+    @FXML private PasswordField passwordLoginField;
     @FXML private Button loginButton;
     @FXML private Button signupButton;
     @FXML private Label loginMessagePrompt;
@@ -42,6 +41,10 @@ public class LoginController extends User implements Initializable {
         window.show();
     }
 
+    @FXML private void exit(){
+        Platform.exit();
+    }
+
     public void login(ActionEvent event) throws IOException, SQLException {
 
         //UserInfo ui = new UserInfo(userName.getText(), passWord.getText());
@@ -51,8 +54,8 @@ public class LoginController extends User implements Initializable {
         } else {
             setUserName(getUserName());
         }
-        /**
 
+        /*
          //adding everything in FXML into this Parent object and calling it MainMenuParent
          // Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml")); <---------------------Still need to make this scene
 
@@ -79,7 +82,7 @@ public class LoginController extends User implements Initializable {
 
         }
         });
-         **/
+         */
 
     }
 
@@ -104,6 +107,10 @@ public class LoginController extends User implements Initializable {
                 e.printStackTrace();
             }
 
+        });
+
+        exitButton.setOnAction(event -> {
+            exit();
         });
     }
 }
