@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class UserSignupController extends User implements Initializable {
     @FXML private TextField signupPhoneField;
     @FXML private DatePicker signupDOBField;
     @FXML private Button signupButton;
-    @FXML private Label signupUserNameGood,signupUserNameBad, signupResultLabel,signupConfirmPassGood,signupConfirmPassBad;
+    @FXML private Label passwordErrorLabel;
     @FXML private void toLogin(ActionEvent event) throws IOException {
         AnchorPane loginScreen = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(loginScreen);
@@ -56,10 +57,15 @@ public class UserSignupController extends User implements Initializable {
     public void validateConfirmPassword(){
       if(signupPasswordField.getText().equals(signupConfirmPasswordField.getText()))
       {
+          passwordErrorLabel.setText("Match");
+          passwordErrorLabel.setTextFill(Color.GREEN);
           System.out.println("match");
+
       }
       else if (!signupPasswordField.getText().equals(signupConfirmPasswordField.getText())){
           System.out.println("does not match");
+          passwordErrorLabel.setTextFill(Color.RED);
+          passwordErrorLabel.setText("does not Match");
       }
 
     }

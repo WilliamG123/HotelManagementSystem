@@ -23,7 +23,10 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <Label fx:id="loginMessagePrompt" layoutX="174.0" layoutY="343.0" prefHeight="38.0" prefWidth="259.0" textFill="#f80303" />
+      <Label fx:id="loginMessagePrompt" layoutX="14.0" layoutY="349.0" prefHeight="35.0" prefWidth="232.0" textFill="#f80303">
+         <font>
+            <Font name="Buxton Sketch" size="14.0" />
+         </font></Label>
       <Button fx:id="exitButton" layoutX="256.0" layoutY="352.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Exit" />
    </children>
 </AnchorPane>
