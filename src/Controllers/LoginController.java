@@ -14,16 +14,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
 public class LoginController extends User implements Initializable {
-    @FXML public Button exitButton;
     @FXML private TextField usernameLoginField;
     @FXML private PasswordField passwordLoginField;
     @FXML private Button loginButton;
     @FXML private Button signupButton;
+    @FXML private Button exitButton;
     @FXML private Label loginMessagePrompt;
     private double xOffset =0; // <-- to move app window freely
     private double yOffset = 0;
@@ -45,10 +46,12 @@ public class LoginController extends User implements Initializable {
         Platform.exit();
     }
 
-    public void login(ActionEvent event) throws IOException, SQLException {
+    public void login(ActionEvent event) throws IOException, SQLException, NoSuchAlgorithmException {
+        String username = usernameLoginField.getText();
+        String passwordHash = Hasher.getInstance("SHA-256").hash(passwordLoginField.getText());
 
         //UserInfo ui = new UserInfo(userName.getText(), passWord.getText());
-        if (!validate(usernameLoginField.getText(), passwordLoginField.getText())) {
+        if (!validate(username, passwordHash)) {
             loginMessagePrompt.setText("Please Register no Record found!");
 
         } else {
@@ -92,9 +95,7 @@ public class LoginController extends User implements Initializable {
         loginButton.setOnAction(event -> {
             try {
                 login(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
+            } catch (IOException | NoSuchAlgorithmException | SQLException e) {
                 e.printStackTrace();
             }
 
