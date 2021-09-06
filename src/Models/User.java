@@ -96,12 +96,15 @@ public class User {
             if (oper == "add") {
                 DBConnection connect = new DBConnection();
                 Connection conn = connect.getConnection();
-                ps = conn.prepareStatement("INSERT INTO  users(firstname, lastName, email, phoneNumber, dob) VALUES (?,?,?,?,?)");
-                ps.setString(1, cust.firstName);
-                ps.setString(2, cust.lastName);
-                ps.setString(3, cust.email);
-                ps.setString(4, cust.phoneNumber);
-                ps.setDate(4, Date.valueOf(cust.dob));
+                ps = conn.prepareStatement("INSERT INTO users(username,password, fname, lname, email, phone, dob, usertype) values(?,?,?,?,?,?,?,?)");
+                ps.setString(1, cust.getUserName());
+                ps.setString(2, cust.getPassword());
+                ps.setString(3, cust.getFirstName());
+                ps.setString(4, cust.getLastName());
+                ps.setString(5, cust.getEmail());
+                ps.setString(6, cust.getPhoneNumber());
+                ps.setDate(7, Date.valueOf(cust.dob));
+                ps.setString(8, cust.getType());
 
                 if (ps.executeUpdate() > 0) {
                     System.out.println("New Customer added");

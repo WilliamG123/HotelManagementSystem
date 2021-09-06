@@ -14,10 +14,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class UserSignupController extends User implements Initializable {
     //MACROS
+    boolean errors = false;
     private static final int INCORRECT_PASSWORD = -1;
     @FXML private Button backToLoginButton;
     @FXML private TextField signupUsernameField;
@@ -53,10 +55,12 @@ public class UserSignupController extends User implements Initializable {
         {
             signupUsernameCheck.setTextFill(Color.RED);
             signupUsernameCheck.setText("Username already exist");
+            errors= true;
         }
         else{
             signupUsernameCheck.setTextFill(Color.GREEN);
             signupUsernameCheck.setText("Great choice");
+            errors = false;
         }
 
     }
@@ -67,13 +71,25 @@ public class UserSignupController extends User implements Initializable {
       {
           passwordErrorLabel.setText("Match");
           passwordErrorLabel.setTextFill(Color.GREEN);
+          errors= false;
       }
       else if (!signupPasswordField.getText().equals(signupConfirmPasswordField.getText())){
           passwordErrorLabel.setTextFill(Color.RED);
           passwordErrorLabel.setText("does not Match");
+          errors = true;
       }
 
     }
+
+   public void signup(){
+        if(errors == true){
+            System.out.println("Errors exist");
+        }else {
+            User cust = new User(signupUsernameField.getText(), signupFirstNameField.getText(), signupLastNameField.getText(),
+                    signupEmailField.getText(), signupPhoneField.getText(), signupDOBField.getValue(), signupPasswordField.getText(), "EMP");
+            Customer("add", cust);
+        }
+   }
 
 
 
@@ -91,8 +107,15 @@ public class UserSignupController extends User implements Initializable {
 
         signupButton.setOnAction(event -> {
 
-
+        signup();
+            try {
+                toLogin(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
+
+
         signupUsernameField.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
