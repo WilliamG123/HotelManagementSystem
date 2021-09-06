@@ -1,3 +1,5 @@
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +30,10 @@ public class UserSignupController extends User implements Initializable {
     @FXML private DatePicker signupDOBField;
     @FXML private Button signupButton;
     @FXML private Label passwordErrorLabel;
+    @FXML private Label signupUsernameCheck;
+
+
+
     @FXML private void toLogin(ActionEvent event) throws IOException {
         AnchorPane loginScreen = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(loginScreen);
@@ -43,27 +49,26 @@ public class UserSignupController extends User implements Initializable {
     **/
     public void validateUserName() throws SQLException {
 
-
-/**
-        if (validate(signupUsernameField.getText(), signupPasswordField.getText())== ){ //already set userId
-            signupUserNameGood.setText("");
-            signupUserNameBad.setText("Sorry username already exist");
-        }else {
-            signupUserNameBad.setText("");
-            signupUserNameGood.setText("Great choice!");
+        if(!validateUserName(signupUsernameField.getText()))
+        {
+            signupUsernameCheck.setTextFill(Color.RED);
+            signupUsernameCheck.setText("Username already exist");
         }
- **/
+        else{
+            signupUsernameCheck.setTextFill(Color.GREEN);
+            signupUsernameCheck.setText("Great choice");
+        }
+
     }
+
+
     public void validateConfirmPassword(){
       if(signupPasswordField.getText().equals(signupConfirmPasswordField.getText()))
       {
           passwordErrorLabel.setText("Match");
           passwordErrorLabel.setTextFill(Color.GREEN);
-          System.out.println("match");
-
       }
       else if (!signupPasswordField.getText().equals(signupConfirmPasswordField.getText())){
-          System.out.println("does not match");
           passwordErrorLabel.setTextFill(Color.RED);
           passwordErrorLabel.setText("does not Match");
       }
@@ -75,24 +80,36 @@ public class UserSignupController extends User implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        backToLoginButton.setOnAction(event -> {
-            try {
-                toLogin(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+
 
 
         signupConfirmPasswordField.setOnKeyReleased(event -> {
             validateConfirmPassword();
         });
 
-        signupUsernameField.setOnKeyReleased(event -> {
-            try {
-                validateUserName();
-            } catch (SQLException e) {
-                e.printStackTrace();
+
+
+        signupButton.setOnAction(event -> {
+
+
+        });
+        signupUsernameField.focusedProperty().addListener(new ChangeListener<Boolean>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
+            {
+                if (newPropertyValue)
+                {
+                   signupUsernameField.getText();
+                }
+                else
+                {
+                    try {
+                        validateUserName();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
 

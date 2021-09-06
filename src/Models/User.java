@@ -1,3 +1,5 @@
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -109,6 +111,25 @@ public class User {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public boolean validateUserName(String userName) throws SQLException {
+       boolean result = true;
+        Statement statement = null;
+        String query = "SELECT Count(1) FROM users WHERE BINARY username = ?"; // checking if usernames match
+        DBConnection connectNow = new DBConnection();
+        try(Connection conn = connectNow.getConnection()){
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1,userName);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt(1) == 1) {
+                    System.out.println("Username already exist");
+                    result = false;
+                    }
+                }
+                }
+        return result;
     }
 
 
