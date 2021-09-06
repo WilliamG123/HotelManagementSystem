@@ -9,11 +9,12 @@ public class User {
     private String phoneNumber;
     private String password;
     private LocalDate dob;
+    private String type;
 
     public User() {
     }
 
-    public User(String userName, String firstName, String lastName, String email, String phoneNumber, LocalDate dob, String password) {
+    public User(String userName, String firstName, String lastName, String email, String phoneNumber, LocalDate dob, String password, String type ) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -21,7 +22,12 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.dob = dob;
         this.password = password;
+        this.type =  type;
     }
+
+    public String getType() { return type; }
+
+    public void setType(String type) { this.type = type; }
 
     public String getUserName() {
         return userName;
@@ -80,11 +86,7 @@ public class User {
     }
 
 
-    /**
-     * This method is not complete just testing phase but will work as table is implemented
-     * @param oper takes in operation add, delete, insert
-     * @param cust object that is defined from constructor
-     */
+
     public void Customer(String oper, User cust) {
         PreparedStatement ps = null;
         ResultSet result = null;
@@ -92,7 +94,7 @@ public class User {
             if (oper == "add") {
                 DBConnection connect = new DBConnection();
                 Connection conn = connect.getConnection();
-                ps = conn.prepareStatement("INSERT INTO customer (firstname, lastName, email, phoneNumber, dob) VALUES (?,?,?,?,?)");
+                ps = conn.prepareStatement("INSERT INTO  users(firstname, lastName, email, phoneNumber, dob) VALUES (?,?,?,?,?)");
                 ps.setString(1, cust.firstName);
                 ps.setString(2, cust.lastName);
                 ps.setString(3, cust.email);
@@ -110,45 +112,31 @@ public class User {
     }
 
 
-    /**Under Construction
-     * Method to validate credentials of the user.  Used both in login and signup events
-     * queries the userid (PK) if there is one
-     * queries the count of usernames for verification
-     * @param userName <-- of customer
-     * @param password
-     * @return will return true if there exist a user already or false if does not exist
-     * @throws SQLException
-     */
-    public boolean validate(String userName, String password) throws SQLException {
-        boolean result = false;
-        Statement statement = null;
-        DBConnection connectNow = new DBConnection();
-        try (Connection connectDB = connectNow.getConnection()) {
-            String verifyUserId = "SELECT userid FROM customer WHERE username= '" + userName + "' AND Password = '" + password + "'";
-            String verifyUsername = "SELECT Count(1) FROM customer WHERE username = '" + userName+"'";
 
-            PreparedStatement st = connectDB.prepareStatement(verifyUsername);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                if (rs.getInt(1) == 1) {
-                    System.out.println("username & password exist");
+    public int validate(String userName, String password) throws SQLException {
+        int result = 0;
+        Statement statement = null;
+        String query = "SELECT * FROM users WHERE BINARY username = ?"; // checking if usernames match
+        DBConnection connectNow = new DBConnection();
+        try (Connection conn = connectNow.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1,userName);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) { //if username exist
+                   type =  rs.getString("usertype");
+                if (rs.getString("password").equals(password)) {
+                    System.out.println("validation successful ");
                     setUserName(userName);
                     setPassword(password);
-                    result = true;
+                    result = 1;
                 } else {
+                    System.out.println("username exist but incorrect password");
+                    System.out.println(rs.getString("password"));
+                    System.out.println(rs.getString("username"));
+                    result = -1;
+                }
+            }
 
-                    System.out.println("no such username & password exist");
-                }
-            }
-            PreparedStatement st1 = connectDB.prepareStatement(verifyUserId);
-            ResultSet rs2 = st1.executeQuery();
-            while (rs2.next()) {
-                if (rs.getInt(1) == 1) {
-                    System.out.println("userid exist");
-                } else {
-                    System.out.println("no such userid exist");
-                }
-            }
 
             return result;
 
