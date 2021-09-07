@@ -116,7 +116,7 @@ public class User {
         }
     }
 
-    public boolean validateUserName(String userName) throws SQLException {
+    public boolean isValidUsername(String userName) throws SQLException {
        boolean result = true;
         Statement statement = null;
         String query = "SELECT Count(1) FROM users WHERE BINARY username = ?"; // checking if usernames match

@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -9,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -23,12 +25,17 @@ import java.util.ResourceBundle;
 
 public class LoginController extends User implements Initializable {
     @FXML private TextField usernameLoginField;
-    @FXML private TextField passwordLoginField;
+    @FXML private PasswordField passwordLoginField;
     @FXML private Button loginButton;
     @FXML private Button signupButton;
     @FXML private Label loginMessagePrompt;
+    @FXML public Button exitButton;
     private double xOffset =0; // <-- to move app window freely
     private double yOffset = 0;
+
+    @FXML private void exit(){
+        Platform.exit();
+    }
 
     @FXML private void toSignup(ActionEvent event) throws IOException {
         AnchorPane registerScreen = null;
@@ -118,6 +125,9 @@ public class LoginController extends User implements Initializable {
                 e.printStackTrace();
             }
 
+        });
+        exitButton.setOnAction(event -> {
+            exit();
         });
     }
 }
