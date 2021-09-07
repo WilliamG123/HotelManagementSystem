@@ -11,7 +11,7 @@
    <TextField fx:id="usernameLoginField" layoutX="265.0" layoutY="118.0" />
    <Button fx:id="loginButton" layoutX="256.0" layoutY="253.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Login" />
    <Button fx:id="signupButton" layoutX="256.0" layoutY="293.0" mnemonicParsing="false" onAction="#toSignup" prefHeight="25.0" prefWidth="96.0" text="Sign Up" />
-   
+
    <Label layoutX="195.0" layoutY="122.0" prefHeight="17.0" prefWidth="69.0" text="Username:" />
    <Label layoutX="195.0" layoutY="160.0" prefHeight="17.0" prefWidth="69.0" text="Password:" />
    <Label layoutX="174.0" layoutY="29.0" prefHeight="57.0" prefWidth="259.0" text="PROJECT NAME">

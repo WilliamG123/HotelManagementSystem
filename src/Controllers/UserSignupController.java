@@ -143,7 +143,7 @@ public class UserSignupController extends User implements Initializable {
 
     }
 
-   public void userSignUp() throws SQLException, NoSuchAlgorithmException {
+   public boolean userSignUp() throws SQLException, NoSuchAlgorithmException {
        String username = signupUsernameField.getText();
        String password = signupPasswordField.getText();
        String confPassword = signupConfirmPasswordField.getText();
@@ -158,6 +158,11 @@ public class UserSignupController extends User implements Initializable {
            User cust = new User(signupUsernameField.getText(), signupFirstNameField.getText(), signupLastNameField.getText(),
                                signupEmailField.getText(), signupPhoneField.getText(), signupDOBField.getValue(), signupPasswordField.getText(), "EMP");
            Customer("add", cust);
+            return true;
+       }
+       else {
+           System.out.println("NO USER ADDED");
+        return false;
        }
 
    }
@@ -179,18 +184,20 @@ public class UserSignupController extends User implements Initializable {
 
         signupButton.setOnAction(event -> {
 
+
             try {
-                userSignUp();
+                if(userSignUp()) {
+                    toLogin(event);
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();
-            }
-            try {
-                toLogin(event);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+
         });
 
 
