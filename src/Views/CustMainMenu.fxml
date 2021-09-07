@@ -1,33 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffMainMenuController">
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-   </rowConstraints>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustMainMenuController">
    <children>
-      <Pane prefHeight="666.0" prefWidth="1061.0">
-         <children>
-            <Label layoutX="182.0" layoutY="17.0" prefHeight="75.0" prefWidth="547.0" text="CUSTOMER MAIN MENU SCENE">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
+      <Label layoutX="132.0" prefHeight="75.0" prefWidth="336.0" text="Welcome &lt;name&gt;!">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="createResBtn" layoutX="213.0" layoutY="151.0" mnemonicParsing="false" onAction="#launchCreateRes" prefHeight="52.0" prefWidth="145.0" text="Create Resvervation" />
+      <Button fx:id="manageResBtn" layoutX="213.0" layoutY="271.0" mnemonicParsing="false" onAction="#launchManageRes" prefHeight="52.0" prefWidth="145.0" text="Manage Reservations" />
+      <Button fx:id="profileBtn" layoutX="213.0" layoutY="382.0" mnemonicParsing="false" onAction="#launchProfile" prefHeight="52.0" prefWidth="145.0" text="Profile" />
    </children>
-</GridPane>
+</AnchorPane>
