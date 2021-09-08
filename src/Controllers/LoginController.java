@@ -19,6 +19,7 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
@@ -50,9 +51,11 @@ public class LoginController extends User implements Initializable {
         window.show();
     }
 
-    public void login(ActionEvent event) throws IOException, SQLException {
+    public void login(ActionEvent event) throws IOException, SQLException, NoSuchAlgorithmException {
+        String username = usernameLoginField.getText();
+        String password = Hasher.getInstance("SHA-256").hash(passwordLoginField.getText());
 
-        switch (validate(usernameLoginField.getText(), passwordLoginField.getText())) {
+        switch (validate(username, password)) {
             case 0:
                 loginMessagePrompt.setText("Sorry No Record Exist");
                 break;
@@ -110,7 +113,7 @@ public class LoginController extends User implements Initializable {
         loginButton.setOnAction(event -> {
             try {
                 login(event);
-            } catch (IOException e) {
+            } catch (IOException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
                 e.printStackTrace();

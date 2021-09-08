@@ -151,12 +151,11 @@ public class UserSignupController extends User implements Initializable {
        String phoneNumber = signupPhoneField.getText();
        if(fieldsAreValid(username, password, confPassword, email, phoneNumber)) {
            resetErrorLabels();
-           String passwordHash = getHash(password, "SHA-256");
+           String passwordHash = Hasher.getInstance("SHA-256").hash(password);
            String fName = signupFirstNameField.getText();
            String lName = signupLastNameField.getText();
            LocalDate dob = signupDOBField.getValue();
-           User cust = new User(signupUsernameField.getText(), signupFirstNameField.getText(), signupLastNameField.getText(),
-                               signupEmailField.getText(), signupPhoneField.getText(), signupDOBField.getValue(), signupPasswordField.getText(), "EMP");
+           User cust = new User(username, fName, lName, email, phoneNumber, dob, passwordHash, "EMP");
            Customer("add", cust);
             return true;
        }

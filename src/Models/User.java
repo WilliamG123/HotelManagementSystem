@@ -2,6 +2,7 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class User {
     private String userName;
@@ -93,7 +94,7 @@ public class User {
         PreparedStatement ps = null;
         ResultSet result = null;
         try {
-            if (oper == "add") {
+            if (oper.equals("add")) {
                 DBConnection connect = new DBConnection();
                 Connection conn = connect.getConnection();
                 ps = conn.prepareStatement("INSERT INTO users(username,password, fname, lname, email, phone, dob, usertype) values(?,?,?,?,?,?,?,?)");
