@@ -54,7 +54,7 @@ public class LoginController extends User implements Initializable {
     public void login(ActionEvent event) throws IOException, SQLException, NoSuchAlgorithmException {
         String username = usernameLoginField.getText();
         String password = Hasher.getInstance("SHA-256").hash(passwordLoginField.getText());
-
+        System.out.println("password entered:"+password);
         switch (validate(username, password)) {
             case 0:
                 loginMessagePrompt.setText("Sorry No Record Exist");
