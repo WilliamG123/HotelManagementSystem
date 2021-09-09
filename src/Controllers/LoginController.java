@@ -1,6 +1,5 @@
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +14,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+
+
+import org.controlsfx.control.textfield.TextFields;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +27,7 @@ import java.util.ResourceBundle;
 
 
 public class LoginController extends User implements Initializable {
+
     @FXML private TextField usernameLoginField;
     @FXML private PasswordField passwordLoginField;
     @FXML private Button loginButton;
@@ -36,6 +39,7 @@ public class LoginController extends User implements Initializable {
 
     @FXML private void exit(){
         Platform.exit();
+        System.out.println("EXIT");
     }
 
     @FXML private void toSignup(ActionEvent event) throws IOException {
@@ -52,6 +56,8 @@ public class LoginController extends User implements Initializable {
     }
 
     public void login(ActionEvent event) throws IOException, SQLException, NoSuchAlgorithmException {
+
+
         String username = usernameLoginField.getText();
         String password = Hasher.getInstance("SHA-256").hash(passwordLoginField.getText());
         System.out.println("password entered:"+password);
@@ -77,6 +83,7 @@ public class LoginController extends User implements Initializable {
                         public void handle(MouseEvent event) { window.setX(event.getScreenX() - xOffset);window.setY(event.getScreenY() - yOffset); }});
                     window.setScene(MainMenuScene);
                     window.show();
+                    new animatefx.animation.RollIn(root).play();
                 }else {
                     Parent root = FXMLLoader.load(getClass().getResource("CustMainMenu.fxml"));
                     Scene MainMenuScene = new Scene(root);//Creating a Scene object and passing in the Parent we just made
@@ -97,6 +104,7 @@ public class LoginController extends User implements Initializable {
                     });
                     window.setScene(MainMenuScene);
                     window.show();
+                    new animatefx.animation.RollIn(root).play();
                 }
                 break;
         }
@@ -109,6 +117,9 @@ public class LoginController extends User implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+       // passwordLoginField = TextFields.createClearablePasswordField();
+        String[] possibleWords ={"EMP", "CUST"};
+        TextFields.bindAutoCompletion(usernameLoginField, possibleWords);
 
         loginButton.setOnAction(event -> {
             try {
