@@ -1,17 +1,24 @@
 public class LoadedUser {
+    private static final LoadedUser instance = new LoadedUser();
     private static User loggedInUser = null;
 
     private LoadedUser(){}
 
-    public boolean init(User user){
+    public void init(User user){
         if(loggedInUser == null){
             loggedInUser = user;
-            return true;
         }
-        return false;
+    }
+
+    public User getUser(){
+        return loggedInUser;
+    }
+
+    public void resetUser(){
+        loggedInUser = null;
     }
 
     public static LoadedUser getInstance(){
-        return new LoadedUser();
+        return instance;
     }
 }

@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -20,6 +21,8 @@ public class CustMainMenuController implements Initializable {
 
     @FXML private Button profileBtn;
 
+    @FXML private Label welcomeMessage;
+
     @FXML void launchCreateRes(ActionEvent event) {
 
     }
@@ -34,6 +37,6 @@ public class CustMainMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        welcomeMessage.setText("Welcome " + LoadedUser.getInstance().getUser().getUserName());
     }
 }
