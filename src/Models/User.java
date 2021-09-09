@@ -139,6 +139,9 @@ public class User {
 
 
     public int validate(String userName, String password) throws SQLException {
+        // these two lines are how to use the singleton class
+//        LoadedUser user = LoadedUser.getInstance();
+//        user.init(this);
         int result = 0;
         Statement statement = null;
         String query = "SELECT * FROM users WHERE BINARY username = ?"; // checking if usernames match

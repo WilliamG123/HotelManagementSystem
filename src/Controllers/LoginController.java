@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 
 
 public class LoginController extends User implements Initializable {
+    public AnchorPane prompt;
     @FXML private TextField usernameLoginField;
     @FXML private PasswordField passwordLoginField;
     @FXML private Button loginButton;
