@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -27,6 +28,7 @@ import java.util.ResourceBundle;
 
 
 public class LoginController extends User implements Initializable {
+    public AnchorPane prompt;
 
     @FXML private TextField usernameLoginField;
     @FXML private PasswordField passwordLoginField;
@@ -71,8 +73,9 @@ public class LoginController extends User implements Initializable {
             case 1:
                 loginMessagePrompt.setText("Great choice!");
                 System.out.println(getType());
-                if (getType().equals("EMP")) {
-                    Parent root = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
+                Parent root;
+                if (LoadedUser.getInstance().getUser().getType().equals("EMP")) {
+                    root = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
                     Scene MainMenuScene = new Scene(root);//Creating a Scene object and passing in the Parent we just made
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     root.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -83,9 +86,8 @@ public class LoginController extends User implements Initializable {
                         public void handle(MouseEvent event) { window.setX(event.getScreenX() - xOffset);window.setY(event.getScreenY() - yOffset); }});
                     window.setScene(MainMenuScene);
                     window.show();
-                    new animatefx.animation.RollIn(root).play();
                 }else {
-                    Parent root = FXMLLoader.load(getClass().getResource("CustMainMenu.fxml"));
+                    root = FXMLLoader.load(getClass().getResource("CustMainMenu.fxml"));
                     Scene MainMenuScene = new Scene(root);//Creating a Scene object and passing in the Parent we just made
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     root.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -104,8 +106,8 @@ public class LoginController extends User implements Initializable {
                     });
                     window.setScene(MainMenuScene);
                     window.show();
-                    new animatefx.animation.RollIn(root).play();
                 }
+                new animatefx.animation.RollIn(root).play();
                 break;
         }
         /**
@@ -130,6 +132,11 @@ public class LoginController extends User implements Initializable {
                 e.printStackTrace();
             }
 
+        });
+        loginButton.setOnKeyPressed(event -> {
+            if(event.getCode().equals(KeyCode.ENTER)){
+                loginButton.fire();
+            }
         });
 
         signupButton.setOnAction(event -> {

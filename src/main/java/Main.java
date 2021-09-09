@@ -15,7 +15,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
         primaryStage.setTitle("Hello World");
 
-        primaryStage.initStyle(StageStyle.DECORATED.UNDECORATED);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         root.setOnMousePressed(new EventHandler<MouseEvent>() { //allows for more freely movable GUI
             @Override
             public void handle(MouseEvent event) {

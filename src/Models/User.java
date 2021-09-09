@@ -153,6 +153,7 @@ public class User {
                     System.out.println("validation successful ");
                     setUserName(userName);
                     setPassword(password);
+                    LoadedUser.getInstance().init(this);
                     result = 1;
                 } else {
                     System.out.println("username exist but incorrect password");

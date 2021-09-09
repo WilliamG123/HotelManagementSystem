@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -19,6 +20,9 @@ public class EmpMainMenuController implements Initializable {
     @FXML private Button reservationBtn;
 
     @FXML private Button accountBtn;
+    @FXML private Button logoutButton;
+
+    @FXML private Label welcomeMessage;
 
     @FXML void launchAccount(ActionEvent event) {
         AnchorPane accountScreen = null;
@@ -59,8 +63,22 @@ public class EmpMainMenuController implements Initializable {
         window.show();
     }
 
+    @FXML public void logout(ActionEvent event){
+        AnchorPane loginScreen = null;
+        try{
+            loginScreen = FXMLLoader.load(getClass().getResource("login.fxml"));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        LoadedUser.getInstance().resetUser();
+        Scene scene = new Scene(loginScreen);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        welcomeMessage.setText("Welcome " + LoadedUser.getInstance().getUser().getUserName());
     }
 }
