@@ -24,6 +24,8 @@ public class EmpMainMenuController implements Initializable {
 
     @FXML private Label welcomeMessage;
 
+
+    // launches Account Management scene
     @FXML void launchAccount(ActionEvent event) {
         AnchorPane accountScreen = null;
         try {
@@ -37,6 +39,7 @@ public class EmpMainMenuController implements Initializable {
         window.show();
     }
 
+    // launches Property Management scene
     @FXML void launchProp(ActionEvent event) {
         AnchorPane propertiesScreen = null;
         try {
@@ -50,6 +53,7 @@ public class EmpMainMenuController implements Initializable {
         window.show();
     }
 
+    // launches Reservation Management scene
     @FXML void launchRes(ActionEvent event) {
         AnchorPane reservationScreen = null;
         try {
@@ -63,6 +67,9 @@ public class EmpMainMenuController implements Initializable {
         window.show();
     }
 
+<<<<<<< HEAD
+    // initializes FXML elements
+=======
     @FXML public void logout(ActionEvent event){
         AnchorPane loginScreen = null;
         try{
@@ -77,6 +84,7 @@ public class EmpMainMenuController implements Initializable {
         window.show();
     }
 
+>>>>>>> ace0355ea0527fc7bf3df7e52431d64eb8ce778c
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         welcomeMessage.setText("Welcome " + LoadedUser.getInstance().getUser().getUserName());
