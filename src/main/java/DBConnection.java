@@ -6,7 +6,7 @@ public class DBConnection {
     public DBConnection() {}
 
 
-        String CREDENTIALS_STRING = "jdbc:mysql:///hotel?cloudSqlInstance=enhanced-oasis-323817:us-central1:rellik1453&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=Will&password=abc123";
+        String CREDENTIALS_STRING = "jdbc:mysql:///hotel?cloudSqlInstance=hotel-325700:us-central1:datahaven&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=root&password=DBhotel123";
         // String username ="root";
         //String password = "DBhotel123";
 
