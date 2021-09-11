@@ -21,20 +21,54 @@ public class CustMainMenuController implements Initializable {
 
     @FXML private Button profileBtn;
 
+<<<<<<< HEAD
+    // launches User Reservation Creation scene
+=======
     @FXML private Label welcomeMessage;
 
+>>>>>>> ace0355ea0527fc7bf3df7e52431d64eb8ce778c
     @FXML void launchCreateRes(ActionEvent event) {
-
+        AnchorPane createRes = null;
+        try {
+            createRes = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(createRes);
+        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 
+    // launches User Reservation Management scene
     @FXML void launchManageRes(ActionEvent event) {
-
+        AnchorPane resManage = null;
+        try {
+            resManage = FXMLLoader.load(getClass().getResource("UserManage.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(resManage);
+        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 
+    // launches User Profile scene
     @FXML void launchProfile(ActionEvent event) {
-
+        AnchorPane profile = null;
+        try {
+            profile = FXMLLoader.load(getClass().getResource("UserProfile.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(profile);
+        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 
+    // initializes FXML elements
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         welcomeMessage.setText("Welcome " + LoadedUser.getInstance().getUser().getUserName());
