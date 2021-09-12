@@ -20,71 +20,35 @@ public class EmpMainMenuController implements Initializable {
     @FXML private Button reservationBtn;
 
     @FXML private Button accountBtn;
+
     @FXML private Button logoutButton;
 
     @FXML private Label welcomeMessage;
 
 
-    // launches Account Management scene
-    @FXML void launchAccount(ActionEvent event) {
-        AnchorPane accountScreen = null;
+    // launches scenes using a set of if statements to determine btn pressed and launches new scene accordingly
+    @FXML void launchScene(ActionEvent event) {
+        AnchorPane newScene = null;
+
         try {
-            accountScreen = FXMLLoader.load(getClass().getResource("StaffAccounts.fxml"));
+            if (event.getSource() == propertyBtn)
+                newScene = FXMLLoader.load(getClass().getResource("StaffProperty.fxml"));
+            else if (event.getSource() == reservationBtn)
+                newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
+            else if (event.getSource() == logoutButton)
+                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+            else if (event.getSource() == accountBtn)
+                newScene = FXMLLoader.load(getClass().getResource("StaffAccounts.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(accountScreen);
+
+        Scene scene = new Scene(newScene);
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
     }
 
-    // launches Property Management scene
-    @FXML void launchProp(ActionEvent event) {
-        AnchorPane propertiesScreen = null;
-        try {
-            propertiesScreen = FXMLLoader.load(getClass().getResource("StaffProperty.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(propertiesScreen);
-        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-    }
-
-    // launches Reservation Management scene
-    @FXML void launchRes(ActionEvent event) {
-        AnchorPane reservationScreen = null;
-        try {
-            reservationScreen = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(reservationScreen);
-        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-    }
-
-<<<<<<< HEAD
-    // initializes FXML elements
-=======
-    @FXML public void logout(ActionEvent event){
-        AnchorPane loginScreen = null;
-        try{
-            loginScreen = FXMLLoader.load(getClass().getResource("login.fxml"));
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        LoadedUser.getInstance().resetUser();
-        Scene scene = new Scene(loginScreen);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-    }
-
->>>>>>> ace0355ea0527fc7bf3df7e52431d64eb8ce778c
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         welcomeMessage.setText("Welcome " + LoadedUser.getInstance().getUser().getUserName());
