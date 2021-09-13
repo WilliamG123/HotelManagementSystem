@@ -21,48 +21,29 @@ public class CustMainMenuController implements Initializable {
 
     @FXML private Button profileBtn;
 
+    @FXML private Button logoutButton;
 
     // launches User Reservation Creation scene
-
     @FXML private Label welcomeMessage;
 
+    // launches scenes using a set of if statements to determine btn pressed and launches new scene accordingly
+    @FXML void launchScene(ActionEvent event) {
+        AnchorPane newScene = null;
 
-    @FXML void launchCreateRes(ActionEvent event) {
-        AnchorPane createRes = null;
         try {
-            createRes = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
+            if (event.getSource() == createResBtn)
+                newScene = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
+            else if (event.getSource() == manageResBtn)
+                newScene = FXMLLoader.load(getClass().getResource("UserManage.fxml"));
+            else if (event.getSource() == logoutButton)
+                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+            else if (event.getSource() == profileBtn)
+                newScene = FXMLLoader.load(getClass().getResource("UserProfile.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(createRes);
-        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-    }
 
-    // launches User Reservation Management scene
-    @FXML void launchManageRes(ActionEvent event) {
-        AnchorPane resManage = null;
-        try {
-            resManage = FXMLLoader.load(getClass().getResource("UserManage.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(resManage);
-        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-    }
-
-    // launches User Profile scene
-    @FXML void launchProfile(ActionEvent event) {
-        AnchorPane profile = null;
-        try {
-            profile = FXMLLoader.load(getClass().getResource("UserProfile.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(profile);
+        Scene scene = new Scene(newScene);
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
