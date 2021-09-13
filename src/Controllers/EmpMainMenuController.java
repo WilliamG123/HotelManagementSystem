@@ -67,9 +67,9 @@ public class EmpMainMenuController implements Initializable {
         window.show();
     }
 
-<<<<<<< HEAD
+
     // initializes FXML elements
-=======
+
     @FXML public void logout(ActionEvent event){
         AnchorPane loginScreen = null;
         try{
@@ -84,7 +84,7 @@ public class EmpMainMenuController implements Initializable {
         window.show();
     }
 
->>>>>>> ace0355ea0527fc7bf3df7e52431d64eb8ce778c
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         welcomeMessage.setText("Welcome " + LoadedUser.getInstance().getUser().getUserName());

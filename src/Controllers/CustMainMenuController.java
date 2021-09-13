@@ -21,12 +21,12 @@ public class CustMainMenuController implements Initializable {
 
     @FXML private Button profileBtn;
 
-<<<<<<< HEAD
+
     // launches User Reservation Creation scene
-=======
+
     @FXML private Label welcomeMessage;
 
->>>>>>> ace0355ea0527fc7bf3df7e52431d64eb8ce778c
+
     @FXML void launchCreateRes(ActionEvent event) {
         AnchorPane createRes = null;
         try {
