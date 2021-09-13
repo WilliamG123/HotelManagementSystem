@@ -134,7 +134,7 @@ public class User {
     public int validate(String userEmail, String password) throws SQLException {
         int result = 0;
         Statement statement = null;
-        String query = "SELECT * FROM users WHERE BINARY username = ?"; // checking if usernames match
+        String query = "SELECT * FROM users WHERE BINARY email = ?"; // checking if usernames match
         DBConnection connectNow = new DBConnection();
         try (Connection conn = connectNow.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
