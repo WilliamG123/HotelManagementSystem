@@ -37,7 +37,7 @@ public class UserSignupController extends User implements Initializable {
     @FXML private DatePicker signupDOBField;
     @FXML private Button signupButton;
     @FXML private Label passwordErrorLabel;
-    @FXML private Label signupUsernameCheck;
+    @FXML private Label signupEmailCheck;
     @FXML private Label signupResultLabel, emailErrorLabel, pNumErrorLabel;
 
 
@@ -52,17 +52,17 @@ public class UserSignupController extends User implements Initializable {
         }
     }
 
-    public void validateUserName() throws SQLException {
+    public void validateEmail() throws SQLException {
 
-        if(!isValidUsername(signupUsernameField.getText()))
+        if(!isValidEmail(signupEmailField.getText()))
         {
-            signupUsernameCheck.setTextFill(Color.RED);
-            signupUsernameCheck.setText("Username already exist");
+            signupEmailCheck.setTextFill(Color.RED);
+            signupEmailCheck.setText("Username already exist");
             errors= true;
         }
         else{
-            signupUsernameCheck.setTextFill(Color.GREEN);
-            signupUsernameCheck.setText("Great choice");
+            signupEmailCheck.setTextFill(Color.GREEN);
+            signupEmailCheck.setText("Great choice");
             errors = false;
         }
 
@@ -94,9 +94,9 @@ public class UserSignupController extends User implements Initializable {
     private boolean fieldsAreValid(String username, String password, String confPassword, String email, String pNum) throws SQLException {
         boolean returnval = true;
 
-        if(!isValidUsername(username)){
-            signupUsernameCheck.setText("Username is not available!");
-            signupUsernameCheck.setTextFill(Color.web("#FF0000"));
+        if(!isValidEmail(email)){
+            signupEmailCheck.setText("Username is not available!");
+            signupEmailCheck.setTextFill(Color.web("#FF0000"));
             returnval = false;
         }
         if(password.equals("") || confPassword.equals("")){
@@ -144,7 +144,7 @@ public class UserSignupController extends User implements Initializable {
     }
 
    public boolean userSignUp() throws SQLException, NoSuchAlgorithmException {
-       String username = signupUsernameField.getText();
+       String username = signupEmailField.getText();
        String password = signupPasswordField.getText();
        String confPassword = signupConfirmPasswordField.getText();
        String email = signupEmailField.getText();
@@ -155,7 +155,7 @@ public class UserSignupController extends User implements Initializable {
            String fName = signupFirstNameField.getText();
            String lName = signupLastNameField.getText();
            LocalDate dob = signupDOBField.getValue();
-           User cust = new User(username, fName, lName, email, phoneNumber, dob, passwordHash, "EMP");
+           User cust = new User(fName, lName, email, phoneNumber, dob, passwordHash, "EMP");
            Customer("add", cust);
             return true;
        }
@@ -200,19 +200,19 @@ public class UserSignupController extends User implements Initializable {
         });
 
 
-        signupUsernameField.focusedProperty().addListener(new ChangeListener<Boolean>()
+        signupEmailField.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
             public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)
             {
                 if (newPropertyValue)
                 {
-                   signupUsernameField.getText();
+                   signupEmailField.getText();
                 }
                 else
                 {
                     try {
-                        validateUserName();
+                        validateEmail();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }

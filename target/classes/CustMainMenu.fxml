@@ -5,15 +5,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustMainMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustMainMenuController">
    <children>
       <Label fx:id="welcomeMessage" layoutX="132.0" prefHeight="75.0" prefWidth="336.0" text="Welcome &lt;name&gt;!">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="createResBtn" layoutX="213.0" layoutY="151.0" mnemonicParsing="false" onAction="#launchCreateRes" prefHeight="52.0" prefWidth="145.0" text="Create Resvervation" />
-      <Button fx:id="manageResBtn" layoutX="213.0" layoutY="271.0" mnemonicParsing="false" onAction="#launchManageRes" prefHeight="52.0" prefWidth="145.0" text="Manage Reservations" />
-      <Button fx:id="profileBtn" layoutX="213.0" layoutY="382.0" mnemonicParsing="false" onAction="#launchProfile" prefHeight="52.0" prefWidth="145.0" text="Profile" />
+      <Button fx:id="createResBtn" layoutX="213.0" layoutY="151.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="52.0" prefWidth="145.0" text="Create Resvervation" />
+      <Button fx:id="manageResBtn" layoutX="213.0" layoutY="271.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="52.0" prefWidth="145.0" text="Manage Reservations" />
+      <Button fx:id="profileBtn" layoutX="213.0" layoutY="382.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="52.0" prefWidth="145.0" text="Profile" />
+      <Button fx:id="logoutButton" layoutX="480.0" layoutY="25.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="25.0" prefWidth="95.0" text="Logout" />
    </children>
 </AnchorPane>

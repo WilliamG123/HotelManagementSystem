@@ -51,6 +51,6 @@ public class EmpMainMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        welcomeMessage.setText("Welcome " + LoadedUser.getInstance().getUser().getUserName());
+        welcomeMessage.setText("Welcome " + LoadedUser.getInstance().getUser().getFirstName());
     }
 }

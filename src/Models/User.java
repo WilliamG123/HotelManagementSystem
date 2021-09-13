@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class User {
-    private String userName;
     private String firstName;
     private String lastName;
     private String email;
@@ -17,8 +16,7 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String firstName, String lastName, String email, String phoneNumber, LocalDate dob, String password, String type ) {
-        this.userName = userName;
+    public User(String firstName, String lastName, String email, String phoneNumber, LocalDate dob, String password, String type ) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -32,13 +30,9 @@ public class User {
 
     public void setType(String type) { this.type = type; }
 
-    public String getUserName() {
-        return userName;
-    }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+
+
 
     public String getFirstName() {
         return firstName;
@@ -97,15 +91,14 @@ public class User {
             if (oper.equals("add")) {
                 DBConnection connect = new DBConnection();
                 Connection conn = connect.getConnection();
-                ps = conn.prepareStatement("INSERT INTO users(username,password, fname, lname, email, phone, dob, usertype) values(?,?,?,?,?,?,?,?)");
-                ps.setString(1, cust.getUserName());
+                ps = conn.prepareStatement("INSERT INTO users(email, password, fname, lname, phone, dob, usertype) values(?,?,?,?,?,?,?)");
+                ps.setString(1, cust.getEmail());
                 ps.setString(2, cust.getPassword());
                 ps.setString(3, cust.getFirstName());
                 ps.setString(4, cust.getLastName());
-                ps.setString(5, cust.getEmail());
-                ps.setString(6, cust.getPhoneNumber());
-                ps.setDate(7, Date.valueOf(cust.dob));
-                ps.setString(8, cust.getType());
+                ps.setString(5, cust.getPhoneNumber());
+                ps.setDate(6, Date.valueOf(cust.dob));
+                ps.setString(7, cust.getType());
 
                 if (ps.executeUpdate() > 0) {
                     System.out.println("New Customer added");
@@ -117,18 +110,18 @@ public class User {
         }
     }
 
-    public boolean isValidUsername(String userName) throws SQLException {
+    public boolean isValidEmail(String userEmail) throws SQLException {
        boolean result = true;
         Statement statement = null;
-        String query = "SELECT Count(1) FROM users WHERE BINARY username = ?"; // checking if usernames match
+        String query = "SELECT Count(1) FROM users WHERE BINARY email = ?"; // checking if email match
         DBConnection connectNow = new DBConnection();
         try(Connection conn = connectNow.getConnection()){
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1,userName);
+            ps.setString(1,userEmail);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 if (rs.getInt(1) == 1) {
-                    System.out.println("Username already exist");
+                    System.out.println("Email already exist");
                     result = false;
                     }
                 }
@@ -138,27 +131,27 @@ public class User {
 
 
 
-    public int validate(String userName, String password) throws SQLException {
+    public int validate(String userEmail, String password) throws SQLException {
         int result = 0;
         Statement statement = null;
         String query = "SELECT * FROM users WHERE BINARY username = ?"; // checking if usernames match
         DBConnection connectNow = new DBConnection();
         try (Connection conn = connectNow.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setString(1,userName);
+            ps.setString(1,userEmail);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) { //if username exist
                    type =  rs.getString("usertype");
                 if (rs.getString("password").equals(password)) {
                     System.out.println("validation successful ");
-                    setUserName(userName);
+                    setEmail(userEmail);
                     setPassword(password);
                     LoadedUser.getInstance().init(this);
                     result = 1;
                 } else {
-                    System.out.println("username exist but incorrect password");
+                    System.out.println("email exist but incorrect password");
                     System.out.println(rs.getString("password"));
-                    System.out.println(rs.getString("username"));
+                    System.out.println(rs.getString("email"));
                     result = -1;
                 }
             }

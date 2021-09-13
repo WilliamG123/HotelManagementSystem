@@ -52,6 +52,6 @@ public class CustMainMenuController implements Initializable {
     // initializes FXML elements
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        welcomeMessage.setText("Welcome " + LoadedUser.getInstance().getUser().getUserName());
+        welcomeMessage.setText("Welcome " + LoadedUser.getInstance().getUser().getFirstName());
     }
 }

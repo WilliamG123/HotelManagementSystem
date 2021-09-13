@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 public class LoginController extends User implements Initializable {
     public AnchorPane prompt;
 
-    @FXML private TextField usernameLoginField;
+    @FXML private TextField emailLoginField;
     @FXML private PasswordField passwordLoginField;
     @FXML private Button loginButton;
     @FXML private Button signupButton;
@@ -60,10 +60,10 @@ public class LoginController extends User implements Initializable {
     public void login(ActionEvent event) throws IOException, SQLException, NoSuchAlgorithmException {
 
 
-        String username = usernameLoginField.getText();
+        String email = emailLoginField.getText();
         String password = Hasher.getInstance("SHA-256").hash(passwordLoginField.getText());
         System.out.println("password entered:"+password);
-        switch (validate(username, password)) {
+        switch (validate(email, password)) {
             case 0:
                 loginMessagePrompt.setText("Sorry No Record Exist");
                 break;
@@ -121,7 +121,7 @@ public class LoginController extends User implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
        // passwordLoginField = TextFields.createClearablePasswordField();
         String[] possibleWords ={"EMP", "CUST"};
-        TextFields.bindAutoCompletion(usernameLoginField, possibleWords);
+        TextFields.bindAutoCompletion(emailLoginField, possibleWords);
 
         loginButton.setOnAction(event -> {
             try {
