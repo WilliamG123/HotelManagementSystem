@@ -23,7 +23,7 @@ public class StaffAccountsController implements Initializable {
 
         try {
             if (event.getSource() == mainmenuTV)
-                newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
+            newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

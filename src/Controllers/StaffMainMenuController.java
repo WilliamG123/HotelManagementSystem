@@ -31,8 +31,9 @@ public class StaffMainMenuController implements Initializable {
         AnchorPane newScene = null;
 
         try {
-            if (event.getSource() == propertyBtn)
+            if (event.getSource() == propertyBtn){
                 newScene = FXMLLoader.load(getClass().getResource("StaffProperty.fxml"));
+            }
             else if (event.getSource() == reservationBtn)
                 newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
             else if (event.getSource() == logoutButton)
