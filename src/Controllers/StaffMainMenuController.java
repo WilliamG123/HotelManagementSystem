@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EmpMainMenuController implements Initializable {
+public class StaffMainMenuController implements Initializable {
 
     @FXML private Button propertyBtn;
 

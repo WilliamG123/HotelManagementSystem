@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CustMainMenuController implements Initializable {
+public class UserMainMenuController implements Initializable {
 
     @FXML private Button createResBtn;
 
