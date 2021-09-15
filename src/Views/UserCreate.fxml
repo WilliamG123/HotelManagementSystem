@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ListView?>
@@ -9,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserCreateController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserCreateController">
    <children>
       <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0" spacing="100.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
@@ -36,7 +41,6 @@
             </Text>
          </children>
       </HBox>
-      <ListView layoutX="132.0" layoutY="80.0" prefHeight="320.0" prefWidth="468.0" />
       <Text layoutX="11.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
          <font>
             <Font size="20.0" />
@@ -60,26 +64,14 @@
          </font>
       </Text>
       <TextField layoutX="4.0" layoutY="286.0" prefHeight="25.0" prefWidth="120.0" />
-      <Text layoutX="160.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text layoutX="347.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Starting Price:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text layoutX="251.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text layoutX="473.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="# of amenities">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
       <Text layoutX="14.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Should be more filters" />
+      <TableView fx:id="tableHotels" layoutX="131.0" layoutY="57.0" prefHeight="341.0" prefWidth="465.0">
+        <columns>
+          <TableColumn fx:id="Hotel" prefWidth="204.0" text="Hotel" />
+          <TableColumn fx:id="Rooms" prefWidth="61.0" text="Rooms" />
+            <TableColumn fx:id="Price" prefWidth="76.0" text="Price" />
+            <TableColumn fx:id="amentities" prefWidth="114.0" text="amentities" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
