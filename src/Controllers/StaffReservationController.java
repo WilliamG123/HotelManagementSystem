@@ -24,6 +24,9 @@ public class StaffReservationController implements Initializable {
         try {
             if (event.getSource() == mainmenuTV)
                 newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
+            else if(event.getSource() == logoutTV){
+                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
