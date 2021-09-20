@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserCreateController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0" spacing="100.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hotels">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Text>
+            <Text fx:id="mainmenuTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text fx:id="logoutTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
+      <Text layoutX="11.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="11.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From date:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <DatePicker layoutX="4.0" layoutY="151.0" prefHeight="25.0" prefWidth="120.0" />
+      <Text layoutX="11.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To date:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <DatePicker layoutX="4.0" layoutY="215.0" prefHeight="25.0" prefWidth="120.0" />
+      <Text layoutX="9.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Hotel Name:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <TextField layoutX="4.0" layoutY="286.0" prefHeight="25.0" prefWidth="120.0" />
+      <Text layoutX="14.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Should be more filters" />
+      <TableView fx:id="tableHotels" layoutX="131.0" layoutY="57.0" prefHeight="341.0" prefWidth="465.0">
+        <columns>
+          <TableColumn fx:id="Hotel" prefWidth="204.0" text="Hotel" />
+          <TableColumn fx:id="Rooms" prefWidth="61.0" text="Rooms" />
+            <TableColumn fx:id="Price" prefWidth="76.0" text="Price" />
+            <TableColumn fx:id="amentities" prefWidth="114.0" text="amentities" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
