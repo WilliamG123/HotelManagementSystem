@@ -46,10 +46,12 @@ public class StaffReservationController implements Initializable {
     @FXML private ObservableList<User> resList;
 
     private Connection conn;
-
+    
+    // changes the scene when mainmenuTV or logoutTV are clicked
     @FXML void sceneChange(MouseEvent event) {
         AnchorPane newScene = null;
-
+        
+        // try block attempts to load a new scene
         try {
             if (event.getSource() == mainmenuTV)
                 newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
@@ -65,7 +67,7 @@ public class StaffReservationController implements Initializable {
         window.setScene(scene);
         window.show();
     }
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
