@@ -84,6 +84,7 @@ public class LoginController extends User implements Initializable {
                     root.setOnMouseDragged(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) { window.setX(event.getScreenX() - xOffset);window.setY(event.getScreenY() - yOffset); }});
+
                     window.setScene(MainMenuScene);
                     window.show();
                 }else {

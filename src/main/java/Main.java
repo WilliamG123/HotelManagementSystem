@@ -1,11 +1,15 @@
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.awt.*;
 
 public class Main extends Application {
     private double xOffset =0;
@@ -31,6 +35,9 @@ public class Main extends Application {
 
             }
         });
+        Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        double width = screenSize.getWidth() / 3;
+        double height = screenSize.getHeight() / 2;
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 

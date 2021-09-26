@@ -84,10 +84,11 @@ public class LoginController extends User implements Initializable {
                     root.setOnMouseDragged(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) { window.setX(event.getScreenX() - xOffset);window.setY(event.getScreenY() - yOffset); }});
+
                     window.setScene(MainMenuScene);
                     window.show();
                 }else {
-                    root = FXMLLoader.load(getClass().getResource("CustMainMenu.fxml"));
+                    root = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
                     Scene MainMenuScene = new Scene(root);//Creating a Scene object and passing in the Parent we just made
                     Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     root.setOnMousePressed(new EventHandler<MouseEvent>() {
