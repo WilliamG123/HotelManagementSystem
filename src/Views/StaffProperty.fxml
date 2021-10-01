@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffPropertyController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffPropertyController">
    <children>
-      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="1000.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
                <font>
@@ -33,5 +37,36 @@
             </Text>
          </children>
       </HBox>
+      <TableView layoutX="241.0" layoutY="54.0" prefHeight="746.0" prefWidth="761.0">
+        <columns>
+          <TableColumn prefWidth="152.0" text="Name" />
+          <TableColumn prefWidth="152.0" text="Rooms" />
+            <TableColumn prefWidth="180.0" text="Amenities" />
+        </columns>
+      </TableView>
+      <Text layoutX="63.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter by:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Text>
+      <TextField fx:id="useridTF" layoutX="43.0" layoutY="154.0" />
+      <Text layoutX="62.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Name:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="86.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="hotelTF" layoutX="43.0" layoutY="218.0" />
+      <Text layoutX="66.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="resNumTF" layoutX="43.0" layoutY="284.0" />
+      <Button layoutX="68.0" layoutY="361.0" mnemonicParsing="false" text="Create Property" />
    </children>
 </AnchorPane>

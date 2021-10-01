@@ -72,4 +72,12 @@ public class StaffReservationController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
+    public void populateListView(){
+        // get list of reservations
+
+        // get connection
+        // conn = getConnection();
+        // query the database
+    }
 }
