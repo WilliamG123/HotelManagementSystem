@@ -16,7 +16,7 @@ public class Main extends Application {
     private double yOffset = 0;
 
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("StaffReservation.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("login.fxml"));
         primaryStage.setTitle("Hello World");
 
         primaryStage.initStyle(StageStyle.UNDECORATED);
