@@ -9,6 +9,8 @@ public class Reservation {
     private String resID;
     private List<Room> rooms;
 
+    public Reservation(){ }
+
     public Reservation(String hotelName, String dates, double totalCost, String userEmail, String resID, List<Room> rooms) {
         this.hotelName = hotelName;
         this.dates = dates;

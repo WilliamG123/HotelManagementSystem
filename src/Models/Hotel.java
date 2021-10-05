@@ -5,7 +5,7 @@ import java.util.List;
 *
  */
 public class Hotel {
-    
+
     private String name;
     private String description;
     private String address;

@@ -1,3 +1,4 @@
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +16,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class StaffReservationController implements Initializable {
+public class StaffReservationController extends DBConnection implements Initializable {
 
     @FXML private TableView<Reservation> resTable;
 
@@ -43,7 +46,7 @@ public class StaffReservationController implements Initializable {
 
     @FXML private TextField resNumTF;
 
-    @FXML private ObservableList<User> resList;
+    @FXML private ObservableList<Reservation> resList;
 
     private Connection conn;
     
@@ -70,14 +73,28 @@ public class StaffReservationController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        populateListView();
     }
 
-    public void populateListView(){
+    public void populateListView() {
         // get list of reservations
-
+        resList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM reservations";
         // get connection
-        // conn = getConnection();
+        conn = getConnection();
         // query the database
+        try {
+            ResultSet rs = conn.createStatement().executeQuery(query);
+            System.out.println(rs.getString(""));
+            while (rs.next()) {
+                Reservation res = new Reservation();
+                res.setResID(rs.getString("reservationid"));
+                res.setTotalCost(rs.getDouble("total_price"));
+                resList.add(res);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        resTable.setItems(resList);
     }
 }
