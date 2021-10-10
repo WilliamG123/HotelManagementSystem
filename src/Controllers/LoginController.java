@@ -57,7 +57,7 @@ public class LoginController extends User implements Initializable {
         window.show();
     }
 
-    public void login(ActionEvent event) throws IOException, SQLException, NoSuchAlgorithmException {
+    public void login(ActionEvent event) throws IOException, SQLException, NoSuchAlgorithmException, ClassNotFoundException {
 
 
         String email = emailLoginField.getText();
@@ -130,6 +130,8 @@ public class LoginController extends User implements Initializable {
             } catch (IOException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
 

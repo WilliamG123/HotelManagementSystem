@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="prompt" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1253.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
+<AnchorPane fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1253.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginController">
    <children>
       <ImageView fitHeight="837.0" fitWidth="1555.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="file:/C:/Users/rellik/HotelManagementSystem/Res/loginbckg.jpg" />
+            <Image url="@../../Res/loginbckg.jpg" />
          </image>
       </ImageView>
       <TextField fx:id="emailLoginField" layoutX="588.0" layoutY="253.0" prefHeight="25.0" prefWidth="170.0" />

@@ -25,7 +25,9 @@ public class StaffAccountsController extends DBConnection implements Initializab
 
     @FXML private Text mainmenuTV;
 
-    @FXML private Text logoutTV;
+    @FXML
+    private Text logoutTV;
+
     @FXML
     private TableView<User> usersTable;
 
@@ -81,12 +83,12 @@ public class StaffAccountsController extends DBConnection implements Initializab
     public void initialize(URL location, ResourceBundle resources) {
         try {
             populateListView();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private void populateListView() throws SQLException{
+    private void populateListView() throws SQLException, ClassNotFoundException {
         usersList = FXCollections.observableArrayList();
         String query = "SELECT * FROM users;";
         conn = getConnection();

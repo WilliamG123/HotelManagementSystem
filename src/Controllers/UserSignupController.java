@@ -52,7 +52,7 @@ public class UserSignupController extends User implements Initializable {
         }
     }
 
-    public void validateEmail() throws SQLException {
+    public void validateEmail() throws SQLException, ClassNotFoundException {
 
         if(!isValidEmail(signupEmailField.getText()))
         {
@@ -91,7 +91,7 @@ public class UserSignupController extends User implements Initializable {
         passwordErrorLabel.setText("");
     }
 
-    private boolean fieldsAreValid(String username, String password, String confPassword, String email, String pNum) throws SQLException {
+    private boolean fieldsAreValid(String username, String password, String confPassword, String email, String pNum) throws SQLException, ClassNotFoundException {
         boolean returnval = true;
 
         if(!isValidEmail(email)){
@@ -143,7 +143,7 @@ public class UserSignupController extends User implements Initializable {
 
     }
 
-   public boolean userSignUp() throws SQLException, NoSuchAlgorithmException {
+   public boolean userSignUp() throws SQLException, NoSuchAlgorithmException, ClassNotFoundException {
        String username = signupEmailField.getText();
        String password = signupPasswordField.getText();
        String confPassword = signupConfirmPasswordField.getText();
@@ -155,7 +155,7 @@ public class UserSignupController extends User implements Initializable {
            String fName = signupFirstNameField.getText();
            String lName = signupLastNameField.getText();
            LocalDate dob = signupDOBField.getValue();
-           User cust = new User(fName, lName, email, phoneNumber, dob, passwordHash, "EMP");
+           User cust = new User(fName, lName, email, phoneNumber, dob, passwordHash, "CUST");
            Customer("add", cust);
             return true;
        }
@@ -194,6 +194,8 @@ public class UserSignupController extends User implements Initializable {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
 
 
@@ -213,7 +215,7 @@ public class UserSignupController extends User implements Initializable {
                 {
                     try {
                         validateEmail();
-                    } catch (SQLException e) {
+                    } catch (SQLException | ClassNotFoundException e) {
                         e.printStackTrace();
                     }
                 }

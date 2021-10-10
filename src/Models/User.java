@@ -110,7 +110,7 @@ public class User {
         }
     }
 
-    public boolean isValidEmail(String userEmail) throws SQLException {
+    public boolean isValidEmail(String userEmail) throws SQLException, ClassNotFoundException {
        boolean result = true;
         Statement statement = null;
         String query = "SELECT Count(1) FROM users WHERE BINARY email = ?"; // checking if email match
@@ -131,7 +131,7 @@ public class User {
 
 
 
-    public int validate(String userEmail, String password) throws SQLException {
+    public int validate(String userEmail, String password) throws SQLException, ClassNotFoundException {
         int result = 0;
         Statement statement = null;
         String query = "SELECT * FROM users WHERE BINARY email = ?"; // checking if usernames match

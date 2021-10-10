@@ -13,7 +13,7 @@ public class CRUD extends DBConnection {
 
     DBConnection DB = new DBConnection();
 
-        public boolean insertconsumerdata(String name, String email, LocalDate dob) throws SQLException {
+        public boolean insertconsumerdata(String name, String email, LocalDate dob) throws SQLException, ClassNotFoundException {
 
            PreparedStatement insertstmt;
            String query = "INSERT into consumer(name, email, dob) values( ?, ?, ?)";
@@ -33,7 +33,7 @@ public class CRUD extends DBConnection {
 
 
 
-    public boolean deleteconsumer(String email) throws SQLException {
+    public boolean deleteconsumer(String email) throws SQLException, ClassNotFoundException {
 
         PreparedStatement deletestmt;
         String query = "DELETE from consumer WHERE email=?";
@@ -51,7 +51,7 @@ public class CRUD extends DBConnection {
 
     }
 
-    public ResultSet viewconsumer(String email) throws SQLException {
+    public ResultSet viewconsumer(String email) throws SQLException, ClassNotFoundException {
         String query = "Select * from consumer WHERE email=?";
         PreparedStatement viewstmt =
                 getConnection().prepareStatement(query);

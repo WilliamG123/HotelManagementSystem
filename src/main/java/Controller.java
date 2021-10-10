@@ -54,7 +54,7 @@ public class Controller implements Initializable {
                 else{
                     System.out.println("insertion failed");
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         });
@@ -73,7 +73,7 @@ public class Controller implements Initializable {
                 else{
                     System.out.println("insertion failed");
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         });
@@ -91,7 +91,7 @@ public class Controller implements Initializable {
                 else{
                     System.out.println("insertion failed");
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         });

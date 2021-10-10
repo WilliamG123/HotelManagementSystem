@@ -1,39 +1,42 @@
+import com.mysql.jdbc.log.Log;
+
 import java.sql.*;
 
 public class DBConnection {
 
 
     public DBConnection() {}
+    //jdbc:driver://hostname:port/dbName?user=userName&password=password
+    Log logger;
+    String dbName = System.getenv("RDS_DB_NAME");
+    String userName = System.getenv().get("RDS_USERNAME");
+    String password = System.getenv().get("RDS_PASSWORD");
+    String hostname = System.getenv().get("RDS_HOSTNAME");
+    String port = System.getenv().get("RDS_PORT");
+   // String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + "?user=" + userName + "&password=" + password;
+    Connection dbCon = null;
+    //String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" +"useSSL=false"+"&user=" + userName + "&password=" + password;
+    String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password+"&useSSL=false";
 
 
-        String CREDENTIALS_STRING = "jdbc:mysql:///hotel?cloudSqlInstance=hotel-325700:us-central1:datahaven&socketFactory=com.google.cloud.sql.mysql.SocketFactory&useSSL=false&user=root&password=DBhotel123";
-        // String username ="root";
-        //String password = "DBhotel123";
 
-        Connection dbCon = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-
-        public Connection getConnection(){
-
-       // String query ="Select * from consumer";
-
+    public Connection getConnection() throws ClassNotFoundException {
+        System.out.println(jdbcUrl);
+        try {
+            System.out.println("Loading driver...");
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Driver loaded!");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Cannot find the driver in the classpath!", e);
+        }
+        System.out.println("Driver loaded!");
         try {
 
             //getting database connection to MySQL server
 
-            dbCon = DriverManager.getConnection(CREDENTIALS_STRING);
+            dbCon = DriverManager.getConnection(jdbcUrl);
             System.out.println("Connected!");
-            //getting PreparedStatment to execute query
-            //stmt = dbCon.prepareStatement(query);
 
-            //Resultset returned by query
-           // rs = stmt.executeQuery(query);
-
-           // while(rs.next()){
-               // String result = rs.getString(2);
-             //   System.out.println("guest name is : " + result);
-           // }
         } catch (SQLException ex) {
             System.out.println(ex);
             ex.printStackTrace();

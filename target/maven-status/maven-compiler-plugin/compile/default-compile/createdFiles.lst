@@ -1,4 +1,6 @@
-sample\Controller.class
-sample\CRUD.class
-sample\Main.class
-sample\DBConnection.class
+Main.class
+Controller.class
+CRUD.class
+Main$1.class
+Main$2.class
+DBConnection.class
