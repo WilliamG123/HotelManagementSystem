@@ -35,6 +35,7 @@
     <orderEntry type="library" name="io.github.typhon0:AnimateFX:1.2.1" level="project" />
     <orderEntry type="library" name="com.zaxxer:HikariCP:3.0.0" level="project" />
     <orderEntry type="library" name="commons-logging:commons-logging:1.2" level="project" />
+    <orderEntry type="library" name="mysql:mysql-connector-java:8.0.26" level="project" />
     <orderEntry type="library" name="Maven: com.google.cloud.sql:mysql-socket-factory:1.0.5" level="project" />
     <orderEntry type="library" name="Maven: com.google.cloud.sql:jdbc-socket-factory-core:1.0.5" level="project" />
     <orderEntry type="library" name="Maven: com.google.apis:google-api-services-sqladmin:v1beta4-rev25-1.22.0" level="project" />
@@ -50,6 +51,5 @@
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.46" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.0.1" level="project" />
-    <orderEntry type="library" name="mysql:mysql-connector-java:8.0.26" level="project" />
   </component>
 </module>

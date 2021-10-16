@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +23,9 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class StaffAccountsController extends DBConnection implements Initializable {
+
+    @FXML
+    private AnchorPane accountsScreen;
 
     @FXML private Text mainmenuTV;
 
@@ -50,10 +54,10 @@ public class StaffAccountsController extends DBConnection implements Initializab
     private TableColumn<User, String> typeColumn;
 
     @FXML
-    private Button modifyUserButton;
+    private Text modifyTV;
 
     @FXML
-    private Button createUserButton;
+    private Text createTV;
 
     @FXML private ObservableList<User> usersList;
 
@@ -68,6 +72,14 @@ public class StaffAccountsController extends DBConnection implements Initializab
             else if(event.getSource() == logoutTV){
                 LoadedUser.getInstance().clearUser();
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+            }else if(event.getSource() == modifyTV){
+                User selectedUser = usersTable.getSelectionModel().getSelectedItem();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("StaffModify.fxml"));
+                StaffModifyController controller = new StaffModifyController(selectedUser);
+                loader.setController(controller);
+                newScene = loader.load();
+            }else if(event.getSource() == createTV){
+
             }
         } catch (IOException e) {
             e.printStackTrace();
