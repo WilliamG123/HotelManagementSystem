@@ -1,8 +1,5 @@
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.Objects;
 
 public class User {
     private String firstName;
