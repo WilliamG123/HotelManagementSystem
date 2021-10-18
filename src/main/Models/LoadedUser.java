@@ -8,6 +8,7 @@ public class LoadedUser {
         if(loggedInUser == null){
             loggedInUser = user;
         }
+        System.out.println("Hello");
     }
 
     public User getUser(){
