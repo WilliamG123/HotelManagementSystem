@@ -19,8 +19,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class UserSignupController extends User implements Initializable {
     //MACROS
@@ -68,23 +66,6 @@ public class UserSignupController extends User implements Initializable {
 
     }
 
-    private boolean isValidEmailAddress(String email) {
-        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-        Pattern p = Pattern.compile(ePattern);
-        Matcher m = p.matcher(email);
-        return m.matches();
-    }
-
-    private boolean isValidPhoneNumber(String pNum){
-        String patterns
-                = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
-                + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
-                + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$";
-
-        Pattern p = Pattern.compile(patterns);
-        Matcher m = p.matcher(pNum);
-        return m.matches();
-    }
     private void resetErrorLabels(){
         pNumErrorLabel.setText("");
         emailErrorLabel.setText("");
@@ -108,12 +89,12 @@ public class UserSignupController extends User implements Initializable {
             passwordErrorLabel.setTextFill(Color.web("#FF0000"));
             returnval = false;
         }
-        if(!isValidEmailAddress(email)){
+        if(!Validators.isValidEmailAddress(email)){
             emailErrorLabel.setText("Invalid email format!");
             emailErrorLabel.setTextFill(Color.web("#FF0000"));
             returnval = false;
         }
-        if(!isValidPhoneNumber(pNum)){
+        if(!Validators.isValidPhoneNumber(pNum)){
             pNumErrorLabel.setText("Invalid phone number format!");
             pNumErrorLabel.setTextFill(Color.web("#FF0000"));
             returnval = false;

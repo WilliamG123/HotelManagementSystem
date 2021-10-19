@@ -1,5 +1,3 @@
-import com.mysql.jdbc.log.NullLogger;
-
 public class LoadedUser {
     private static final LoadedUser instance = new LoadedUser();
     private static User loggedInUser = null;
@@ -10,6 +8,7 @@ public class LoadedUser {
         if(loggedInUser == null){
             loggedInUser = user;
         }
+        System.out.println("Hello");
     }
 
     public User getUser(){
