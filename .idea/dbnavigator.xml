@@ -23,12 +23,7 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="c3502a2a-6507-48a2-83be-bdae1bfe8d47">
-        <schema name="HPMS" object-types="dataset trigger, constraint, index, view, function, column, procedure, table" />
-        <schema name="mysql" object-types="view, function, table" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="c3502a2a-6507-48a2-83be-bdae1bfe8d47">

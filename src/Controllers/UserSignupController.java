@@ -155,7 +155,7 @@ public class UserSignupController extends User implements Initializable {
            String fName = signupFirstNameField.getText();
            String lName = signupLastNameField.getText();
            LocalDate dob = signupDOBField.getValue();
-           User cust = new User(fName, lName, email, phoneNumber, dob, passwordHash, "CUST");
+           User cust = new User(fName, lName, email, phoneNumber, dob, passwordHash, "EMP");
            Customer("add", cust);
             return true;
        }

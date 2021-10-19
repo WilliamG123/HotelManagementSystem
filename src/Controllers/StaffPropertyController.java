@@ -30,6 +30,7 @@ public class StaffPropertyController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.print("test");
 
         Scene scene = new Scene(newScene);
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
