@@ -77,7 +77,7 @@ public class StaffAccountsController extends DBConnection implements Initializab
                 loader.setController(controller);
                 newScene = loader.load();
             }else if(event.getSource() == createTV){
-
+                newScene = FXMLLoader.load(getClass().getResource("StaffCreateUser.fxml"));
             }
         } catch (IOException e) {
             e.printStackTrace();

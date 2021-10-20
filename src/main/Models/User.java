@@ -159,4 +159,18 @@ public class User {
         }
 
     }
+
+    /*
+    TODO: uncomment this method when properly initializing user in the User.validate() method
+    @Override
+    public String toString(){
+        StringBuilder rep = new StringBuilder("User:\n");
+        rep.append("\t");rep.append(getFirstName());rep.append("\n");
+        rep.append("\t");rep.append(getLastName());rep.append("\n");
+        rep.append("\t");rep.append(getEmail());rep.append("\n");
+        rep.append("\t");rep.append(getPhoneNumber());rep.append("\n");
+        rep.append("\t");rep.append(getDob().toString());rep.append("\n");
+        return rep.toString();
+    }
+     */
 }
