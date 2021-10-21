@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffCreateUserController">
+   <children>
+      <TextField fx:id="firstNameField" layoutX="101.0" layoutY="34.0" />
+      <TextField fx:id="lastNameField" layoutX="101.0" layoutY="96.0" />
+      <TextField fx:id="emailField" layoutX="101.0" layoutY="161.0" />
+      <TextField fx:id="phoneNUmberField" layoutX="101.0" layoutY="223.0" />
+      <DatePicker fx:id="dobPicker" layoutX="395.0" layoutY="161.0" />
+      <Label layoutX="24.0" layoutY="39.0" text="First Name:" />
+      <Label layoutX="25.0" layoutY="100.0" text="Last Name:" />
+      <Label layoutX="56.0" layoutY="178.0" text="Email:" />
+      <Label layoutY="227.0" text="Phone Number:" />
+      <Label layoutX="332.0" layoutY="39.0" text="Password:" />
+      <Label layoutX="283.0" layoutY="100.0" text="Confirm Password:" />
+      <Label layoutX="317.0" layoutY="165.0" text="Date of Birth:" />
+      <Label layoutX="356.0" layoutY="227.0" text="Type:" />
+      <PasswordField fx:id="passwordField" layoutX="397.0" layoutY="34.0" />
+      <PasswordField fx:id="confPasswordField" layoutX="397.0" layoutY="97.0" />
+      <ComboBox fx:id="typePicker" layoutX="395.0" layoutY="224.0" prefWidth="150.0" />
+      <Text fx:id="createTV" layoutX="154.0" layoutY="310.0" onMouseClicked="#handleTV" strokeType="OUTSIDE" strokeWidth="0.0" text="Create">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="backTV" layoutX="439.0" layoutY="309.0" onMouseClicked="#handleTV" strokeType="OUTSIDE" strokeWidth="0.0" text="Back">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Label fx:id="errorLsbel" layoutX="285.0" layoutY="355.0" />
+   </children>
+</AnchorPane>
