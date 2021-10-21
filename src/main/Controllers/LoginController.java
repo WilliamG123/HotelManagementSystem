@@ -136,6 +136,7 @@ public class LoginController extends User implements Initializable {
             }
 
         });
+
         loginButton.setOnKeyPressed(event -> {
             if(event.getCode().equals(KeyCode.ENTER)){
                 loginButton.fire();

@@ -20,6 +20,8 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
 
         primaryStage.initStyle(StageStyle.UNDECORATED);
+
+        
         root.setOnMousePressed(new EventHandler<MouseEvent>() { //allows for more freely movable GUI
             @Override
             public void handle(MouseEvent event) {
