@@ -51,7 +51,7 @@ public class StaffCreateUserController {
     }
 
     private void handleCreate(){
-        if(validateFields()){
+        if(fieldsAreValid()){
             errorLabel.setText("");
             try {
                 String fname = firstNameField.getText();
@@ -73,7 +73,7 @@ public class StaffCreateUserController {
         }
     }
 
-    private boolean validateFields(){
+    private boolean fieldsAreValid(){
         boolean returnval = true;
         errorMsg = new StringBuffer("Error:\n");
         String fname = firstNameField.getText();
@@ -122,5 +122,6 @@ public class StaffCreateUserController {
     void initialize(){
         typePicker.getItems().add("CUST");
         typePicker.getItems().add("EMP");
+        phoneNumberField.setPromptText("Ex: 999-999-9999");
     }
 }

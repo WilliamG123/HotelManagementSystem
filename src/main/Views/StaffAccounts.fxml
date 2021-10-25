@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="accountsScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffAccountsController">
+<AnchorPane fx:id="accountsScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffAccountsController">
    <children>
       <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
@@ -35,7 +39,7 @@
             </Text>
          </children>
       </HBox>
-      <TableView fx:id="usersTable" layoutX="-1.0" layoutY="54.0" prefHeight="266.0" prefWidth="600.0">
+      <TableView fx:id="usersTable" layoutY="185.0" prefHeight="266.0" prefWidth="600.0">
         <columns>
           <TableColumn fx:id="firstNameColumn" prefWidth="117.0" text="First Name" />
           <TableColumn fx:id="lastNameColumn" prefWidth="111.0" text="Last Name" />
@@ -45,15 +49,33 @@
             <TableColumn fx:id="typeColumn" prefWidth="92.0" text="Type" />
         </columns>
       </TableView>
-      <Text fx:id="modifyTV" layoutX="146.0" layoutY="360.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify" wrappingWidth="93.341796875">
+      <Text fx:id="modifyTV" layoutX="42.0" layoutY="474.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify" wrappingWidth="93.341796875">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Text fx:id="createTV" layoutX="371.0" layoutY="359.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Create" wrappingWidth="93.341796875">
+      <Text fx:id="createTV" layoutX="253.0" layoutY="473.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Create" wrappingWidth="93.341796875">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
+      <Text fx:id="deleteTV" layoutX="463.0" layoutY="473.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete" wrappingWidth="93.341796875">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="firstNameSearchField" layoutX="14.0" layoutY="65.0" prefHeight="48.0" prefWidth="149.0" />
+      <TextField fx:id="lastNameSearchField" layoutX="14.0" layoutY="118.0" prefHeight="48.0" prefWidth="149.0" />
+      <TextField fx:id="emailSearchField" layoutX="179.0" layoutY="65.0" prefHeight="48.0" prefWidth="149.0" />
+      <TextField fx:id="phoneNumberSearchField" layoutX="179.0" layoutY="118.0" prefHeight="48.0" prefWidth="149.0" />
+      <DatePicker fx:id="dobSearchPicker" layoutX="345.0" layoutY="65.0" prefHeight="48.0" prefWidth="174.0" />
+      <ComboBox fx:id="typeSearchPicker" layoutX="346.0" layoutY="118.0" prefHeight="48.0" prefWidth="150.0" />
+      <Text layoutX="21.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
+      <Text layoutX="21.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
+      <Text layoutX="186.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+      <Text layoutX="186.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
+      <Text layoutX="353.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Type" />
+      <Text layoutX="353.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" />
+      <Button fx:id="searchBtn" layoutX="510.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="54.0" prefWidth="81.0" text="Search" />
    </children>
 </AnchorPane>
