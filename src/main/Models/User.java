@@ -81,7 +81,7 @@ public class User {
 
 
 
-    public void Customer(String oper, User cust) {
+    public static void Customer(String oper, User cust) {
         PreparedStatement ps = null;
         ResultSet result = null;
         try {
@@ -160,8 +160,8 @@ public class User {
 
     }
 
-    /*
-    TODO: uncomment this method when properly initializing user in the User.validate() method
+
+    //TODO: uncomment this method when properly initializing user in the User.validate() method
     @Override
     public String toString(){
         StringBuilder rep = new StringBuilder("User:\n");
@@ -172,5 +172,5 @@ public class User {
         rep.append("\t");rep.append(getDob().toString());rep.append("\n");
         return rep.toString();
     }
-     */
+
 }

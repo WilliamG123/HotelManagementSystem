@@ -14,14 +14,14 @@
       <TextField fx:id="firstNameField" layoutX="101.0" layoutY="34.0" />
       <TextField fx:id="lastNameField" layoutX="101.0" layoutY="96.0" />
       <TextField fx:id="emailField" layoutX="101.0" layoutY="161.0" />
-      <TextField fx:id="phoneNUmberField" layoutX="101.0" layoutY="223.0" />
+      <TextField fx:id="phoneNumberField" layoutX="101.0" layoutY="223.0" />
       <DatePicker fx:id="dobPicker" layoutX="395.0" layoutY="161.0" />
       <Label layoutX="24.0" layoutY="39.0" text="First Name:" />
       <Label layoutX="25.0" layoutY="100.0" text="Last Name:" />
-      <Label layoutX="56.0" layoutY="178.0" text="Email:" />
+      <Label layoutX="55.0" layoutY="165.0" text="Email:" />
       <Label layoutY="227.0" text="Phone Number:" />
       <Label layoutX="332.0" layoutY="39.0" text="Password:" />
-      <Label layoutX="283.0" layoutY="100.0" text="Confirm Password:" />
+      <Label layoutX="288.0" layoutY="100.0" text="Confirm Password:" />
       <Label layoutX="317.0" layoutY="165.0" text="Date of Birth:" />
       <Label layoutX="356.0" layoutY="227.0" text="Type:" />
       <PasswordField fx:id="passwordField" layoutX="397.0" layoutY="34.0" />
@@ -37,6 +37,6 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <Label fx:id="errorLsbel" layoutX="285.0" layoutY="355.0" />
+      <Label fx:id="errorLabel" layoutX="231.0" layoutY="249.0" />
    </children>
 </AnchorPane>
