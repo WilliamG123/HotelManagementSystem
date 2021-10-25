@@ -118,6 +118,7 @@ public class StaffAccountsController extends DBConnection implements Initializab
     @FXML
     private void handleSearch(ActionEvent event) throws SQLException {
         query.deleteCharAt(query.length()-1);
+
         usersList.clear();
         buildQuery();
         System.out.println(query.toString());
@@ -127,12 +128,15 @@ public class StaffAccountsController extends DBConnection implements Initializab
 
     private void buildQuery(){
         query.append(" WHERE");
+        //String query = "Select * from users where email = ?";
         String email = emailSearchField.getText();
         if(Validators.isValidEmailAddress(email)){
-            query.append(" email=");
-            query.append(email);
+
+           query.append(" email=");
+            query.append("'"+email+"'");
         }
         query.append(";");
+
     }
 
     private void addUsers(ResultSet rs) throws SQLException {
