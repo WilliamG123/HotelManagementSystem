@@ -14,7 +14,7 @@
       <TextField fx:id="firstNameField" layoutX="101.0" layoutY="34.0" />
       <TextField fx:id="lastNameField" layoutX="101.0" layoutY="96.0" />
       <TextField fx:id="emailField" layoutX="101.0" layoutY="161.0" />
-      <TextField fx:id="phoneNUmberField" layoutX="101.0" layoutY="223.0" />
+      <TextField fx:id="phoneNumberField" layoutX="101.0" layoutY="223.0" />
       <DatePicker fx:id="dobPicker" layoutX="395.0" layoutY="161.0" />
       <Label layoutX="24.0" layoutY="39.0" text="First Name:" />
       <Label layoutX="25.0" layoutY="100.0" text="Last Name:" />
@@ -37,6 +37,6 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <Label fx:id="errorLsbel" layoutX="285.0" layoutY="355.0" />
+      <Label fx:id="errorLabel" layoutX="231.0" layoutY="249.0" />
    </children>
 </AnchorPane>
