@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
@@ -10,9 +16,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserCreateController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1588.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserCreateController">
    <children>
-      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0" spacing="100.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+      <ImageView fitHeight="930.0" fitWidth="1623.0" layoutX="-1.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="file:/C:/Users/rellik/HotelManagementSystem/Res/hotelbeach.jpg" />
+         </image>
+      </ImageView>
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="1589.0" spacing="100.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hotels">
                <font>
@@ -37,31 +48,20 @@
             </Text>
          </children>
       </HBox>
-      <Text layoutX="11.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
+      <Text fill="WHITE" layoutX="11.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check-in:">
          <font>
-            <Font size="20.0" />
+            <Font name="SansSerif Bold" size="36.0" />
          </font>
       </Text>
-      <Text layoutX="11.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="From date:">
+      <DatePicker layoutX="4.0" layoutY="151.0" prefHeight="25.0" prefWidth="164.0" />
+      <DatePicker layoutX="4.0" layoutY="240.0" prefHeight="25.0" prefWidth="164.0" />
+      <Text fill="WHITE" layoutX="4.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel name?">
          <font>
-            <Font size="16.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <DatePicker layoutX="4.0" layoutY="151.0" prefHeight="25.0" prefWidth="120.0" />
-      <Text layoutX="11.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To date:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <DatePicker layoutX="4.0" layoutY="215.0" prefHeight="25.0" prefWidth="120.0" />
-      <Text layoutX="9.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="By Hotel Name:">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <TextField layoutX="4.0" layoutY="286.0" prefHeight="25.0" prefWidth="120.0" />
-      <Text layoutX="14.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Should be more filters" />
-      <TableView fx:id="tableHotels" layoutX="131.0" layoutY="57.0" prefHeight="341.0" prefWidth="465.0">
+      <TextField layoutX="4.0" layoutY="333.0" prefHeight="27.0" prefWidth="213.0" />
+      <TableView fx:id="tableHotels" layoutX="329.0" layoutY="218.0" prefHeight="710.0" prefWidth="1101.0" style="-fx-background-color: rgba(255, 255, 255, .7);">
         <columns>
           <TableColumn fx:id="Hotel" prefWidth="204.0" text="Hotel" />
           <TableColumn fx:id="Rooms" prefWidth="61.0" text="Rooms" />
@@ -69,5 +69,10 @@
             <TableColumn fx:id="amentities" prefWidth="114.0" text="amentities" />
         </columns>
       </TableView>
+      <Text fill="WHITE" layoutX="11.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check-out:">
+         <font>
+            <Font name="SansSerif Bold" size="36.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
