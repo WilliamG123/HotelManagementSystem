@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -60,7 +61,7 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <TextField layoutX="4.0" layoutY="333.0" prefHeight="27.0" prefWidth="213.0" />
+      <TextField fx:id="tf_HotelName" layoutX="4.0" layoutY="333.0" prefHeight="27.0" prefWidth="213.0" />
       <TableView fx:id="tableHotels" layoutX="329.0" layoutY="218.0" prefHeight="710.0" prefWidth="1101.0" style="-fx-background-color: rgba(255, 255, 255, .7);">
         <columns>
           <TableColumn fx:id="Hotel" prefWidth="204.0" text="Hotel" />
