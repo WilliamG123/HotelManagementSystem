@@ -138,7 +138,7 @@ public class UserSignupController extends User implements Initializable {
            LocalDate dob = signupDOBField.getValue();
            User cust = new User(fName, lName, email, phoneNumber, dob, passwordHash, "CUST");
            Customer("add", cust);
-            return true;
+           return true;
        }
        else {
            System.out.println("NO USER ADDED");

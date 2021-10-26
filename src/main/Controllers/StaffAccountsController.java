@@ -1,3 +1,4 @@
+import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,10 +17,10 @@ import javafx.stage.Stage;
 import javax.xml.transform.Result;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.time.LocalDate;
 
 public class StaffAccountsController extends DBConnection implements Initializable {
 
@@ -36,6 +37,7 @@ public class StaffAccountsController extends DBConnection implements Initializab
     @FXML private DatePicker dobSearchPicker;
     @FXML private ComboBox<String> typeSearchPicker;
     @FXML private Button searchBtn;
+    @FXML private Button resetBtn;
     @FXML private TableView<User> usersTable;
     @FXML private TableColumn<User, String> firstNameColumn;
     @FXML private TableColumn<User, String> lastNameColumn;
@@ -70,7 +72,7 @@ public class StaffAccountsController extends DBConnection implements Initializab
                 handleUserDelete();
                 return;
             }
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
 
@@ -81,9 +83,11 @@ public class StaffAccountsController extends DBConnection implements Initializab
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        query = new StringBuilder("SELECT * FROM users");
+    public void initialize(URL location, ResourceBundle resources){
+        usersList = FXCollections.observableArrayList();
+        query = new StringBuilder();
         try {
+            conn = getConnection();
             populateListView();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -93,10 +97,9 @@ public class StaffAccountsController extends DBConnection implements Initializab
         typeSearchPicker.getItems().add("EMP");
     }
 
-    private void populateListView() throws SQLException, ClassNotFoundException {
-        usersList = FXCollections.observableArrayList();
-        query.append(";");
-        conn = getConnection();
+    private void populateListView() throws SQLException {
+        query.setLength(0);
+        query.append("SELECT * FROM users;");
         ResultSet rs = conn.createStatement().executeQuery(query.toString());
 
         addUsers(rs);
@@ -110,30 +113,123 @@ public class StaffAccountsController extends DBConnection implements Initializab
         usersTable.setItems(usersList);
     }
 
-    private void handleUserDelete(){
+    private void handleUserDelete() throws SQLException {
         User user = usersTable.getSelectionModel().getSelectedItem();
+        usersList.remove(user);
+        String query = "delete from users where email = ?";
+        PreparedStatement preparedStmt = conn.prepareStatement(query);
+        preparedStmt.setString(1, user.getEmail());
 
+        // execute the preparedstatement
+        preparedStmt.execute();
     }
 
     @FXML
-    private void handleSearch(ActionEvent event) throws SQLException {
-        query.deleteCharAt(query.length()-1);
+    private void handleSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
+        if(event.getSource() == resetBtn){
+            usersList.clear();
+            populateListView();
+        }else{
+            HashMap<Integer, Object> statementValues = new HashMap<>();
+            query.setLength(0);
+            query.append("SELECT * FROM users");
 
-        usersList.clear();
-        buildQuery();
-        System.out.println(query.toString());
-        ResultSet rs = conn.createStatement().executeQuery(query.toString());
-        addUsers(rs);
+            usersList.clear();
+            buildQuery(statementValues);
+            PreparedStatement ps = conn.prepareStatement(query.toString());
+            for(Integer key : statementValues.keySet()){
+                Object obj = statementValues.get(key);
+                if(obj instanceof String)
+                    ps.setString(key, (String)obj);
+                else if(obj instanceof LocalDate)
+                    ps.setDate(key, Date.valueOf((LocalDate) obj));
+            }
+//            System.out.println(ps);
+            ResultSet rs = ps.executeQuery();
+            addUsers(rs);
+        }
+        resetSearchFields();
     }
 
-    private void buildQuery(){
+    private void resetSearchFields(){
+        firstNameSearchField.setText("");
+        lastNameSearchField.setText("");
+        phoneNumberSearchField.setText("");
+        emailSearchField.setText("");
+        dobSearchPicker.setValue(null);
+        typeSearchPicker.setValue(null);
+    }
+
+    private void buildQuery(HashMap<Integer, Object> statementValues){
+        int pos = 1;
+        boolean appended = false;
         query.append(" WHERE");
         //String query = "Select * from users where email = ?";
         String email = emailSearchField.getText();
-        if(Validators.isValidEmailAddress(email)){
+        String phoneNumber = phoneNumberSearchField.getText();
+        String firstName = firstNameSearchField.getText();
+        String lastName = lastNameSearchField.getText();
+        LocalDate dob = dobSearchPicker.getValue();
+        String type = typeSearchPicker.getValue();
 
-           query.append(" email=");
-            query.append("'"+email+"'");
+        if(Validators.isValidEmailAddress(email)){
+            if(appended){
+                query.append(" AND");
+            }
+            query.append(" email=?");
+//            query.append("'"+email+"'");
+            appended = true;
+            statementValues.put(pos, email);
+            pos++;
+        }
+        if(Validators.isValidPhoneNumber(phoneNumber)){
+            if(appended){
+                query.append(" AND");
+            }
+            query.append(" phone=?");
+            //query.append("'"+phoneNumber+"'");
+            appended = true;
+            statementValues.put(pos, phoneNumber);
+            pos++;
+        }
+        if(!firstName.equals("")){
+            if(appended){
+                query.append(" AND");
+            }
+            query.append(" fname=?");
+            //query.append("'"+firstName+"'");
+            appended=true;
+            statementValues.put(pos, firstName);
+            pos++;
+        }
+        if(!lastName.equals("")){
+            if(appended){
+                query.append(" AND");
+            }
+            query.append(" lname=?");
+            //query.append("'"+lastName+"'");
+            appended = true;
+            statementValues.put(pos, lastName);
+            pos++;
+        }
+        if(dob != null){
+            if (appended) {
+                query.append(" AND");
+            }
+            query.append(" dob=?");
+            //query.append("'"+Date.valueOf(dob)+"'");
+            appended = true;
+            statementValues.put(pos, dob);
+            pos++;
+        }
+        if(type != null && !type.equals("")){
+            if (appended) {
+                query.append(" AND");
+            }
+            query.append(" type=?");
+            //query.append("'"+type+"'");
+            appended = true;
+            statementValues.put(pos, type);
         }
         query.append(";");
 

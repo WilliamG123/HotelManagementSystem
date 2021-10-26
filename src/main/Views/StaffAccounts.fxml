@@ -66,16 +66,17 @@
       </Text>
       <TextField fx:id="firstNameSearchField" layoutX="14.0" layoutY="65.0" prefHeight="48.0" prefWidth="149.0" />
       <TextField fx:id="lastNameSearchField" layoutX="14.0" layoutY="118.0" prefHeight="48.0" prefWidth="149.0" />
-      <TextField fx:id="emailSearchField" layoutX="179.0" layoutY="65.0" prefHeight="48.0" prefWidth="149.0" />
-      <TextField fx:id="phoneNumberSearchField" layoutX="179.0" layoutY="118.0" prefHeight="48.0" prefWidth="149.0" />
-      <DatePicker fx:id="dobSearchPicker" layoutX="345.0" layoutY="65.0" prefHeight="48.0" prefWidth="174.0" />
-      <ComboBox fx:id="typeSearchPicker" layoutX="346.0" layoutY="118.0" prefHeight="48.0" prefWidth="150.0" />
+      <TextField fx:id="emailSearchField" layoutX="171.0" layoutY="65.0" prefHeight="48.0" prefWidth="149.0" />
+      <TextField fx:id="phoneNumberSearchField" layoutX="171.0" layoutY="118.0" prefHeight="48.0" prefWidth="149.0" />
+      <DatePicker fx:id="dobSearchPicker" layoutX="328.0" layoutY="64.0" prefHeight="48.0" prefWidth="174.0" />
+      <ComboBox fx:id="typeSearchPicker" layoutX="329.0" layoutY="117.0" prefHeight="48.0" prefWidth="150.0" />
       <Text layoutX="21.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
       <Text layoutX="21.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
-      <Text layoutX="186.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-      <Text layoutX="186.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
-      <Text layoutX="353.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Type" />
-      <Text layoutX="353.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" />
-      <Button fx:id="searchBtn" layoutX="510.0" layoutY="118.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="54.0" prefWidth="81.0" text="Search" />
+      <Text layoutX="178.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+      <Text layoutX="178.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
+      <Text layoutX="336.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Type" />
+      <Text layoutX="336.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" />
+      <Button fx:id="searchBtn" layoutX="510.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="48.0" prefWidth="81.0" text="Search" />
+      <Button fx:id="resetBtn" layoutX="510.0" layoutY="117.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="48.0" prefWidth="81.0" text="Reset" />
    </children>
 </AnchorPane>

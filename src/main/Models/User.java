@@ -143,6 +143,10 @@ public class User {
                     System.out.println("validation successful ");
                     setEmail(userEmail);
                     setPassword(password);
+                    setFirstName(rs.getString("fname"));
+                    setLastName(rs.getString("lname"));
+                    setPhoneNumber(rs.getString("phone"));
+                    setDob(rs.getDate("dob").toLocalDate());
                     LoadedUser.getInstance().init(this);
                     result = 1;
                 } else {
