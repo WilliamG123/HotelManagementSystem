@@ -11,11 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -28,10 +25,9 @@ import javax.swing.text.TabableView;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -40,30 +36,28 @@ import java.util.ResourceBundle;
 public class UserCreateController extends DBConnection implements Initializable {
 
     @FXML
-    private Text mainmenuTV;
-
+    private Text mainmenuTV, logoutTV;
     @FXML
-    private Text logoutTV;
+    private DatePicker check_in, check_out;
     @FXML
     private TableView<Hotels> tableHotels;
     @FXML
-    private TableColumn<Hotels, String> Hotel;
+    private TableColumn<Hotels, String> Hotel, details, address,rating;
     @FXML
-    private TableColumn<Hotels, Integer> Rooms;
+    private TableColumn<Hotels, Integer> Rooms, amentities;
     @FXML
     private TableColumn<Hotels, Double> Price;
     @FXML
-    private TableColumn<Hotels, Integer> amentities;
-    @FXML
     private TextField tf_HotelName;
-    //lets declare some variables
+    @FXML
     private ContextMenu entriesPopup;
     private Connection conn;
     private ObservableList<Hotels> list;
 
     ArrayList<String> possibleWords = new ArrayList<String>();
 
-
+   LocalDate check_out_date;
+    LocalDate check_in_date;
 
     @FXML void sceneChange(MouseEvent event) {
         AnchorPane newScene = null;
@@ -84,7 +78,11 @@ public class UserCreateController extends DBConnection implements Initializable 
         window.show();
     }
 
-
+    public static final LocalDate LOCAL_DATE (String dateString){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        return localDate;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -129,11 +127,31 @@ public class UserCreateController extends DBConnection implements Initializable 
     private void populateTableView() throws SQLException, ClassNotFoundException {
 
         //instantiate list
+        //both datepickers must have a value in order to run this query
+
+
         Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement("Select * From hotel");
-       // ps.setString(1, "supplier_id");
+        PreparedStatement ps = con.prepareStatement("CALL getHotelsByDate('2021-10-27','2021-11-03')");
+
+            System.out.println("DATE PICKERS ARE NULL");
+           // check_in_date = check_in.getValue();
+            //check_out_date = check_in.getValue();
+            //ps.setDate(1, Date.valueOf(String.valueOf(check_in_date)));
+            //ps.setDate(2, Date.valueOf(String.valueOf(check_out_date)));
+
+
+            System.out.println("DEFUALT DATES  USED");
+
+            //long millis=System.currentTimeMillis();
+           // java.sql.Date date=new java.sql.Date(millis);
+           // ps.setDate(1, date);
+           // ps.setDate(2, date);
+            ResultSet rs = ps.executeQuery();
+
+
         //ps.setInt(2, 1);
-        ResultSet rs = ps.executeQuery();
+
+
         //loop through the resultSet , extract data and append it to our list
         while(rs.next()) {
             //Create a hotels Object , add data to it and finally append it to list
@@ -141,7 +159,11 @@ public class UserCreateController extends DBConnection implements Initializable 
             hotel.setHotelname(rs.getString("hotel_name"));
             hotel.setRooms(rs.getInt("hotel_availrms"));
             hotel.setAmentities(rs.getInt("hotel_numofamend"));
-            hotel.setPrice(rs.getDouble("hotel_price"));
+            hotel.setPrice(rs.getDouble("daily_rate"));
+            hotel.setRating(rs.getInt("hotel_rating"));
+            hotel.setHoteladdr(rs.getString("hotel_address"));
+            hotel.setHoteldesc(rs.getString("hotel_desc"));
+
             list.add(hotel);
 
         }
@@ -154,6 +176,10 @@ public class UserCreateController extends DBConnection implements Initializable 
         Rooms.setCellValueFactory(new PropertyValueFactory<>("rooms"));
         Price.setCellValueFactory(new PropertyValueFactory<>("price"));
         amentities.setCellValueFactory(new PropertyValueFactory<>("amentities"));
+        details.setCellValueFactory(new PropertyValueFactory<>("hoteldesc"));
+        address.setCellValueFactory(new PropertyValueFactory<>("hoteladd"));
+        rating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+
         // Hotel.setCellValueFactory(c-> new SimpleStringProperty(hotel.getHotelname()));
 
         //set data tp tableview

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -54,20 +55,23 @@
             <Font name="SansSerif Bold" size="36.0" />
          </font>
       </Text>
-      <DatePicker layoutX="4.0" layoutY="151.0" prefHeight="25.0" prefWidth="164.0" />
-      <DatePicker layoutX="4.0" layoutY="240.0" prefHeight="25.0" prefWidth="164.0" />
+      <DatePicker fx:id="check_in" layoutX="4.0" layoutY="151.0" prefHeight="25.0" prefWidth="164.0" />
+      <DatePicker fx:id="check_out" layoutX="4.0" layoutY="240.0" prefHeight="25.0" prefWidth="164.0" />
       <Text fill="WHITE" layoutX="4.0" layoutY="323.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel name?">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
       <TextField fx:id="tf_HotelName" layoutX="4.0" layoutY="333.0" prefHeight="27.0" prefWidth="213.0" />
-      <TableView fx:id="tableHotels" layoutX="329.0" layoutY="218.0" prefHeight="710.0" prefWidth="1101.0" style="-fx-background-color: rgba(255, 255, 255, .7);">
+      <TableView fx:id="tableHotels" layoutX="216.0" layoutY="77.0" prefHeight="851.0" prefWidth="1355.0" style="-fx-background-color: rgba(255, 255, 255, .7);">
         <columns>
-          <TableColumn fx:id="Hotel" prefWidth="204.0" text="Hotel" />
-          <TableColumn fx:id="Rooms" prefWidth="61.0" text="Rooms" />
-            <TableColumn fx:id="Price" prefWidth="76.0" text="Price" />
-            <TableColumn fx:id="amentities" prefWidth="114.0" text="amentities" />
+          <TableColumn fx:id="Hotel" prefWidth="233.0" text="Hotel" />
+            <TableColumn fx:id="address" prefWidth="193.0" text="address" />
+            <TableColumn fx:id="details" prefWidth="357.0" text="Details" />
+          <TableColumn fx:id="Rooms" minWidth="0.0" prefWidth="92.0" text="Rooms" />
+            <TableColumn fx:id="amentities" prefWidth="242.0" text="amentities" />
+            <TableColumn fx:id="Price" prefWidth="101.0" text="Starting Price" />
+            <TableColumn fx:id="rating" minWidth="0.0" prefWidth="136.0" text="Rating" />
         </columns>
       </TableView>
       <Text fill="WHITE" layoutX="11.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check-out:">
@@ -75,5 +79,10 @@
             <Font name="SansSerif Bold" size="36.0" />
          </font>
       </Text>
+      <Button fx:id="btn_search" layoutX="34.0" layoutY="409.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="141.0" text="Search">
+         <font>
+            <Font name="SansSerif Bold" size="26.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
