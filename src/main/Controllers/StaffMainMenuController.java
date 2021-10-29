@@ -1,3 +1,4 @@
+import com.mysql.jdbc.log.Log;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,13 +34,20 @@ public class StaffMainMenuController implements Initializable {
         try {
             if (event.getSource() == propertyBtn){
                 newScene = FXMLLoader.load(getClass().getResource("StaffProperty.fxml"));
+                System.out.println("Property Management Button Pressed!");
             }
-            else if (event.getSource() == reservationBtn)
+            else if (event.getSource() == reservationBtn) {
                 newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
-            else if (event.getSource() == logoutButton)
+                System.out.println("Staff Reservation Button Pressed!");
+            }
+            else if (event.getSource() == logoutButton) {
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
-            else if (event.getSource() == accountBtn)
+                System.out.println("Login Button Pressed!");
+            }
+            else if (event.getSource() == accountBtn) {
                 newScene = FXMLLoader.load(getClass().getResource("StaffAccounts.fxml"));
+                System.out.println("Staff Accounts Button Pressed!");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -102,7 +102,8 @@ public class StaffAccountsController extends DBConnection implements Initializab
         query.append("SELECT * FROM users;");
         ResultSet rs = conn.createStatement().executeQuery(query.toString());
 
-        addUsers(rs);
+        if(rs.next())
+            addUsers(rs);
         firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -134,19 +135,27 @@ public class StaffAccountsController extends DBConnection implements Initializab
             query.setLength(0);
             query.append("SELECT * FROM users");
 
-            usersList.clear();
-            buildQuery(statementValues);
-            PreparedStatement ps = conn.prepareStatement(query.toString());
-            for(Integer key : statementValues.keySet()){
-                Object obj = statementValues.get(key);
-                if(obj instanceof String)
-                    ps.setString(key, (String)obj);
-                else if(obj instanceof LocalDate)
-                    ps.setDate(key, Date.valueOf((LocalDate) obj));
+            if(buildQuery(statementValues)){
+                PreparedStatement ps = conn.prepareStatement(query.toString());
+                for(Integer key : statementValues.keySet()){
+                    Object obj = statementValues.get(key);
+                    if(obj instanceof String) {
+                        ps.setString(key, (String)obj);
+                    }
+                    else if(obj instanceof LocalDate) {
+                        ps.setDate(key, Date.valueOf((LocalDate) obj));
+                    }
+                }
+//                System.out.println(ps);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    usersList.clear();
+                    addUsers(rs);
+                }
+//                System.out.println(rs);
+            }else{
+                System.out.println("no query built");
             }
-//            System.out.println(ps);
-            ResultSet rs = ps.executeQuery();
-            addUsers(rs);
         }
         resetSearchFields();
     }
@@ -160,7 +169,7 @@ public class StaffAccountsController extends DBConnection implements Initializab
         typeSearchPicker.setValue(null);
     }
 
-    private void buildQuery(HashMap<Integer, Object> statementValues){
+    private boolean buildQuery(HashMap<Integer, Object> statementValues){
         int pos = 1;
         boolean appended = false;
         query.append(" WHERE");
@@ -226,17 +235,18 @@ public class StaffAccountsController extends DBConnection implements Initializab
             if (appended) {
                 query.append(" AND");
             }
-            query.append(" type=?");
+            query.append(" usertype=?");
             //query.append("'"+type+"'");
             appended = true;
             statementValues.put(pos, type);
         }
         query.append(";");
 
+        return appended;
     }
 
     private void addUsers(ResultSet rs) throws SQLException {
-        while(rs.next()){
+        do{
             User user = new User();
             user.setFirstName(rs.getString("fname"));
             user.setLastName(rs.getString("lname"));
@@ -245,6 +255,6 @@ public class StaffAccountsController extends DBConnection implements Initializab
             user.setType(rs.getString("usertype"));
             user.setDob(rs.getDate("dob").toLocalDate());
             usersList.add(user);
-        }
+        }while(rs.next());
     }
 }
