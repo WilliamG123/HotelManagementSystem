@@ -18,6 +18,10 @@ public class LoadedUser {
         loggedInUser = null;
     }
 
+    public void updateUser(User user){
+        loggedInUser = user;
+    }
+
     public void clearUser(){
         if(loggedInUser != null){
             loggedInUser = null;
