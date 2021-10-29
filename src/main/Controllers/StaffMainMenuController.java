@@ -18,7 +18,7 @@ public class StaffMainMenuController implements Initializable {
 
     @FXML private Button propertyBtn;
 
-    @FXML private Button resBtn;
+    @FXML private Button reservationBtn;
 
     @FXML private Button accountBtn;
 
@@ -36,7 +36,7 @@ public class StaffMainMenuController implements Initializable {
                 newScene = FXMLLoader.load(getClass().getResource("StaffProperty.fxml"));
                 System.out.println("Property Management Button Pressed!");
             }
-            else if (event.getSource() == resBtn) {
+            else if (event.getSource() == reservationBtn) {
                 newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
                 System.out.println("Staff Reservation Button Pressed!");
             }
