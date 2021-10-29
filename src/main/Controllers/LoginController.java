@@ -121,6 +121,7 @@ public class LoginController extends User implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
        // passwordLoginField = TextFields.createClearablePasswordField();
+        LoadedUser.getInstance().resetUser();
         String[] possibleWords ={"EMP", "CUST"};
         TextFields.bindAutoCompletion(emailLoginField, possibleWords);
 

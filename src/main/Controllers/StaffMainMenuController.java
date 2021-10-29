@@ -23,6 +23,8 @@ public class StaffMainMenuController implements Initializable {
 
     @FXML private Button logoutButton;
 
+    @FXML private Button profileBtn;
+
     @FXML private Label welcomeMessage;
 
 
@@ -40,6 +42,8 @@ public class StaffMainMenuController implements Initializable {
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
             else if (event.getSource() == accountBtn)
                 newScene = FXMLLoader.load(getClass().getResource("StaffAccounts.fxml"));
+            else if(event.getSource() == profileBtn)
+                newScene = FXMLLoader.load(getClass().getResource("UserProfile.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -5,16 +5,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffMainMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffMainMenuController">
    <children>
       <Label fx:id="welcomeMessage" layoutX="208.0" layoutY="23.0" prefHeight="75.0" prefWidth="306.0" text="Welcome &lt;user&gt;!">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button fx:id="propertyBtn" layoutX="266.0" layoutY="168.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="51.0" prefWidth="190.0" text="Property Management" />
-      <Button fx:id="reservationBtn" layoutX="266.0" layoutY="301.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="51.0" prefWidth="190.0" text="Reservation Management" />
+      <Button fx:id="propertyBtn" layoutX="266.0" layoutY="228.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="51.0" prefWidth="190.0" text="Property Management" />
+      <Button fx:id="reservationBtn" layoutX="266.0" layoutY="327.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="51.0" prefWidth="190.0" text="Reservation Management" />
       <Button fx:id="accountBtn" layoutX="266.0" layoutY="423.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="51.0" prefWidth="190.0" text="Account Management" />
       <Button fx:id="logoutButton" layoutX="568.0" layoutY="48.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="25.0" prefWidth="95.0" text="Logout" />
+      <Button fx:id="profileBtn" layoutX="266.0" layoutY="140.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="51.0" prefWidth="190.0" text="Profile" />
    </children>
 </AnchorPane>
