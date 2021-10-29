@@ -12,13 +12,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+/*****************************************************************
+ *                     StaffReservationController Class
+ * - populates a ListView of all reservations in the DB
+ * - clicking a reservation triggers a detailed view pop up window or scene
+ * - can filter through reservations by various search criteria
+ *****************************************************************/
 
 public class StaffReservationController extends DBConnection implements Initializable {
 
@@ -55,7 +62,7 @@ public class StaffReservationController extends DBConnection implements Initiali
     /*****************************************************************
      *                     sceneChange Function
      * @param event
-     * - Handles all button pressing input
+     * - Handles all button pressing input to various scenes
      *****************************************************************/
     @FXML void sceneChange(MouseEvent event) {
         AnchorPane newScene = null;
@@ -79,12 +86,14 @@ public class StaffReservationController extends DBConnection implements Initiali
 
     /*****************************************************************
      *                     initialize Function
-     * - initializes all variables
+     * - initializes global variables
+     * - sets up SQL DB connection
+     * - calls populateList() to populate ListView
      *****************************************************************/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // get list of reservations
-        /*resList = FXCollections.observableArrayList();
+        resList = FXCollections.observableArrayList();
         query = new StringBuilder();
         try{
             // get connection
@@ -92,7 +101,7 @@ public class StaffReservationController extends DBConnection implements Initiali
             populateListView();
         } catch(SQLException | ClassNotFoundException e){
             e.printStackTrace();
-        }*/
+        }
     }
 
     /*****************************************************************
@@ -100,23 +109,34 @@ public class StaffReservationController extends DBConnection implements Initiali
      * - populates the list view with reservation data
      * - makes a query to DB for all reservations for a specific user
      *****************************************************************/
+    // TODO: 10/29/2021  Need to read in data and put into listview and then set up the detailed view
     public void populateListView() throws SQLException{
-
-        /*String query = "SELECT * FROM reservations";
-
+        // set up query for all reservations
+        query.setLength(0);
+        query.append("SELECT * FROM reservation");
         // query the database
-        try {
-            ResultSet rs = conn.createStatement().executeQuery(query);
-            System.out.println(rs.getString(""));
-            while (rs.next()) {
-                Reservation res = new Reservation();
-                res.setResID(rs.getString("reservationid"));
-                res.setTotalCost(rs.getDouble("total_price"));
-                resList.add(res);
+        ResultSet rs = conn.createStatement().executeQuery(query.toString());
+        ResultSetMetaData rsmd = rs.getMetaData();
+        System.out.println("querying SELECT * FROM reservation");
+        int columnsNumber = rsmd.getColumnCount();
+
+        // while loop prints out all result set data
+        while (rs.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) System.out.print(",  ");
+                String columnValue = rs.getString(i);
+                System.out.print(columnValue + " " + rsmd.getColumnName(i));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            System.out.println("");
         }
-        resTable.setItems(resList);*/
+
+        /*while (rs.next()) {
+            Reservation res = new Reservation();
+            res.setResID(rs.getString("reservationid"));
+            res.setTotalCost(rs.getDouble("total_price"));
+            resList.add(res);
+        }*/
+
+        //resTable.setItems(resList);
     }
 }
