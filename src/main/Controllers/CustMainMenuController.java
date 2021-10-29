@@ -35,14 +35,22 @@ public class CustMainMenuController implements Initializable {
         AnchorPane newScene = null;
 
         try {
-            if (event.getSource() == this.createResBtn)
+            if (event.getSource() == this.createResBtn) {
                 newScene = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
-            else if (event.getSource() == this.manageResBtn)
+                System.out.println("Property Management Button Pressed!");
+            }
+            else if (event.getSource() == this.manageResBtn) {
                 newScene = FXMLLoader.load(getClass().getResource("UserManage.fxml"));
-            else if (event.getSource() == this.logoutButton)
+                System.out.println("Property Management Button Pressed!");
+            }
+            else if (event.getSource() == this.logoutButton) {
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
-            else if (event.getSource() == this.profileBtn)
+                System.out.println("Property Management Button Pressed!");
+            }
+            else if (event.getSource() == this.profileBtn) {
                 newScene = FXMLLoader.load(getClass().getResource("UserProfile.fxml"));
+                System.out.println("Property Management Button Pressed!");
+            }
         } catch (IOException e) {
             System.out.println("newScene failed");
             e.printStackTrace();
@@ -64,7 +72,6 @@ public class CustMainMenuController implements Initializable {
                 window.setY(event.getScreenY() - yOffset);
             }
         });
-
 
         window.show();
     }
