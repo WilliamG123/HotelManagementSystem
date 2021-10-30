@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -36,7 +38,7 @@
             </Text>
          </children>
       </HBox>
-      <TableView fx:id="resTable" layoutX="218.0" layoutY="54.0" prefHeight="652.0" prefWidth="783.0">
+      <TableView fx:id="resTable" layoutY="244.0" prefHeight="460.0" prefWidth="994.0">
         <columns>
           <TableColumn fx:id="userIDColumn" prefWidth="75.0" text="UserID" />
             <TableColumn fx:id="hotelColumn" prefWidth="75.0" text="Hotel" />
@@ -49,29 +51,49 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Text layoutX="53.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter by:">
+      <TextField fx:id="hotelTF" layoutX="146.0" layoutY="122.0" prefHeight="71.0" prefWidth="196.0" promptText="Enter hotel name" />
+      <DatePicker fx:id="checkInDP" layoutX="377.0" layoutY="122.0" prefHeight="71.0" prefWidth="196.0" promptText="Select check in date" />
+      <DatePicker fx:id="checkOutDP" layoutX="617.0" layoutY="122.0" prefHeight="71.0" prefWidth="196.0" promptText="select check out date" />
+      <Text layoutX="429.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="663.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Button fx:id="applyBtn" layoutX="849.0" layoutY="83.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="45.0" prefWidth="101.0" text="Apply ">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Text layoutX="36.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
          <font>
             <Font size="25.0" />
          </font>
       </Text>
-      <TextField fx:id="useridTF" layoutX="33.0" layoutY="144.0" />
       <Text layoutX="14.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="68.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="UserID:">
+      <Text layoutX="224.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font>
       </Text>
-      <Text layoutX="76.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel">
+      <Button fx:id="resetBtn" layoutX="849.0" layoutY="158.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="45.0" prefWidth="101.0" text="Reset">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Text fx:id="modifyTF" layoutX="556.0" layoutY="754.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify">
+         <font>
+            <Font size="30.0" />
          </font>
       </Text>
-      <TextField fx:id="hotelTF" layoutX="33.0" layoutY="208.0" />
-      <Text layoutX="45.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation #:">
+      <Text fx:id="deleteTF" layoutX="308.0" layoutY="755.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
          <font>
-            <Font size="20.0" />
+            <Font size="30.0" />
          </font>
       </Text>
-      <TextField fx:id="resNumTF" layoutX="33.0" layoutY="274.0" />
    </children>
 </AnchorPane>

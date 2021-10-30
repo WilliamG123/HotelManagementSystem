@@ -51,51 +51,46 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextField fx:id="hotelTF" layoutX="144.0" layoutY="106.0" prefHeight="71.0" prefWidth="196.0" promptText="Enter hotel name" />
-      <DatePicker fx:id="checkInDP" layoutX="377.0" layoutY="109.0" prefHeight="71.0" prefWidth="196.0" promptText="Select check in date" />
-      <DatePicker fx:id="checkOutDP" layoutX="617.0" layoutY="109.0" prefHeight="71.0" prefWidth="196.0" promptText="select check out date" />
-      <Text layoutX="429.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
+      <TextField fx:id="hotelTF" layoutX="146.0" layoutY="122.0" prefHeight="71.0" prefWidth="196.0" promptText="Enter hotel name" />
+      <DatePicker fx:id="checkInDP" layoutX="377.0" layoutY="122.0" prefHeight="71.0" prefWidth="196.0" promptText="Select check in date" />
+      <DatePicker fx:id="checkOutDP" layoutX="617.0" layoutY="122.0" prefHeight="71.0" prefWidth="196.0" promptText="select check out date" />
+      <Text layoutX="429.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Text layoutX="663.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
+      <Text layoutX="663.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Button layoutX="849.0" layoutY="83.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="101.0" text="Apply ">
+      <Button fx:id="applyBtn" layoutX="849.0" layoutY="83.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="45.0" prefWidth="101.0" text="Apply ">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Text layoutX="35.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
+      <Text layoutX="36.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
          <font>
             <Font size="25.0" />
          </font>
       </Text>
       <Text layoutX="14.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="224.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
+      <Text layoutX="224.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Button layoutX="849.0" layoutY="158.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="101.0" text="Reset">
+      <Button fx:id="resetBtn" layoutX="849.0" layoutY="158.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="45.0" prefWidth="101.0" text="Reset">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Text layoutX="467.0" layoutY="753.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create">
+      <Text fx:id="modifyTF" layoutX="556.0" layoutY="754.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <Text layoutX="119.0" layoutY="753.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Text>
-      <Text layoutX="786.0" layoutY="754.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
+      <Text fx:id="deleteTF" layoutX="308.0" layoutY="755.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
          <font>
             <Font size="30.0" />
          </font>
