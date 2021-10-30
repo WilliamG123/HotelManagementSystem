@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -50,9 +51,11 @@ public class UserCreateController extends DBConnection implements Initializable 
     @FXML
     private TextField tf_HotelName;
     @FXML
+    private Button btn_search;
+
     private ContextMenu entriesPopup;
     private Connection conn;
-    private ObservableList<Hotels> list;
+    @FXML private ObservableList<Hotels> list;
 
     ArrayList<String> possibleWords = new ArrayList<String>();
 
@@ -86,6 +89,7 @@ public class UserCreateController extends DBConnection implements Initializable 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        list = FXCollections.observableArrayList();
         //adding all 10 required hotels for type ahead in search by hotel name 
         possibleWords.add("The Magnolia All Suites");
         possibleWords.add("The Lofts at Town Centre");
@@ -101,11 +105,13 @@ public class UserCreateController extends DBConnection implements Initializable 
 
         TextFields.bindAutoCompletion(tf_HotelName, possibleWords);
         //run the method
+
         try {
             populateTableView();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
         tf_HotelName.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -121,31 +127,35 @@ public class UserCreateController extends DBConnection implements Initializable 
 
 
     }
-
-
+    public void onClick_btn_search(ActionEvent e) throws SQLException, ClassNotFoundException {
+        populateTableView();
+    }
     //method to populate tableview
-    private void populateTableView() throws SQLException, ClassNotFoundException {
+    public void populateTableView() throws SQLException, ClassNotFoundException {
 
         //instantiate list
         //both datepickers must have a value in order to run this query
 
 
         Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement("CALL getHotelsByDate('2021-10-27','2021-11-03')");
+        PreparedStatement ps = con.prepareStatement("CALL getHotelsByDate(?,?)");
 
-            System.out.println("DATE PICKERS ARE NULL");
-           // check_in_date = check_in.getValue();
-            //check_out_date = check_in.getValue();
-            //ps.setDate(1, Date.valueOf(String.valueOf(check_in_date)));
-            //ps.setDate(2, Date.valueOf(String.valueOf(check_out_date)));
+            if(check_in.getValue() != null){
+                System.out.println("DATE PICKERS HAVE VALUES!");
+                check_in_date = check_in.getValue();
+                check_out_date = check_in.getValue();
+                 ps.setDate(1, Date.valueOf(String.valueOf(check_in_date)));
+                 ps.setDate(2, Date.valueOf(String.valueOf(check_out_date)));
 
+            }else if(check_in.getValue() == null) {
 
-            System.out.println("DEFUALT DATES  USED");
+                System.out.println("DATEPICKERS NULL USE DEFUALT INSTEAD");
 
-            //long millis=System.currentTimeMillis();
-           // java.sql.Date date=new java.sql.Date(millis);
-           // ps.setDate(1, date);
-           // ps.setDate(2, date);
+                long millis = System.currentTimeMillis();
+                java.sql.Date date = new java.sql.Date(millis);
+                ps.setDate(1, date);
+                ps.setDate(2, date);
+            }
             ResultSet rs = ps.executeQuery();
 
 
@@ -177,7 +187,7 @@ public class UserCreateController extends DBConnection implements Initializable 
         Price.setCellValueFactory(new PropertyValueFactory<>("price"));
         amentities.setCellValueFactory(new PropertyValueFactory<>("amentities"));
         details.setCellValueFactory(new PropertyValueFactory<>("hoteldesc"));
-        address.setCellValueFactory(new PropertyValueFactory<>("hoteladd"));
+        address.setCellValueFactory(new PropertyValueFactory<>("hoteladdr"));
         rating.setCellValueFactory(new PropertyValueFactory<>("rating"));
 
         // Hotel.setCellValueFactory(c-> new SimpleStringProperty(hotel.getHotelname()));

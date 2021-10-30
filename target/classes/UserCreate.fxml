@@ -79,7 +79,7 @@
             <Font name="SansSerif Bold" size="36.0" />
          </font>
       </Text>
-      <Button fx:id="btn_search" layoutX="34.0" layoutY="409.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="141.0" text="Search">
+      <Button fx:id="btn_search" layoutX="34.0" layoutY="409.0" mnemonicParsing="false" onAction="#onClick_btn_search" prefHeight="34.0" prefWidth="141.0" text="Search">
          <font>
             <Font name="SansSerif Bold" size="26.0" />
          </font>
