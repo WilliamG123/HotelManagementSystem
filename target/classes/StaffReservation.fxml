@@ -40,8 +40,8 @@
         <columns>
           <TableColumn fx:id="userIDColumn" prefWidth="75.0" text="UserID" />
             <TableColumn fx:id="hotelColumn" prefWidth="75.0" text="Hotel" />
-            <TableColumn fx:id="datesColumn" prefWidth="75.0" text="Dates" />
-          <TableColumn fx:id="roomsColumn" prefWidth="75.0" text="# of Rooms" />
+            <TableColumn fx:id="checkInColumn" prefWidth="183.0" text="Check in" />
+            <TableColumn fx:id="checkOutColumn" prefWidth="75.0" text="Check out" />
             <TableColumn fx:id="costColumn" prefWidth="75.0" text="Total Cost" />
             <TableColumn fx:id="resNumColumn" prefWidth="116.0" text="Reservation #" />
         </columns>

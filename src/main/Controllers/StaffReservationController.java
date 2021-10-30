@@ -46,8 +46,6 @@ public class StaffReservationController extends DBConnection implements Initiali
 
     @FXML private TableColumn<Reservation, String> resNumColumn;
 
-    @FXML private TextField useridTF;
-
     @FXML private TextField hotelTF;
 
     @FXML private TextField resNumTF;
@@ -161,6 +159,7 @@ public class StaffReservationController extends DBConnection implements Initiali
             System.out.println(res);
         } while(rs.next());
 
+        // hard coded data since not a lot of DB data
         LocalDate checkin1 = LocalDate.now();
         LocalDate checkout1 = checkin1.plusDays(4);
         LocalDate checkin2 = checkout1.plusDays(10);
