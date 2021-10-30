@@ -16,6 +16,8 @@ import java.util.ResourceBundle;
 
 public class StaffMainMenuController implements Initializable {
 
+    @FXML private Button profileBtn;
+
     @FXML private Button propertyBtn;
 
     @FXML private Button reservationBtn;
@@ -32,6 +34,10 @@ public class StaffMainMenuController implements Initializable {
         AnchorPane newScene = null;
 
         try {
+            if(event.getSource() == profileBtn){
+                newScene = FXMLLoader.load(getClass().getResource("UserProfile.fxml"));
+                System.out.println("Profile button pressed");
+            }
             if (event.getSource() == propertyBtn){
                 newScene = FXMLLoader.load(getClass().getResource("StaffProperty.fxml"));
                 System.out.println("Property Management Button Pressed!");
