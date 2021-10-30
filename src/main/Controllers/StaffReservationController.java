@@ -8,16 +8,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 /*****************************************************************
@@ -39,9 +38,9 @@ public class StaffReservationController extends DBConnection implements Initiali
 
     @FXML private TableColumn<Reservation, String> hotelColumn;
 
-    @FXML private TableColumn<Reservation, String> datesColumn;
+    @FXML private TableColumn<Reservation, String> checkInColumn;
 
-    @FXML private TableColumn<Reservation, String> roomsColumn;
+    @FXML private TableColumn<Reservation, String> checkOutColumn;
 
     @FXML private TableColumn<Reservation, String> costColumn;
 
@@ -113,30 +112,66 @@ public class StaffReservationController extends DBConnection implements Initiali
     public void populateListView() throws SQLException{
         // set up query for all reservations
         query.setLength(0);
-        query.append("SELECT * FROM reservation");
+        query.append("SELECT * FROM reservation;");
         // query the database
         ResultSet rs = conn.createStatement().executeQuery(query.toString());
         ResultSetMetaData rsmd = rs.getMetaData();
         System.out.println("querying SELECT * FROM reservation");
         int columnsNumber = rsmd.getColumnCount();
 
+        if(rs.next()){
+            addReservations(rs);
+            userIDColumn.setCellValueFactory(new PropertyValueFactory<>("custId"));
+            hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotelName"));
+            checkInColumn.setCellValueFactory(new PropertyValueFactory<>("checkIn"));
+            checkOutColumn.setCellValueFactory(new PropertyValueFactory<>("checkOut"));
+            costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
+            resNumColumn.setCellValueFactory(new PropertyValueFactory<>("resID"));
+        }
         // while loop prints out all result set data
-        while (rs.next()) {
+        /*while (rs.next()) {
             for (int i = 1; i <= columnsNumber; i++) {
                 if (i > 1) System.out.print(",  ");
                 String columnValue = rs.getString(i);
                 System.out.print(columnValue + " " + rsmd.getColumnName(i));
             }
             System.out.println("");
-        }
-
-        /*while (rs.next()) {
-            Reservation res = new Reservation();
-            res.setResID(rs.getString("reservationid"));
-            res.setTotalCost(rs.getDouble("total_price"));
-            resList.add(res);
         }*/
 
-        //resTable.setItems(resList);
+        resTable.setItems(resList);
+    }
+
+    /*****************************************************************
+     *                     addReservations Method
+     * @param rs - holds reservations data from DB
+     * - uses a ResultSet iterable to parse the res data into an ObservableList
+     *****************************************************************/
+    private void addReservations(ResultSet rs) throws SQLException {
+        do{
+            Reservation res = new Reservation();
+            res.setResID(rs.getInt("reservationId"));
+            res.setCost(rs.getDouble("total_price"));
+            res.setCheckIn(rs.getDate("check_in").toLocalDate());
+            res.setCheckOut(rs.getDate("check_out").toLocalDate());
+            res.setAdults(rs.getInt("adults"));
+            res.setChildren(rs.getInt("children"));
+            res.setHotelName("FixLater");
+            res.setCustId("Brandon");
+            resList.add(res);
+            System.out.println(res);
+        } while(rs.next());
+
+        LocalDate checkin1 = LocalDate.now();
+        LocalDate checkout1 = checkin1.plusDays(4);
+        LocalDate checkin2 = checkout1.plusDays(10);
+        LocalDate checkout2 = checkin2.plusDays(4);
+        LocalDate checkin3 = checkout2.plusDays(10);
+        LocalDate checkout3 = checkin3.plusDays(4);
+        Reservation w = new Reservation("William", "La Quinta", checkin1, checkout1, 230.50, 123647861);
+        Reservation f = new Reservation("Filberto", "HolidayInn", checkin2, checkout2, 360.29, 978546312);
+        Reservation e = new Reservation("Edgar", "Hilton", checkin3, checkout3, 590.13, 123456789);
+        resList.add(w);
+        resList.add(f);
+        resList.add(e);
     }
 }

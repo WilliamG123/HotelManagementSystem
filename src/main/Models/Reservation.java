@@ -1,23 +1,82 @@
+import java.sql.Date;
 import java.util.List;
+import java.time.LocalDate;
 
 public class Reservation {
 
     private String hotelName;
-    private String dates; // should change this to a date object or something idk
-    private double totalCost;
-    private String userEmail;
-    private String resID;
+    private String custId;
+    private LocalDate checkIn;
+    private LocalDate checkOut; // should change this to a date object or something idk
+    private double cost;
+    private int adults;
+    private int children;
+    private int resID;
     private List<Room> rooms;
+
+    public LocalDate getCheckIn() {
+        return checkIn;
+    }
+
+    public String getCustId() {
+        return custId;
+    }
+
+    public void setCustId(String custId) {
+        this.custId = custId;
+    }
+
+    public void setCheckIn(LocalDate checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public LocalDate getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(LocalDate checkOut) {
+        this.checkOut = checkOut;
+    }
+
+    public int getAdults() {
+        return adults;
+    }
+
+    public void setAdults(int adults) {
+        this.adults = adults;
+    }
+
+    public int getChildren() {
+        return children;
+    }
+
+    public void setChildren(int children) {
+        this.children = children;
+    }
 
     public Reservation(){ }
 
-    public Reservation(String hotelName, String dates, double totalCost, String userEmail, String resID, List<Room> rooms) {
+
+    // Constructor specifically made for StaffReservation scene do not change
+    public Reservation(String custId, String hotelName, LocalDate checkIn, LocalDate checkOut, double cost, int resID) {
         this.hotelName = hotelName;
-        this.dates = dates;
-        this.totalCost = totalCost;
-        this.userEmail = userEmail;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.cost = cost;
         this.resID = resID;
-        this.rooms = rooms;
+        this.custId = custId;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "checkIn='" + checkIn + '\'' +
+                ", checkOut='" + checkOut + '\'' +
+                ", totalCost=" + cost +
+                ", adults=" + adults +
+                ", children=" + children +
+                ", resID='" + resID + '\'' +
+                '}';
     }
 
     public String getHotelName() {
@@ -28,35 +87,19 @@ public class Reservation {
         this.hotelName = hotelName;
     }
 
-    public String getDates() {
-        return dates;
+    public double getCost() {
+        return cost;
     }
 
-    public void setDates(String dates) {
-        this.dates = dates;
+    public void setCost(double cost) {
+        this.cost = cost;
     }
 
-    public double getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(double totalCost) {
-        this.totalCost = totalCost;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public String getResID() {
+    public int getResID() {
         return resID;
     }
 
-    public void setResID(String resID) {
+    public void setResID(int resID) {
         this.resID = resID;
     }
 
