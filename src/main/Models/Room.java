@@ -2,12 +2,15 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class Room {
-    private final int roomID;
-    private final int roomNum;
+    private int roomID;
+    private int roomNum;
+    private int isOccupied;
     private double price;
     private double weekendRate;
     private double weekendPrice;
     private String type;
+
+    public Room(){}
 
     public Room(int roomID, int roomNum, double price, String type){
         this.roomID = roomID;
@@ -34,6 +37,14 @@ public class Room {
         this.weekendRate = weekendRate;
     }
 
+    public void setRoomID(int id){this.roomID = id;}
+
+    public void setRoomNum(int num){this.roomNum = num;}
+
+    public void setIsOccupied(int occupied){
+        this.isOccupied = occupied;
+    }
+
     public double getWeekendPrice(){
         return this.weekendPrice;
     }
@@ -49,6 +60,8 @@ public class Room {
     public int getRoomNum(){
         return this.roomNum;
     }
+
+    public int getIsOccupied(){return this.isOccupied;}
 
     public void recalculateWeekendPrice(){
         this.weekendPrice = this.price * (1.0+this.weekendRate);
