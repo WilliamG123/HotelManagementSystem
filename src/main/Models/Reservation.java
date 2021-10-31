@@ -1,18 +1,50 @@
 import java.sql.Date;
 import java.util.List;
 import java.time.LocalDate;
-
+/*****************************************************************
+ *                     Reservation Class
+ * - used to store all information for a reservation
+ *****************************************************************/
 public class Reservation {
 
     private String hotelName;
     private String custId;
+    private String name;
     private LocalDate checkIn;
-    private LocalDate checkOut; // should change this to a date object or something idk
+    private LocalDate checkOut;
     private double cost;
     private int adults;
     private int children;
     private int resID;
     private List<Room> rooms;
+
+    // empty constructor
+    public Reservation(){ }
+
+    // Constructor specifically made for StaffReservation scene do not change
+    public Reservation(String custId, String hotelName, LocalDate checkIn, LocalDate checkOut, double cost, int resID) {
+        this.hotelName = hotelName;
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
+        this.cost = cost;
+        this.resID = resID;
+        this.custId = custId;
+    }
+
+    // method for easy printing for debugging purposes
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "checkIn='" + checkIn + '\'' +
+                ", checkOut='" + checkOut + '\'' +
+                ", totalCost=" + cost +
+                ", adults=" + adults +
+                ", children=" + children +
+                ", resID='" + resID + '\'' +
+                '}';
+    }
+
+    // following methods are all getters and setters for the class variables
 
     public LocalDate getCheckIn() {
         return checkIn;
@@ -54,31 +86,6 @@ public class Reservation {
         this.children = children;
     }
 
-    public Reservation(){ }
-
-
-    // Constructor specifically made for StaffReservation scene do not change
-    public Reservation(String custId, String hotelName, LocalDate checkIn, LocalDate checkOut, double cost, int resID) {
-        this.hotelName = hotelName;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
-        this.cost = cost;
-        this.resID = resID;
-        this.custId = custId;
-    }
-
-    @Override
-    public String toString() {
-        return "Reservation{" +
-                "checkIn='" + checkIn + '\'' +
-                ", checkOut='" + checkOut + '\'' +
-                ", totalCost=" + cost +
-                ", adults=" + adults +
-                ", children=" + children +
-                ", resID='" + resID + '\'' +
-                '}';
-    }
-
     public String getHotelName() {
         return hotelName;
     }
@@ -110,4 +117,8 @@ public class Reservation {
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
+
+    public String getName() {return name;}
+
+    public void setName(String name) {this.name = name;}
 }

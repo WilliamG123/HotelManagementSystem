@@ -1,3 +1,4 @@
+import java.beans.PropertyEditor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,8 +13,16 @@ public class Property {
     private HashMap<String, Integer> roomTypes;
     private int numberRooms;
     private int numberAmenities;
+    private int rating;
+    private int numberAvailableRooms;
 
-    public Property(String propertyName, String desc, String address, String[] amenities, ArrayList<Room> rooms, ArrayList<Reservation> reservations){
+    public Property(){
+        this.amenities = new ArrayList<>();
+        this.reservations = new ArrayList<>();
+        this.roomTypes = new HashMap<>();
+    }
+
+    public Property(String propertyName, String desc, String address, String[] amenities, ArrayList<Room> rooms, ArrayList<Reservation> reservations, int rating, int numberAvailableRooms){
         this.propertyName = propertyName;
         this.desc = desc;
         this.address = address;
@@ -27,6 +36,8 @@ public class Property {
         }
         this.numberRooms = rooms.size();
         this.numberAmenities = amenities.length;
+        this.rating = rating;
+        this.numberAvailableRooms = numberAvailableRooms;
     }
 
     public ArrayList<String> getAmenities(){
@@ -65,13 +76,33 @@ public class Property {
         return this.numberAmenities;
     }
 
+    public int getRating(){return this.rating;}
+
+    public int getNumberAvailableRooms(){return this.numberAvailableRooms;}
+
     public void setAmenities(ArrayList<String> amenities){
         this.amenities = amenities;
+        this.numberAmenities = amenities.size();
     }
 
     public void setRooms(ArrayList<Room> rooms){
         this.rooms = rooms;
+        this.numberRooms = rooms.size();
+        for(Room room : this.rooms){
+            int count = this.roomTypes.getOrDefault(room.getType(), 0);
+            this.roomTypes.put(room.getType(), count+1);
+        }
     }
+
+    public void setRating(int rating){
+        this.rating = rating;
+    }
+
+    public void setNumberAvailableRooms(int availableRooms){
+        this.numberAvailableRooms = availableRooms;
+    }
+
+    public void setNumberRooms(int numberRooms){this.numberRooms = numberRooms;}
 
     public void setReservations(ArrayList<Reservation> reservations){
         this.reservations = reservations;
