@@ -128,6 +128,7 @@ public class UserCreateController extends DBConnection implements Initializable 
 
     }
     public void onClick_btn_search(ActionEvent e) throws SQLException, ClassNotFoundException {
+        list.clear();
         populateTableView();
     }
     //method to populate tableview
@@ -164,6 +165,7 @@ public class UserCreateController extends DBConnection implements Initializable 
 
         //loop through the resultSet , extract data and append it to our list
         while(rs.next()) {
+
             //Create a hotels Object , add data to it and finally append it to list
             Hotels hotel =new Hotels();
             hotel.setHotelname(rs.getString("hotel_name"));
