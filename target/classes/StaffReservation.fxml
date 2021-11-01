@@ -51,15 +51,15 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextField fx:id="hotelTF" layoutX="146.0" layoutY="122.0" prefHeight="71.0" prefWidth="196.0" promptText="Enter hotel name" />
-      <DatePicker fx:id="checkInDP" layoutX="377.0" layoutY="122.0" prefHeight="71.0" prefWidth="196.0" promptText="Select check in date" />
-      <DatePicker fx:id="checkOutDP" layoutX="617.0" layoutY="122.0" prefHeight="71.0" prefWidth="196.0" promptText="select check out date" />
-      <Text layoutX="429.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
+      <TextField fx:id="hotelTF" layoutX="135.0" layoutY="122.0" prefHeight="71.0" prefWidth="152.0" promptText="Enter hotel name" />
+      <DatePicker fx:id="checkInDP" layoutX="490.0" layoutY="123.0" prefHeight="71.0" prefWidth="152.0" promptText="Select check in date" />
+      <DatePicker fx:id="checkOutDP" layoutX="668.0" layoutY="122.0" prefHeight="71.0" prefWidth="152.0" promptText="select checkout date" />
+      <Text layoutX="510.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
          <font>
             <Font size="15.0" />
          </font>
       </Text>
-      <Text layoutX="663.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
+      <Text layoutX="689.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
          <font>
             <Font size="15.0" />
          </font>
@@ -69,13 +69,13 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Text layoutX="36.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
+      <Text layoutX="20.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
          <font>
             <Font size="25.0" />
          </font>
       </Text>
       <Text layoutX="14.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="224.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
+      <Text layoutX="188.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
          <font>
             <Font size="15.0" />
          </font>
@@ -93,6 +93,12 @@
       <Text fx:id="deleteTF" layoutX="308.0" layoutY="755.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
          <font>
             <Font size="30.0" />
+         </font>
+      </Text>
+      <TextField fx:id="nameTF" layoutX="314.0" layoutY="122.0" prefHeight="71.0" prefWidth="152.0" promptText="Enter full name" />
+      <Text layoutX="351.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guest name:">
+         <font>
+            <Font size="15.0" />
          </font>
       </Text>
    </children>

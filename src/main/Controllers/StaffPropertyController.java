@@ -76,8 +76,8 @@ public class StaffPropertyController extends DBConnection implements Initializab
         query.append(" hotel.hotel_total_rms,");
         query.append(" hotel.hotel_availrms,");
         query.append(" hotel.hotel_numofamend,");
-        query.append(" hotel.hotel_hotel_rating,");
-        query.append(" room.room_id");
+        query.append(" hotel.hotel_rating,");
+        query.append(" room.room_id,");
         query.append(" room.room_number,");
         query.append(" room.isOccupied,");
         query.append(" room_types.type_name,");
@@ -85,8 +85,8 @@ public class StaffPropertyController extends DBConnection implements Initializab
         query.append(" amenities.roomAmenities,");
         query.append(" amenities.services,");
         query.append(" amenities.facilities,");
-        query.append(" reservation.*");
-        query.append(" users.email,");
+        query.append(" reservation.*,");
+        query.append(" users.email");
         query.append(" FROM hotel");
         query.append(" JOIN room");
         query.append(" ON room.hotel_id = hotel.hotel_id");

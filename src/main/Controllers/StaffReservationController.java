@@ -39,6 +39,7 @@ public class StaffReservationController extends DBConnection implements Initiali
     @FXML private TableColumn<Reservation, String> resNumColumn;
     @FXML private TextField hotelTF;
     @FXML private TextField resNumTF;
+    @FXML private TextField nameTF;
     @FXML private DatePicker checkInDP;
     @FXML private DatePicker checkOutDP;
     @FXML private Button applyBtn;
@@ -103,11 +104,12 @@ public class StaffReservationController extends DBConnection implements Initiali
     public void populateListView() throws SQLException{
         // set up query for all reservations
         query.setLength(0);
+        //getQuery();
         query.append("SELECT * FROM reservation;");
         // query the database
         ResultSet rs = conn.createStatement().executeQuery(query.toString());
         ResultSetMetaData rsmd = rs.getMetaData();
-        System.out.println("querying SELECT * FROM reservation");
+        System.out.println("Log: querying SELECT * FROM reservation");
         int columnsNumber = rsmd.getColumnCount();
 
         if(rs.next()){
@@ -186,12 +188,22 @@ public class StaffReservationController extends DBConnection implements Initiali
         LocalDate checkin = checkInDP.getValue();
         LocalDate checkout = checkOutDP.getValue();
         String hotel = hotelTF.getText().toString();
+        String name = nameTF.getText().toString();
 
-        // TODO: 10/30/2021 need to find out proper query to get hotel name
+        // TODO: 10/30/2021 need to find out proper query to get hotel name & guest name
         /*if(!hotel.equals("")){
             query.append(" hotelName=?");
             appended = true;
             statementValues.put(pos, phoneNumber);
+            pos++;
+        }
+        if(!name.equals("")){
+            if (appended) {
+                query.append(" AND");
+            }
+            query.append(" check_in=?");
+            appended = true;
+            statementValues.put(pos, checkin);
             pos++;
         }*/
         if(checkin != null){
@@ -257,6 +269,44 @@ public class StaffReservationController extends DBConnection implements Initiali
         resList.add(w);
         resList.add(f);
         resList.add(e);
+    }
 
+    // temporary method to test queries
+    private void getQuery(){
+        query.setLength(0);
+        query.append("SELECT");
+        query.append(" hotel.hotel_name,");
+        query.append(" hotel.hotel_address,");
+        query.append(" hotel.hotel_desc,");
+        query.append(" hotel.hotel_total_rms,");
+        query.append(" hotel.hotel_availrms,");
+        query.append(" hotel.hotel_numofamend,");
+        query.append(" hotel.hotel_hotel_rating,");
+        query.append(" room.room_id");
+        query.append(" room.room_number,");
+        query.append(" room.isOccupied,");
+        query.append(" room_types.type_name,");
+        query.append(" room_rates.daily_rate,");
+        query.append(" amenities.roomAmenities,");
+        query.append(" amenities.services,");
+        query.append(" amenities.facilities,");
+        query.append(" reservation.*");
+        query.append(" users.email,");
+        query.append(" FROM hotel");
+        query.append(" JOIN room");
+        query.append(" ON room.hotel_id = hotel.hotel_id");
+        query.append(" JOIN room_types");
+        query.append(" ON room_types.room_type_id = room.room_type_id");
+        query.append(" JOIN room_rates");
+        query.append(" ON room_rates.rrId = room_types.room_type_id");
+        query.append(" JOIN amenities");
+        query.append(" ON amenities.hotel_id = hotel.hotel_id");
+        query.append(" JOIN reservation");
+        query.append(" ON reservation.hotel_id = hotel.hotel_id");
+        query.append(" JOIN customer");
+        query.append(" ON customer.custId = reservation.custId");
+        query.append(" JOIN users");
+        query.append(" ON users.userId = customer.custId;");
+        System.out.println("Log: Querying for everything?!");
     }
 }
