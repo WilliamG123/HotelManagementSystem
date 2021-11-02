@@ -64,6 +64,8 @@ public class StaffReservationController extends DBConnection implements Initiali
                 newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
             else if(event.getSource() == logoutTV){
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+            }else if(event.getSource() == modifyTF){
+                newScene = FXMLLoader.load(getClass().getResource("StaffResModify.fxml"));
             }
         } catch (IOException e) {
             e.printStackTrace();
