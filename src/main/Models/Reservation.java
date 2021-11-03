@@ -35,13 +35,13 @@ public class Reservation {
     @Override
     public String toString() {
         return "Reservation{" +
-                "checkIn='" + checkIn + '\'' +
-                ", checkOut='" + checkOut + '\'' +
-                ", totalCost=" + cost +
-                ", adults=" + adults +
-                ", children=" + children +
-                ", resID='" + resID + '\'' +
-                '}';
+                "\n\tcheckIn='" + checkIn + '\'' +
+                "\n\tcheckOut='" + checkOut + '\'' +
+                "\n\ttotalCost=" + cost +
+                "\n\tadults=" + adults +
+                "\n\tchildren=" + children +
+                "\n\tresID='" + resID + '\'' +
+                "\n}";
     }
 
     // following methods are all getters and setters for the class variables
