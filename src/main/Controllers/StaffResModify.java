@@ -1,10 +1,10 @@
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /*****************************************************************
@@ -47,47 +48,40 @@ public class StaffResModify implements Initializable {
         System.out.println("Log: Reservation: \n" + reservation);
     }
 
-    @FXML void sceneChange(MouseEvent event) {
-        AnchorPane newScene = null;
-
-        // try block attempts to load a new scene
-        try {
-            if (event.getSource() == returnTF) {
-                newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
-                System.out.println("Log: StaffResModify -> returnBtn");
-            } else if(event.getSource() == modDatesTF) {
-                System.out.println("Log: StaffResModify -> modifyBtn");
-                modifyDates(event);
-            } else if(event.getSource() == deleteTF){
-                System.out.println("Log: StaffResModify -> deleteBtn");
-                deleteRes();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Scene scene = new Scene(newScene);
-        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
-    }
-
     // modifies the dates based on what user puts in date picker
     private void modifyDates(MouseEvent event) {
+        System.out.println("Log: StaffResModify -> modifyBtn");
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 
-        // TODO: 11/3/2021 write a query to see if dates are available & then modify the request if so
         LocalDate checkin = checkInDP.getValue();
         LocalDate checkout = checkOutDP.getValue();
 
         if(checkin.isAfter(checkout)){
-            Toast.makeText(stage, "Error: Check in date cannot be before checkout", 5000, 1000, 1000);
+            Toast.makeText(stage, "Error: Check in date cannot be before checkout", 3000, 700, 700);
         }
+
+        // TODO: 11/3/2021 query the database to see if a room is available
+
+        // TODO: 11/3/2021 if room is available then update dates for the reservation in DB
+
+        // TODO: 11/3/2021 if room is not available then send a toast message saying so
     }
 
-    // deletes a reservation in the database
-    private void deleteRes() {
-        // TODO: 11/3/2021 write a query to delete a reservation from the DB
+    // pops up alert dialog window to confirm deletion of reservation and then queries DB to do so
+    @FXML private void deleteRes() {
+        System.out.println("Log: StaffResModify -> deleteBtn");
+        ButtonType deleteBtn = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.NONE,"Please confirm reservation deletion", deleteBtn, cancelBtn);
+        alert.setTitle("Deletion Confirmation");
+        //alert.setContentText("Please confirm reservation deletion");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        // if user confirmed reservation deletion
+        if(result.orElse(cancelBtn) == deleteBtn){
+            System.out.println("Delete");
+            // TODO: 11/3/2021 write a query to delete a reservation from the DB
+        }
     }
 
     @Override
@@ -107,5 +101,18 @@ public class StaffResModify implements Initializable {
         //daysTF.setText("Total days: " + reservation.);
         priceTF.setText("Total price: " + reservation.getCost());
         //roomsTA.setText();
+    }
+
+    @FXML void sceneChange(MouseEvent event) {
+        AnchorPane newScene = null;
+        try {
+            newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
+            Scene scene = new Scene(newScene);
+            Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

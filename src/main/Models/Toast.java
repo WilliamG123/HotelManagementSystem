@@ -26,7 +26,7 @@ public class Toast {
         toastStage.initStyle(StageStyle.TRANSPARENT);
 
         Text text = new Text(toastMsg);
-        text.setFont(Font.font("Verdana", 40));
+        text.setFont(Font.font("Verdana", 20));
         text.setFill(Color.RED);
 
         StackPane root = new StackPane(text);

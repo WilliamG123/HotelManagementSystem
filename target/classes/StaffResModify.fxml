@@ -101,7 +101,7 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="deleteTF" layoutX="117.0" layoutY="740.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
+      <Text fx:id="deleteTF" layoutX="117.0" layoutY="740.0" onMouseClicked="#deleteRes" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
          <font>
             <Font size="30.0" />
          </font>
