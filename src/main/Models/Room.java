@@ -12,13 +12,14 @@ public class Room {
 
     public Room(){}
 
-    public Room(int roomID, int roomNum, double price, String type){
-        this.roomID = roomID;
+    public Room(int roomNum, double price, String type, int isOccupied, double weekendRate){
+        //this.roomID = roomID;
         this.roomNum = roomNum;
         this.price = price;
         this.type = type;
-        this.weekendRate = 0.05;
+        this.weekendRate = weekendRate;
         this.weekendPrice = this.price * (1.0+this.weekendRate);
+        this.isOccupied = isOccupied;
     }
 
     public String getType(){
@@ -67,4 +68,14 @@ public class Room {
         this.weekendPrice = this.price * (1.0+this.weekendRate);
     }
 
+    @Override
+    public String toString(){
+        return "Room{" + "\n\tType: " + this.type +
+                "\n\tRoom Number: " + this.roomNum +
+                "\n\tBase Price: " + this.price +
+                "\n\tWeekend Rate: " + this.weekendRate +
+                "\n\tWeekend Price: " + this.weekendPrice +
+                "\n\tOccupied: " + ((this.isOccupied == 0) ? "No" : "Yes") +
+                "\n}";
+    }
 }

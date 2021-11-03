@@ -35,20 +35,16 @@ public class Reservation {
     @Override
     public String toString() {
         return "Reservation{" +
-                "checkIn='" + checkIn + '\'' +
-                ", checkOut='" + checkOut + '\'' +
-                ", totalCost=" + cost +
-                ", adults=" + adults +
-                ", children=" + children +
-                ", resID='" + resID + '\'' +
-                '}';
+                "\n\tcheckIn='" + checkIn + '\'' +
+                "\n\tcheckOut='" + checkOut + '\'' +
+                "\n\ttotalCost=" + cost +
+                "\n\tadults=" + adults +
+                "\n\tchildren=" + children +
+                "\n\tresID='" + resID + '\'' +
+                "\n}";
     }
 
     // following methods are all getters and setters for the class variables
-
-    public LocalDate getCheckIn() {
-        return checkIn;
-    }
 
     public String getCustId() {
         return custId;
@@ -56,6 +52,10 @@ public class Reservation {
 
     public void setCustId(String custId) {
         this.custId = custId;
+    }
+
+    public LocalDate getCheckIn() {
+        return checkIn;
     }
 
     public void setCheckIn(LocalDate checkIn) {

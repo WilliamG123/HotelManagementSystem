@@ -67,6 +67,6 @@
          </font>
       </Text>
       <TextField fx:id="resNumTF" layoutX="43.0" layoutY="284.0" />
-      <Button layoutX="68.0" layoutY="361.0" mnemonicParsing="false" text="Create Property" />
+      <Button fx:id="createBtn" layoutX="68.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleButtons" text="Create Property" />
    </children>
 </AnchorPane>

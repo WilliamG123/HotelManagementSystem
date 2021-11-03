@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffResModify">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="800.0" stroke="BLACK" strokeType="INSIDE" width="1000.0" />
-      <Text layoutX="19.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:">
+      <Text layoutX="19.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:">
          <font>
             <Font size="30.0" />
          </font></Text>
@@ -28,23 +29,23 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="hNameTF" layoutX="125.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La Quinta Suites">
+      <Text fx:id="hNameTF" layoutX="117.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La Quinta Suites" wrappingWidth="786.8525390625">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="hAddressTF" layoutX="157.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12769 Alfedo Street, San Antonio, TX, 78240">
+      <Text fx:id="hAddressTF" layoutX="152.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12769 Alfedo Street, San Antonio, TX, 78240" wrappingWidth="838.037109375">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="hRatingTF" layoutX="137.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X/10 Stars">
+      <Text fx:id="hRatingTF" layoutX="138.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X/10 Stars" wrappingWidth="182.47265625">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <TextArea fx:id="descriptionTA" layoutX="291.0" layoutY="269.0" prefHeight="99.0" prefWidth="501.0" />
-      <Text fx:id="resIdTF" layoutX="22.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation #0000000000000001">
+      <TextArea fx:id="descriptionTA" editable="false" layoutX="291.0" layoutY="269.0" prefHeight="99.0" prefWidth="501.0" />
+      <Text fx:id="resIdTF" layoutX="22.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation #0000000000000001" wrappingWidth="873.7939453125">
          <font>
             <Font size="30.0" />
          </font>
@@ -69,17 +70,17 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="adultsTF" layoutX="22.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adults:" wrappingWidth="90.6591796875">
+      <Text fx:id="adultsTF" layoutX="24.0" layoutY="559.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adults:" wrappingWidth="320.6591796875">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="childrenTF" layoutX="24.0" layoutY="635.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Children:">
+      <Text fx:id="childrenTF" layoutX="15.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Children:" wrappingWidth="337.3486328125">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <Text layoutX="497.0" layoutY="615.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:">
+      <Text layoutX="473.0" layoutY="607.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms:">
          <font>
             <Font size="30.0" />
          </font>
@@ -90,21 +91,23 @@
          </font>
       </Text>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e2eef8" height="127.0" layoutY="672.0" stroke="BLACK" strokeType="INSIDE" width="1001.0" />
-      <Text fx:id="returnTF" layoutX="792.0" layoutY="738.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Return">
+      <Text fx:id="returnTF" layoutX="792.0" layoutY="738.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Return">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="modDatesTF" layoutX="400.0" layoutY="739.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Dates">
+      <Text fx:id="modDatesTF" layoutX="400.0" layoutY="739.0" onMouseClicked="#modifyDates" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Dates">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="deleteTF" layoutX="117.0" layoutY="740.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
+      <Text fx:id="deleteTF" layoutX="117.0" layoutY="740.0" onMouseClicked="#deleteRes" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <TextArea fx:id="roomsTA" layoutX="646.0" layoutY="547.0" prefHeight="112.0" prefWidth="293.0" />
+      <TextArea fx:id="roomsTA" editable="false" layoutX="594.0" layoutY="550.0" prefHeight="90.0" prefWidth="293.0" />
+      <DatePicker fx:id="checkInDP" layoutX="196.0" layoutY="388.0" />
+      <DatePicker fx:id="checkOutDP" layoutX="196.0" layoutY="451.0" />
    </children>
 </AnchorPane>

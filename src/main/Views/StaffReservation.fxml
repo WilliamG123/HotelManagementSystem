@@ -85,12 +85,12 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Text fx:id="modifyTF" layoutX="556.0" layoutY="754.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify">
+      <Text fx:id="modifyTF" layoutX="556.0" layoutY="754.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="deleteTF" layoutX="308.0" layoutY="755.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
+      <Text fx:id="deleteTF" layoutX="308.0" layoutY="755.0" onMouseClicked="#deleteRes" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
          <font>
             <Font size="30.0" />
          </font>

@@ -1,4 +1,3 @@
-import java.beans.PropertyEditor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -156,5 +155,24 @@ public class Property {
 
     public void removeReservation(Reservation reservation){
         this.reservations.remove(reservation);
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder rep = new StringBuilder(this.propertyName);
+        rep.append("{\n\tAddress: ");rep.append(this.address);
+        rep.append("\n\tDescription: "); rep.append(this.desc);
+        rep.append("\n\tNumber of Rooms: "); rep.append(this.numberRooms);
+        rep.append("\n\t"); for(Room room : this.rooms){rep.append(room);rep.append("\n\t");}
+        rep.append("\n\tNumber of amenities: "); rep.append(this.numberAmenities);
+        rep.append("\n\tAmenities{"); for(String amenity : amenities){rep.append("\n\t");rep.append(amenity);}rep.append("\n}");
+        rep.append("\n\tNumber of Reservations: ");rep.append(this.reservations.size());
+        rep.append("\n\t");
+        for(Reservation reservation : this.reservations) {
+            rep.append(reservation);
+            rep.append("\n\t");
+        }
+        rep.append("\n}");
+        return rep.toString();
     }
 }

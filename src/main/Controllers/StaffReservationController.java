@@ -17,6 +17,7 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /*****************************************************************
@@ -49,6 +50,7 @@ public class StaffReservationController extends DBConnection implements Initiali
     @FXML private ObservableList<Reservation> resList;
     private Connection conn;
     private StringBuilder query;
+    private Stage stage;
 
     /*****************************************************************
      *                     sceneChange Function
@@ -57,13 +59,28 @@ public class StaffReservationController extends DBConnection implements Initiali
      *****************************************************************/
     @FXML void sceneChange(MouseEvent event) {
         AnchorPane newScene = null;
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
 
         // try block attempts to load a new scene
         try {
-            if (event.getSource() == mainmenuTV)
+            if (event.getSource() == mainmenuTV) {
                 newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
-            else if(event.getSource() == logoutTV){
+                System.out.println("Log: StaffRes -> MainMenuBtn");
+            } else if(event.getSource() == logoutTV) {
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+                System.out.println("Log: StaffRes -> LoginBtn");
+            } else if(event.getSource() == modifyTF) {
+                if(resTable.getSelectionModel().getSelectedItem() == null){
+                    Toast.makeText(stage, "Error: no reservation selected", 2000, 500, 500);
+                    return;
+                } else{
+                    System.out.println("Log: StaffRes -> ModifyBtn");
+                    Reservation reservation = resTable.getSelectionModel().getSelectedItem();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("StaffResModify.fxml"));
+                    StaffResModify controller = new StaffResModify(reservation);
+                    loader.setController(controller);
+                    newScene = loader.load();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -150,7 +167,7 @@ public class StaffReservationController extends DBConnection implements Initiali
             query.setLength(0);
             query.append("SELECT * FROM reservation");
 
-            if(buildQuery(statementValues)){
+            if(buildQuery(statementValues, event)){
                 PreparedStatement ps = conn.prepareStatement(query.toString());
                 for(Integer key : statementValues.keySet()) {
                     Object obj = statementValues.get(key);
@@ -179,7 +196,8 @@ public class StaffReservationController extends DBConnection implements Initiali
      * @param statementValues - HashMap holds the position of each query filter element and its corresponding SQL key
      * - stores the filter TextField data and builds a query string based off of what is entered
      *****************************************************************/
-    private boolean buildQuery(HashMap<Integer, Object> statementValues) {
+    private boolean buildQuery(HashMap<Integer, Object> statementValues, ActionEvent event) {
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
         int pos = 1; // tracks the position of elements in the query linking query questions marks to the corresponding hashmap value
         boolean appended = false; // tracks whether anything is added or appended
         query.append(" WHERE");
@@ -189,6 +207,12 @@ public class StaffReservationController extends DBConnection implements Initiali
         LocalDate checkout = checkOutDP.getValue();
         String hotel = hotelTF.getText().toString();
         String name = nameTF.getText().toString();
+
+        if(hotel.equals("") && name.equals("") && checkin == null && checkout == null){
+            Toast.makeText(stage, "Error: no filter information given", 2000, 500, 500);
+        } else if(checkin.isAfter(checkout)){
+            Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
+        }
 
         // TODO: 10/30/2021 need to find out proper query to get hotel name & guest name
         /*if(!hotel.equals("")){
@@ -271,42 +295,23 @@ public class StaffReservationController extends DBConnection implements Initiali
         resList.add(e);
     }
 
-    // temporary method to test queries
-    private void getQuery(){
-        query.setLength(0);
-        query.append("SELECT");
-        query.append(" hotel.hotel_name,");
-        query.append(" hotel.hotel_address,");
-        query.append(" hotel.hotel_desc,");
-        query.append(" hotel.hotel_total_rms,");
-        query.append(" hotel.hotel_availrms,");
-        query.append(" hotel.hotel_numofamend,");
-        query.append(" hotel.hotel_hotel_rating,");
-        query.append(" room.room_id");
-        query.append(" room.room_number,");
-        query.append(" room.isOccupied,");
-        query.append(" room_types.type_name,");
-        query.append(" room_rates.daily_rate,");
-        query.append(" amenities.roomAmenities,");
-        query.append(" amenities.services,");
-        query.append(" amenities.facilities,");
-        query.append(" reservation.*");
-        query.append(" users.email,");
-        query.append(" FROM hotel");
-        query.append(" JOIN room");
-        query.append(" ON room.hotel_id = hotel.hotel_id");
-        query.append(" JOIN room_types");
-        query.append(" ON room_types.room_type_id = room.room_type_id");
-        query.append(" JOIN room_rates");
-        query.append(" ON room_rates.rrId = room_types.room_type_id");
-        query.append(" JOIN amenities");
-        query.append(" ON amenities.hotel_id = hotel.hotel_id");
-        query.append(" JOIN reservation");
-        query.append(" ON reservation.hotel_id = hotel.hotel_id");
-        query.append(" JOIN customer");
-        query.append(" ON customer.custId = reservation.custId");
-        query.append(" JOIN users");
-        query.append(" ON users.userId = customer.custId;");
-        System.out.println("Log: Querying for everything?!");
+    // pops up alert dialog window to confirm deletion of reservation and then queries DB to do so
+    @FXML private void deleteRes() throws SQLException {
+        System.out.println("Log: StaffResManagey -> deleteBtn");
+        ButtonType deleteBtn = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.NONE,"Please confirm reservation deletion", deleteBtn, cancelBtn);
+        alert.setTitle("Deletion Confirmation");
+        //alert.setContentText("Please confirm reservation deletion");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        // if user confirmed reservation deletion
+        if(result.orElse(cancelBtn) == deleteBtn){
+            System.out.println("Delete");
+            // TODO: 11/3/2021 write a query to delete a reservation from the DB
+        }
+
+        resList.clear();
+        populateListView();
     }
 }

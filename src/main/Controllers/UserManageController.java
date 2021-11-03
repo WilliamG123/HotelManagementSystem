@@ -2,6 +2,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -17,6 +18,8 @@ public class UserManageController {
     @FXML
     private Text logoutTV;
 
+    @FXML
+    private Button cancelBTN;
     @FXML void sceneChange(MouseEvent event) {
         AnchorPane newScene = null;
 
@@ -34,5 +37,9 @@ public class UserManageController {
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+    }
+
+    @FXML void cancelRes(MouseEvent event) {
+
     }
 }
