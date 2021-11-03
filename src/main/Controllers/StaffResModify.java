@@ -49,15 +49,20 @@ public class StaffResModify implements Initializable {
     }
 
     // modifies the dates based on what user puts in date picker
-    private void modifyDates(MouseEvent event) {
+    @FXML private void modifyDates(MouseEvent event) {
         System.out.println("Log: StaffResModify -> modifyBtn");
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 
         LocalDate checkin = checkInDP.getValue();
         LocalDate checkout = checkOutDP.getValue();
 
-        if(checkin.isAfter(checkout)){
-            Toast.makeText(stage, "Error: Check in date cannot be before checkout", 3000, 700, 700);
+        // check if dates are empty and if checkin is not after checkout
+        if(checkin == null || checkout == null){
+            Toast.makeText(stage, "Error: One or more dates missing", 2000, 500, 500);
+        } else if(checkin.isAfter(checkout)){
+            Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
+        } else if(checkin.equals(reservation.getCheckIn()) && checkout.equals(reservation.getCheckOut())){
+            Toast.makeText(stage, "Error: Dates not changed", 2000, 500, 500);
         }
 
         // TODO: 11/3/2021 query the database to see if a room is available

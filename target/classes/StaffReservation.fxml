@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffReservationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffReservationController">
    <children>
       <HBox alignment="CENTER" prefHeight="54.0" prefWidth="1000.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
@@ -90,7 +90,7 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="deleteTF" layoutX="308.0" layoutY="755.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
+      <Text fx:id="deleteTF" layoutX="308.0" layoutY="755.0" onMouseClicked="#deleteRes" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
          <font>
             <Font size="30.0" />
          </font>

@@ -96,7 +96,7 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="modDatesTF" layoutX="400.0" layoutY="739.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Dates">
+      <Text fx:id="modDatesTF" layoutX="400.0" layoutY="739.0" onMouseClicked="#modifyDates" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Dates">
          <font>
             <Font size="30.0" />
          </font>

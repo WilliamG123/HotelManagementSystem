@@ -5,17 +5,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffMainMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffMainMenuController">
    <children>
-      <Label fx:id="welcomeMessage" layoutX="208.0" layoutY="23.0" prefHeight="75.0" prefWidth="306.0" text="Welcome &lt;user&gt;!">
+      <Label fx:id="welcomeMessage" alignment="CENTER" contentDisplay="CENTER" layoutY="52.0" prefHeight="81.0" prefWidth="1000.0" text="Welcome &lt;user&gt;!">
          <font>
-            <Font size="36.0" />
+            <Font size="55.0" />
          </font>
       </Label>
-      <Button fx:id="propertyBtn" layoutX="266.0" layoutY="228.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="51.0" prefWidth="190.0" text="Property Management" />
-      <Button fx:id="reservationBtn" layoutX="266.0" layoutY="327.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="51.0" prefWidth="190.0" text="Reservation Management" />
-      <Button fx:id="accountBtn" layoutX="266.0" layoutY="423.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="51.0" prefWidth="190.0" text="Account Management" />
-      <Button fx:id="logoutButton" layoutX="568.0" layoutY="48.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="25.0" prefWidth="95.0" text="Logout" />
-      <Button fx:id="profileBtn" layoutX="266.0" layoutY="140.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="51.0" prefWidth="190.0" text="Profile" />
+      <Button fx:id="propertyBtn" layoutX="300.0" layoutY="265.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="57.0" prefWidth="401.0" text="Property Management">
+         <font>
+            <Font size="27.0" />
+         </font></Button>
+      <Button fx:id="reservationBtn" layoutX="301.0" layoutY="372.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="57.0" prefWidth="401.0" text="Reservation Management">
+         <font>
+            <Font size="27.0" />
+         </font></Button>
+      <Button fx:id="accountBtn" layoutX="305.0" layoutY="475.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="57.0" prefWidth="401.0" text="Account Management">
+         <font>
+            <Font size="27.0" />
+         </font></Button>
+      <Button fx:id="logoutButton" layoutX="301.0" layoutY="584.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="57.0" prefWidth="401.0" text="Logout">
+         <font>
+            <Font size="27.0" />
+         </font></Button>
+      <Button fx:id="profileBtn" layoutX="301.0" layoutY="167.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="57.0" prefWidth="401.0" text="Profile">
+         <font>
+            <Font size="27.0" />
+         </font></Button>
    </children>
 </AnchorPane>
