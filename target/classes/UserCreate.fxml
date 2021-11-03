@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1588.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserCreateController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="979.0" prefWidth="1588.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserCreateController">
    <children>
       <ImageView fitHeight="930.0" fitWidth="1623.0" layoutX="-1.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -67,7 +62,7 @@
           <TableColumn fx:id="Hotel" prefWidth="204.0" text="Hotel" />
           <TableColumn fx:id="Rooms" prefWidth="61.0" text="Rooms" />
             <TableColumn fx:id="Price" prefWidth="76.0" text="Price" />
-            <TableColumn fx:id="amentities" prefWidth="114.0" text="amentities" />
+            <TableColumn fx:id="amentities" prefWidth="114.0" text="Amenities" />
         </columns>
       </TableView>
       <Text fill="WHITE" layoutX="11.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check-out:">

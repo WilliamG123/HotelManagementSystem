@@ -1,10 +1,12 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -31,8 +33,9 @@ public class StaffPropertyController extends DBConnection implements Initializab
     @FXML private TableColumn<Property, String> roomsColumn;
     @FXML private TableColumn<Property, String> amenitiesColumn;
     @FXML private ObservableList<Property> propertiesList;
-    @FXML private StringBuilder query;
+    @FXML private Button createBtn;
 
+    private StringBuilder query;
     private Connection conn;
 
     @FXML void sceneChange(MouseEvent event) {
@@ -51,6 +54,22 @@ public class StaffPropertyController extends DBConnection implements Initializab
 
         Scene scene = new Scene(newScene);
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
+    @FXML private void handleButtons(ActionEvent event){
+        AnchorPane newScene = null;
+        try {
+            if (event.getSource() == createBtn) {
+                newScene = FXMLLoader.load(getClass().getResource("PropertyCreate.fxml"));
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(newScene);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
     }
@@ -138,8 +157,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
             room.setIsOccupied(rs.getInt("isOccupied"));
             room.setPrice(rs.getDouble("daily_rate"));
             room.setType(rs.getString("type_name"));
-            if(!rooms.contains(room))
-                rooms.add(room);
+            rooms.add(room);
 
             reservation.setResID(rs.getInt("reservationId"));
             reservation.setCost(rs.getDouble("total_price"));
@@ -149,8 +167,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
             reservation.setChildren(rs.getInt("children"));
             reservation.setHotelName(rs.getString("hotel_name"));
             reservation.setCustId(rs.getString("email"));
-            if(!reservations.contains(reservation))
-                reservations.add(reservation);
+            reservations.add(reservation);
 
             property.setRooms(rooms);
             property.setReservations(reservations);
