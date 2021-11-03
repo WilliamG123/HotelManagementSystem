@@ -60,12 +60,19 @@ public class StaffReservationController extends DBConnection implements Initiali
 
         // try block attempts to load a new scene
         try {
-            if (event.getSource() == mainmenuTV)
+            if (event.getSource() == mainmenuTV) {
                 newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
-            else if(event.getSource() == logoutTV){
+                System.out.println("Log: StaffRes -> MainMenuBtn");
+            } else if(event.getSource() == logoutTV) {
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
-            }else if(event.getSource() == modifyTF){
-                newScene = FXMLLoader.load(getClass().getResource("StaffResModify.fxml"));
+                System.out.println("Log: StaffRes -> LoginBtn");
+            } else if(event.getSource() == modifyTF) {
+                System.out.println("Log: StaffRes -> ModifyBtn");
+                Reservation reservation = resTable.getSelectionModel().getSelectedItem();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("StaffResModify.fxml"));
+                StaffResModify controller = new StaffResModify(reservation);
+                loader.setController(controller);
+                newScene = loader.load();
             }
         } catch (IOException e) {
             e.printStackTrace();

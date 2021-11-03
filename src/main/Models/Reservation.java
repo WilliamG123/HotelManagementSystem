@@ -46,16 +46,16 @@ public class Reservation {
 
     // following methods are all getters and setters for the class variables
 
-    public LocalDate getCheckIn() {
-        return checkIn;
-    }
-
     public String getCustId() {
         return custId;
     }
 
     public void setCustId(String custId) {
         this.custId = custId;
+    }
+
+    public LocalDate getCheckIn() {
+        return checkIn;
     }
 
     public void setCheckIn(LocalDate checkIn) {

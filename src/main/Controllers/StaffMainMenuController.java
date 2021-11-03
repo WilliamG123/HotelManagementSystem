@@ -17,15 +17,10 @@ import java.util.ResourceBundle;
 public class StaffMainMenuController implements Initializable {
 
     @FXML private Button profileBtn;
-
     @FXML private Button propertyBtn;
-
     @FXML private Button reservationBtn;
-
     @FXML private Button accountBtn;
-
     @FXML private Button logoutButton;
-
     @FXML private Label welcomeMessage;
 
 
@@ -36,23 +31,23 @@ public class StaffMainMenuController implements Initializable {
         try {
             if(event.getSource() == profileBtn){
                 newScene = FXMLLoader.load(getClass().getResource("UserProfile.fxml"));
-                System.out.println("Profile button pressed");
+                System.out.println("Log: MainMenu -> profileBtn");
             }
             if (event.getSource() == propertyBtn){
                 newScene = FXMLLoader.load(getClass().getResource("StaffProperty.fxml"));
-                System.out.println("Property Management Button Pressed!");
+                System.out.println("Log: MainMenu -> propertyBtn");
             }
             else if (event.getSource() == reservationBtn) {
                 newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
-                System.out.println("Staff Reservation Button Pressed!");
+                System.out.println("Log: MainMenu -> reservationBtn");
             }
             else if (event.getSource() == logoutButton) {
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
-                System.out.println("Login Button Pressed!");
+                System.out.println("Log: MainMenu -> logout");
             }
             else if (event.getSource() == accountBtn) {
                 newScene = FXMLLoader.load(getClass().getResource("StaffAccounts.fxml"));
-                System.out.println("Staff Accounts Button Pressed!");
+                System.out.println("Log: MainMenu -> accountsBtn");
             }
         } catch (IOException e) {
             e.printStackTrace();
