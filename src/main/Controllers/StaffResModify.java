@@ -9,7 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import java.time.temporal.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
@@ -42,9 +42,11 @@ public class StaffResModify implements Initializable {
     @FXML private TextArea roomsTA;
 
     private Reservation reservation;
+    private String accountType;
 
-    public StaffResModify(Reservation reservation){
+    public StaffResModify(Reservation reservation, String accountType){
         this.reservation = reservation;
+        this.accountType = accountType;
         System.out.println("Log: Reservation: \n" + reservation);
     }
 
@@ -64,6 +66,11 @@ public class StaffResModify implements Initializable {
         } else if(checkin.equals(reservation.getCheckIn()) && checkout.equals(reservation.getCheckOut())){
             Toast.makeText(stage, "Error: Dates not changed", 2000, 500, 500);
         }
+
+        // TODO: 11/3/2021 ask prof if users can modify dates within 5 days or delete
+        /*else if(ChronoUnit.DAYS.between(checkin, checkout) <= 5){
+            Toast.makeText(stage, "Error: cannot ", 2000, 500, 500);
+        }*/
 
         // TODO: 11/3/2021 query the database to see if a room is available
 

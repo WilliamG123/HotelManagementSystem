@@ -50,7 +50,6 @@ public class StaffReservationController extends DBConnection implements Initiali
     @FXML private ObservableList<Reservation> resList;
     private Connection conn;
     private StringBuilder query;
-    private Stage stage;
 
     /*****************************************************************
      *                     sceneChange Function
@@ -77,7 +76,7 @@ public class StaffReservationController extends DBConnection implements Initiali
                     System.out.println("Log: StaffRes -> ModifyBtn");
                     Reservation reservation = resTable.getSelectionModel().getSelectedItem();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("StaffResModify.fxml"));
-                    StaffResModify controller = new StaffResModify(reservation);
+                    StaffResModify controller = new StaffResModify(reservation, "staff");
                     loader.setController(controller);
                     newScene = loader.load();
                 }
@@ -252,6 +251,7 @@ public class StaffReservationController extends DBConnection implements Initiali
 
         return appended;
     }
+    // TODO: 11/3/2021 make sure u add a query append for the customer Id
 
     // method clears text all filter TextFields & Date Pickers
     private void resetSearchFields(){
@@ -280,6 +280,7 @@ public class StaffReservationController extends DBConnection implements Initiali
             System.out.println(res);
         } while(rs.next());
 
+        // TODO: 11/3/2021 delete once the DB is populated with data
         // hard coded data since not a lot of DB data
         LocalDate checkin1 = LocalDate.now();
         LocalDate checkout1 = checkin1.plusDays(4);

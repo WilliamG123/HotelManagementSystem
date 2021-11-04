@@ -23,7 +23,6 @@ public class StaffMainMenuController implements Initializable {
     @FXML private Button logoutButton;
     @FXML private Label welcomeMessage;
 
-
     // launches scenes using a set of if statements to determine btn pressed and launches new scene accordingly
     @FXML void launchScene(ActionEvent event) {
         AnchorPane newScene = null;
