@@ -16,11 +16,11 @@ public class DBConnection {
    // String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + "?user=" + userName + "&password=" + password;
     Connection dbCon = null;
     //String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" +"useSSL=false"+"&user=" + userName + "&password=" + password;
-    String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password+"&useSSL=false";
+   String jdbcUrl = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName + "?user=" + userName + "&password=" + password+"&useSSL=false";
 
 
 
-    public static Connection getConnection() throws ClassNotFoundException {
+    public  Connection getConnection() throws ClassNotFoundException {
         System.out.println(jdbcUrl);
         try {
             System.out.println("Loading driver...");
