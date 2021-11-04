@@ -139,14 +139,15 @@ public class UserCreateController extends DBConnection implements Initializable 
 
 
         Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement("CALL getHotelsByDate(?,?)");
-
+        //PreparedStatement ps = con.prepareStatement("call hotel.getListAvailHotels(?)");
+        CallableStatement callableStatement = con.prepareCall("{call hotel.getListAvailHotels}");
+        ResultSet rs = callableStatement.executeQuery();
             if(check_in.getValue() != null){
                 System.out.println("DATE PICKERS HAVE VALUES!");
                 check_in_date = check_in.getValue();
                 check_out_date = check_in.getValue();
-                 ps.setDate(1, Date.valueOf(String.valueOf(check_in_date)));
-                 ps.setDate(2, Date.valueOf(String.valueOf(check_out_date)));
+                // ps.setDate(1, Date.valueOf(String.valueOf(check_in_date)));
+                // ps.setDate(2, Date.valueOf(String.valueOf(check_out_date)));
 
             }else if(check_in.getValue() == null) {
 
@@ -154,10 +155,10 @@ public class UserCreateController extends DBConnection implements Initializable 
 
                 long millis = System.currentTimeMillis();
                 java.sql.Date date = new java.sql.Date(millis);
-                ps.setDate(1, date);
-                ps.setDate(2, date);
+                //ps.setDate(1, date);
+               // ps.setDate(2, date);
             }
-            ResultSet rs = ps.executeQuery();
+           // ResultSet rs = ps.executeQuery();
 
 
         //ps.setInt(2, 1);
@@ -171,7 +172,7 @@ public class UserCreateController extends DBConnection implements Initializable 
             hotel.setHotelname(rs.getString("hotel_name"));
             hotel.setRooms(rs.getInt("hotel_availrms"));
             hotel.setAmentities(rs.getInt("hotel_numofamend"));
-            hotel.setPrice(rs.getDouble("daily_rate"));
+            hotel.setPrice(rs.getDouble("room_rate"));
             hotel.setRating(rs.getInt("hotel_rating"));
             hotel.setHoteladdr(rs.getString("hotel_address"));
             hotel.setHoteldesc(rs.getString("hotel_desc"));
