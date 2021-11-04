@@ -7,24 +7,24 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CustMainMenuController">
    <children>
-      <Label fx:id="welcomeMessage" alignment="CENTER" layoutX="1.0" layoutY="70.0" prefHeight="53.0" prefWidth="1000.0" text="Welcome &lt;name&gt;!">
+      <Label fx:id="welcomeMessage" alignment="CENTER" layoutX="2.0" layoutY="92.0" prefHeight="94.0" prefWidth="1000.0" text="Welcome &lt;name&gt;!">
          <font>
             <Font size="55.0" />
          </font>
       </Label>
-      <Button fx:id="createResBtn" layoutX="301.0" layoutY="202.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="57.0" prefWidth="401.0" text="Create Reservation">
+      <Button fx:id="createResBtn" layoutX="291.0" layoutY="242.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="61.0" prefWidth="418.0" text="Create Reservation">
          <font>
             <Font size="27.0" />
          </font></Button>
-      <Button fx:id="manageResBtn" layoutX="301.0" layoutY="312.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="57.0" prefWidth="401.0" text="Manage Reservations">
+      <Button fx:id="manageResBtn" layoutX="291.0" layoutY="370.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="61.0" prefWidth="418.0" text="Manage Reservations">
          <font>
             <Font size="27.0" />
          </font></Button>
-      <Button fx:id="profileBtn" layoutX="300.0" layoutY="429.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="57.0" prefWidth="401.0" text="Profile">
+      <Button fx:id="profileBtn" layoutX="293.0" layoutY="496.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="61.0" prefWidth="418.0" text="My Profile">
          <font>
             <Font size="27.0" />
          </font></Button>
-      <Button fx:id="logoutButton" layoutX="300.0" layoutY="540.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="57.0" prefWidth="401.0" text="Logout">
+      <Button fx:id="logoutButton" layoutX="293.0" layoutY="622.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="61.0" prefWidth="418.0" text="Logout">
          <font>
             <Font size="27.0" />
          </font></Button>
