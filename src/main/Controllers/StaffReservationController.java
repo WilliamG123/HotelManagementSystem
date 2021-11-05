@@ -294,6 +294,10 @@ public class StaffReservationController extends DBConnection implements Initiali
         resList.add(w);
         resList.add(f);
         resList.add(e);
+
+        for(int i = 0; i < 30; i++){
+            resList.add(new Reservation("Edgar", "Hilton", checkin3, checkout3, 590.13, 123456789));
+        }
     }
 
     // pops up alert dialog window to confirm deletion of reservation and then queries DB to do so
