@@ -114,6 +114,11 @@ public class StaffAccountsController extends DBConnection implements Initializab
         usersTable.setItems(usersList);
     }
 
+
+// ...
+
+
+
     private void handleUserDelete() throws SQLException {
         User user = usersTable.getSelectionModel().getSelectedItem();
         usersList.remove(user);

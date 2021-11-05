@@ -49,12 +49,6 @@ public class Hotels {
         this.hoteldesc.set(hoteldesc);
     }
 
-
-
-
-
-
-
     public String getHotelname() {
         return hotelname.get();
     }

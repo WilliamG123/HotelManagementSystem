@@ -87,6 +87,7 @@ public class UserCreateController extends DBConnection implements Initializable 
         return localDate;
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list = FXCollections.observableArrayList();
@@ -180,9 +181,18 @@ public class UserCreateController extends DBConnection implements Initializable 
             list.add(hotel);
 
         }
-        //Set property to tableview columns
 
-        //NB. Use the same property that is in Object class
+        tableHotels.setRowFactory( tv -> {
+            TableRow<Hotels> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Hotels rowData = row.getItem();
+                    System.out.println(rowData);
+                }
+            });
+            return row ;
+        });
+
 
         //System.out.println( hotel.hotelnameProperty().getValue());
         Hotel.setCellValueFactory(new PropertyValueFactory<>("hotelname"));
