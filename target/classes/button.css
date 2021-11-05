@@ -1,0 +1,27 @@
+/*
+ * file for styling JavaFx buttons
+ */
+
+.button {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: black;
+    -fx-border-radius: 30;
+    -fx-background-radius: 30;
+}
+
+#applyBtn {
+    -fx-font-size: 25;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+#resetBtn {
+    -fx-font-size: 25;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+#signupButton {
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+}

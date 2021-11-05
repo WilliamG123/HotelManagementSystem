@@ -33,7 +33,7 @@ public class LoginController extends User implements Initializable {
     @FXML private TextField emailLoginField;
     @FXML private PasswordField passwordLoginField;
     @FXML private Button loginButton;
-    @FXML private Button signupButton;
+    @FXML private Button signUpButton;
     @FXML private Label loginMessagePrompt;
     @FXML public Button exitButton;
     private double xOffset =0; // <-- to move app window freely
@@ -144,7 +144,7 @@ public class LoginController extends User implements Initializable {
             }
         });
 
-        signupButton.setOnAction(event -> {
+        signUpButton.setOnAction(event -> {
             try {
                 toSignup(event);
             } catch (IOException e) {

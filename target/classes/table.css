@@ -1,4 +1,7 @@
-/* Inspiration: https://www.youtube.com/watch?v=woQEkzd1mV0&ab_channel=RashidIqbal */
+/*
+* Inspiration: https://www.youtube.com/watch?v=woQEkzd1mV0&ab_channel=RashidIqbal
+* JavaFx CSS Documentation: https://docs.oracle.com/javafx/2/api/javafx/scene/doc-files/cssref.html
+*/
 
 .table-view {
     -fx-background-color: #f4f4f4;
