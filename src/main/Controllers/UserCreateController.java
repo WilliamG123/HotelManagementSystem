@@ -36,22 +36,19 @@ import java.util.ResourceBundle;
 // controls user reservation creation scene
 public class UserCreateController extends DBConnection implements Initializable {
 
-    @FXML
-    private Text mainmenuTV, logoutTV;
-    @FXML
-    private DatePicker check_in, check_out;
-    @FXML
-    private TableView<Hotels> tableHotels;
-    @FXML
-    private TableColumn<Hotels, String> Hotel, details, address,rating;
-    @FXML
-    private TableColumn<Hotels, Integer> Rooms, amentities;
-    @FXML
-    private TableColumn<Hotels, Double> Price;
-    @FXML
-    private TextField tf_HotelName;
-    @FXML
-    private Button btn_search;
+    @FXML private Text mainmenuTV;
+    @FXML private Text logoutTV;
+    @FXML private DatePicker checkinDP;
+    @FXML private DatePicker checkoutDP;
+    @FXML private TextField hotelTF;
+    @FXML private TableView<Hotels> hotelTable;
+    @FXML private TableColumn<Hotels, String> Hotel, details, address,rating;
+    @FXML private TableColumn<Hotels, Integer> Rooms, amentities;
+    @FXML private TableColumn<Hotels, Double> Price;
+    @FXML private Button btn_search;
+    @FXML private Button resetBtn;
+    @FXML private Text bookBtn;
+    @FXML private TextField cityTF;
 
     private ContextMenu entriesPopup;
     private Connection conn;
@@ -103,7 +100,7 @@ public class UserCreateController extends DBConnection implements Initializable 
         possibleWords.add("Rio Inn");
 
 
-        TextFields.bindAutoCompletion(tf_HotelName, possibleWords);
+        TextFields.bindAutoCompletion(hotelTF, possibleWords);
         //run the method
 
         try {
@@ -112,14 +109,14 @@ public class UserCreateController extends DBConnection implements Initializable 
             e.printStackTrace();
         }
 
-        tf_HotelName.setOnAction(new EventHandler<ActionEvent>() {
+        hotelTF.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 //Type Ahead auto complete
-                possibleWords.add(tf_HotelName.getText());
-                TextFields.bindAutoCompletion(tf_HotelName, possibleWords);
+                possibleWords.add(hotelTF.getText());
+                TextFields.bindAutoCompletion(hotelTF, possibleWords);
 
-                System.out.println(tf_HotelName.getText());
+                System.out.println(hotelTF.getText());
 
             }
         });
@@ -142,14 +139,14 @@ public class UserCreateController extends DBConnection implements Initializable 
         //PreparedStatement ps = con.prepareStatement("call hotel.getListAvailHotels(?)");
         CallableStatement callableStatement = con.prepareCall("{call hotel.getListAvailHotels}");
         ResultSet rs = callableStatement.executeQuery();
-            if(check_in.getValue() != null){
+            if(checkinDP.getValue() != null){
                 System.out.println("DATE PICKERS HAVE VALUES!");
-                check_in_date = check_in.getValue();
-                check_out_date = check_in.getValue();
+                check_in_date = checkinDP.getValue();
+                check_out_date = checkinDP.getValue();
                 // ps.setDate(1, Date.valueOf(String.valueOf(check_in_date)));
                 // ps.setDate(2, Date.valueOf(String.valueOf(check_out_date)));
 
-            }else if(check_in.getValue() == null) {
+            }else if(checkinDP.getValue() == null) {
 
                 System.out.println("DATEPICKERS NULL USE DEFUALT INSTEAD");
 
@@ -196,7 +193,7 @@ public class UserCreateController extends DBConnection implements Initializable 
         // Hotel.setCellValueFactory(c-> new SimpleStringProperty(hotel.getHotelname()));
 
         //set data tp tableview
-        tableHotels.setItems(list);
+        hotelTable.setItems(list);
 
     }
 
