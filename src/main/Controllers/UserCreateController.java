@@ -68,6 +68,9 @@ public class UserCreateController extends DBConnection implements Initializable 
             else if(event.getSource() == logoutTV){
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
             }
+            else if(event.getSource() == bookBtn){
+                newScene = FXMLLoader.load(getClass().getResource("SharedBooking.fxml"));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

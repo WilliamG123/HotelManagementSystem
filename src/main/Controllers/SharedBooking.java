@@ -42,7 +42,7 @@ public class SharedBooking implements Initializable {
         AnchorPane newScene = null;
         try{
             if(event.getSource() == returnTF){
-                newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
+                newScene = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
             }
         }catch(IOException e){
             e.printStackTrace();
