@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -18,9 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -28,12 +28,18 @@ import java.util.ResourceBundle;
 public class StaffPropertyController extends DBConnection implements Initializable {
     @FXML private Text mainmenuTV;
     @FXML private Text logoutTV;
+    @FXML private TextField hotelTF;
+    @FXML private TextField roomTF;
+    @FXML private TextField amenitiesTF;
     @FXML private TableView<Property> propertiesTable;
     @FXML private TableColumn<Property, String> nameColumn;
     @FXML private TableColumn<Property, String> roomsColumn;
     @FXML private TableColumn<Property, String> amenitiesColumn;
     @FXML private ObservableList<Property> propertiesList;
     @FXML private Button createBtn;
+    @FXML private Button resetBtn;
+    @FXML private Button searchBtn;
+    @FXML private Button deleteBtn;
 
     private StringBuilder query;
     private Connection conn;
@@ -84,6 +90,89 @@ public class StaffPropertyController extends DBConnection implements Initializab
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void handleFilter(ActionEvent event) throws SQLException {
+        if(event.getSource() == resetBtn){
+            propertiesList.clear();
+            populateTable();
+        }else{
+            HashMap<Integer, Object> statementValues = new HashMap<>();
+            query.setLength(0);
+            query.append("SELECT * FROM users");
+
+            if(buildQuery(statementValues)){
+                PreparedStatement ps = conn.prepareStatement(query.toString());
+                for(Integer key : statementValues.keySet()){
+                    Object obj = statementValues.get(key);
+                    if(obj instanceof String) {
+                        ps.setString(key, (String)obj);
+                    }
+                    else if(obj instanceof LocalDate) {
+                        ps.setDate(key, Date.valueOf((LocalDate) obj));
+                    }
+                }
+//                System.out.println(ps);
+                ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+                    propertiesList.clear();
+                    addProperties(rs);
+                }
+//                System.out.println(rs);
+            }else{
+                System.out.println("no query built");
+            }
+        }
+        resetFilter();
+    }
+
+    private void resetFilter(){
+        hotelTF.setText("");
+        roomTF.setText("");
+        amenitiesTF.setText("");
+
+    }
+
+    private boolean buildQuery(HashMap<Integer, Object> statementValues){
+        int pos = 1;
+        boolean appended = false;
+        query.append(" WHERE");
+        String hotel = hotelTF.getText();
+        String room = roomTF.getText();
+        String amenities = amenitiesTF.getText();
+
+
+        if(!hotel.equals("")){
+            if(appended){
+                query.append(" AND");
+            }
+            query.append(" hotel=?");
+            appended=true;
+            statementValues.put(pos, hotel);
+            pos++;
+        }
+        if(!room.equals("")){
+            if(appended){
+                query.append(" AND");
+            }
+            query.append(" room=?");
+            appended = true;
+            statementValues.put(pos, room);
+            pos++;
+        }
+        if(!amenities.equals("")){
+            if(appended){
+                query.append(" AND");
+            }
+            query.append(" amenities=?");
+            appended = true;
+            statementValues.put(pos, amenities);
+            pos++;
+        }
+        query.append(";");
+
+        return appended;
     }
 
     private void populateTable() throws SQLException {

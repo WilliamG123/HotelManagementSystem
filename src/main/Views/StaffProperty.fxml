@@ -49,7 +49,7 @@
             <Font size="25.0" />
          </font>
       </Text>
-      <TextField fx:id="useridTF" layoutX="43.0" layoutY="154.0" />
+      <TextField fx:id="hotelTF" layoutX="43.0" layoutY="154.0" />
       <Text layoutX="62.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Name:">
          <font>
             <Font size="20.0" />
@@ -60,13 +60,16 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="hotelTF" layoutX="43.0" layoutY="218.0" />
+      <TextField fx:id="roomTF" layoutX="43.0" layoutY="218.0" />
       <Text layoutX="66.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="resNumTF" layoutX="43.0" layoutY="284.0" />
-      <Button fx:id="createBtn" layoutX="68.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleButtons" text="Create Property" />
+      <TextField fx:id="amenitiesTF" layoutX="43.0" layoutY="284.0" />
+      <Button fx:id="searchBtn" layoutX="17.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleFilter" text="Search" />
+      <Button fx:id="createBtn" layoutX="68.0" layoutY="652.0" mnemonicParsing="false" onAction="#handleButtons" text="Create Property" />
+      <Button fx:id="resetBtn" layoutX="141.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleFilter" text="Reset" />
+      <Button fx:id="deleteBtn" layoutX="67.0" layoutY="505.0" mnemonicParsing="false" text="Delete Property" />
    </children>
 </AnchorPane>
