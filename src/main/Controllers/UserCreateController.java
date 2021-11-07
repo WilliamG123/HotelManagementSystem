@@ -179,7 +179,7 @@ public class UserCreateController extends DBConnection implements Initializable 
 
         }
 
-        tableHotels.setRowFactory( tv -> {
+        hotelTable.setRowFactory( tv -> {
             TableRow<Hotels> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
