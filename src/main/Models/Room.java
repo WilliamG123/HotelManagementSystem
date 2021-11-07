@@ -9,6 +9,8 @@ public class Room {
     private double weekendRate;
     private double weekendPrice;
     private String type;
+    private String desc;
+    private String[] amenities;
 
     public Room(){}
 
@@ -46,6 +48,14 @@ public class Room {
         this.isOccupied = occupied;
     }
 
+    public void setDesc(String desc){
+        this.desc = desc;
+    }
+
+    public String getDesc(){
+        return this.desc;
+    }
+
     public double getWeekendPrice(){
         return this.weekendPrice;
     }
@@ -66,6 +76,18 @@ public class Room {
 
     public void recalculateWeekendPrice(){
         this.weekendPrice = this.price * (1.0+this.weekendRate);
+    }
+
+    public void setAmenities(String[] amenities){
+        this.amenities = amenities;
+    }
+
+    public String getAmenities(){
+        StringBuilder sb = new StringBuilder();
+        for(String str : this.amenities){
+            sb.append(str); sb.append(",");
+        }
+        return sb.substring(0, sb.length()-1);
     }
 
     @Override

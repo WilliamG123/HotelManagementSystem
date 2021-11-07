@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class Property {
+    private int propertyId;
     private String propertyName;
     private String desc;
     private String address;
@@ -19,6 +20,7 @@ public class Property {
         this.amenities = new ArrayList<>();
         this.reservations = new ArrayList<>();
         this.roomTypes = new HashMap<>();
+        this.rooms = new ArrayList<>();
     }
 
     public Property(String propertyName, String desc, String address, String[] amenities, ArrayList<Room> rooms, ArrayList<Reservation> reservations, int rating, int numberAvailableRooms){
@@ -87,10 +89,15 @@ public class Property {
     public void setRooms(ArrayList<Room> rooms){
         this.rooms = rooms;
         this.numberRooms = rooms.size();
+        int avail = 0;
         for(Room room : this.rooms){
             int count = this.roomTypes.getOrDefault(room.getType(), 0);
             this.roomTypes.put(room.getType(), count+1);
+            if(room.getIsOccupied() == 0){
+                avail++;
+            }
         }
+        this.numberAvailableRooms = avail;
     }
 
     public void setRating(int rating){
@@ -123,11 +130,22 @@ public class Property {
         this.address = address;
     }
 
+    public void setPropertyId(int propertyId){
+        this.propertyId = propertyId;
+    }
+
+    public int getPropertyId(){
+        return this.propertyId;
+    }
+
     public void addRoom(Room room){
         this.rooms.add(room);
         int count = this.roomTypes.getOrDefault(room.getType(), 0);
         this.roomTypes.put(room.getType(), count+1);
         this.numberRooms++;
+        if(room.getIsOccupied() == 0){
+            this.numberAvailableRooms++;
+        }
     }
 
     public void addAmenity(String amenity){
@@ -145,6 +163,9 @@ public class Property {
             int count = this.roomTypes.get(room.getType());
             this.roomTypes.put(room.getType(), count -1);
             this.numberRooms--;
+            if(room.getIsOccupied() == 0){
+                this.numberAvailableRooms--;
+            }
         }
     }
 

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -37,11 +38,11 @@
             </Text>
          </children>
       </HBox>
-      <TableView fx:id="propertiesTable" layoutX="241.0" layoutY="54.0" prefHeight="746.0" prefWidth="761.0">
+      <TableView fx:id="propertiesTable" layoutX="241.0" layoutY="54.0" prefHeight="746.0" prefWidth="761.0" stylesheets="@table.css">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="152.0" text="Name" />
-          <TableColumn fx:id="roomsColumn" prefWidth="152.0" text="Rooms" />
-            <TableColumn fx:id="amenitiesColumn" prefWidth="180.0" text="Amenities" />
+          <TableColumn fx:id="roomsColumn" prefWidth="152.0" text="# of Available Rooms" />
+            <TableColumn fx:id="amenitiesColumn" prefWidth="455.99993896484375" text="Amenities" />
         </columns>
       </TableView>
       <Text layoutX="63.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter by:">
@@ -55,21 +56,32 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Text layoutX="86.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms">
+      <Text layoutX="34.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="roomTF" layoutX="43.0" layoutY="218.0" />
-      <Text layoutX="66.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
+      <Text layoutX="33.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="amenitiesTF" layoutX="43.0" layoutY="284.0" />
-      <Button fx:id="searchBtn" layoutX="17.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleFilter" text="Search" />
-      <Button fx:id="createBtn" layoutX="68.0" layoutY="652.0" mnemonicParsing="false" onAction="#handleButtons" text="Create Property" />
-      <Button fx:id="resetBtn" layoutX="141.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleFilter" text="Reset" />
-      <Button fx:id="deleteBtn" layoutX="67.0" layoutY="505.0" mnemonicParsing="false" text="Delete Property" />
+      <Button fx:id="searchBtn" layoutX="42.0" layoutY="693.0" mnemonicParsing="false" onAction="#handleButtons" stylesheets="@button.css" text="Search" />
+      <Button fx:id="createBtn" layoutX="40.0" layoutY="743.0" mnemonicParsing="false" onAction="#handleButtons" stylesheets="@button.css" text="Create" />
+      <Button fx:id="resetBtn" layoutX="154.0" layoutY="691.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="26.0" prefWidth="57.0" text="Reset" />
+      <Button fx:id="deleteBtn" layoutX="152.0" layoutY="742.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="26.0" prefWidth="68.0" stylesheets="@button.css" text="Delete" />
+      <CheckBox fx:id="wifiCB" layoutX="22.0" layoutY="411.0" mnemonicParsing="false" text="WiFi" />
+      <CheckBox fx:id="poolCB" layoutX="137.0" layoutY="411.0" mnemonicParsing="false" text="Pool" />
+      <CheckBox fx:id="roomServiceCB" layoutX="22.0" layoutY="449.0" mnemonicParsing="false" text="Room Service" />
+      <CheckBox fx:id="gymCB" layoutX="139.0" layoutY="448.0" mnemonicParsing="false" text="Gym" />
+      <CheckBox fx:id="businessOfficeCB" layoutX="20.0" layoutY="484.0" mnemonicParsing="false" text="Business Office" />
+      <CheckBox fx:id="spaCB" layoutX="137.0" layoutY="484.0" mnemonicParsing="false" text="Spa" />
+      <CheckBox fx:id="breakfastCB" layoutX="15.0" layoutY="518.0" mnemonicParsing="false" text="Breakfast Buffet" />
+      <CheckBox fx:id="petCB" layoutX="137.0" layoutY="518.0" mnemonicParsing="false" text="Pet Friendly" />
+      <CheckBox fx:id="conciergeCB" layoutX="19.0" layoutY="551.0" mnemonicParsing="false" text="Concierge" />
+      <CheckBox fx:id="cleaningCB" layoutX="117.0" layoutY="550.0" mnemonicParsing="false" text="Cleaning Services" />
+      <CheckBox fx:id="standardCB" layoutX="19.0" layoutY="240.0" mnemonicParsing="false" text="Standard" />
+      <CheckBox fx:id="queenCB" layoutX="19.0" layoutY="278.0" mnemonicParsing="false" text="Queen" />
+      <CheckBox fx:id="kingCB" layoutX="19.0" layoutY="315.0" mnemonicParsing="false" text="King" />
    </children>
 </AnchorPane>

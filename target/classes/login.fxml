@@ -42,7 +42,7 @@
          <font>
             <Font name="Buxton Sketch" size="14.0" />
          </font></Label>
-      <Button fx:id="exitButton" layoutX="614.0" layoutY="496.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: 0000;" text="Exit" textFill="#f8f5f5">
+      <Button fx:id="exitButton" layoutX="571.0" layoutY="558.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="182.0" stylesheets="@button.css" text="Exit">
          <font>
             <Font name="System Bold" size="21.0" />
          </font></Button>
