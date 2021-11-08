@@ -17,11 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class StaffPropertyController extends DBConnection implements Initializable {
     @FXML private Text mainmenuTV;
@@ -32,6 +28,8 @@ public class StaffPropertyController extends DBConnection implements Initializab
     @FXML private TableColumn<Property, String> roomsColumn;
     @FXML private TableColumn<Property, String> amenitiesColumn;
     @FXML private ObservableList<Property> propertiesList;
+    @FXML private ListView<String> amenitiesLV;
+    @FXML private HashSet<String> amenitiesLVList;
     @FXML private Button createBtn;
     @FXML private Button resetBtn;
     @FXML private Button searchBtn;
@@ -39,16 +37,6 @@ public class StaffPropertyController extends DBConnection implements Initializab
     @FXML private CheckBox standardCB;
     @FXML private CheckBox queenCB;
     @FXML private CheckBox kingCB;
-    @FXML private CheckBox wifiCB;
-    @FXML private CheckBox poolCB;
-    @FXML private CheckBox spaCB;
-    @FXML private CheckBox gymCB;
-    @FXML private CheckBox roomServiceCB;
-    @FXML private CheckBox businessOfficeCB;
-    @FXML private CheckBox petCB;
-    @FXML private CheckBox breakfastCB;
-    @FXML private CheckBox conciergeCB;
-    @FXML private CheckBox cleaningCB;
 
     private StringBuilder query;
     private Connection conn;
@@ -106,13 +94,16 @@ public class StaffPropertyController extends DBConnection implements Initializab
         roomInfo = new RoomInformation();
         propertiesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         propertiesList = FXCollections.observableArrayList();
+        amenitiesLVList = new HashSet<>();
         query = new StringBuilder();
+//        amenitiesLV.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         try{
             conn = getConnection();
             populateTable();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+        populateAmenitiesList();
     }
 
     private void populateTable() throws SQLException {
@@ -231,6 +222,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
         boolean added = false;
         ObservableList<Property> toSearch = propertiesTable.getItems();
         ObservableList<Property> found = FXCollections.observableArrayList();
+        ObservableList<String> amenitiesSearch = amenitiesLV.getSelectionModel().getSelectedItems();
         for(Property prop : toSearch){
             if(searchName && prop.getPropertyName().equalsIgnoreCase(propName)) {
                 System.out.println("Names match");
@@ -262,67 +254,76 @@ public class StaffPropertyController extends DBConnection implements Initializab
             }
 
             for(String amenity : prop.getAmenities()){
-                if(wifiCB.isSelected() && amenity.equalsIgnoreCase("wifi")){
-                    if(!found.contains(prop)){
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-                if(poolCB.isSelected() && amenity.equalsIgnoreCase("pool")){
-                    if(!found.contains(prop)){
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-                if(breakfastCB.isSelected() && amenity.equalsIgnoreCase("breakfast buffet")){
-                    if(!found.contains(prop)){
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-                if(spaCB.isSelected() && amenity.equalsIgnoreCase("spa")){
-                    if(!found.contains(prop)){
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-                if(businessOfficeCB.isSelected() && amenity.equalsIgnoreCase("business office")){
-                    if(!found.contains(prop)){
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-                if(gymCB.isSelected() && amenity.equalsIgnoreCase("gym")){
-                    if(!found.contains(prop)){
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-                if(roomServiceCB.isSelected() && amenity.equalsIgnoreCase("room service")){
-                    if(!found.contains(prop)){
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-                if(petCB.isSelected() && amenity.equalsIgnoreCase("pet friendly")){
-                    if(!found.contains(prop)){
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-                if(conciergeCB.isSelected() && amenity.equalsIgnoreCase("concierge")){
-                    if(!found.contains(prop)){
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-                if(cleaningCB.isSelected() && amenity.equalsIgnoreCase("cleaning service")){
+                if(amenitiesSearch.contains(amenity)){
                     if(!found.contains(prop)){
                         found.add(prop);
                         added = true;
                     }
                 }
             }
+
+//            for(String amenity : prop.getAmenities()){
+//                if(wifiCB.isSelected() && amenity.equalsIgnoreCase("wifi")){
+//                    if(!found.contains(prop)){
+//                        found.add(prop);
+//                        added = true;
+//                    }
+//                }
+//                if(poolCB.isSelected() && amenity.equalsIgnoreCase("pool")){
+//                    if(!found.contains(prop)){
+//                        found.add(prop);
+//                        added = true;
+//                    }
+//                }
+//                if(breakfastCB.isSelected() && amenity.equalsIgnoreCase("breakfast buffet")){
+//                    if(!found.contains(prop)){
+//                        found.add(prop);
+//                        added = true;
+//                    }
+//                }
+//                if(spaCB.isSelected() && amenity.equalsIgnoreCase("spa")){
+//                    if(!found.contains(prop)){
+//                        found.add(prop);
+//                        added = true;
+//                    }
+//                }
+//                if(businessOfficeCB.isSelected() && amenity.equalsIgnoreCase("business office")){
+//                    if(!found.contains(prop)){
+//                        found.add(prop);
+//                        added = true;
+//                    }
+//                }
+//                if(gymCB.isSelected() && amenity.equalsIgnoreCase("gym")){
+//                    if(!found.contains(prop)){
+//                        found.add(prop);
+//                        added = true;
+//                    }
+//                }
+//                if(roomServiceCB.isSelected() && amenity.equalsIgnoreCase("room service")){
+//                    if(!found.contains(prop)){
+//                        found.add(prop);
+//                        added = true;
+//                    }
+//                }
+//                if(petCB.isSelected() && amenity.equalsIgnoreCase("pet friendly")){
+//                    if(!found.contains(prop)){
+//                        found.add(prop);
+//                        added = true;
+//                    }
+//                }
+//                if(conciergeCB.isSelected() && amenity.equalsIgnoreCase("concierge")){
+//                    if(!found.contains(prop)){
+//                        found.add(prop);
+//                        added = true;
+//                    }
+//                }
+//                if(cleaningCB.isSelected() && amenity.equalsIgnoreCase("cleaning service")){
+//                    if(!found.contains(prop)){
+//                        found.add(prop);
+//                        added = true;
+//                    }
+//                }
+//            }
         }
         if(added){
             propertiesList.clear();
@@ -336,15 +337,47 @@ public class StaffPropertyController extends DBConnection implements Initializab
         standardCB.setSelected(false);
         queenCB.setSelected(false);
         kingCB.setSelected(false);
-        wifiCB.setSelected(false);
-        businessOfficeCB.setSelected(false);
-        spaCB.setSelected(false);
-        poolCB.setSelected(false);
-        gymCB.setSelected(false);
-        roomServiceCB.setSelected(false);
-        conciergeCB.setSelected(false);
-        cleaningCB.setSelected(false);
-        roomServiceCB.setSelected(false);
-        petCB.setSelected(false);
+        amenitiesLV.getSelectionModel().clearSelection();
+
+    }
+
+    private void populateAmenitiesList(){
+        for(Property prop : propertiesList){
+            amenitiesLVList.addAll(prop.getAmenities());
+        }
+        amenitiesLV.setItems(FXCollections.observableArrayList(amenitiesLVList));
+        amenitiesLV.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        amenitiesLV.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
+            Node node = evt.getPickResult().getIntersectedNode();
+
+            // go up from the target node until a list cell is found or it's clear
+            // it was not a cell that was clicked
+            while (node != null && node != amenitiesLV && !(node instanceof ListCell)) {
+                node = node.getParent();
+            }
+
+            // if is part of a cell or the cell,
+            // handle event instead of using standard handling
+            if (node instanceof ListCell) {
+                // prevent further handling
+                evt.consume();
+
+                ListCell cell = (ListCell) node;
+                ListView lv = cell.getListView();
+
+                // focus the listview
+                lv.requestFocus();
+
+                if (!cell.isEmpty()) {
+                    // handle selection for non-empty cells
+                    int index = cell.getIndex();
+                    if (cell.isSelected()) {
+                        lv.getSelectionModel().clearSelection(index);
+                    } else {
+                        lv.getSelectionModel().select(index);
+                    }
+                }
+            }
+        });
     }
 }
