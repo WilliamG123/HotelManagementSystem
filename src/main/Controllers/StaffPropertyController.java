@@ -29,14 +29,13 @@ public class StaffPropertyController extends DBConnection implements Initializab
     @FXML private TableColumn<Property, String> amenitiesColumn;
     @FXML private ObservableList<Property> propertiesList;
     @FXML private ListView<String> amenitiesLV;
-    @FXML private HashSet<String> amenitiesLVList;
+    @FXML private ListView<String> roomsLV;
+    @FXML private HashSet<String> amenitiesLVHS;
+    @FXML private HashSet<String> roomsLVHS;
     @FXML private Button createBtn;
     @FXML private Button resetBtn;
     @FXML private Button searchBtn;
     @FXML private Button deleteBtn;
-    @FXML private CheckBox standardCB;
-    @FXML private CheckBox queenCB;
-    @FXML private CheckBox kingCB;
 
     private StringBuilder query;
     private Connection conn;
@@ -79,7 +78,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
                 populateTable();
                 return;
             }
-        }catch(IOException | SQLException e){
+        }catch(IOException | SQLException | ClassNotFoundException e){
             e.printStackTrace();
         }
 
@@ -94,9 +93,9 @@ public class StaffPropertyController extends DBConnection implements Initializab
         roomInfo = new RoomInformation();
         propertiesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         propertiesList = FXCollections.observableArrayList();
-        amenitiesLVList = new HashSet<>();
+        amenitiesLVHS = new HashSet<>();
+        roomsLVHS = new HashSet<>();
         query = new StringBuilder();
-//        amenitiesLV.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         try{
             conn = getConnection();
             populateTable();
@@ -104,9 +103,10 @@ public class StaffPropertyController extends DBConnection implements Initializab
             e.printStackTrace();
         }
         populateAmenitiesList();
+        populateRoomsList();
     }
 
-    private void populateTable() throws SQLException {
+    private void populateTable() throws SQLException, ClassNotFoundException {
         query.setLength(0);
         query.append("SELECT");
         query.append(" hotel.hotel_id,");
@@ -123,9 +123,9 @@ public class StaffPropertyController extends DBConnection implements Initializab
         query.append(" room_types.type_name,");
         query.append(" room_types.room_type_desc,");
         query.append(" room_types.room_rate,");
-        query.append(" amenities.roomAmenities,");
-        query.append(" amenities.services,");
-        query.append(" amenities.facilities,");
+        query.append(" amenities.Amenities_desc,");
+        query.append(" amenities.type,");
+//        query.append(" amenities.facilities,");
         query.append(" reservation.*,");
         query.append(" users.email");
         query.append(" FROM hotel");
@@ -133,8 +133,12 @@ public class StaffPropertyController extends DBConnection implements Initializab
         query.append(" ON room.hotel_id = hotel.hotel_id");
         query.append(" JOIN room_types");
         query.append(" ON room_types.room_type_id = room.room_id");
+        query.append(" JOIN hotel_amenities");
+        query.append(" ON hotel_amenities.hotel_id = hotel.hotel_id");
         query.append(" JOIN amenities");
-        query.append(" ON amenities.hotel_id = hotel.hotel_id");
+        query.append(" ON amenities.amenitiesId = hotel_amenities.amenitiesId");
+//        query.append(" JOIN amenities");
+//        query.append(" ON amenities.hotel_id = hotel.hotel_id");
         query.append(" JOIN reservation");
         query.append(" ON reservation.hotel_id = hotel.hotel_id");
         query.append(" JOIN customer");
@@ -148,21 +152,25 @@ public class StaffPropertyController extends DBConnection implements Initializab
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("propertyName"));
         roomsColumn.setCellValueFactory(new PropertyValueFactory<>("numberAvailableRooms"));
-        amenitiesColumn.setCellValueFactory(new PropertyValueFactory<>("numberAmenities"));
+        amenitiesColumn.setCellValueFactory(new PropertyValueFactory<>("amenitiesString"));
         propertiesTable.setItems(propertiesList);
+        for(Property prop : propertiesList){
+            System.out.println(prop.getAmenitiesString());
+        }
 
     }
 
-    private void addProperties(ResultSet rs) throws SQLException {
+    private void addProperties(ResultSet rs) throws SQLException, ClassNotFoundException {
         HashMap<String, Property> propertyHashMap = new HashMap<>();
         ArrayList<Room> rooms;
         ArrayList<Reservation> reservations;
         ArrayList<String> amenities;
+        QUERYS query = new QUERYS();
         do{
             Property property = propertyHashMap.getOrDefault(rs.getString("hotel_name"), new Property());
             rooms = property.getRooms();
             reservations = property.getReservations();
-            amenities = property.getAmenities();
+            amenities = property.getAmenitiesAL();
 
             Room room = new Room();
             Reservation reservation = new Reservation();
@@ -181,7 +189,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
             room.setPrice(rs.getDouble("room_rate"));
             room.setType(rs.getString("type_name"));
             room.setDesc(rs.getString("room_type_desc"));
-            room.setAmenities(rs.getString("roomAmenities").split(","));
+//            room.setAmenities(rs.getString("roomAmenities").split(","));
             rooms.add(room);
 
             reservation.setResID(rs.getInt("reservationId"));
@@ -194,14 +202,20 @@ public class StaffPropertyController extends DBConnection implements Initializab
             reservation.setCustId(rs.getString("email"));
             reservations.add(reservation);
 
+//            ResultSet amenitiesSet = query.getAmenitiesByHotelName(rs.getString("hotel_name"));
+//            if(amenitiesSet.next()){
+//                do{
+//                    amenities.add(amenitiesSet.getString("Amenities_desc"));
+//                }while(amenitiesSet.next());
+//            }
             //TODO: uncomment after requested db change
-//            amenities.addAll(Arrays.asList(rs.getString("propertyAmenities").split(",")));
-            amenities.add(rs.getString("services"));
-            amenities.add(rs.getString("facilities"));
+//            amenities.addAll(Arrays.asList(rs.getString("propertyAmenities")));
+            amenities.add(rs.getString("Amenities_desc"));
+//            amenities.add(rs.getString("facilities"));
 
             property.setRooms(rooms);
             property.setReservations(reservations);
-            property.setAmenities(amenities);
+            property.setAmenitiesAL(amenities);
             propertyHashMap.put(rs.getString("hotel_name"), property);
         }while(rs.next());
 
@@ -223,9 +237,9 @@ public class StaffPropertyController extends DBConnection implements Initializab
         ObservableList<Property> toSearch = propertiesTable.getItems();
         ObservableList<Property> found = FXCollections.observableArrayList();
         ObservableList<String> amenitiesSearch = amenitiesLV.getSelectionModel().getSelectedItems();
+        ObservableList<String> roomsSearch = roomsLV.getSelectionModel().getSelectedItems();
         for(Property prop : toSearch){
             if(searchName && prop.getPropertyName().equalsIgnoreCase(propName)) {
-                System.out.println("Names match");
                 if(!found.contains(prop)) {
                     found.add(prop);
                     added = true;
@@ -233,28 +247,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
             }
 
             for(Room room : prop.getRooms()){
-                if(standardCB.isSelected() && room.getType().equalsIgnoreCase("Standard")){
-                    if(!found.contains(prop)) {
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-                if(queenCB.isSelected() && room.getType().equalsIgnoreCase("Queen")){
-                    if(!found.contains(prop)) {
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-                if(kingCB.isSelected() && room.getType().equalsIgnoreCase("King")){
-                    if(!found.contains(prop)) {
-                        found.add(prop);
-                        added = true;
-                    }
-                }
-            }
-
-            for(String amenity : prop.getAmenities()){
-                if(amenitiesSearch.contains(amenity)){
+                if(roomsSearch.contains(room.getType())){
                     if(!found.contains(prop)){
                         found.add(prop);
                         added = true;
@@ -262,68 +255,14 @@ public class StaffPropertyController extends DBConnection implements Initializab
                 }
             }
 
-//            for(String amenity : prop.getAmenities()){
-//                if(wifiCB.isSelected() && amenity.equalsIgnoreCase("wifi")){
-//                    if(!found.contains(prop)){
-//                        found.add(prop);
-//                        added = true;
-//                    }
-//                }
-//                if(poolCB.isSelected() && amenity.equalsIgnoreCase("pool")){
-//                    if(!found.contains(prop)){
-//                        found.add(prop);
-//                        added = true;
-//                    }
-//                }
-//                if(breakfastCB.isSelected() && amenity.equalsIgnoreCase("breakfast buffet")){
-//                    if(!found.contains(prop)){
-//                        found.add(prop);
-//                        added = true;
-//                    }
-//                }
-//                if(spaCB.isSelected() && amenity.equalsIgnoreCase("spa")){
-//                    if(!found.contains(prop)){
-//                        found.add(prop);
-//                        added = true;
-//                    }
-//                }
-//                if(businessOfficeCB.isSelected() && amenity.equalsIgnoreCase("business office")){
-//                    if(!found.contains(prop)){
-//                        found.add(prop);
-//                        added = true;
-//                    }
-//                }
-//                if(gymCB.isSelected() && amenity.equalsIgnoreCase("gym")){
-//                    if(!found.contains(prop)){
-//                        found.add(prop);
-//                        added = true;
-//                    }
-//                }
-//                if(roomServiceCB.isSelected() && amenity.equalsIgnoreCase("room service")){
-//                    if(!found.contains(prop)){
-//                        found.add(prop);
-//                        added = true;
-//                    }
-//                }
-//                if(petCB.isSelected() && amenity.equalsIgnoreCase("pet friendly")){
-//                    if(!found.contains(prop)){
-//                        found.add(prop);
-//                        added = true;
-//                    }
-//                }
-//                if(conciergeCB.isSelected() && amenity.equalsIgnoreCase("concierge")){
-//                    if(!found.contains(prop)){
-//                        found.add(prop);
-//                        added = true;
-//                    }
-//                }
-//                if(cleaningCB.isSelected() && amenity.equalsIgnoreCase("cleaning service")){
-//                    if(!found.contains(prop)){
-//                        found.add(prop);
-//                        added = true;
-//                    }
-//                }
-//            }
+            for(String amenity : prop.getAmenitiesAL()){
+                if(amenitiesSearch.contains(amenity)){
+                    if(!found.contains(prop)){
+                        found.add(prop);
+                        added = true;
+                    }
+                }
+            }
         }
         if(added){
             propertiesList.clear();
@@ -334,25 +273,37 @@ public class StaffPropertyController extends DBConnection implements Initializab
 
     private void resetFilters(){
         hotelTF.setText("");
-        standardCB.setSelected(false);
-        queenCB.setSelected(false);
-        kingCB.setSelected(false);
+        roomsLV.getSelectionModel().clearSelection();
         amenitiesLV.getSelectionModel().clearSelection();
 
     }
 
     private void populateAmenitiesList(){
         for(Property prop : propertiesList){
-            amenitiesLVList.addAll(prop.getAmenities());
+            amenitiesLVHS.addAll(prop.getAmenitiesAL());
         }
-        amenitiesLV.setItems(FXCollections.observableArrayList(amenitiesLVList));
-        amenitiesLV.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        amenitiesLV.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
+        initializeListView(amenitiesLV, amenitiesLVHS);
+    }
+
+    private void populateRoomsList(){
+        for(Property prop : propertiesList){
+            for(Room room : prop.getRooms()){
+                roomsLVHS.add(room.getType());
+            }
+        }
+
+        initializeListView(roomsLV, roomsLVHS);
+    }
+
+    private void initializeListView(ListView<String> listView, HashSet<String> hashSet) {
+        listView.setItems(FXCollections.observableArrayList(hashSet));
+        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        listView.addEventFilter(MouseEvent.MOUSE_PRESSED, evt -> {
             Node node = evt.getPickResult().getIntersectedNode();
 
             // go up from the target node until a list cell is found or it's clear
             // it was not a cell that was clicked
-            while (node != null && node != amenitiesLV && !(node instanceof ListCell)) {
+            while (node != null && node != listView && !(node instanceof ListCell)) {
                 node = node.getParent();
             }
 
