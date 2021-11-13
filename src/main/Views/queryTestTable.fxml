@@ -31,7 +31,7 @@
                 <TableColumn fx:id="address" prefWidth="193.0" text="address" />
                 <TableColumn fx:id="details" prefWidth="421.0" text="Details" />
                 <TableColumn fx:id="Rooms" minWidth="0.0" prefWidth="98.0" text="Rooms" />
-                <TableColumn fx:id="amentities" minWidth="0.0" prefWidth="119.0" text="amentities" />
+                <TableColumn fx:id="amenitiesTotal" minWidth="0.0" prefWidth="119.0" text="amentities" />
                 <TableColumn fx:id="Price" prefWidth="154.0" text="Starting Price" />
                 <TableColumn fx:id="rating" minWidth="0.0" prefWidth="136.0" text="Rating" />
             </columns>
@@ -72,7 +72,7 @@
                 <Font size="31.0" />
             </font>
         </Text>
-      <TableView fx:id="AmenitiesTable" layoutX="14.0" layoutY="705.0" prefHeight="559.0" prefWidth="1160.0" style="-fx-background-color: rgba(255, 255, 255, .7);">
+      <TableView fx:id="amenitiesTable" layoutX="20.0" layoutY="703.0" prefHeight="559.0" prefWidth="1160.0" style="-fx-background-color: rgba(255, 255, 255, .7);">
          <columns>
             <TableColumn fx:id="amenities" prefWidth="433.0" text="Amenities" />
          </columns>

@@ -14,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+
+
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +23,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
+
+
 
 import javax.swing.text.TabableView;
 import java.awt.event.ActionListener;
@@ -43,7 +47,7 @@ public class UserCreateController extends DBConnection implements Initializable 
     @FXML private TextField hotelTF;
     @FXML private TableView<Hotels> hotelTable;
     @FXML private TableColumn<Hotels, String> Hotel, details, address,rating;
-    @FXML private TableColumn<Hotels, Integer> Rooms, amentities;
+    @FXML private TableColumn<Hotels, Integer> Rooms, amenities;
     @FXML private TableColumn<Hotels, Double> Price;
     @FXML private Button btn_search;
     @FXML private Button resetBtn;
@@ -172,7 +176,7 @@ public class UserCreateController extends DBConnection implements Initializable 
             Hotels hotel =new Hotels();
             hotel.setHotelname(rs.getString("hotel_name"));
             hotel.setRooms(rs.getInt("hotel_availrms"));
-            hotel.setAmentities(rs.getInt("hotel_numofamend"));
+            hotel.setAmenities(rs.getInt("hotel_numofamend"));
             hotel.setPrice(rs.getDouble("room_rate"));
             hotel.setRating(rs.getInt("hotel_rating"));
             hotel.setHoteladdr(rs.getString("hotel_address"));
@@ -198,7 +202,7 @@ public class UserCreateController extends DBConnection implements Initializable 
         Hotel.setCellValueFactory(new PropertyValueFactory<>("hotelname"));
         Rooms.setCellValueFactory(new PropertyValueFactory<>("rooms"));
         Price.setCellValueFactory(new PropertyValueFactory<>("price"));
-        amentities.setCellValueFactory(new PropertyValueFactory<>("amentities"));
+        amenities.setCellValueFactory(new PropertyValueFactory<>("amenities"));
         details.setCellValueFactory(new PropertyValueFactory<>("hoteldesc"));
         address.setCellValueFactory(new PropertyValueFactory<>("hoteladdr"));
         rating.setCellValueFactory(new PropertyValueFactory<>("rating"));

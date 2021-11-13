@@ -9,9 +9,22 @@ public class Hotels {
     private final StringProperty hoteladdr = new SimpleStringProperty();
     private final StringProperty hoteldesc = new SimpleStringProperty();
     private final IntegerProperty rooms = new SimpleIntegerProperty();
-    private final IntegerProperty amentities = new SimpleIntegerProperty();
+    private final IntegerProperty amenities = new SimpleIntegerProperty();
     private final DoubleProperty price = new SimpleDoubleProperty();
     private final IntegerProperty rating = new SimpleIntegerProperty();
+    private final StringProperty amenitiesdesc = new SimpleStringProperty();
+
+    public String getAmenitiesdesc() {
+        return amenitiesdesc.get();
+    }
+
+    public StringProperty amenitiesdescProperty() {
+        return amenitiesdesc;
+    }
+
+    public void setAmenitiesdesc(String amenitiesdesc) {
+        this.amenitiesdesc.set(amenitiesdesc);
+    }
 
     public int getRating() {
         return rating.get();
@@ -73,16 +86,16 @@ public class Hotels {
         this.price.set(price);
     }
 
-    public int getAmentities() {
-        return amentities.get();
+    public int getAmenities() {
+        return amenities.get();
     }
 
-    public IntegerProperty amentitiesProperty() {
-        return amentities;
+    public IntegerProperty amenitiesProperty() {
+        return amenities;
     }
 
-    public void setAmentities(int amentities) {
-        this.amentities.set(amentities);
+    public void setAmenities(int amenities) {
+        this.amenities.set(amenities);
     }
 
     public int getRooms() {
