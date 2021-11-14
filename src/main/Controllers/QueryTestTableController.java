@@ -1,10 +1,14 @@
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -19,7 +23,7 @@ import java.util.ResourceBundle;
 public class QueryTestTableController extends QUERYS implements Initializable {
     @FXML public TableView<Hotels> amenitiesTable;
     @FXML public TableColumn <Hotels, String> amenities;
-   // public TableColumn amentitiesTotal;
+
     @FXML
     private TableView<Hotels> hotelTable;
     @FXML private TableColumn<Hotels, String> Hotel, details, address,rating;
@@ -43,7 +47,10 @@ public class QueryTestTableController extends QUERYS implements Initializable {
     @FXML
     private ObservableList<Hotels> list;
     private ObservableList<Hotels> amenitieslist;
+    String hotelname = "The Magnolia All Suites";
 
+    public QueryTestTableController() throws ClassNotFoundException {
+    }
 
     public void populateTableView() throws SQLException, ClassNotFoundException {
 
@@ -51,11 +58,14 @@ public class QueryTestTableController extends QUERYS implements Initializable {
         //both datepickers must have a value in order to run this query
 
 
-        Connection con = getConnection();
+
         //PreparedStatement ps = con.prepareStatement("call hotel.getListAvailHotels(?)");
         //CallableStatement callableStatement = con.prepareCall("{call hotel.getListAvailHotels}");
         ResultSet rs = dbExecuteCallQuery("call hotel.getListAvailHotels");
-        ResultSet rs2 = getAmenitiesByHotelName("The Magnolia All Suites");
+
+
+
+        ResultSet rs2 = getAmenitiesByHotelName(hotelname);
         if (checkinDP.getValue() != null) {
             System.out.println("DATE PICKERS HAVE VALUES!");
             // check_in_date = checkinDP.getValue();
@@ -119,7 +129,33 @@ public class QueryTestTableController extends QUERYS implements Initializable {
 
 
 
+
+//ON DOUBLE CLICK ANY ROW WILL GET THAT HOTEL NAME AND STORE IT INSIDE GLOBAL hotelname
+        hotelTable.setRowFactory( tv -> {
+            TableRow<Hotels> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Hotels rowData = row.getItem();
+                    hotelname = rowData.getHotelname();
+                    System.out.println(rowData.getHotelname());
+                    list.clear();
+                    amenitieslist.clear();
+                    try {
+                        populateTableView();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row ;
+        });
+
+
+
     }
+
 
 
 
@@ -130,15 +166,26 @@ public class QueryTestTableController extends QUERYS implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
         list = FXCollections.observableArrayList();
         amenitieslist = FXCollections.observableArrayList();
+
+
+
         try {
+
             populateTableView();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+
+
+
+
 
     }
 }

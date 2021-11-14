@@ -6,6 +6,7 @@ public class DBConnection {
 
 
     public DBConnection() {}
+
     //jdbc:driver://hostname:port/dbName?user=userName&password=password
     Log logger;
     String dbName = System.getenv("RDS_DB_NAME");
@@ -36,6 +37,7 @@ public class DBConnection {
 
             dbCon = DriverManager.getConnection(jdbcUrl);
             System.out.println("Connected!");
+            System.out.println("DBConnection Constructor called");
 
         } catch (SQLException ex) {
             System.out.println(ex);

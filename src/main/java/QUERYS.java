@@ -6,13 +6,15 @@ import java.sql.*;
 
 public class QUERYS extends DBConnection {
 
-    private static Connection conn = null;
+  //  private static Connection conn = null;
+
+    Connection conn = getConnection();
+
+    public QUERYS() throws ClassNotFoundException {
+    }
 
 
-
-
-
-    public static void dbDisconnect() throws SQLException {
+    public  void dbDisconnect() throws SQLException {
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
@@ -26,6 +28,8 @@ public class QUERYS extends DBConnection {
        // if(!hotelExist(Call)){
          //   System.out.println("Hotel DOES NOT EXIST!");
        // }
+
+
         //Declare statement, resultSet and CachedResultSet as null
         //Statement stmt = null;
         CallableStatement callableStatement = null;
@@ -58,7 +62,7 @@ public class QUERYS extends DBConnection {
                 callableStatement.close();
             }
             //Close connection
-            getConnection().close();
+           conn.close();
         }
         //Return CachedRowSet
         return crs;
@@ -75,7 +79,7 @@ public class QUERYS extends DBConnection {
         CachedRowSetImpl crs = null;
         try {
             //Connect to DB (Establish Oracle Connection)
-            Connection conn = getConnection();
+            //Connection conn = getConnection();
             System.out.println("Select statement: " + queryStmt + "\n");
             //Create statement
             stmt = conn.createStatement();
@@ -117,7 +121,7 @@ public class QUERYS extends DBConnection {
         CachedRowSetImpl crs = null;
         try {
             //Connect to DB (Establish Oracle Connection)
-            Connection conn = getConnection();
+            conn = getConnection();
             //Callable statement is an extension of prepared statement so it prevents against SQL INJECTION
             callableStatement = conn.prepareCall("{CALL getAmenitiesByHotel(?)}");
             callableStatement.setString(1, hotelName);
@@ -142,7 +146,7 @@ public class QUERYS extends DBConnection {
                 callableStatement.close();
             }
             //Close connection
-            getConnection().close();
+           conn.close();
         }
         //Return CachedRowSet
         return crs;
@@ -154,7 +158,7 @@ public class QUERYS extends DBConnection {
         CallableStatement callableStatement = null;
         ResultSet resultSet = null;
         try {
-            Connection conn = getConnection();
+            //Connection conn = getConnection();
             callableStatement = conn.prepareCall("{CALL doesHotelExist(?)}");
             callableStatement.setString(1, hotelName);
             resultSet = callableStatement.executeQuery();
@@ -170,7 +174,7 @@ public class QUERYS extends DBConnection {
             if (callableStatement != null) {
                 callableStatement.close();
             }
-            getConnection().close();
+           conn.close();
         }
         return true;
     }
@@ -180,7 +184,7 @@ public class QUERYS extends DBConnection {
         //Declare statement as null
         PreparedStatement stmt = null;
         try {
-            Connection conn = getConnection();
+           // Connection conn = getConnection();
             //Connect to DB (Establish Oracle Connection)
 
             //Create Statement
@@ -196,7 +200,7 @@ public class QUERYS extends DBConnection {
                 stmt.close();
             }
             //Close connection
-            getConnection().close();
+            conn.close();
         }
     }
 

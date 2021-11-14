@@ -16,8 +16,9 @@ public class QueriesMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        primaryStage.setTitle("QueriesMain started");
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("queryTestTable.fxml"));
-        primaryStage.setTitle("Hello World");
+
 
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
