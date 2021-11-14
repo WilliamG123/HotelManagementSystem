@@ -40,6 +40,7 @@ import java.util.ResourceBundle;
 // controls user reservation creation scene
 public class UserCreateController extends DBConnection implements Initializable {
 
+
     @FXML private Text mainmenuTV;
     @FXML private Text logoutTV;
     @FXML private DatePicker checkinDP;

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class QueryTestTableController extends QUERYS implements Initializable {
-    @FXML public TableView amenitiesTable;
+    @FXML public TableView<Hotels> amenitiesTable;
     @FXML public TableColumn <Hotels, String> amenities;
    // public TableColumn amentitiesTotal;
     @FXML
@@ -42,7 +42,7 @@ public class QueryTestTableController extends QUERYS implements Initializable {
 
     @FXML
     private ObservableList<Hotels> list;
-    private ObservableList<String> amenitieslist;
+    private ObservableList<Hotels> amenitieslist;
 
 
     public void populateTableView() throws SQLException, ClassNotFoundException {
@@ -73,13 +73,13 @@ public class QueryTestTableController extends QUERYS implements Initializable {
             // ps.setDate(2, date);
         }
 
-        Hotels hotel = new Hotels();
+
 
         //loop through the resultSet , extract data and append it to our list
-        while (rs.next()) {
+        while (rs.next() ) {
 
             //Create a hotels Object , add data to it and finally append it to list
-
+            Hotels hotel = new Hotels();
             hotel.setHotelname(rs.getString("hotel_name"));
             hotel.setRooms(rs.getInt("hotel_availrms"));
             hotel.setAmenities(rs.getInt("hotel_numofamend"));
@@ -90,17 +90,18 @@ public class QueryTestTableController extends QUERYS implements Initializable {
 
 
             list.add(hotel);
-
         }
-        while(rs2.next()){
 
+        while(rs2.next()){
+            Hotels hotel = new Hotels();
             System.out.println(rs2.getString("Amenities_desc"));
 
-            hotel.setAmenitiesdesc("Amenities_desc");
+            hotel.setAmenitiesdesc(rs2.getString("Amenities_desc"));
 
-            amenitieslist.add(String.valueOf(hotel));
+            amenitieslist.add(hotel);
 
         }
+
         amenities.setCellValueFactory(new PropertyValueFactory<>("amenitiesdesc"));
         Hotel.setCellValueFactory(new PropertyValueFactory<>("hotelname"));
         Rooms.setCellValueFactory(new PropertyValueFactory<>("rooms"));
@@ -119,6 +120,13 @@ public class QueryTestTableController extends QUERYS implements Initializable {
 
 
     }
+
+
+
+
+
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
