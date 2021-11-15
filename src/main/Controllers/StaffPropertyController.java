@@ -147,6 +147,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
         query.append(" ON users.userId = customer.custId;");
 
         ResultSet rs = conn.createStatement().executeQuery(query.toString());
+        System.out.println(query.toString());
         if(rs.next())
             addProperties(rs);
 
@@ -155,7 +156,6 @@ public class StaffPropertyController extends DBConnection implements Initializab
         amenitiesColumn.setCellValueFactory(new PropertyValueFactory<>("amenitiesString"));
         propertiesTable.setItems(propertiesList);
         for(Property prop : propertiesList){
-            System.out.println(prop.getAmenitiesString());
         }
 
     }

@@ -53,19 +53,13 @@ public class QueryTestTableController extends QUERYS implements Initializable {
     }
 
     public void populateTableView() throws SQLException, ClassNotFoundException {
-
-        //instantiate list
-        //both datepickers must have a value in order to run this query
-
-
-
+        System.out.println("populateTableView Called");
         //PreparedStatement ps = con.prepareStatement("call hotel.getListAvailHotels(?)");
         //CallableStatement callableStatement = con.prepareCall("{call hotel.getListAvailHotels}");
         ResultSet rs = dbExecuteCallQuery("call hotel.getListAvailHotels");
 
+        ResultSet rs2 = getAmenitiesByHotelName(hotelname); //for Amenities TableView
 
-
-        ResultSet rs2 = getAmenitiesByHotelName(hotelname);
         if (checkinDP.getValue() != null) {
             System.out.println("DATE PICKERS HAVE VALUES!");
             // check_in_date = checkinDP.getValue();
