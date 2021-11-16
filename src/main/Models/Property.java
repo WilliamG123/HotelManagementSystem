@@ -1,12 +1,16 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class Property {
+    private int propertyId;
     private String propertyName;
     private String desc;
     private String address;
-    private ArrayList<String> amenities;
+    private String amenitiesString;
+    private HashSet<String> amenitiesSet;
+    private ArrayList<String> amenitiesAL;
     private ArrayList<Room> rooms;
     private ArrayList<Reservation> reservations;
     private HashMap<String, Integer> roomTypes;
@@ -16,16 +20,18 @@ public class Property {
     private int numberAvailableRooms;
 
     public Property(){
-        this.amenities = new ArrayList<>();
+        this.amenitiesAL = new ArrayList<>();
         this.reservations = new ArrayList<>();
         this.roomTypes = new HashMap<>();
+        this.rooms = new ArrayList<>();
+        this.amenitiesSet = new HashSet<>();
     }
 
     public Property(String propertyName, String desc, String address, String[] amenities, ArrayList<Room> rooms, ArrayList<Reservation> reservations, int rating, int numberAvailableRooms){
         this.propertyName = propertyName;
         this.desc = desc;
         this.address = address;
-        this.amenities = new ArrayList<>(Arrays.asList(amenities));
+        this.amenitiesAL = new ArrayList<>(Arrays.asList(amenities));
         this.rooms = rooms; //new ArrayList<>(Arrays.asList(rooms));
         this.reservations = reservations; //new ArrayList<>(reservations);
         this.roomTypes = new HashMap<>();
@@ -39,8 +45,8 @@ public class Property {
         this.numberAvailableRooms = numberAvailableRooms;
     }
 
-    public ArrayList<String> getAmenities(){
-        return this.amenities;
+    public ArrayList<String> getAmenitiesAL(){
+        return this.amenitiesAL;
     }
 
     public ArrayList<Room> getRooms(){
@@ -79,18 +85,35 @@ public class Property {
 
     public int getNumberAvailableRooms(){return this.numberAvailableRooms;}
 
-    public void setAmenities(ArrayList<String> amenities){
-        this.amenities = amenities;
-        this.numberAmenities = amenities.size();
+    public void setAmenitiesAL(ArrayList<String> amenitiesAL){
+        this.amenitiesAL = amenitiesAL;
+        this.numberAmenities = amenitiesAL.size();
+        this.amenitiesString = String.join(", ", new HashSet<>(this.amenitiesAL));
+//        setAmenitiesDesc();
+    }
+
+    public String getAmenitiesString(){
+        return this.amenitiesString;
+    }
+
+    private void setAmenitiesDesc(){
+        this.amenitiesSet.addAll(this.amenitiesAL);
+        this.amenitiesString = String.join(", ", this.amenitiesSet);
+        System.out.println(this.amenitiesString);
     }
 
     public void setRooms(ArrayList<Room> rooms){
         this.rooms = rooms;
         this.numberRooms = rooms.size();
+        int avail = 0;
         for(Room room : this.rooms){
             int count = this.roomTypes.getOrDefault(room.getType(), 0);
             this.roomTypes.put(room.getType(), count+1);
+            if(room.getIsOccupied() == 0){
+                avail++;
+            }
         }
+        this.numberAvailableRooms = avail;
     }
 
     public void setRating(int rating){
@@ -123,15 +146,26 @@ public class Property {
         this.address = address;
     }
 
+    public void setPropertyId(int propertyId){
+        this.propertyId = propertyId;
+    }
+
+    public int getPropertyId(){
+        return this.propertyId;
+    }
+
     public void addRoom(Room room){
         this.rooms.add(room);
         int count = this.roomTypes.getOrDefault(room.getType(), 0);
         this.roomTypes.put(room.getType(), count+1);
         this.numberRooms++;
+        if(room.getIsOccupied() == 0){
+            this.numberAvailableRooms++;
+        }
     }
 
     public void addAmenity(String amenity){
-        this.amenities.add(amenity);
+        this.amenitiesAL.add(amenity);
         this.numberAmenities++;
     }
 
@@ -145,11 +179,14 @@ public class Property {
             int count = this.roomTypes.get(room.getType());
             this.roomTypes.put(room.getType(), count -1);
             this.numberRooms--;
+            if(room.getIsOccupied() == 0){
+                this.numberAvailableRooms--;
+            }
         }
     }
 
     public void removeAmenity(String amenity){
-        this.amenities.remove(amenity);
+        this.amenitiesAL.remove(amenity);
         this.numberAmenities--;
     }
 
@@ -165,7 +202,7 @@ public class Property {
         rep.append("\n\tNumber of Rooms: "); rep.append(this.numberRooms);
         rep.append("\n\t"); for(Room room : this.rooms){rep.append(room);rep.append("\n\t");}
         rep.append("\n\tNumber of amenities: "); rep.append(this.numberAmenities);
-        rep.append("\n\tAmenities{"); for(String amenity : amenities){rep.append("\n\t");rep.append(amenity);}rep.append("\n}");
+        rep.append("\n\tAmenities{"); for(String amenity : amenitiesAL){rep.append("\n\t");rep.append(amenity);}rep.append("\n}");
         rep.append("\n\tNumber of Reservations: ");rep.append(this.reservations.size());
         rep.append("\n\t");
         for(Reservation reservation : this.reservations) {

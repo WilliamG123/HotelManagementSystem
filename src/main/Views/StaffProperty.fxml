@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -37,11 +38,11 @@
             </Text>
          </children>
       </HBox>
-      <TableView fx:id="propertiesTable" layoutX="241.0" layoutY="54.0" prefHeight="746.0" prefWidth="761.0">
+      <TableView fx:id="propertiesTable" layoutX="241.0" layoutY="54.0" prefHeight="746.0" prefWidth="761.0" stylesheets="@table.css">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="152.0" text="Name" />
-          <TableColumn fx:id="roomsColumn" prefWidth="152.0" text="Rooms" />
-            <TableColumn fx:id="amenitiesColumn" prefWidth="180.0" text="Amenities" />
+          <TableColumn fx:id="roomsColumn" prefWidth="152.0" text="# of Available Rooms" />
+            <TableColumn fx:id="amenitiesColumn" prefWidth="455.99993896484375" text="Amenities" />
         </columns>
       </TableView>
       <Text layoutX="63.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter by:">
@@ -49,24 +50,27 @@
             <Font size="25.0" />
          </font>
       </Text>
-      <TextField fx:id="useridTF" layoutX="43.0" layoutY="154.0" />
+      <TextField fx:id="hotelTF" layoutX="43.0" layoutY="154.0" />
       <Text layoutX="62.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Name:">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Text layoutX="86.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms">
+      <Text layoutX="30.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="hotelTF" layoutX="43.0" layoutY="218.0" />
-      <Text layoutX="66.0" layoutY="276.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
+      <Text layoutX="25.0" layoutY="461.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <TextField fx:id="resNumTF" layoutX="43.0" layoutY="284.0" />
-      <Button fx:id="createBtn" layoutX="68.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleButtons" text="Create Property" />
+      <Button fx:id="searchBtn" layoutX="42.0" layoutY="693.0" mnemonicParsing="false" onAction="#handleButtons" stylesheets="@button.css" text="Search" />
+      <Button fx:id="createBtn" layoutX="40.0" layoutY="743.0" mnemonicParsing="false" onAction="#handleButtons" stylesheets="@button.css" text="Create" />
+      <Button fx:id="resetBtn" layoutX="154.0" layoutY="691.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="26.0" prefWidth="57.0" text="Reset" />
+      <Button fx:id="deleteBtn" layoutX="152.0" layoutY="742.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="26.0" prefWidth="68.0" stylesheets="@button.css" text="Delete" />
+      <ListView fx:id="amenitiesLV" layoutX="16.0" layoutY="474.0" prefHeight="200.0" prefWidth="200.0" />
+      <ListView fx:id="roomsLV" layoutX="17.0" layoutY="234.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

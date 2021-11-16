@@ -9,22 +9,30 @@ public class Hotels {
     private final StringProperty hoteladdr = new SimpleStringProperty();
     private final StringProperty hoteldesc = new SimpleStringProperty();
     private final IntegerProperty rooms = new SimpleIntegerProperty();
-    private final IntegerProperty amentities = new SimpleIntegerProperty();
+    private final IntegerProperty amenities = new SimpleIntegerProperty();
     private final DoubleProperty price = new SimpleDoubleProperty();
     private final IntegerProperty rating = new SimpleIntegerProperty();
+    private final StringProperty amenitiesdesc = new SimpleStringProperty();
 
-    public int getRating() {
-        return rating.get();
-    }
+//Amenities
 
-    public IntegerProperty ratingProperty() {
-        return rating;
-    }
+    public String getAmenitiesdesc() { return amenitiesdesc.get(); }
 
-    public void setRating(int rating) {
-        this.rating.set(rating);
-    }
+    public StringProperty amenitiesdescProperty() { return amenitiesdesc; }
 
+    public void setAmenitiesdesc(String amenitiesdesc) { this.amenitiesdesc.set(amenitiesdesc); }
+
+
+//RATING
+    public int getRating() { return rating.get(); }
+
+    public IntegerProperty ratingProperty() { return rating; }
+
+    public void setRating(int rating) { this.rating.set(rating); }
+
+
+
+//Hotel Address
     public String getHoteladdr() {
         return hoteladdr.get();
     }
@@ -37,6 +45,8 @@ public class Hotels {
         this.hoteladdr.set(hoteladdr);
     }
 
+
+//Hoteldescription
     public String getHoteldesc() {
         return hoteldesc.get();
     }
@@ -50,11 +60,7 @@ public class Hotels {
     }
 
 
-
-
-
-
-
+//Hotelname
     public String getHotelname() {
         return hotelname.get();
     }
@@ -67,6 +73,8 @@ public class Hotels {
         this.hotelname.set(hotelname);
     }
 
+
+//Price
     public double getPrice() {
         return price.get();
     }
@@ -79,18 +87,16 @@ public class Hotels {
         this.price.set(price);
     }
 
-    public int getAmentities() {
-        return amentities.get();
-    }
 
-    public IntegerProperty amentitiesProperty() {
-        return amentities;
-    }
+//Amenities totalAmenities
+    public int getAmenities() { return amenities.get(); }
 
-    public void setAmentities(int amentities) {
-        this.amentities.set(amentities);
-    }
+    public IntegerProperty amenitiesProperty() { return amenities; }
 
+    public void setAmenities(int amenities) { this.amenities.set(amenities); }
+
+
+//total rooms
     public int getRooms() {
         return rooms.get();
     }

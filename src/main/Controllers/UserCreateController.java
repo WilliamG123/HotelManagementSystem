@@ -14,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+
+
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +23,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
+
+
 
 import javax.swing.text.TabableView;
 import java.awt.event.ActionListener;
@@ -36,6 +40,7 @@ import java.util.ResourceBundle;
 // controls user reservation creation scene
 public class UserCreateController extends DBConnection implements Initializable {
 
+
     @FXML private Text mainmenuTV;
     @FXML private Text logoutTV;
     @FXML private DatePicker checkinDP;
@@ -43,7 +48,7 @@ public class UserCreateController extends DBConnection implements Initializable 
     @FXML private TextField hotelTF;
     @FXML private TableView<Hotels> hotelTable;
     @FXML private TableColumn<Hotels, String> Hotel, details, address,rating;
-    @FXML private TableColumn<Hotels, Integer> Rooms, amentities;
+    @FXML private TableColumn<Hotels, Integer> Rooms, amenities;
     @FXML private TableColumn<Hotels, Double> Price;
     @FXML private Button btn_search;
     @FXML private Button resetBtn;
@@ -68,6 +73,9 @@ public class UserCreateController extends DBConnection implements Initializable 
             else if(event.getSource() == logoutTV){
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
             }
+            else if(event.getSource() == bookBtn){
+                newScene = FXMLLoader.load(getClass().getResource("SharedBooking.fxml"));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,6 +91,7 @@ public class UserCreateController extends DBConnection implements Initializable 
         LocalDate localDate = LocalDate.parse(dateString, formatter);
         return localDate;
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -168,7 +177,7 @@ public class UserCreateController extends DBConnection implements Initializable 
             Hotels hotel =new Hotels();
             hotel.setHotelname(rs.getString("hotel_name"));
             hotel.setRooms(rs.getInt("hotel_availrms"));
-            hotel.setAmentities(rs.getInt("hotel_numofamend"));
+            hotel.setAmenities(rs.getInt("hotel_numofamend"));
             hotel.setPrice(rs.getDouble("room_rate"));
             hotel.setRating(rs.getInt("hotel_rating"));
             hotel.setHoteladdr(rs.getString("hotel_address"));
@@ -177,15 +186,24 @@ public class UserCreateController extends DBConnection implements Initializable 
             list.add(hotel);
 
         }
-        //Set property to tableview columns
 
-        //NB. Use the same property that is in Object class
+        hotelTable.setRowFactory( tv -> {
+            TableRow<Hotels> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Hotels rowData = row.getItem();
+                    System.out.println(rowData);
+                }
+            });
+            return row ;
+        });
+
 
         //System.out.println( hotel.hotelnameProperty().getValue());
         Hotel.setCellValueFactory(new PropertyValueFactory<>("hotelname"));
         Rooms.setCellValueFactory(new PropertyValueFactory<>("rooms"));
         Price.setCellValueFactory(new PropertyValueFactory<>("price"));
-        amentities.setCellValueFactory(new PropertyValueFactory<>("amentities"));
+        amenities.setCellValueFactory(new PropertyValueFactory<>("amenities"));
         details.setCellValueFactory(new PropertyValueFactory<>("hoteldesc"));
         address.setCellValueFactory(new PropertyValueFactory<>("hoteladdr"));
         rating.setCellValueFactory(new PropertyValueFactory<>("rating"));

@@ -114,6 +114,11 @@ public class StaffAccountsController extends DBConnection implements Initializab
         usersTable.setItems(usersList);
     }
 
+
+// ...
+
+
+
     private void handleUserDelete() throws SQLException {
         User user = usersTable.getSelectionModel().getSelectedItem();
         usersList.remove(user);
@@ -146,13 +151,11 @@ public class StaffAccountsController extends DBConnection implements Initializab
                         ps.setDate(key, Date.valueOf((LocalDate) obj));
                     }
                 }
-//                System.out.println(ps);
                 ResultSet rs = ps.executeQuery();
                 if(rs.next()){
                     usersList.clear();
                     addUsers(rs);
                 }
-//                System.out.println(rs);
             }else{
                 System.out.println("no query built");
             }
@@ -173,7 +176,6 @@ public class StaffAccountsController extends DBConnection implements Initializab
         int pos = 1;
         boolean appended = false;
         query.append(" WHERE");
-        //String query = "Select * from users where email = ?";
         String email = emailSearchField.getText();
         String phoneNumber = phoneNumberSearchField.getText();
         String firstName = firstNameSearchField.getText();
@@ -186,7 +188,6 @@ public class StaffAccountsController extends DBConnection implements Initializab
                 query.append(" AND");
             }
             query.append(" email=?");
-//            query.append("'"+email+"'");
             appended = true;
             statementValues.put(pos, email);
             pos++;
@@ -196,7 +197,6 @@ public class StaffAccountsController extends DBConnection implements Initializab
                 query.append(" AND");
             }
             query.append(" phone=?");
-            //query.append("'"+phoneNumber+"'");
             appended = true;
             statementValues.put(pos, phoneNumber);
             pos++;
@@ -206,7 +206,6 @@ public class StaffAccountsController extends DBConnection implements Initializab
                 query.append(" AND");
             }
             query.append(" fname=?");
-            //query.append("'"+firstName+"'");
             appended=true;
             statementValues.put(pos, firstName);
             pos++;
@@ -216,7 +215,6 @@ public class StaffAccountsController extends DBConnection implements Initializab
                 query.append(" AND");
             }
             query.append(" lname=?");
-            //query.append("'"+lastName+"'");
             appended = true;
             statementValues.put(pos, lastName);
             pos++;
@@ -226,7 +224,6 @@ public class StaffAccountsController extends DBConnection implements Initializab
                 query.append(" AND");
             }
             query.append(" dob=?");
-            //query.append("'"+Date.valueOf(dob)+"'");
             appended = true;
             statementValues.put(pos, dob);
             pos++;
@@ -236,7 +233,6 @@ public class StaffAccountsController extends DBConnection implements Initializab
                 query.append(" AND");
             }
             query.append(" usertype=?");
-            //query.append("'"+type+"'");
             appended = true;
             statementValues.put(pos, type);
         }
