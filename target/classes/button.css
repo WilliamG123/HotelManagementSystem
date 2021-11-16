@@ -24,4 +24,11 @@
 #signupButton {
     -fx-border-radius: 20;
     -fx-background-radius: 20;
+    -fx-font-size: 30;
+}
+
+#backToLoginButton {
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-font-size: 30;
 }
