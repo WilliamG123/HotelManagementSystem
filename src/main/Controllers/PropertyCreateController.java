@@ -178,7 +178,7 @@ public class PropertyCreateController {
         }
 
         String[] amenities = amenitiesText.split("\n");
-        Property property = new Property(propertyNameText, propertyDescText, propertyAddressText, amenities, rooms, new ArrayList<Reservation>(), 0, numberOfRooms);
+        Property property = new Property(propertyNameText, propertyDescText, propertyAddressText, amenities, rooms, new ArrayList<>(), 0, numberOfRooms);
         System.out.println(property);
     }
 }

@@ -202,16 +202,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
             reservation.setCustId(rs.getString("email"));
             reservations.add(reservation);
 
-//            ResultSet amenitiesSet = query.getAmenitiesByHotelName(rs.getString("hotel_name"));
-//            if(amenitiesSet.next()){
-//                do{
-//                    amenities.add(amenitiesSet.getString("Amenities_desc"));
-//                }while(amenitiesSet.next());
-//            }
-            //TODO: uncomment after requested db change
-//            amenities.addAll(Arrays.asList(rs.getString("propertyAmenities")));
             amenities.add(rs.getString("Amenities_desc"));
-//            amenities.add(rs.getString("facilities"));
 
             property.setRooms(rooms);
             property.setReservations(reservations);
