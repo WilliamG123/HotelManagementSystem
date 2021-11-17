@@ -34,8 +34,16 @@ public class SharedBooking implements Initializable {
     @FXML private TableView<?> roomTB;
     @FXML private ListView<?> amenitiesLV;
 
+    private Hotels hotel;
+    private String accountType;
+
     @FXML void book(MouseEvent event) {
 
+    }
+
+    public SharedBooking(Hotels hotel, String accountType) {
+        this.hotel = hotel;
+        this.accountType = accountType;
     }
 
     @FXML void sceneChange(MouseEvent event) {

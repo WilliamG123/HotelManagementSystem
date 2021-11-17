@@ -69,10 +69,10 @@ public class StaffReservationController extends DBConnection implements Initiali
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
                 System.out.println("Log: StaffRes -> LoginBtn");
             } else if(event.getSource() == modifyTF) {
-                if(resTable.getSelectionModel().getSelectedItem() == null){
+                if(resTable.getSelectionModel().getSelectedItem() == null) {
                     Toast.makeText(stage, "Error: no reservation selected", 2000, 500, 500);
                     return;
-                } else{
+                } else {
                     System.out.println("Log: StaffRes -> ModifyBtn");
                     Reservation reservation = resTable.getSelectionModel().getSelectedItem();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("StaffResModify.fxml"));
@@ -116,7 +116,6 @@ public class StaffReservationController extends DBConnection implements Initiali
      * - populates the list view with reservation data
      * - makes a query to DB for all reservations for a specific user
      *****************************************************************/
-    // TODO: 10/29/2021  Need to read in data and put into listview and then set up the detailed view
     public void populateListView() throws SQLException{
         // set up query for all reservations
         query.setLength(0);
@@ -156,17 +155,16 @@ public class StaffReservationController extends DBConnection implements Initiali
      * - if resetBtn then clear the ListView and repopulate it will all reservation data
      * - else it is applyBtn so
      *****************************************************************/
-    @FXML
-    private void handleFilter(ActionEvent event) throws SQLException {
-        if(event.getSource() == resetBtn){
+    @FXML private void handleFilter(ActionEvent event) throws SQLException {
+        if(event.getSource() == resetBtn) {
             resList.clear();
             populateListView();
-        }else{
+        } else {
             HashMap<Integer, Object> statementValues = new HashMap<>();
             query.setLength(0);
             query.append("SELECT * FROM reservation");
 
-            if(buildQuery(statementValues, event)){
+            if(buildQuery(statementValues, event)) {
                 PreparedStatement ps = conn.prepareStatement(query.toString());
                 for(Integer key : statementValues.keySet()) {
                     Object obj = statementValues.get(key);
@@ -179,10 +177,10 @@ public class StaffReservationController extends DBConnection implements Initiali
                 }
                 System.out.println(ps);
                 ResultSet rs = ps.executeQuery();
-                if(rs.next()){
+                if(rs.next()) {
                     resList.clear();
                     addReservations(rs);
-                } else{
+                } else {
                     System.out.println("no query built");
                 }
             }
@@ -207,7 +205,7 @@ public class StaffReservationController extends DBConnection implements Initiali
         String hotel = hotelTF.getText().toString();
         String name = nameTF.getText().toString();
 
-        if(hotel.equals("") && name.equals("") && checkin == null && checkout == null){
+        if(hotel.equals("") && name.equals("") && checkin == null && checkout == null) {
             Toast.makeText(stage, "Error: no filter information given", 2000, 500, 500);
         } else if(checkin.isAfter(checkout)){
             Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);

@@ -40,7 +40,6 @@ import java.util.ResourceBundle;
 // controls user reservation creation scene
 public class UserCreateController extends DBConnection implements Initializable {
 
-
     @FXML private Text mainmenuTV;
     @FXML private Text logoutTV;
     @FXML private DatePicker checkinDP;
@@ -52,7 +51,7 @@ public class UserCreateController extends DBConnection implements Initializable 
     @FXML private TableColumn<Hotels, Double> Price;
     @FXML private Button btn_search;
     @FXML private Button resetBtn;
-    @FXML private Text bookBtn;
+    @FXML private Button bookBtn;
     @FXML private TextField cityTF;
 
     private ContextMenu entriesPopup;
@@ -61,11 +60,12 @@ public class UserCreateController extends DBConnection implements Initializable 
 
     ArrayList<String> possibleWords = new ArrayList<String>();
 
-   LocalDate check_out_date;
+    LocalDate check_out_date;
     LocalDate check_in_date;
 
-    @FXML void sceneChange(MouseEvent event) {
+    @FXML void sceneChange(ActionEvent event) {
         AnchorPane newScene = null;
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
 
         try {
             if (event.getSource() == mainmenuTV)
@@ -73,8 +73,18 @@ public class UserCreateController extends DBConnection implements Initializable 
             else if(event.getSource() == logoutTV){
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
             }
-            else if(event.getSource() == bookBtn){
-                newScene = FXMLLoader.load(getClass().getResource("SharedBooking.fxml"));
+            else if(event.getSource() == bookBtn) {
+                if(hotelTable.getSelectionModel().getSelectedItem() == null) {
+                    Toast.makeText(stage, "Error: no hotel selected", 2000, 500, 500);
+                    return;
+                } else {
+                    System.out.println("Log: ResCreateController -> SharedBooking");
+                    Hotels hotel = new Hotels();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("SharedBooking.fxml"));
+                    SharedBooking controller = new SharedBooking(hotel, "customer");
+                    loader.setController(controller);
+                    newScene = loader.load();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,10 +143,12 @@ public class UserCreateController extends DBConnection implements Initializable 
 
 
     }
+
     public void onClick_btn_search(ActionEvent e) throws SQLException, ClassNotFoundException {
         list.clear();
         populateTableView();
     }
+
     //method to populate tableview
     public void populateTableView() throws SQLException, ClassNotFoundException {
 
@@ -155,7 +167,7 @@ public class UserCreateController extends DBConnection implements Initializable 
                 // ps.setDate(1, Date.valueOf(String.valueOf(check_in_date)));
                 // ps.setDate(2, Date.valueOf(String.valueOf(check_out_date)));
 
-            }else if(checkinDP.getValue() == null) {
+            } else if(checkinDP.getValue() == null) {
 
                 System.out.println("DATEPICKERS NULL USE DEFUALT INSTEAD");
 
@@ -166,9 +178,7 @@ public class UserCreateController extends DBConnection implements Initializable 
             }
            // ResultSet rs = ps.executeQuery();
 
-
         //ps.setInt(2, 1);
-
 
         //loop through the resultSet , extract data and append it to our list
         while(rs.next()) {
@@ -197,7 +207,6 @@ public class UserCreateController extends DBConnection implements Initializable 
             });
             return row ;
         });
-
 
         //System.out.println( hotel.hotelnameProperty().getValue());
         Hotel.setCellValueFactory(new PropertyValueFactory<>("hotelname"));

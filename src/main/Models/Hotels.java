@@ -14,6 +14,8 @@ public class Hotels {
     private final IntegerProperty rating = new SimpleIntegerProperty();
     private final StringProperty amenitiesdesc = new SimpleStringProperty();
 
+    public Hotels(){ }
+
 //Amenities
 
     public String getAmenitiesdesc() { return amenitiesdesc.get(); }
