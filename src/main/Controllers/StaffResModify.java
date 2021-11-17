@@ -44,7 +44,7 @@ public class StaffResModify implements Initializable {
     private Reservation reservation;
     private String accountType;
 
-    public StaffResModify(Reservation reservation, String accountType){
+    public StaffResModify(Reservation reservation, String accountType) {
         this.reservation = reservation;
         this.accountType = accountType;
         System.out.println("Log: Reservation: \n" + reservation);
