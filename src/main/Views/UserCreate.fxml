@@ -62,12 +62,12 @@
             <Font name="AdobeDevanagari-Regular" size="31.0" />
          </font>
       </Text>
-      <Button fx:id="btn_search" layoutX="1031.0" layoutY="83.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="108.0" text="Apply">
+      <Button fx:id="applyBtn" layoutX="1031.0" layoutY="83.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="54.0" prefWidth="108.0" stylesheets="@button.css" text="Apply">
          <font>
             <Font name="AdobeDevanagari-Regular" size="29.0" />
          </font>
       </Button>
-      <Button fx:id="resetBtn" layoutX="1031.0" layoutY="165.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="108.0" text="Reset">
+      <Button fx:id="resetBtn" layoutX="1031.0" layoutY="165.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="54.0" prefWidth="108.0" stylesheets="@button.css" text="Reset">
          <font>
             <Font name="AdobeDevanagari-Regular" size="29.0" />
          </font>

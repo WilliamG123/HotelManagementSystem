@@ -153,7 +153,7 @@ public class StaffReservationController extends DBConnection implements Initiali
      *                     handleFilter Method
      * @param event - holds data on the UI element clicked either resetBtn or applyBtn
      * - if resetBtn then clear the ListView and repopulate it will all reservation data
-     * - else it is applyBtn so
+     * - else it is applyBtn so repopulate listview with filters applied
      *****************************************************************/
     @FXML private void handleFilter(ActionEvent event) throws SQLException {
         if(event.getSource() == resetBtn) {
@@ -207,8 +207,10 @@ public class StaffReservationController extends DBConnection implements Initiali
 
         if(hotel.equals("") && name.equals("") && checkin == null && checkout == null) {
             Toast.makeText(stage, "Error: no filter information given", 2000, 500, 500);
-        } else if(checkin.isAfter(checkout)){
-            Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
+        } else if(checkin != null && checkout != null) {
+            if(checkin.isAfter(checkout)){
+                Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
+            }
         }
 
         // TODO: 10/30/2021 need to find out proper query to get hotel name & guest name
