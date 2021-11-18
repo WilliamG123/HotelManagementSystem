@@ -51,47 +51,42 @@
          </font>
       </Text>
       <TextArea fx:id="descriptionTF" editable="false" layoutX="231.0" layoutY="206.0" prefHeight="90.0" prefWidth="288.0" />
-      <Text fx:id="checkInTF" layoutX="20.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in:">
+      <Text fx:id="checkInTF" layoutX="802.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in:">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <DatePicker fx:id="checkInDP" layoutX="151.0" layoutY="454.0" prefHeight="25.0" prefWidth="211.0" />
-      <Text fx:id="checkOutTF" layoutX="20.0" layoutY="543.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out:">
+      <DatePicker fx:id="checkInDP" layoutX="933.0" layoutY="76.0" prefHeight="25.0" prefWidth="211.0" />
+      <Text fx:id="checkOutTF" layoutX="802.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out:">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <DatePicker fx:id="checkOutDP" layoutX="153.0" layoutY="524.0" prefHeight="25.0" prefWidth="211.0" />
-      <Text fx:id="adultsTF" layoutX="20.0" layoutY="623.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adults:" wrappingWidth="91.78709983825684">
+      <DatePicker fx:id="checkOutDP" layoutX="935.0" layoutY="146.0" prefHeight="25.0" prefWidth="211.0" />
+      <Text layoutX="802.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adults:" wrappingWidth="91.78709983825684">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <Text fx:id="childrenTF" layoutX="21.0" layoutY="699.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Children:" wrappingWidth="125.3486328125">
+      <Text layoutX="803.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Children:" wrappingWidth="125.3486328125">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <TextField fx:id="adultsTF" layoutX="153.0" layoutY="603.0" prefHeight="25.0" prefWidth="211.0" />
-      <TextField fx:id="childrenTF" layoutX="151.0" layoutY="677.0" prefHeight="25.0" prefWidth="211.0" />
+      <TextField fx:id="adultsTF" layoutX="935.0" layoutY="225.0" prefHeight="25.0" prefWidth="211.0" />
+      <TextField fx:id="childrenTF" layoutX="933.0" layoutY="299.0" prefHeight="25.0" prefWidth="211.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e2eef8" height="78.0" layoutY="732.0" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
       <Text fx:id="returnTF" layoutX="955.0" layoutY="781.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Return">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="bookTF" layoutX="533.0" layoutY="780.0" onMouseClicked="#book" strokeType="OUTSIDE" strokeWidth="0.0" text="Book">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Text>
-      <TableView fx:id="roomTB" layoutX="789.0" layoutY="52.0" prefHeight="308.0" prefWidth="384.0">
+      <TableView fx:id="roomTB" layoutX="56.0" layoutY="398.0" prefHeight="308.0" prefWidth="384.0" stylesheets="@table.css">
         <columns>
-          <TableColumn prefWidth="104.0" text="Style" />
-            <TableColumn prefWidth="97.0" text="Occupancy" />
-            <TableColumn prefWidth="98.0" text="Available" />
-          <TableColumn prefWidth="84.0" text="Price" />
+          <TableColumn fx:id="styleColumn" prefWidth="104.0" text="Style" />
+            <TableColumn fx:id="occupancyColumn" prefWidth="97.0" text="Occupancy" />
+            <TableColumn fx:id="availableColumn" prefWidth="98.0" text="Available" />
+          <TableColumn fx:id="priceColumn" prefWidth="84.0" text="Price" />
         </columns>
       </TableView>
       <Text layoutX="639.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
@@ -99,38 +94,43 @@
             <Font size="23.0" />
          </font>
       </Text>
-      <Text layoutX="890.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms Available">
+      <Text layoutX="157.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms Available">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
       <ListView fx:id="amenitiesLV" layoutX="623.0" layoutY="53.0" prefHeight="308.0" prefWidth="133.0" />
-      <ChoiceBox layoutX="848.0" layoutY="428.0" prefHeight="31.0" prefWidth="196.0" />
-      <ListView layoutX="636.0" layoutY="506.0" prefHeight="137.0" prefWidth="517.0" />
-      <Button layoutX="1076.0" layoutY="426.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="77.0" text="Add">
+      <ChoiceBox layoutX="739.0" layoutY="447.0" prefHeight="31.0" prefWidth="196.0" />
+      <ListView layoutX="533.0" layoutY="509.0" prefHeight="137.0" prefWidth="517.0" />
+      <Button fx:id="addRoomBtn" layoutX="974.0" layoutY="442.0" mnemonicParsing="false" onAction="#addRoom" prefHeight="40.0" prefWidth="77.0" stylesheets="@button.css" text="Add">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Text layoutX="970.0" layoutY="677.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total cost: $23.99">
+      <Text layoutX="874.0" layoutY="691.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total cost: $23.99">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <Text layoutX="897.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Style">
+      <Text layoutX="790.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Style">
          <font>
             <Font size="23.0" />
          </font>
       </Text>
-      <Text layoutX="544.0" layoutY="452.0" strokeType="OUTSIDE" strokeWidth="0.0" text="// Possible stuff here idk">
+      <Text layoutX="834.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="// Possible stuff here idk">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
-      <Text layoutX="73.0" layoutY="383.0" strokeType="OUTSIDE" strokeWidth="0.0" text="// Possible stuff here idk">
+      <Text layoutX="353.0" layoutY="335.0" strokeType="OUTSIDE" strokeWidth="0.0" text="// Possible stuff here idk">
          <font>
             <Font size="21.0" />
          </font>
       </Text>
+      <Button fx:id="bookBtn" layoutX="533.0" layoutY="742.0" mnemonicParsing="false" onAction="#book" stylesheets="@button.css" text="Book!">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
