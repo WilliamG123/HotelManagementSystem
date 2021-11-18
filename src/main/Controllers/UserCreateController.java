@@ -84,7 +84,17 @@ public class UserCreateController extends DBConnection implements Initializable 
         // TODO: 11/17/2021 call populatetableview method to reset table
     }
 
-    public void applyFilter(ActionEvent event) {
+    // method will handle the filter apply button
+    @FXML public void handleFilter(ActionEvent event) {
+
+    }
+
+    /***********************************************************************************
+     *                     loginCheck Function
+     * - validates user filter input fields
+     * - builds query to get selected hotels and then repopulates TableView with new data
+     ***********************************************************************************/
+    public void buildQuery(ActionEvent event) {
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
 
         LocalDate checkin = checkinDP.getValue();
@@ -107,6 +117,7 @@ public class UserCreateController extends DBConnection implements Initializable 
      * - populates the list view with reservation data
      * - makes a query to DB for all reservations for a specific user
      *****************************************************************/
+
     public void populateTableView() throws SQLException {
         // TODO: 11/17/2021 figure out how to query properly and set that up
         // set up query for all reservations
@@ -162,6 +173,8 @@ public class UserCreateController extends DBConnection implements Initializable 
         hotelTable.setItems(list);
     }
 
+
+    // TODO: 11/17/2021 figure out williams code here
     /*
     public void populateTableView() throws SQLException, ClassNotFoundException {
 
@@ -235,13 +248,14 @@ public class UserCreateController extends DBConnection implements Initializable 
         //set data tp tableview
         hotelTable.setItems(list);
     }
-    */
+
 
     public static final LocalDate LOCAL_DATE(String dateString) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(dateString, formatter);
         return localDate;
     }
+    */
 
     @FXML void sceneChange(ActionEvent event) {
         AnchorPane newScene = null;
@@ -258,10 +272,11 @@ public class UserCreateController extends DBConnection implements Initializable 
                     return;
                 } else {
                     System.out.println("Log: ResCreateController -> SharedBooking");
-                    Hotels hotel = new Hotels();
+                    Property property = new Property();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("SharedBooking.fxml"));
-                    SharedBooking controller = new SharedBooking(hotel, "customer");
-                    loader.setController(controller);
+                    // TODO: 11/17/2021 uncommment once scene is fixed
+                    //SharedBooking controller = new SharedBooking(property, "customer");
+                    //loader.setController(controller);
                     newScene = loader.load();
                 }
             }
@@ -278,10 +293,15 @@ public class UserCreateController extends DBConnection implements Initializable 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        // TODO: 11/17/2021 remove once populate TableView is sorted out
+        Property property = new Property();
+
+        /*
         try {
             populateTableView();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+         */
     }
 }
