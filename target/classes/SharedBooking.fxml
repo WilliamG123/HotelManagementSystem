@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SharedBooking">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text fx:id="hNameTF" layoutX="140.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La Quinta Suites" wrappingWidth="786.8525390625">
          <font>
@@ -50,7 +50,10 @@
             <Font size="23.0" />
          </font>
       </Text>
-      <TextArea fx:id="descriptionTF" editable="false" layoutX="231.0" layoutY="206.0" prefHeight="90.0" prefWidth="288.0" />
+      <TextArea fx:id="descriptionTF" editable="false" layoutX="231.0" layoutY="206.0" prefHeight="90.0" prefWidth="288.0">
+         <font>
+            <Font size="22.0" />
+         </font></TextArea>
       <Text fx:id="checkInTF" layoutX="802.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in:">
          <font>
             <Font size="23.0" />
