@@ -182,7 +182,7 @@ public class QUERYS {
         return crs;
     }
 
-    public ResultSet getAllAvailHotels(String hotelName) throws SQLException, ClassNotFoundException {
+    public ResultSet getAllAvailHotels() throws SQLException, ClassNotFoundException {
         // if(!hotelExist(hotelName)){
         //   System.out.println("Hotel DOES NOT EXIST!");
         // }
