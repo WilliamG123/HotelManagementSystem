@@ -185,7 +185,6 @@ public class UserCreateController extends DBConnection implements Initializable 
 
         //loop through the resultSet , extract data and append it to our list
         while(rs.next()) {
-
             //Create a hotels Object , add data to it and finally append it to list
             Hotels hotel = new Hotels();
             hotel.setHotelname(rs.getString("hotel_name"));
@@ -195,7 +194,7 @@ public class UserCreateController extends DBConnection implements Initializable 
             hotel.setRating(rs.getInt("hotel_rating"));
             hotel.setHoteladdr(rs.getString("hotel_address"));
             hotel.setHoteldesc(rs.getString("hotel_desc"));
-
+            hotel.setHotelId(rs.getString("hotel_id"));
             list.add(hotel);
         }
 
@@ -241,11 +240,10 @@ public class UserCreateController extends DBConnection implements Initializable 
                     return;
                 } else {
                     System.out.println("Log: ResCreateController -> SharedBooking");
-                    Property property = new Property();
+                    Hotels hotel = hotelTable.getSelectionModel().getSelectedItem();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("SharedBooking.fxml"));
-                    // TODO: 11/17/2021 uncommment once scene is fixed
-                    //SharedBooking controller = new SharedBooking(property, "customer");
-                    //loader.setController(controller);
+                    SharedBooking controller = new SharedBooking(hotel, "customer");
+                    loader.setController(controller);
                     newScene = loader.load();
                 }
             }

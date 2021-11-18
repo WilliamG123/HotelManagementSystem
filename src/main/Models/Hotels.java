@@ -13,6 +13,7 @@ public class Hotels {
     private final DoubleProperty price = new SimpleDoubleProperty();
     private final IntegerProperty rating = new SimpleIntegerProperty();
     private final StringProperty amenitiesdesc = new SimpleStringProperty();
+    private final StringProperty hotelId = new SimpleStringProperty();
 
     public Hotels(){ }
 
@@ -110,4 +111,13 @@ public class Hotels {
     public void setRooms(int rooms) {
         this.rooms.set(rooms);
     }
+
+// hotel Id
+    public String getHotelId() {return hotelId.get();}
+
+    public StringProperty hotelIdProperty() {return hotelId;}
+
+    public void setHotelId(String hotelId) {this.hotelId.set(hotelId);}
 }
+
+

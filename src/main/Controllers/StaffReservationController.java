@@ -123,9 +123,7 @@ public class StaffReservationController extends DBConnection implements Initiali
         query.append("SELECT * FROM reservation;");
         // query the database
         ResultSet rs = conn.createStatement().executeQuery(query.toString());
-        ResultSetMetaData rsmd = rs.getMetaData();
         System.out.println("Log: querying SELECT * FROM reservation");
-        int columnsNumber = rsmd.getColumnCount();
 
         if(rs.next()){
             addReservations(rs);
@@ -136,15 +134,6 @@ public class StaffReservationController extends DBConnection implements Initiali
             costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
             resNumColumn.setCellValueFactory(new PropertyValueFactory<>("resID"));
         }
-        // while loop prints out all result set data
-        /*while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
-                String columnValue = rs.getString(i);
-                System.out.print(columnValue + " " + rsmd.getColumnName(i));
-            }
-            System.out.println("");
-        }*/
 
         resTable.setItems(resList);
     }
