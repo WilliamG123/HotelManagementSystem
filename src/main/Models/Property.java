@@ -14,6 +14,7 @@ public class Property {
     private ArrayList<Room> rooms;
     private ArrayList<Reservation> reservations;
     private HashMap<String, Integer> roomTypes;
+    private HashMap<String, Integer> typeCountAvailable;
     private int numberRooms;
     private int numberAmenities;
     private int rating;
@@ -25,6 +26,7 @@ public class Property {
         this.roomTypes = new HashMap<>();
         this.rooms = new ArrayList<>();
         this.amenitiesSet = new HashSet<>();
+        this.typeCountAvailable = new HashMap<>();
     }
 
     public Property(String propertyName, String desc, String address, String[] amenities, ArrayList<Room> rooms, ArrayList<Reservation> reservations, int rating, int numberAvailableRooms){
@@ -35,14 +37,21 @@ public class Property {
         this.rooms = rooms; //new ArrayList<>(Arrays.asList(rooms));
         this.reservations = reservations; //new ArrayList<>(reservations);
         this.roomTypes = new HashMap<>();
+        this.typeCountAvailable = new HashMap<>();
         for(Room room : this.rooms){
-            int count = this.roomTypes.getOrDefault(room.getType(), 0);
+            int count;
+            if(room.getIsOccupied() == 0) {
+                count = this.typeCountAvailable.getOrDefault(room.getType(), 0);
+                this.typeCountAvailable.put(room.getType(), count+1);
+            }
+            count = this.roomTypes.getOrDefault(room.getType(), 0);
             this.roomTypes.put(room.getType(), count+1);
         }
         this.numberRooms = rooms.size();
         this.numberAmenities = amenities.length;
         this.rating = rating;
         this.numberAvailableRooms = numberAvailableRooms;
+        this.amenitiesSet = new HashSet<>();
     }
 
     public ArrayList<String> getAmenitiesAL(){
@@ -107,7 +116,12 @@ public class Property {
         this.numberRooms = rooms.size();
         int avail = 0;
         for(Room room : this.rooms){
-            int count = this.roomTypes.getOrDefault(room.getType(), 0);
+            int count;
+            if(room.getIsOccupied() == 0){
+                count = this.typeCountAvailable.getOrDefault(room.getType(), 0);
+                this.typeCountAvailable.put(room.getType(), count+1);
+            }
+            count = this.roomTypes.getOrDefault(room.getType(), 0);
             this.roomTypes.put(room.getType(), count+1);
             if(room.getIsOccupied() == 0){
                 avail++;

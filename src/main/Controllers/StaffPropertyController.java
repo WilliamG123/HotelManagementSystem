@@ -148,15 +148,27 @@ public class StaffPropertyController extends DBConnection implements Initializab
 
         ResultSet rs = conn.createStatement().executeQuery(query.toString());
         System.out.println(query.toString());
-        if(rs.next())
-            addProperties(rs);
-
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("propertyName"));
-        roomsColumn.setCellValueFactory(new PropertyValueFactory<>("numberAvailableRooms"));
-        amenitiesColumn.setCellValueFactory(new PropertyValueFactory<>("amenitiesString"));
-        propertiesTable.setItems(propertiesList);
-        for(Property prop : propertiesList){
+        QUERYS queryObj = new QUERYS();
+        ResultSet propSet = queryObj.getAllAvailHotels("something");
+        ResultSetMetaData rsmd = propSet.getMetaData();
+        int columns = rsmd.getColumnCount();
+        while(propSet.next()){
+            for(int i = 1; i < columns; i++){
+                if(i > 1) System.out.print(", ");
+                String value = propSet.getString(i);
+                System.out.print(value + " " + rsmd.getColumnName(i));
+            }
+            System.out.println("");
         }
+//        if(rs.next())
+//            addProperties(rs);
+//
+//        nameColumn.setCellValueFactory(new PropertyValueFactory<>("propertyName"));
+//        roomsColumn.setCellValueFactory(new PropertyValueFactory<>("numberAvailableRooms"));
+//        amenitiesColumn.setCellValueFactory(new PropertyValueFactory<>("amenitiesString"));
+//        propertiesTable.setItems(propertiesList);
+//        for(Property prop : propertiesList){
+//        }
 
     }
 

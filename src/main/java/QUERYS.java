@@ -196,7 +196,7 @@ public class QUERYS {
             dbConnect();
             //Callable statement is an extension of prepared statement so it prevents against SQL INJECTION
             callableStatement = conn.prepareCall("{call hotel.getListAvailHotels}");
-            callableStatement.setString(1, hotelName);
+//            callableStatement.setString(1, hotelName);
 
             //Execute select (query) operation
             resultSet = callableStatement.executeQuery();
