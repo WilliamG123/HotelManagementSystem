@@ -24,7 +24,6 @@ public class QUERYS {
     public QUERYS() throws ClassNotFoundException {
     }
 
-
     public static void dbConnect() throws SQLException, ClassNotFoundException {
         //Setting Oracle JDBC Driver
         try {
@@ -251,7 +250,7 @@ public class QUERYS {
         }
         return true;
     }
-//use : takes in update statments i.e ("update hotel set column_name = "" where ...")
+    //use : takes in update statments i.e ("update hotel set column_name = "" where ...")
     //recommended for testing only
     public void dbExecuteUpdate(String sqlStmt) throws SQLException, ClassNotFoundException {
         //Declare statement as null

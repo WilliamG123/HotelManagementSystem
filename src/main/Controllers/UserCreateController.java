@@ -65,8 +65,6 @@ public class UserCreateController extends DBConnection implements Initializable 
     private Connection conn;
     private StringBuilder query;
     ArrayList<String> possibleWords = new ArrayList<String>();
-
-
     LocalDate check_out_date;
     LocalDate check_in_date;
 
@@ -114,7 +112,6 @@ public class UserCreateController extends DBConnection implements Initializable 
         return localDate;
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         list = FXCollections.observableArrayList();
@@ -129,7 +126,6 @@ public class UserCreateController extends DBConnection implements Initializable 
         possibleWords.add("Sun Palace Inn");
         possibleWords.add("HomeAway Inn");
         possibleWords.add("Rio Inn");
-
 
         TextFields.bindAutoCompletion(hotelTF, possibleWords);
         //run the method
@@ -151,9 +147,6 @@ public class UserCreateController extends DBConnection implements Initializable 
 
             }
         });
-
-
-
     }
 
     /*****************************************************************
@@ -165,7 +158,6 @@ public class UserCreateController extends DBConnection implements Initializable 
 
         //instantiate list
         //both datepickers must have a value in order to run this query
-
 
         Connection con = getConnection();
         //PreparedStatement ps = con.prepareStatement("call hotel.getListAvailHotels(?)");
@@ -195,7 +187,7 @@ public class UserCreateController extends DBConnection implements Initializable 
         while(rs.next()) {
 
             //Create a hotels Object , add data to it and finally append it to list
-            Hotels hotel =new Hotels();
+            Hotels hotel = new Hotels();
             hotel.setHotelname(rs.getString("hotel_name"));
             hotel.setRooms(rs.getInt("hotel_availrms"));
             hotel.setAmenities(rs.getInt("hotel_numofamend"));
@@ -205,7 +197,6 @@ public class UserCreateController extends DBConnection implements Initializable 
             hotel.setHoteldesc(rs.getString("hotel_desc"));
 
             list.add(hotel);
-
         }
 
         hotelTable.setRowFactory( tv -> {

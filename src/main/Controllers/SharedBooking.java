@@ -72,6 +72,10 @@ public class SharedBooking implements Initializable {
         window.show();
     }
 
+    public void populateRoomTable() {
+        // TODO: 11/17/2021 write query stuff to get each room type, their price, and their available amount of rooms per dates
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
