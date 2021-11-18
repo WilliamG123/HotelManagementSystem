@@ -64,6 +64,8 @@ public class UserCreateController extends DBConnection implements Initializable 
     private ContextMenu entriesPopup;
     private Connection conn;
     private StringBuilder query;
+    ArrayList<String> possibleWords = new ArrayList<String>();
+
 
     LocalDate check_out_date;
     LocalDate check_in_date;
@@ -81,35 +83,77 @@ public class UserCreateController extends DBConnection implements Initializable 
         checkinDP.setValue(null);
         checkoutDP.setValue(null);
         hotelTF.clear();
+
         // TODO: 11/17/2021 call populatetableview method to reset table
     }
 
     // method will handle the filter apply button
     @FXML public void handleFilter(ActionEvent event) {
+        if(event.getSource() == resetBtn) {
+            resetFilter(event);
+        } else {
+            Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
 
-    }
+            LocalDate checkin = checkinDP.getValue();
+            LocalDate checkout = checkoutDP.getValue();
+            String hotel = hotelTF.getText().toString();
 
-    /***********************************************************************************
-     *                     loginCheck Function
-     * - validates user filter input fields
-     * - builds query to get selected hotels and then repopulates TableView with new data
-     ***********************************************************************************/
-    public void buildQuery(ActionEvent event) {
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
-
-        LocalDate checkin = checkinDP.getValue();
-        LocalDate checkout = checkoutDP.getValue();
-        String hotel = hotelTF.getText().toString();
-
-        if(hotel.equals("") && checkin == null && checkout == null) {
-            Toast.makeText(stage, "Error: no filter information given", 2000, 500, 500);
-        } else if(checkin != null && checkout != null) {
-            if(checkin.isAfter(checkout)) {
-                Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
+            if(hotel.equals("") && checkin == null && checkout == null) {
+                Toast.makeText(stage, "Error: no filter information given", 2000, 500, 500);
+            } else if(checkin != null && checkout != null) {
+                if(checkin.isAfter(checkout)) {
+                    Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
+                }
             }
         }
+    }
 
-        // TODO: 11/17/2021 write code to query either model data or DB for data
+    public static final LocalDate LOCAL_DATE (String dateString){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(dateString, formatter);
+        return localDate;
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        list = FXCollections.observableArrayList();
+        //adding all 10 required hotels for type ahead in search by hotel name
+        possibleWords.add("The Magnolia All Suites");
+        possibleWords.add("The Lofts at Town Centre");
+        possibleWords.add("Park North Hotel");
+        possibleWords.add("The Courtyard Suites");
+        possibleWords.add("The Regency Rooms");
+        possibleWords.add("Town Inn Budget Rooms");
+        possibleWords.add("The Comfy Motel Place");
+        possibleWords.add("Sun Palace Inn");
+        possibleWords.add("HomeAway Inn");
+        possibleWords.add("Rio Inn");
+
+
+        TextFields.bindAutoCompletion(hotelTF, possibleWords);
+        //run the method
+
+        try {
+            populateTableView();
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        hotelTF.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //Type Ahead auto complete
+                possibleWords.add(hotelTF.getText());
+                TextFields.bindAutoCompletion(hotelTF, possibleWords);
+
+                System.out.println(hotelTF.getText());
+
+            }
+        });
+
+
+
     }
 
     /*****************************************************************
@@ -117,65 +161,6 @@ public class UserCreateController extends DBConnection implements Initializable 
      * - populates the list view with reservation data
      * - makes a query to DB for all reservations for a specific user
      *****************************************************************/
-
-    public void populateTableView() throws SQLException {
-        // TODO: 11/17/2021 figure out how to query properly and set that up
-        // set up query for all reservations
-        query.setLength(0);
-        //getQuery();
-        query.append("SELECT * FROM hotel;");
-        // query the database
-        ResultSet rs = conn.createStatement().executeQuery(query.toString());
-        ResultSetMetaData rsmd = rs.getMetaData();
-        System.out.println("Log: querying SELECT * FROM hotel");
-        int columnsNumber = rsmd.getColumnCount();
-
-        //loop through the resultSet , extract data and append it to our list
-        while(rs.next()) {
-
-            //Create a hotels Object , add data to it and finally append it to list
-            Hotels hotel =new Hotels();
-            hotel.setHotelname(rs.getString("hotel_name"));
-            hotel.setRooms(rs.getInt("hotel_availrms"));
-            hotel.setAmenities(rs.getInt("hotel_numofamend"));
-            hotel.setPrice(rs.getDouble("room_rate"));
-            hotel.setRating(rs.getInt("hotel_rating"));
-            hotel.setHoteladdr(rs.getString("hotel_address"));
-            hotel.setHoteldesc(rs.getString("hotel_desc"));
-
-            list.add(hotel);
-
-        }
-
-        hotelTable.setRowFactory( tv -> {
-            TableRow<Hotels> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    Hotels rowData = row.getItem();
-                    System.out.println(rowData);
-                }
-            });
-            return row ;
-        });
-
-        //System.out.println( hotel.hotelnameProperty().getValue());
-        Hotel.setCellValueFactory(new PropertyValueFactory<>("hotelname"));
-        Rooms.setCellValueFactory(new PropertyValueFactory<>("rooms"));
-        Price.setCellValueFactory(new PropertyValueFactory<>("price"));
-        amenities.setCellValueFactory(new PropertyValueFactory<>("amenities"));
-        details.setCellValueFactory(new PropertyValueFactory<>("hoteldesc"));
-        address.setCellValueFactory(new PropertyValueFactory<>("hoteladdr"));
-        rating.setCellValueFactory(new PropertyValueFactory<>("rating"));
-
-        // Hotel.setCellValueFactory(c-> new SimpleStringProperty(hotel.getHotelname()));
-
-        //set data tp tableview
-        hotelTable.setItems(list);
-    }
-
-
-    // TODO: 11/17/2021 figure out williams code here
-    /*
     public void populateTableView() throws SQLException, ClassNotFoundException {
 
         //instantiate list
@@ -186,23 +171,23 @@ public class UserCreateController extends DBConnection implements Initializable 
         //PreparedStatement ps = con.prepareStatement("call hotel.getListAvailHotels(?)");
         CallableStatement callableStatement = con.prepareCall("{call hotel.getListAvailHotels}");
         ResultSet rs = callableStatement.executeQuery();
-            if(checkinDP.getValue() != null){
-                System.out.println("DATE PICKERS HAVE VALUES!");
-                check_in_date = checkinDP.getValue();
-                check_out_date = checkinDP.getValue();
-                // ps.setDate(1, Date.valueOf(String.valueOf(check_in_date)));
-                // ps.setDate(2, Date.valueOf(String.valueOf(check_out_date)));
+        if(checkinDP.getValue() != null){
+            System.out.println("DATE PICKERS HAVE VALUES!");
+            check_in_date = checkinDP.getValue();
+            check_out_date = checkinDP.getValue();
+            // ps.setDate(1, Date.valueOf(String.valueOf(check_in_date)));
+            // ps.setDate(2, Date.valueOf(String.valueOf(check_out_date)));
 
-            } else if(checkinDP.getValue() == null) {
+        } else if(checkinDP.getValue() == null) {
 
-                System.out.println("DATEPICKERS NULL USE DEFUALT INSTEAD");
+            System.out.println("DATEPICKERS NULL USE DEFUALT INSTEAD");
 
-                long millis = System.currentTimeMillis();
-                java.sql.Date date = new java.sql.Date(millis);
-                //ps.setDate(1, date);
-               // ps.setDate(2, date);
-            }
-           // ResultSet rs = ps.executeQuery();
+            long millis = System.currentTimeMillis();
+            java.sql.Date date = new java.sql.Date(millis);
+            //ps.setDate(1, date);
+            // ps.setDate(2, date);
+        }
+        // ResultSet rs = ps.executeQuery();
 
         //ps.setInt(2, 1);
 
@@ -247,15 +232,8 @@ public class UserCreateController extends DBConnection implements Initializable 
 
         //set data tp tableview
         hotelTable.setItems(list);
-    }
 
-
-    public static final LocalDate LOCAL_DATE(String dateString) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(dateString, formatter);
-        return localDate;
     }
-    */
 
     @FXML void sceneChange(ActionEvent event) {
         AnchorPane newScene = null;
@@ -288,20 +266,5 @@ public class UserCreateController extends DBConnection implements Initializable 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        // TODO: 11/17/2021 remove once populate TableView is sorted out
-        Property property = new Property();
-
-        /*
-        try {
-            populateTableView();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-         */
     }
 }
