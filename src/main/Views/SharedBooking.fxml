@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SharedBooking">
    <children>
       <Text fx:id="hNameTF" layoutX="140.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La Quinta Suites" wrappingWidth="786.8525390625">
          <font>
@@ -81,17 +81,12 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <Text fx:id="bookTF" layoutX="533.0" layoutY="780.0" onMouseClicked="#book" strokeType="OUTSIDE" strokeWidth="0.0" text="Book">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Text>
-      <TableView fx:id="roomTB" layoutX="56.0" layoutY="398.0" prefHeight="308.0" prefWidth="384.0">
+      <TableView fx:id="roomTB" layoutX="56.0" layoutY="398.0" prefHeight="308.0" prefWidth="384.0" stylesheets="@table.css">
         <columns>
-          <TableColumn prefWidth="104.0" text="Style" />
-            <TableColumn prefWidth="97.0" text="Occupancy" />
-            <TableColumn prefWidth="98.0" text="Available" />
-          <TableColumn prefWidth="84.0" text="Price" />
+          <TableColumn fx:id="styleColumn" prefWidth="104.0" text="Style" />
+            <TableColumn fx:id="occupancyColumn" prefWidth="97.0" text="Occupancy" />
+            <TableColumn fx:id="availableColumn" prefWidth="98.0" text="Available" />
+          <TableColumn fx:id="priceColumn" prefWidth="84.0" text="Price" />
         </columns>
       </TableView>
       <Text layoutX="639.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
@@ -107,7 +102,7 @@
       <ListView fx:id="amenitiesLV" layoutX="623.0" layoutY="53.0" prefHeight="308.0" prefWidth="133.0" />
       <ChoiceBox layoutX="739.0" layoutY="447.0" prefHeight="31.0" prefWidth="196.0" />
       <ListView layoutX="533.0" layoutY="509.0" prefHeight="137.0" prefWidth="517.0" />
-      <Button layoutX="974.0" layoutY="442.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="77.0" text="Add">
+      <Button fx:id="addRoomBtn" layoutX="974.0" layoutY="442.0" mnemonicParsing="false" onAction="#addRoom" prefHeight="40.0" prefWidth="77.0" stylesheets="@button.css" text="Add">
          <font>
             <Font size="18.0" />
          </font>
@@ -132,5 +127,10 @@
             <Font size="21.0" />
          </font>
       </Text>
+      <Button fx:id="bookBtn" layoutX="533.0" layoutY="742.0" mnemonicParsing="false" onAction="#book" stylesheets="@button.css" text="Book!">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
