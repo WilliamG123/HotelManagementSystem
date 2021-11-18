@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
@@ -23,6 +24,16 @@ import java.util.ResourceBundle;
 public class QueryTestTableController extends QUERYS implements Initializable {
     @FXML public TableView<Hotels> amenitiesTable;
     @FXML public TableColumn <Hotels, String> amenities;
+    @FXML
+    public Button btn_Update;
+    @FXML
+    public Button btn_Create;
+    @FXML
+    public Button btn_Delete;
+    @FXML
+    public Button btn_Rooms;
+    @FXML
+    public TextField hotelInputTF;
 
     @FXML
     private TableView<Hotels> hotelTable;
@@ -31,8 +42,7 @@ public class QueryTestTableController extends QUERYS implements Initializable {
     @FXML private TableColumn<Hotels, Double> Price;
 
 
-    @FXML
-    public Text bookBtn;
+
     @FXML
     public Button resetBtn;
     @FXML
@@ -48,6 +58,8 @@ public class QueryTestTableController extends QUERYS implements Initializable {
     private ObservableList<Hotels> list;
     private ObservableList<Hotels> amenitieslist;
     String hotelname = "The Magnolia All Suites";
+
+    DynamicTable dt = new DynamicTable();
 
     public QueryTestTableController() throws ClassNotFoundException {
     }
@@ -121,9 +133,43 @@ public class QueryTestTableController extends QUERYS implements Initializable {
         hotelTable.setItems(list);
         amenitiesTable.setItems(amenitieslist);
 
+        btn_Update.setOnMouseClicked(event -> {
+            System.out.println("update pressed");
+            Stage stage = new Stage();
+                dt.setDbName2(hotelInputTF.getText().toString());//grab hotel from "Enter Hotel Name:"
+            try {
+
+                dt.start(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+/**
+
+ firstNameCol.setCellValueFactory(new Callback<CellDataFeatures<Data, String>, ObservableValue<String>>() {
+ public ObservableValue<String> call(CellDataFeatures<Data, String> data) {
+ // data.getValue() returns the Data instance for a particular TableView row
+ return data.getValue().getUser().firstNameProperty();
+ }
+ });
+ }
 
 
+        hotelTable.getSelectionModel().setSelectionMode(
+                SelectionMode.MULTIPLE
+        );
+        amenitiesTable.getSelectionModel().setSelectionMode(
+                SelectionMode.MULTIPLE
+        );
 
+        btn_Update.setOnMouseClicked(event -> {
+            System.out.println("update pressed");
+            System.out.println(hotelTable.getSelectionModel().getSelectedCells().toString());
+            hotelTable.setEditable(true);
+            hotelTable.getSelectionModel().cellSelectionEnabledProperty().set(true);
+        });
+**/
 //ON DOUBLE CLICK ANY ROW WILL GET THAT HOTEL NAME AND STORE IT INSIDE GLOBAL hotelname
         hotelTable.setRowFactory( tv -> {
             TableRow<Hotels> row = new TableRow<>();
@@ -142,6 +188,7 @@ public class QueryTestTableController extends QUERYS implements Initializable {
                         e.printStackTrace();
                     }
                 }
+
             });
             return row ;
         });

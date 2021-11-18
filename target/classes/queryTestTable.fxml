@@ -25,7 +25,7 @@
         <DatePicker fx:id="checkinDP" layoutX="607.0" layoutY="153.0" prefHeight="25.0" prefWidth="164.0" />
         <DatePicker fx:id="checkoutDP" layoutX="812.0" layoutY="153.0" prefHeight="25.0" prefWidth="164.0" />
         <TextField fx:id="hotelTF" layoutX="195.0" layoutY="153.0" prefHeight="25.0" prefWidth="164.0" />
-        <TableView fx:id="hotelTable" layoutX="1.0" layoutY="260.0" prefHeight="360.0" prefWidth="1160.0" style="-fx-background-color: rgba(255, 255, 255, .7);">
+        <TableView fx:id="hotelTable" layoutX="1.0" layoutY="260.0" prefHeight="358.0" prefWidth="1359.0" style="-fx-background-color: rgba(255, 255, 255, .7);">
             <columns>
                 <TableColumn fx:id="Hotel" prefWidth="233.0" text="Hotel" />
                 <TableColumn fx:id="address" prefWidth="193.0" text="address" />
@@ -51,11 +51,6 @@
                 <Font name="AdobeDevanagari-Regular" size="29.0" />
             </font>
         </Button>
-        <Text fx:id="bookBtn" layoutX="1301.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book now">
-            <font>
-                <Font size="35.0" />
-            </font>
-        </Text>
         <Text layoutX="241.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
             <font>
                 <Font name="AdobeDevanagari-Regular" size="31.0" />
@@ -72,10 +67,36 @@
                 <Font size="31.0" />
             </font>
         </Text>
-      <TableView fx:id="amenitiesTable" layoutX="20.0" layoutY="703.0" prefHeight="559.0" prefWidth="1160.0" style="-fx-background-color: rgba(255, 255, 255, .7);">
+      <TableView fx:id="amenitiesTable" layoutX="20.0" layoutY="836.0" prefHeight="422.0" prefWidth="354.0" style="-fx-background-color: rgba(255, 255, 255, .7);">
          <columns>
-            <TableColumn fx:id="amenities" prefWidth="433.0" text="Amenities" />
+            <TableColumn fx:id="amenities" prefWidth="402.0" text="Amenities" />
          </columns>
       </TableView>
+      <Button fx:id="btn_Update" layoutX="1521.0" layoutY="378.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="208.0" text="UPDATE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_Create" layoutX="1521.0" layoutY="305.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="208.0" text="CREATE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_Rooms" layoutX="1521.0" layoutY="533.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="208.0" text="ADD/REMOVE ROOMS">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_Delete" layoutX="1521.0" layoutY="458.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="208.0" text="DELETE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <TextField fx:id="hotelInputTF" layoutX="1528.0" layoutY="126.0" />
+      <Text layoutX="1303.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Table Name:">
+         <font>
+            <Font name="AdobeDevanagari-Regular" size="31.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

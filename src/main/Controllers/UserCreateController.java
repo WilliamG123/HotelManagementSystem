@@ -144,6 +144,9 @@ public class UserCreateController extends DBConnection implements Initializable 
         //both datepickers must have a value in order to run this query
 
 
+
+
+
         Connection con = getConnection();
         //PreparedStatement ps = con.prepareStatement("call hotel.getListAvailHotels(?)");
         CallableStatement callableStatement = con.prepareCall("{call hotel.getListAvailHotels}");
