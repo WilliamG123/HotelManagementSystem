@@ -37,7 +37,6 @@ public class StaffPropertyController extends DBConnection implements Initializab
     @FXML private Button searchBtn;
     @FXML private Button deleteBtn;
 
-    private StringBuilder query;
     private Connection conn;
 
     @FXML void sceneChange(MouseEvent event) {
@@ -94,7 +93,6 @@ public class StaffPropertyController extends DBConnection implements Initializab
         propertiesList = FXCollections.observableArrayList();
         amenitiesLVHS = new HashSet<>();
         roomsLVHS = new HashSet<>();
-        query = new StringBuilder();
         try{
             conn = getConnection();
             populateTable();
@@ -122,14 +120,10 @@ public class StaffPropertyController extends DBConnection implements Initializab
 
     private void addProperties(ResultSet rs) throws SQLException {
         HashMap<String, Property> propertyHashMap = new HashMap<>();
-        ArrayList<Room> rooms;
         ArrayList<String> amenities;
         do{
             Property property = propertyHashMap.getOrDefault(rs.getString("hotel_name"), new Property());
-            rooms = property.getRooms();
             amenities = property.getAmenitiesAL();
-
-//            Room room = new Room();
 
             property.setPropertyId(rs.getInt("hotel_id"));
             property.setPropertyName(rs.getString("hotel_name"));
@@ -137,18 +131,9 @@ public class StaffPropertyController extends DBConnection implements Initializab
             property.setDesc(rs.getString("hotel_desc"));
             property.setNumberAvailableRooms(rs.getInt("hotel_availrms"));
 
-//            room.setRoomID(rs.getInt("room_id"));
-//            room.setRoomNum(rs.getInt("room_number"));
-//            room.setIsOccupied(rs.getInt("isOccupied"));
-//            room.setPrice(rs.getDouble("room_rate"));
-//            room.setType(rs.getString("type_name"));
-//            room.setDesc(rs.getString("room_type_desc"));
-//            rooms.add(room);
-
 
             amenities.addAll(Arrays.asList(rs.getString("group_concat(DISTINCT Amenities_desc)").split(",")));
 
-//            property.setRooms(rooms);
             property.setAmenitiesAL(amenities);
             propertyHashMap.put(rs.getString("hotel_name"), property);
         }while(rs.next());
