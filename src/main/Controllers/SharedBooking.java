@@ -35,32 +35,54 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private DatePicker checkOutDP;
     @FXML private Button addRoomBtn;
     @FXML private Button bookBtn;
+    @FXML private Button removeRoomBtn1;
+    // rooms available table
     @FXML private TableView<Room> roomTB;
     @FXML private TableColumn<Room, String> styleColumn;
-    // TODO: 11/17/2021 make occupancy column
+// TODO: 11/17/2021 make occupancy column
     @FXML private TableColumn<Room, String> occupancyColumn;
     @FXML private TableColumn<Room, String> availableColumn;
     @FXML private TableColumn<Room, String> priceColumn;
+    // cart variables
+    @FXML private TableView<Room> cartTV;
+    @FXML private TableColumn<?, ?> style2Column;
+    @FXML private TableColumn<?, ?> amount2Column;
+    @FXML private TableColumn<?, ?> price2Column;
+
     @FXML private ListView<String> amenitiesLV;
     @FXML private ObservableList<Room> roomsList;
+    @FXML private ChoiceBox<String> roomCB;
 
     private Hotels hotel;
     private String accountType;
 
-    // TODO: 11/17/2021 write handler method for the book button
+// TODO: 11/17/2021 write handler method for the book button
     @FXML void book(MouseEvent event) { }
 
-    // TODO: 11/17/2021 write method for adding a room
-    @FXML void addRoom(ActionEvent event) { }
+    @FXML void roomChange(ActionEvent event) {
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
+        // TODO: 11/18/2021 write fucntionality for adding a room to the cart
+        String choice;
 
+        if(event.getSource() == addRoomBtn) {
+            choice = roomCB.getValue();
+            if(choice == null){
+                Toast.makeText(stage, "Error: no room selected", 2000, 500, 500);
+                return;
+            }
+
+        }
+
+        // TODO: 11/18/2021 write functionality for removing a room from the cart
+    }
 
     public SharedBooking(Hotels hotel, String accountType) {
         this.hotel = hotel;
         this.accountType = accountType;
     }
 
-    public List<String> getRoomTypes() throws ClassNotFoundException, SQLException {
-        List<String> roomsTypes = new ArrayList<>();
+    public ObservableList<Room> getRoomTypes() throws ClassNotFoundException, SQLException {
+        ObservableList<Room> roomsTypes = FXCollections.observableArrayList();
         Connection con = null;
         con = getConnection();
         CallableStatement callableStatement = con.prepareCall("{call hotel.getAllRoomTypes(?)}");
@@ -69,55 +91,72 @@ public class SharedBooking extends DBConnection implements Initializable {
 
         //loop through the resultSet & add each room type to the ArrayList
         while (rs.next()) {
-            roomsTypes.add(rs.getString("type_name"));
+            roomsTypes.add(new Room(rs.getString("type_name")));
         }
         return roomsTypes;
     }
 
     public void populateRoomTable() throws ClassNotFoundException, SQLException {
-        // TODO: 11/18/2021 write a way to dynamically query the info
-
+// TODO: 11/18/2021 write a way to dynamically query the info
         Connection con = null;
         con = getConnection();
         CallableStatement callableStatement = con.prepareCall("{call hotel.getRoomByType(?, ?)}");
-        callableStatement.setString(1, hotel.getHotelId());
-        ResultSet rs = callableStatement.executeQuery();
+
+        ObservableList<Room> roomTypes = getRoomTypes();
+        ObservableList<String> typeStrings = FXCollections.observableArrayList();
+
+        for(Room r : roomTypes) {
+            System.out.println(r.getType() + " " + r.getAmountAvailable() + " " + r.getPrice());
+            typeStrings.add(r.getType());
+        }
+
+        for(Room room : roomTypes) {
+            callableStatement.setString(1, room.getType());
+            callableStatement.setString(2, hotel.getHotelId());
+            ResultSet rs = callableStatement.executeQuery();
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (rs.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
+                    String columnValue = rs.getString(i);
+                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }
+            //room.setPrice(rs.getDouble("room_rate"));
+            //room.setAmountAvailable("");
+
+        }
+
+        roomCB.setItems(typeStrings);
 
         //loop through the resultSet & add each room type to the ArrayList
-        while (rs.next()) {
-        }
+        //while (rs.next()) {
+        //}
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        try {
-            populateAmenitiesList();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        amenitiesLV.setMouseTransparent(true);
+        amenitiesLV.setFocusTraversable(false);
+        cartTV.setMouseTransparent(true);
+        cartTV.setFocusTraversable(false);
 
         hNameTF.setText(this.hotel.getHotelname());
         hAddressTF.setText(this.hotel.getHoteladdr());
         hRatingTF.setText(String.valueOf(this.hotel.getRating()) + "/10 Stars");
         descriptionTF.setText(hotel.getHoteldesc());
 
-        // TODO: 11/17/2021 delete/move this stuff to a populate TableView method
-        roomsList = FXCollections.observableArrayList();
-        roomsList.add(new Room(106, 300,"King", 1, 33.00));
-        roomsList.add(new Room(129, 250,"Queen", 1, 33.00));
-        String[] amenities = {"pool", "balcony", "breakfast"};
-        ArrayList<Reservation> reservations = new ArrayList<>();
-        //Property property = new Property("La Quinta", "nice hotel on the beach", "1 UTSA circle San Antonio", amenities, rooms, reservations, 8, 99);
-
-        styleColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        //occupancyColumn.setCellValueFactory(new PropertyValueFactory<>("hotelName"));
-        //availableColumn.setCellValueFactory(new PropertyValueFactory<>("checkIn"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        roomTB.setItems(roomsList);
+        try {
+            populateAmenitiesList();
+            populateRoomTable();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void populateAmenitiesList() throws ClassNotFoundException, SQLException {
