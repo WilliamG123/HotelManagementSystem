@@ -20,10 +20,10 @@ import java.util.ResourceBundle;
 
 public class SharedBooking extends DBConnection implements Initializable {
 
-    public static final String REMOVEFROMCART = "removefromcart";
-    public static final String ADDTOCART = "addtocart";
-    public static final int ERROR = -1;
-    public static final int SUCCESS = 0;
+    public static final String REMOVEFROMCART = "removefromcart"; // key to let method know removing from cart
+    public static final String ADDTOCART = "addtocart"; // key to let method know adding to cart
+    public static final int ERROR = -1; // used for returning error
+    public static final int SUCCESS = 0; // used for returning success
 
     @FXML private Text hNameTF;
     @FXML private Text hAddressTF;
@@ -56,11 +56,141 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private ObservableList<Room> cartList;
     @FXML private ChoiceBox<String> roomCB;
     private Hotels hotel;
-    private String accountType;
 
 // TODO: 11/17/2021 write handler method for the book button
     @FXML void book(MouseEvent event) { }
 
+    private void queryTotal() {
+// TODO: 11/18/2021 set up query for getting total cost
+    }
+
+    // constructor that takes in hotel to populate hotel data and account type for login
+    public SharedBooking(Hotels hotel) {
+        this.hotel = hotel;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // initializes the cart TableView and observableArrayList
+        cartList = FXCollections.observableArrayList();
+        cartTV.setItems(cartList);
+
+        // makes it to where the ListView and TableView items are not clickable (front end)
+        amenitiesLV.setMouseTransparent(true);
+        amenitiesLV.setFocusTraversable(false);
+        cartTV.setMouseTransparent(true);
+        cartTV.setFocusTraversable(false);
+        roomTV.setMouseTransparent(true);
+        roomTV.setFocusTraversable(false);
+
+        // using Hotel data sent in through constructor we set text on hotel data elements
+        hNameTF.setText(this.hotel.getHotelname());
+        hAddressTF.setText(this.hotel.getHoteladdr());
+        hRatingTF.setText(String.valueOf(this.hotel.getRating()) + "/10 Stars");
+        descriptionTF.setText(hotel.getHoteldesc());
+
+        // set the columns up for the rooms available TableView
+        styleColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        availableColumn.setCellValueFactory(new PropertyValueFactory<>("amountAvailable"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        // set the columns up for the Cart TableView
+        style2Column.setCellValueFactory(new PropertyValueFactory<>("type"));
+        amount2Column.setCellValueFactory(new PropertyValueFactory<>("amountAvailable"));
+        price2Column.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        // call the methods to initialize the amenities ListView & the Rooms TableView
+        try {
+            populateAmenitiesList();
+            populateRoomTable();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML void sceneChange(MouseEvent event) {
+        AnchorPane newScene = null;
+        try{
+            if(event.getSource() == returnTF){
+                newScene = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(newScene);
+        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
+    // queries DB for hotel amenities using hotel Id and adds each one to a ListView
+    public void populateAmenitiesList() throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        con = getConnection();
+        CallableStatement callableStatement = con.prepareCall("{call getAmenitiesByHotel(?)}");
+        callableStatement.setString(1, hotel.getHotelname());
+        ResultSet rs = callableStatement.executeQuery();
+
+        //loop through the resultSet & add each amenity to the ListView
+        while(rs.next()) {
+            amenitiesLV.getItems().add(rs.getString("Amenities_desc"));
+        }
+    }
+
+    // calls getRoomTypes helper method to return a list of Rooms with only their string types being stored/known
+    // queries each room type to get the price and amount of each type of room that is available
+    public void populateRoomTable() throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        con = getConnection();
+        CallableStatement callableStatement = con.prepareCall("{call hotel.getRoomByType(?, ?)}");
+
+        roomTypes = getRoomTypes();
+        ObservableList<String> typeStrings = FXCollections.observableArrayList();
+
+        for(Room r : roomTypes) {
+            System.out.println(r.getType() + " " + r.getAmountAvailable() + " " + r.getPrice());
+            typeStrings.add(r.getType());
+        }
+
+        roomCB.setItems(typeStrings); // set room types available for the choice box
+
+        for(int i = 0; i < roomTypes.size(); i++) {
+            callableStatement.setString(1, roomTypes.get(i).getType());
+            callableStatement.setString(2, hotel.getHotelId());
+            ResultSet rs = callableStatement.executeQuery();
+
+            rs.next();
+            roomTypes.get(i).setAmountAvailable(rs.getInt("count(*)"));
+            roomTypes.get(i).setPrice(rs.getDouble("room_rate"));
+        }
+        roomTV.setItems(roomTypes);
+    }
+
+    // helper method to populate room table. queries DB for a all the different room types using a hotel Id
+    // returns a ObservableList<Room>
+    public ObservableList<Room> getRoomTypes() throws ClassNotFoundException, SQLException {
+        ObservableList<Room> roomsTypes = FXCollections.observableArrayList();
+        Connection con = null;
+        con = getConnection();
+        CallableStatement callableStatement = con.prepareCall("{call hotel.getAllRoomTypes(?)}");
+        callableStatement.setString(1, hotel.getHotelId());
+        ResultSet rs = callableStatement.executeQuery();
+
+        //loop through the resultSet & add each room type to the ArrayList
+        while (rs.next()) {
+            roomsTypes.add(new Room(rs.getString("type_name")));
+        }
+        return roomsTypes;
+    }
+
+    /****************************************************************************************************************
+     *                                      roomChange method
+     * @param event - used to see whether remove or add button was pressed
+     * - checks which button was pressed, finds the room in the roomTypes list and then calls cartHandler()
+     *   to handle the add or remove from cart depending on the second parameter being ADDTOCART or REMOVEFROMCART
+     ****************************************************************************************************************/
     @FXML void roomChange(ActionEvent event) {
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
         String choice;
@@ -83,33 +213,14 @@ public class SharedBooking extends DBConnection implements Initializable {
         }
     }
 
-    private int roomsHandler(Room room, String action, ActionEvent event) {
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-
-        if(action.equals(ADDTOCART)){
-            for(int i = 0; i < roomTypes.size(); i++){
-                if(room.getType().equals(roomTypes.get(i).getType())) {
-                    if(roomTypes.get(i).getAmountAvailable() == 0) {
-                        Toast.makeText(stage, "Error: there are no more " + room.getType() + " rooms available", 2000, 500, 500);
-                        return ERROR;
-                    }
-                    roomTypes.get(i).setAmountAvailable(roomTypes.get(i).getAmountAvailable() - 1);
-                    roomTV.refresh();
-                    return SUCCESS;
-                }
-            }
-        } else {
-            for (int i = 0; i < roomTypes.size(); i++) {
-                if (room.getType().equals(roomTypes.get(i).getType())) {
-                    roomTypes.get(i).setAmountAvailable(roomTypes.get(i).getAmountAvailable() + 1);
-                    roomTV.refresh();
-                    return SUCCESS;
-                }
-            }
-        }
-        return ERROR;
-    }
-
+    /****************************************************************************************************************
+     *                                          cartHandler method
+     * @param room - room that user selected used to identify room type in cart
+     * @param action - key used to determine whether user adding or removing from cart
+     * @param event - used to initialize stage variable to use Toast messages
+     * - if user adding to cart this method adds a new room or increments it if it already exists in cart table
+     * - else the user is removing a room from the cart and the method decrements that room in the cart table
+     ****************************************************************************************************************/
     private void cartHandler(Room room, String action, ActionEvent event) {
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         boolean exists = false;
@@ -149,114 +260,38 @@ public class SharedBooking extends DBConnection implements Initializable {
         cartTV.refresh();
     }
 
-    public SharedBooking(Hotels hotel, String accountType) {
-        this.hotel = hotel;
-        this.accountType = accountType;
-    }
+    /****************************************************************************************************************
+     *                                      roomsHandler method
+     * @param room - room that user selected used to identify room type in rooms table
+     * @param action - key used to determine whether user adding or removing from cart
+     * @param event - used to initialize stage variable to use Toast messages
+     * - if user adding to cart this method decrements the availability of the specified room type from the rooms table
+     * - else the user is removing a room from the cart and the method increments that room in the rooms table
+     ****************************************************************************************************************/
+    private int roomsHandler(Room room, String action, ActionEvent event) {
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 
-    public ObservableList<Room> getRoomTypes() throws ClassNotFoundException, SQLException {
-        ObservableList<Room> roomsTypes = FXCollections.observableArrayList();
-        Connection con = null;
-        con = getConnection();
-        CallableStatement callableStatement = con.prepareCall("{call hotel.getAllRoomTypes(?)}");
-        callableStatement.setString(1, hotel.getHotelId());
-        ResultSet rs = callableStatement.executeQuery();
-
-        //loop through the resultSet & add each room type to the ArrayList
-        while (rs.next()) {
-            roomsTypes.add(new Room(rs.getString("type_name")));
-        }
-        return roomsTypes;
-    }
-
-    public void populateRoomTable() throws ClassNotFoundException, SQLException {
-// TODO: 11/18/2021 write a way to dynamically query the info
-        Connection con = null;
-        con = getConnection();
-        CallableStatement callableStatement = con.prepareCall("{call hotel.getRoomByType(?, ?)}");
-
-        roomTypes = getRoomTypes();
-        ObservableList<String> typeStrings = FXCollections.observableArrayList();
-
-        for(Room r : roomTypes) {
-            System.out.println(r.getType() + " " + r.getAmountAvailable() + " " + r.getPrice());
-            typeStrings.add(r.getType());
-        }
-
-        roomCB.setItems(typeStrings); // set room types available for the choice box
-
-        for(int i = 0; i < roomTypes.size(); i++) {
-            callableStatement.setString(1, roomTypes.get(i).getType());
-            callableStatement.setString(2, hotel.getHotelId());
-            ResultSet rs = callableStatement.executeQuery();
-
-            rs.next();
-            roomTypes.get(i).setAmountAvailable(rs.getInt("count(*)"));
-            roomTypes.get(i).setPrice(rs.getDouble("room_rate"));
-        }
-        roomTV.setItems(roomTypes);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        cartList = FXCollections.observableArrayList();
-        cartTV.setItems(cartList);
-
-        amenitiesLV.setMouseTransparent(true);
-        amenitiesLV.setFocusTraversable(false);
-        cartTV.setMouseTransparent(true);
-        cartTV.setFocusTraversable(false);
-
-        hNameTF.setText(this.hotel.getHotelname());
-        hAddressTF.setText(this.hotel.getHoteladdr());
-        hRatingTF.setText(String.valueOf(this.hotel.getRating()) + "/10 Stars");
-        descriptionTF.setText(hotel.getHoteldesc());
-
-        // set the columns up for the rooms available TableView
-        styleColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        availableColumn.setCellValueFactory(new PropertyValueFactory<>("amountAvailable"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        // set the columns up for the Cart TableView
-        style2Column.setCellValueFactory(new PropertyValueFactory<>("type"));
-        amount2Column.setCellValueFactory(new PropertyValueFactory<>("amountAvailable"));
-        price2Column.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        try {
-            populateAmenitiesList();
-            populateRoomTable();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void populateAmenitiesList() throws ClassNotFoundException, SQLException {
-        Connection con = null;
-        con = getConnection();
-        CallableStatement callableStatement = con.prepareCall("{call getAmenitiesByHotel(?)}");
-        callableStatement.setString(1, hotel.getHotelname());
-        ResultSet rs = callableStatement.executeQuery();
-
-        //loop through the resultSet & add each amenity to the ListView
-        while(rs.next()) {
-            amenitiesLV.getItems().add(rs.getString("Amenities_desc"));
-        }
-    }
-
-    @FXML void sceneChange(MouseEvent event) {
-        AnchorPane newScene = null;
-        try{
-            if(event.getSource() == returnTF){
-                newScene = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
+        if(action.equals(ADDTOCART)){
+            for(int i = 0; i < roomTypes.size(); i++){
+                if(room.getType().equals(roomTypes.get(i).getType())) {
+                    if(roomTypes.get(i).getAmountAvailable() == 0) {
+                        Toast.makeText(stage, "Error: there are no more " + room.getType() + " rooms available", 2000, 500, 500);
+                        return ERROR;
+                    }
+                    roomTypes.get(i).setAmountAvailable(roomTypes.get(i).getAmountAvailable() - 1);
+                    roomTV.refresh();
+                    return SUCCESS;
+                }
             }
-        }catch(IOException e){
-            e.printStackTrace();
+        } else {
+            for (int i = 0; i < roomTypes.size(); i++) {
+                if (room.getType().equals(roomTypes.get(i).getType())) {
+                    roomTypes.get(i).setAmountAvailable(roomTypes.get(i).getAmountAvailable() + 1);
+                    roomTV.refresh();
+                    return SUCCESS;
+                }
+            }
         }
-        Scene scene = new Scene(newScene);
-        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
+        return ERROR;
     }
 }

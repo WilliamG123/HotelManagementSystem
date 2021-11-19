@@ -68,10 +68,7 @@ public class UserCreateController extends DBConnection implements Initializable 
     LocalDate check_out_date;
     LocalDate check_in_date;
 
-    /*****************************************************************
-     *                     loginCheck Function
-     * - checks to see if a customer or employee are logged in before making a reservation
-     *****************************************************************/
+    // checks to see if the user is logged in because they must be to make a reservation
     public void loginCheck() {
         // TODO: 11/17/2021 make code to check if the user is logged in before proceeding to book a hotel
     }
@@ -150,7 +147,7 @@ public class UserCreateController extends DBConnection implements Initializable 
     }
 
     /*****************************************************************
-     *                     populateListView Function
+     *                     populateListView method
      * - populates the list view with reservation data
      * - makes a query to DB for all reservations for a specific user
      *****************************************************************/
@@ -242,7 +239,7 @@ public class UserCreateController extends DBConnection implements Initializable 
                     System.out.println("Log: ResCreateController -> SharedBooking");
                     Hotels hotel = hotelTable.getSelectionModel().getSelectedItem();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("SharedBooking.fxml"));
-                    SharedBooking controller = new SharedBooking(hotel, "customer");
+                    SharedBooking controller = new SharedBooking(hotel);
                     loader.setController(controller);
                     newScene = loader.load();
                 }
