@@ -11,8 +11,19 @@ public class Room {
     private String type;
     private String desc;
     private String[] amenities;
+    private int amountAvailable;
 
     public Room(){}
+
+    public Room(String type) {
+        this.type = type;
+    }
+
+    public Room(double price, String type, int amountAvailable) {
+        this.price = price;
+        this.type = type;
+        this.amountAvailable = amountAvailable;
+    }
 
     public Room(int roomNum, double price, String type, int isOccupied, double weekendRate){
         //this.roomID = roomID;
@@ -82,6 +93,14 @@ public class Room {
         this.amenities = amenities;
     }
 
+    public int getAmountAvailable() {
+        return amountAvailable;
+    }
+
+    public void setAmountAvailable(int amountAvailable) {
+        this.amountAvailable = amountAvailable;
+    }
+
     public String getAmenities(){
         StringBuilder sb = new StringBuilder();
         for(String str : this.amenities){
@@ -99,5 +118,13 @@ public class Room {
                 "\n\tWeekend Price: " + this.weekendPrice +
                 "\n\tOccupied: " + ((this.isOccupied == 0) ? "No" : "Yes") +
                 "\n}";
+    }
+
+    public void incrementAmount(){
+        amountAvailable++;
+    }
+
+    public void decrementAmount(){
+        amountAvailable--;
     }
 }

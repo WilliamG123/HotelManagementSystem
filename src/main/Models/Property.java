@@ -29,6 +29,11 @@ public class Property {
         this.typeCountAvailable = new HashMap<>();
     }
 
+    public Property(int propertyId, ArrayList<Room> rooms) {
+        this.propertyId = propertyId;
+        this.rooms = rooms;
+    }
+
     public Property(String propertyName, String desc, String address, String[] amenities, ArrayList<Room> rooms, ArrayList<Reservation> reservations, int rating, int numberAvailableRooms){
         this.propertyName = propertyName;
         this.desc = desc;

@@ -68,25 +68,21 @@ public class UserCreateController extends DBConnection implements Initializable 
     LocalDate check_out_date;
     LocalDate check_in_date;
 
-    /*****************************************************************
-     *                     loginCheck Function
-     * - checks to see if a customer or employee are logged in before making a reservation
-     *****************************************************************/
+    // checks to see if the user is logged in because they must be to make a reservation
     public void loginCheck() {
         // TODO: 11/17/2021 make code to check if the user is logged in before proceeding to book a hotel
     }
 
     // method clears the filters and reloads the TableView
-    public void resetFilter(ActionEvent event) {
+    public void resetFilter(ActionEvent event) throws SQLException, ClassNotFoundException {
         checkinDP.setValue(null);
         checkoutDP.setValue(null);
         hotelTF.clear();
-
-        // TODO: 11/17/2021 call populatetableview method to reset table
+        populateTableView();
     }
 
     // method will handle the filter apply button
-    @FXML public void handleFilter(ActionEvent event) {
+    @FXML public void handleFilter(ActionEvent event) throws SQLException, ClassNotFoundException {
         if(event.getSource() == resetBtn) {
             resetFilter(event);
         } else {
@@ -103,6 +99,9 @@ public class UserCreateController extends DBConnection implements Initializable 
                     Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
                 }
             }
+
+// TODO: 11/19/2021 write the query and code for using filters
+
         }
     }
 
@@ -150,7 +149,7 @@ public class UserCreateController extends DBConnection implements Initializable 
     }
 
     /*****************************************************************
-     *                     populateListView Function
+     *                     populateListView method
      * - populates the list view with reservation data
      * - makes a query to DB for all reservations for a specific user
      *****************************************************************/
@@ -242,7 +241,7 @@ public class UserCreateController extends DBConnection implements Initializable 
                     System.out.println("Log: ResCreateController -> SharedBooking");
                     Hotels hotel = hotelTable.getSelectionModel().getSelectedItem();
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("SharedBooking.fxml"));
-                    SharedBooking controller = new SharedBooking(hotel, "customer");
+                    SharedBooking controller = new SharedBooking(hotel);
                     loader.setController(controller);
                     newScene = loader.load();
                 }
