@@ -74,16 +74,15 @@ public class UserCreateController extends DBConnection implements Initializable 
     }
 
     // method clears the filters and reloads the TableView
-    public void resetFilter(ActionEvent event) {
+    public void resetFilter(ActionEvent event) throws SQLException, ClassNotFoundException {
         checkinDP.setValue(null);
         checkoutDP.setValue(null);
         hotelTF.clear();
-
-        // TODO: 11/17/2021 call populatetableview method to reset table
+        populateTableView();
     }
 
     // method will handle the filter apply button
-    @FXML public void handleFilter(ActionEvent event) {
+    @FXML public void handleFilter(ActionEvent event) throws SQLException, ClassNotFoundException {
         if(event.getSource() == resetBtn) {
             resetFilter(event);
         } else {
@@ -100,6 +99,9 @@ public class UserCreateController extends DBConnection implements Initializable 
                     Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
                 }
             }
+
+// TODO: 11/19/2021 write the query and code for using filters
+
         }
     }
 

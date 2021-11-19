@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SharedBooking extends DBConnection implements Initializable {
@@ -31,7 +32,6 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private Text hRatingTF;
     @FXML private Text checkInTF;
     @FXML private Text checkOutTF;
-    @FXML private Text returnTF;
     @FXML private TextArea descriptionTF;
     @FXML private TextField adultsTF;
     @FXML private TextField childrenTF;
@@ -40,6 +40,7 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private Button addRoomBtn;
     @FXML private Button bookBtn;
     @FXML private Button removeRoomBtn1;
+    @FXML private Button returnBtn;
     // rooms available table
     @FXML private TableView<Room> roomTV;
     @FXML private TableColumn<Room, String> styleColumn;
@@ -58,11 +59,46 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private ChoiceBox<String> roomCB;
     private Hotels hotel;
 
+    @FXML void book(ActionEvent event) {
 // TODO: 11/17/2021 write handler method for the book button
-    @FXML void book(MouseEvent event) { }
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
 
-    private void queryTotal() {
+        // retrieve dates from date pickers
+        LocalDate checkin = checkInDP.getValue();
+        LocalDate checkout = checkOutDP.getValue();
+
+        // date picker input validation
+        if(checkin == null || checkout == null) {
+            Toast.makeText(stage, "Error: please select dates before trying to book", 1500, 250, 250);
+            return;
+        } else if(checkin != null && checkout != null) {
+            if(checkin.isAfter(checkout)) {
+                Toast.makeText(stage, "Error: check in date cannot be after checkout", 1500, 250, 250);
+                return;
+            }
+        }
+
+        // call scene change to return to the createResScene
+        sceneChange(event);
+    }
+
+    private void queryTotal() throws ClassNotFoundException, SQLException {
 // TODO: 11/18/2021 set up query for getting total cost
+        // this code could be helpful to manually calculate it
+        // https://stackoverflow.com/questions/4600034/calculate-number-of-weekdays-between-two-dates-in-java
+        Connection con = null;
+        con = getConnection();
+        CallableStatement callableStatement = con.prepareCall("{call hotel.CalculateTotalByDate(?,?,?,?)}");
+        callableStatement.setString(1, hotel.getHotelname());
+        callableStatement.setString(1, hotel.getHotelname());
+        callableStatement.setString(1, hotel.getHotelname());
+        callableStatement.setString(1, hotel.getHotelname());
+        ResultSet rs = callableStatement.executeQuery();
+
+        //loop through the resultSet & add each amenity to the ListView
+        while(rs.next()) {
+            amenitiesLV.getItems().add(rs.getString("Amenities_desc"));
+        }
     }
 
     // constructor that takes in hotel to populate hotel data and account type for login
@@ -114,10 +150,12 @@ public class SharedBooking extends DBConnection implements Initializable {
         }
     }
 
-    @FXML void sceneChange(MouseEvent event) {
+    @FXML void sceneChange(ActionEvent event) {
         AnchorPane newScene = null;
         try{
-            if(event.getSource() == returnTF){
+            if(event.getSource() == returnBtn){
+                newScene = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
+            } else if(event.getSource() == bookBtn) {
                 newScene = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
             }
         }catch(IOException e){
