@@ -84,12 +84,11 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <TableView fx:id="roomTB" layoutX="31.0" layoutY="409.0" prefHeight="308.0" prefWidth="384.0" stylesheets="@table.css">
+      <TableView fx:id="roomTV" layoutX="31.0" layoutY="409.0" prefHeight="308.0" prefWidth="384.0" stylesheets="@table.css">
         <columns>
-          <TableColumn fx:id="styleColumn" prefWidth="104.0" text="Style" />
-            <TableColumn fx:id="occupancyColumn" prefWidth="97.0" text="Occupancy" />
-            <TableColumn fx:id="availableColumn" prefWidth="98.0" text="Available" />
-          <TableColumn fx:id="priceColumn" prefWidth="84.0" text="Price" />
+          <TableColumn fx:id="styleColumn" prefWidth="129.0" text="Style" />
+            <TableColumn fx:id="availableColumn" prefWidth="144.0" text="Available" />
+          <TableColumn fx:id="priceColumn" prefWidth="100.0" text="Price" />
         </columns>
       </TableView>
       <Text layoutX="661.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
