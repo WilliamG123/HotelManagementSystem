@@ -78,8 +78,8 @@
       </Text>
       <TextField fx:id="adultsTF" layoutX="958.0" layoutY="197.0" prefHeight="25.0" prefWidth="211.0" />
       <TextField fx:id="childrenTF" layoutX="956.0" layoutY="271.0" prefHeight="25.0" prefWidth="211.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e2eef8" height="78.0" layoutY="732.0" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
-      <Text fx:id="returnTF" layoutX="955.0" layoutY="781.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Return">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e2eef8" height="78.0" layoutY="723.0" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
+      <Text fx:id="returnTF" layoutX="945.0" layoutY="773.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Return">
          <font>
             <Font size="30.0" />
          </font>
@@ -118,7 +118,7 @@
             <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="bookBtn" layoutX="533.0" layoutY="742.0" mnemonicParsing="false" onAction="#book" stylesheets="@button.css" text="Book!">
+      <Button fx:id="bookBtn" layoutX="524.0" layoutY="732.0" mnemonicParsing="false" onAction="#book" stylesheets="@button.css" text="Book!">
          <font>
             <Font size="27.0" />
          </font>

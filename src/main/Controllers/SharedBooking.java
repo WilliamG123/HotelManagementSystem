@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -74,6 +75,9 @@ public class SharedBooking extends DBConnection implements Initializable {
         // initializes the cart TableView and observableArrayList
         cartList = FXCollections.observableArrayList();
         cartTV.setItems(cartList);
+        Label label = new Label("Your cart is empty");
+        label.setFont(new Font("Arial", 20));
+        cartTV.setPlaceholder(label);
 
         // makes it to where the ListView and TableView items are not clickable (front end)
         amenitiesLV.setMouseTransparent(true);
@@ -230,6 +234,7 @@ public class SharedBooking extends DBConnection implements Initializable {
                 if(room.getType().equals(cartList.get(i).getType())) {
                     exists = true;
                     cartList.get(i).setAmountAvailable(cartList.get(i).getAmountAvailable() - 1);
+                    cartList.get(i).setPrice(cartList.get(i).getPrice() - room.getPrice());
                     if(cartList.get(i).getAmountAvailable() == 0) {
                         cartList.remove(cartList.get(i));
                     }
@@ -247,6 +252,7 @@ public class SharedBooking extends DBConnection implements Initializable {
                 for(int i = 0; i < cartList.size(); i++) {
                     if(room.getType().equals(cartList.get(i).getType())) {
                         cartList.get(i).setAmountAvailable(cartList.get(i).getAmountAvailable() + 1);
+                        cartList.get(i).setPrice(cartList.get(i).getPrice() + room.getPrice());
                         exists = true;
                         break;
                     }
