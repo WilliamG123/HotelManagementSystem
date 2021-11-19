@@ -11,8 +11,13 @@ public class Room {
     private String type;
     private String desc;
     private String[] amenities;
+    private int amountAvailable;
 
     public Room(){}
+
+    public Room(String type) {
+        this.type = type;
+    }
 
     public Room(int roomNum, double price, String type, int isOccupied, double weekendRate){
         //this.roomID = roomID;
@@ -80,6 +85,14 @@ public class Room {
 
     public void setAmenities(String[] amenities){
         this.amenities = amenities;
+    }
+
+    public int getAmountAvailable() {
+        return amountAvailable;
+    }
+
+    public void setAmountAvailable(int amountAvailable) {
+        this.amountAvailable = amountAvailable;
     }
 
     public String getAmenities(){
