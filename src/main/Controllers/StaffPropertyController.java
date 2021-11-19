@@ -149,7 +149,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
         ResultSet rs = conn.createStatement().executeQuery(query.toString());
         System.out.println(query.toString());
         QUERYS queryObj = new QUERYS();
-        ResultSet propSet = queryObj.getAllAvailHotels("something");
+        ResultSet propSet = queryObj.getAllAvailHotels();
         ResultSetMetaData rsmd = propSet.getMetaData();
         int columns = rsmd.getColumnCount();
         while(propSet.next()){
