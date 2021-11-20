@@ -19,6 +19,12 @@ public class Room {
         this.type = type;
     }
 
+    public Room(double price, String type, int amountAvailable) {
+        this.price = price;
+        this.type = type;
+        this.amountAvailable = amountAvailable;
+    }
+
     public Room(int roomNum, double price, String type, int isOccupied, double weekendRate){
         //this.roomID = roomID;
         this.roomNum = roomNum;
@@ -112,5 +118,13 @@ public class Room {
                 "\n\tWeekend Price: " + this.weekendPrice +
                 "\n\tOccupied: " + ((this.isOccupied == 0) ? "No" : "Yes") +
                 "\n}";
+    }
+
+    public void incrementAmount(){
+        amountAvailable++;
+    }
+
+    public void decrementAmount(){
+        amountAvailable--;
     }
 }

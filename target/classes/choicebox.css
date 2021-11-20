@@ -36,5 +36,5 @@
 .text-area {
     -fx-background-radius: 30;
     -fx-border-radius: 30;
-    -fx-border-color: #ACACAC;
+    -fx-background-color: transparent;
 }

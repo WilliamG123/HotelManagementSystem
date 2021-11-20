@@ -37,9 +37,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
     @FXML private Button searchBtn;
     @FXML private Button deleteBtn;
 
-    private StringBuilder query;
     private Connection conn;
-    private RoomInformation roomInfo;
 
     @FXML void sceneChange(MouseEvent event) {
         AnchorPane newScene = null;
@@ -80,6 +78,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
             }
         }catch(IOException | SQLException | ClassNotFoundException e){
             e.printStackTrace();
+            return;
         }
 
         Scene scene = new Scene(newScene);
@@ -90,134 +89,51 @@ public class StaffPropertyController extends DBConnection implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        roomInfo = new RoomInformation();
         propertiesTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         propertiesList = FXCollections.observableArrayList();
         amenitiesLVHS = new HashSet<>();
         roomsLVHS = new HashSet<>();
-        query = new StringBuilder();
         try{
             conn = getConnection();
             populateTable();
+            populateRoomsList();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
         populateAmenitiesList();
-        populateRoomsList();
     }
 
     private void populateTable() throws SQLException, ClassNotFoundException {
-        query.setLength(0);
-        query.append("SELECT");
-        query.append(" hotel.hotel_id,");
-        query.append(" hotel.hotel_name,");
-        query.append(" hotel.hotel_address,");
-        query.append(" hotel.hotel_desc,");
-        query.append(" hotel.hotel_total_rms,");
-        query.append(" hotel.hotel_availrms,");
-        query.append(" hotel.hotel_numofamend,");
-        query.append(" hotel.hotel_rating,");
-        query.append(" room.room_id,");
-        query.append(" room.room_number,");
-        query.append(" room.isOccupied,");
-        query.append(" room_types.type_name,");
-        query.append(" room_types.room_type_desc,");
-        query.append(" room_types.room_rate,");
-        query.append(" amenities.Amenities_desc,");
-        query.append(" amenities.type,");
-//        query.append(" amenities.facilities,");
-        query.append(" reservation.*,");
-        query.append(" users.email");
-        query.append(" FROM hotel");
-        query.append(" JOIN room");
-        query.append(" ON room.hotel_id = hotel.hotel_id");
-        query.append(" JOIN room_types");
-        query.append(" ON room_types.room_type_id = room.room_id");
-        query.append(" JOIN hotel_amenities");
-        query.append(" ON hotel_amenities.hotel_id = hotel.hotel_id");
-        query.append(" JOIN amenities");
-        query.append(" ON amenities.amenitiesId = hotel_amenities.amenitiesId");
-//        query.append(" JOIN amenities");
-//        query.append(" ON amenities.hotel_id = hotel.hotel_id");
-        query.append(" JOIN reservation");
-        query.append(" ON reservation.hotel_id = hotel.hotel_id");
-        query.append(" JOIN customer");
-        query.append(" ON customer.custId = reservation.custId");
-        query.append(" JOIN users");
-        query.append(" ON users.userId = customer.custId;");
+        CallableStatement callableStatement = conn.prepareCall("{call hotel.getAllHotelsAndAmenities()}");
+        ResultSet newPropSet = callableStatement.executeQuery();
 
-        ResultSet rs = conn.createStatement().executeQuery(query.toString());
-        System.out.println(query.toString());
-        QUERYS queryObj = new QUERYS();
-        ResultSet propSet = queryObj.getAllAvailHotels();
-        ResultSetMetaData rsmd = propSet.getMetaData();
-        int columns = rsmd.getColumnCount();
-        while(propSet.next()){
-            for(int i = 1; i < columns; i++){
-                if(i > 1) System.out.print(", ");
-                String value = propSet.getString(i);
-                System.out.print(value + " " + rsmd.getColumnName(i));
-            }
-            System.out.println("");
-        }
-//        if(rs.next())
-//            addProperties(rs);
-//
-//        nameColumn.setCellValueFactory(new PropertyValueFactory<>("propertyName"));
-//        roomsColumn.setCellValueFactory(new PropertyValueFactory<>("numberAvailableRooms"));
-//        amenitiesColumn.setCellValueFactory(new PropertyValueFactory<>("amenitiesString"));
-//        propertiesTable.setItems(propertiesList);
-//        for(Property prop : propertiesList){
-//        }
+        if(newPropSet.next())
+            addProperties(newPropSet);
+
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("propertyName"));
+        roomsColumn.setCellValueFactory(new PropertyValueFactory<>("numberAvailableRooms"));
+        amenitiesColumn.setCellValueFactory(new PropertyValueFactory<>("amenitiesString"));
+        propertiesTable.setItems(propertiesList);
+
 
     }
 
-    private void addProperties(ResultSet rs) throws SQLException, ClassNotFoundException {
+    private void addProperties(ResultSet rs) throws SQLException {
         HashMap<String, Property> propertyHashMap = new HashMap<>();
-        ArrayList<Room> rooms;
-        ArrayList<Reservation> reservations;
         ArrayList<String> amenities;
-        QUERYS query = new QUERYS();
         do{
             Property property = propertyHashMap.getOrDefault(rs.getString("hotel_name"), new Property());
-            rooms = property.getRooms();
-            reservations = property.getReservations();
             amenities = property.getAmenitiesAL();
-
-            Room room = new Room();
-            Reservation reservation = new Reservation();
 
             property.setPropertyId(rs.getInt("hotel_id"));
             property.setPropertyName(rs.getString("hotel_name"));
             property.setAddress(rs.getString("hotel_address"));
             property.setDesc(rs.getString("hotel_desc"));
-            property.setRating(rs.getInt("hotel_rating"));
             property.setNumberAvailableRooms(rs.getInt("hotel_availrms"));
-            property.setNumberRooms(rs.getInt("hotel_total_rms"));
 
-            room.setRoomID(rs.getInt("room_id"));
-            room.setRoomNum(rs.getInt("room_number"));
-            room.setIsOccupied(rs.getInt("isOccupied"));
-            room.setPrice(rs.getDouble("room_rate"));
-            room.setType(rs.getString("type_name"));
-            room.setDesc(rs.getString("room_type_desc"));
-//            room.setAmenities(rs.getString("roomAmenities").split(","));
-            rooms.add(room);
 
-            reservation.setResID(rs.getInt("reservationId"));
-            reservation.setCost(rs.getDouble("total_price"));
-            reservation.setCheckIn(rs.getDate("check_in").toLocalDate());
-            reservation.setCheckOut(rs.getDate("check_out").toLocalDate());
-            reservation.setAdults(rs.getInt("adults"));
-            reservation.setChildren(rs.getInt("children"));
-            reservation.setHotelName(rs.getString("hotel_name"));
-            reservation.setCustId(rs.getString("email"));
-            reservations.add(reservation);
+            amenities.addAll(Arrays.asList(rs.getString("group_concat(DISTINCT Amenities_desc)").split(",")));
 
-            amenities.add(rs.getString("Amenities_desc"));
-
-            property.setRooms(rooms);
-            property.setReservations(reservations);
             property.setAmenitiesAL(amenities);
             propertyHashMap.put(rs.getString("hotel_name"), property);
         }while(rs.next());
@@ -233,7 +149,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
         ps.executeUpdate();
     }
 
-    private void handleSearch(){
+    private void handleSearch() throws SQLException {
         String propName = hotelTF.getText();
         boolean searchName = !propName.equals("");
         boolean added = false;
@@ -241,6 +157,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
         ObservableList<Property> found = FXCollections.observableArrayList();
         ObservableList<String> amenitiesSearch = amenitiesLV.getSelectionModel().getSelectedItems();
         ObservableList<String> roomsSearch = roomsLV.getSelectionModel().getSelectedItems();
+        CallableStatement callableStatement = conn.prepareCall("{call hotel.getAllPropertiesByRoomType(?)}");
         for(Property prop : toSearch){
             if(searchName && prop.getPropertyName().equalsIgnoreCase(propName)) {
                 if(!found.contains(prop)) {
@@ -249,11 +166,17 @@ public class StaffPropertyController extends DBConnection implements Initializab
                 }
             }
 
-            for(Room room : prop.getRooms()){
-                if(roomsSearch.contains(room.getType())){
-                    if(!found.contains(prop)){
-                        found.add(prop);
-                        added = true;
+            for(String type : roomsSearch) {
+                if(!found.contains(prop)) {
+                    callableStatement.setString(1, type);
+                    ResultSet propByType = callableStatement.executeQuery();
+                    if(propByType.next()){
+                        do {
+                            if (propByType.getString("hotel_name").equals(prop.getPropertyName())) {
+                                found.add(prop);
+                                added = true;
+                            }
+                        }while(propByType.next());
                     }
                 }
             }
@@ -288,10 +211,15 @@ public class StaffPropertyController extends DBConnection implements Initializab
         initializeListView(amenitiesLV, amenitiesLVHS);
     }
 
-    private void populateRoomsList(){
+    private void populateRoomsList() throws SQLException {
+        CallableStatement callableStatement = conn.prepareCall("{call hotel.getAllRoomTypes(?)}");
         for(Property prop : propertiesList){
-            for(Room room : prop.getRooms()){
-                roomsLVHS.add(room.getType());
+            callableStatement.setString(1, Integer.toString(prop.getPropertyId()));
+            ResultSet roomType = callableStatement.executeQuery();
+            if(roomType.next()){
+                do{
+                    roomsLVHS.add(roomType.getString("type_name"));
+                }while(roomType.next());
             }
         }
 
