@@ -12,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="accountsScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffAccountsController">
+<AnchorPane fx:id="accountsScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="856.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffAccountsController">
    <children>
-      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="920.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
                <font>
@@ -39,44 +39,40 @@
             </Text>
          </children>
       </HBox>
-      <TableView fx:id="usersTable" layoutY="185.0" prefHeight="266.0" prefWidth="600.0">
+      <TableView fx:id="usersTable" layoutX="3.0" layoutY="299.0" prefHeight="486.0" prefWidth="920.0" stylesheets="@table.css">
         <columns>
-          <TableColumn fx:id="firstNameColumn" prefWidth="117.0" text="First Name" />
-          <TableColumn fx:id="lastNameColumn" prefWidth="111.0" text="Last Name" />
-            <TableColumn fx:id="emailColumn" prefWidth="91.0" text="Email" />
-            <TableColumn fx:id="phoneColumn" prefWidth="118.0" text="Phone Number" />
-            <TableColumn fx:id="dobColumn" prefWidth="85.0" text="DOB" />
-            <TableColumn fx:id="typeColumn" prefWidth="92.0" text="Type" />
+          <TableColumn fx:id="firstNameColumn" prefWidth="153.33" text="First Name" />
+          <TableColumn fx:id="lastNameColumn" prefWidth="153.33" text="Last Name" />
+            <TableColumn fx:id="emailColumn" prefWidth="153.33" text="Email" />
+            <TableColumn fx:id="phoneColumn" prefWidth="153.33" text="Phone Number" />
+            <TableColumn fx:id="dobColumn" prefWidth="153.33" text="DOB" />
+            <TableColumn fx:id="typeColumn" prefWidth="150.0" text="Type" />
         </columns>
       </TableView>
-      <Text fx:id="modifyTV" layoutX="42.0" layoutY="474.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify" wrappingWidth="93.341796875">
+      <Text fx:id="modifyTV" layoutX="167.0" layoutY="832.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify" wrappingWidth="93.341796875">
          <font>
-            <Font size="20.0" />
+            <Font size="25.0" />
          </font>
       </Text>
-      <Text fx:id="createTV" layoutX="253.0" layoutY="473.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Create" wrappingWidth="93.341796875">
+      <Text fx:id="createTV" layoutX="406.0" layoutY="828.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Create" wrappingWidth="93.341796875">
          <font>
-            <Font size="20.0" />
+            <Font size="25.0" />
          </font>
       </Text>
-      <Text fx:id="deleteTV" layoutX="463.0" layoutY="473.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete" wrappingWidth="93.341796875">
+      <Text fx:id="deleteTV" layoutX="719.0" layoutY="825.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete" wrappingWidth="93.341796875">
          <font>
-            <Font size="20.0" />
+            <Font size="25.0" />
          </font>
       </Text>
-      <TextField fx:id="firstNameSearchField" layoutX="14.0" layoutY="65.0" prefHeight="48.0" prefWidth="149.0" />
-      <TextField fx:id="lastNameSearchField" layoutX="14.0" layoutY="118.0" prefHeight="48.0" prefWidth="149.0" />
-      <TextField fx:id="emailSearchField" layoutX="171.0" layoutY="65.0" prefHeight="48.0" prefWidth="149.0" />
-      <TextField fx:id="phoneNumberSearchField" layoutX="171.0" layoutY="118.0" prefHeight="48.0" prefWidth="149.0" />
-      <DatePicker fx:id="dobSearchPicker" layoutX="328.0" layoutY="64.0" prefHeight="48.0" prefWidth="174.0" />
-      <ComboBox fx:id="typeSearchPicker" layoutX="329.0" layoutY="117.0" prefHeight="48.0" prefWidth="150.0" />
-      <Text layoutX="21.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
-      <Text layoutX="21.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
-      <Text layoutX="178.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
-      <Text layoutX="178.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
-      <Text layoutX="336.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Type" />
-      <Text layoutX="336.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" />
-      <Button fx:id="searchBtn" layoutX="510.0" layoutY="65.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="48.0" prefWidth="81.0" text="Search" />
-      <Button fx:id="resetBtn" layoutX="510.0" layoutY="117.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="48.0" prefWidth="81.0" text="Reset" />
+      <TextField fx:id="firstNameSearchField" layoutX="14.0" layoutY="65.0" prefHeight="48.0" prefWidth="222.0" promptText="First Name" stylesheets="@text_field.css" />
+      <TextField fx:id="lastNameSearchField" layoutX="14.0" layoutY="130.0" prefHeight="48.0" prefWidth="222.0" promptText="Last Name" stylesheets="@text_field.css" />
+      <TextField fx:id="emailSearchField" layoutX="14.0" layoutY="201.0" prefHeight="48.0" prefWidth="222.0" promptText="E-mail" stylesheets="@text_field.css" />
+      <TextField fx:id="phoneNumberSearchField" layoutX="336.0" layoutY="130.0" prefHeight="48.0" prefWidth="222.0" stylesheets="@text_field.css" />
+      <DatePicker fx:id="dobSearchPicker" layoutX="340.0" layoutY="65.0" prefHeight="48.0" prefWidth="222.0" promptText="Date of Birth" stylesheets="@text_field.css" />
+      <ComboBox fx:id="typeSearchPicker" layoutX="336.0" layoutY="202.0" prefHeight="48.0" prefWidth="222.0" stylesheets="@text_field.css" />
+      <Text layoutX="354.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
+      <Text layoutX="351.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Type" />
+      <Button fx:id="searchBtn" layoutX="679.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="85.0" prefWidth="110.0" stylesheets="@button.css" text="Search" />
+      <Button fx:id="resetBtn" layoutX="680.0" layoutY="183.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="85.0" prefWidth="110.0" stylesheets="@button.css" text="Reset" />
    </children>
 </AnchorPane>
