@@ -19,7 +19,7 @@ import javafx.util.Callback;
 
 
 public class DynamicTable extends Application {
-    public String dbName2;
+    public String dbName2= "hotel";
 
     public String getDbName2() {
         return dbName2;
@@ -56,7 +56,7 @@ public class DynamicTable extends Application {
 
             PreparedStatement preparedStatement = c.prepareStatement(SQL);
 
-            preparedStatement.setString(1, '"'+dbName2+'"');
+            preparedStatement.setString(1, "users");
 
             //ResultSet
             ResultSet rs = preparedStatement.executeQuery();

@@ -11,6 +11,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
@@ -18,6 +19,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -34,6 +36,10 @@ public class QueryTestTableController extends QUERYS implements Initializable {
     public Button btn_Rooms;
     @FXML
     public TextField hotelInputTF;
+    @FXML
+    public DatePicker checkInDP;
+    @FXML
+    public DatePicker checkOutDP;
 
     @FXML
     private TableView<Hotels> hotelTable;
@@ -62,6 +68,40 @@ public class QueryTestTableController extends QUERYS implements Initializable {
     DynamicTable dt = new DynamicTable();
 
     public QueryTestTableController() throws ClassNotFoundException {
+    }
+
+    public void restrictDatePicker(DatePicker datePicker, LocalDate minDate, LocalDate maxDate) {
+        final Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(minDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb;");
+                        } else if (item.isAfter(maxDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb;");
+                        }
+                    }
+                };
+            }
+        };
+        datePicker.setDayCellFactory(dayCellFactory);
+
+        btn_Update.setOnMouseClicked(event -> {
+            System.out.println("update pressed");
+            Stage stage = new Stage();
+            dt.setDbName2(hotelInputTF.getText().toString());//grab hotel from "Enter Hotel Name:"
+            try {
+
+                dt.start(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void populateTableView() throws SQLException, ClassNotFoundException {
@@ -133,17 +173,7 @@ public class QueryTestTableController extends QUERYS implements Initializable {
         hotelTable.setItems(list);
         amenitiesTable.setItems(amenitieslist);
 
-        btn_Update.setOnMouseClicked(event -> {
-            System.out.println("update pressed");
-            Stage stage = new Stage();
-                dt.setDbName2(hotelInputTF.getText().toString());//grab hotel from "Enter Hotel Name:"
-            try {
 
-                dt.start(stage);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
 
 /**
 
