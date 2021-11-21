@@ -41,6 +41,7 @@ public class UserProfileController extends DBConnection implements Initializable
     @FXML private ImageView pfpIV;
     @FXML private Button saveBtn;
     @FXML private Button modifyBtn;
+    @FXML private Button toReservationBtn;
     @FXML private Label modifyMsgLabel;
 
     private User toModify;
@@ -68,7 +69,7 @@ public class UserProfileController extends DBConnection implements Initializable
     }
 
     @FXML
-    private void handleModify(ActionEvent event) {
+    private void handleButtons(ActionEvent event) {
         if(event.getSource() == modifyBtn){
             saveBtn.setDisable(false);
             modifyBtn.setDisable(true);
@@ -95,6 +96,22 @@ public class UserProfileController extends DBConnection implements Initializable
             }catch(NoSuchAlgorithmException | ClassNotFoundException | SQLException e){
                 e.printStackTrace();
             }
+        }else if(event.getSource() == toReservationBtn){
+            AnchorPane newScene = null;
+            try {
+                if (LoadedUser.getInstance().getUser().getType().equals("CUST")) {
+                    newScene = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
+                } else if (LoadedUser.getInstance().getUser().getType().equals("EMP")) {
+                    newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
+                }
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+
+            Scene scene = new Scene(newScene);
+            Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
         }
     }
 
