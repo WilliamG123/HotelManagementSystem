@@ -21,7 +21,6 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class SharedBooking extends DBConnection implements Initializable {
-
     public static final String REMOVEFROMCART = "removefromcart"; // key to let method know removing from cart
     public static final String ADDTOCART = "addtocart"; // key to let method know adding to cart
     public static final int ERROR = -1; // used for returning error
@@ -62,6 +61,16 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML void book(ActionEvent event) {
 // TODO: 11/17/2021 write handler method for the book button
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
+        //Check to see if user is logged in
+        SessionSingleton obj = SessionSingleton.getInstance();
+        if(obj.s == null)
+        {
+            System.out.println("NO USER LOGGED IN");
+        }else{
+            System.out.println("USER FIRSTNAME IS "+obj.s);
+        }
+
+
 
         // retrieve dates from date pickers
         LocalDate checkin = checkInDP.getValue();
