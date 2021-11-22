@@ -229,7 +229,22 @@ public class QueryTestTableController extends QUERYS implements Initializable {
                     setStyle("-fx-background-color: #FF4500;");
 
                 }
+                if (!reservedDates.isEmpty() && checkINDates.contains(item))
+                {
 
+                    setDisable(true);
+
+                    setStyle("-fx-background-color: #FF4500;");
+
+                }
+                if (!reservedDates.isEmpty() && checkOUTDates.contains(item))
+                {
+
+                    setDisable(true);
+
+                    setStyle("-fx-background-color: #FF4500;");
+
+                }
 
 
                 if (!selectedDates.isEmpty() && selectedDates.contains(item))
@@ -440,6 +455,8 @@ public class QueryTestTableController extends QUERYS implements Initializable {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     reservedDates.clear();
+                    checkOUTDates.clear();
+                    checkINDates.clear();
                     Hotels rowData = row.getItem();
                     hotelname = rowData.getHotelname();
                     hotel_ID = rowData.getHotelId();
