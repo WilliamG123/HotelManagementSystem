@@ -26,11 +26,13 @@
 
 .table-view .column-header .label {
     -fx-text-fill: #000000;
-    -fx-font-size: 15;
+    -fx-font-size: 20;
 }
 
 .table-column {
     -fx-alignment: CENTER;
+    -fx-wrap-text: true;
+    -fx-text-alignment: CENTER;
 }
 
 .table-row-cell {

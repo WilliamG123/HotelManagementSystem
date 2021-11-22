@@ -1,6 +1,8 @@
 import javafx.beans.property.*;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.image.ImageView;
+
 
 public class Hotels {
 
@@ -14,6 +16,7 @@ public class Hotels {
     private final IntegerProperty rating = new SimpleIntegerProperty();
     private final StringProperty amenitiesdesc = new SimpleStringProperty();
     private final IntegerProperty hotelId = new SimpleIntegerProperty();
+    private ImageView photo;
 
     public Hotels(){ }
 
@@ -118,6 +121,14 @@ public class Hotels {
     public IntegerProperty hotelIdProperty() {return hotelId;}
 
     public void setHotelId(int hotelId) {this.hotelId.set(hotelId);}
+
+    public ImageView getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(ImageView photo) {
+        this.photo = photo;
+    }
 }
 
 

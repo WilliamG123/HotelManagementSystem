@@ -17,6 +17,8 @@ import javafx.scene.control.*;
 
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -28,6 +30,7 @@ import org.controlsfx.control.textfield.TextFields;
 
 import javax.swing.text.TabableView;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -52,7 +55,7 @@ public class UserCreateController extends DBConnection implements Initializable 
     @FXML private DatePicker checkoutDP;
     @FXML private TextField hotelTF;
     @FXML private TableView<Hotels> hotelTable;
-    @FXML private TableColumn<Hotels, String> Hotel, details, address, rating;
+    @FXML private TableColumn<Hotels, String> Hotel, details, address, rating, image;
     @FXML private TableColumn<Hotels, Integer> Rooms, amenities;
     @FXML private TableColumn<Hotels, Double> Price;
     @FXML private Button applyBtn;
@@ -186,6 +189,15 @@ public class UserCreateController extends DBConnection implements Initializable 
         while(rs.next()) {
             //Create a hotels Object , add data to it and finally append it to list
             Hotels hotel = new Hotels();
+            File file = new File("Res/images/hotels/galvez.jpg");
+            Image image = new Image(file.toURI().toString());
+            ImageView im = new ImageView();
+            im.setImage(image);
+            im.setPreserveRatio(true);
+            im.setFitHeight(150);
+            im.setFitWidth(150);
+            hotel.setPhoto(im);
+            //hotel.setPhoto(new ImageView(new Image(this.getClass().getResourceAsStream("Hyatt.jpg"))));
             hotel.setHotelname(rs.getString("hotel_name"));
             hotel.setRooms(rs.getInt("hotel_availrms"));
             hotel.setAmenities(rs.getInt("hotel_numofamend"));
@@ -209,6 +221,7 @@ public class UserCreateController extends DBConnection implements Initializable 
         });
 
         //System.out.println( hotel.hotelnameProperty().getValue());
+        image.setCellValueFactory(new PropertyValueFactory<>("photo"));
         Hotel.setCellValueFactory(new PropertyValueFactory<>("hotelname"));
         Rooms.setCellValueFactory(new PropertyValueFactory<>("rooms"));
         Price.setCellValueFactory(new PropertyValueFactory<>("price"));

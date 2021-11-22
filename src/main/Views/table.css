@@ -31,6 +31,8 @@
 
 .table-column {
     -fx-alignment: CENTER;
+    -fx-wrap-text: true;
+    -fx-text-alignment: CENTER;
 }
 
 .table-row-cell {

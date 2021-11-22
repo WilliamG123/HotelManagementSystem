@@ -48,13 +48,14 @@
       <TextField fx:id="hotelTF" layoutX="258.0" layoutY="176.0" prefHeight="40.0" prefWidth="216.0" />
       <TableView fx:id="hotelTable" layoutX="1.0" layoutY="260.0" prefHeight="630.0" prefWidth="1399.0" style="-fx-background-color: rgba(255, 255, 255, .7);" stylesheets="@table.css">
         <columns>
-          <TableColumn fx:id="Hotel" prefWidth="233.0" text="Hotel" />
-            <TableColumn fx:id="address" prefWidth="193.0" text="address" />
-            <TableColumn fx:id="details" prefWidth="384.0" text="Details" />
-          <TableColumn fx:id="Rooms" minWidth="0.0" prefWidth="135.0" text="Rooms" />
-            <TableColumn fx:id="amenities" minWidth="0.0" prefWidth="119.0" text="amenities" />
-            <TableColumn fx:id="Price" prefWidth="154.0" text="Starting Price" />
-            <TableColumn fx:id="rating" minWidth="0.0" prefWidth="136.0" text="Rating" />
+            <TableColumn fx:id="image" prefWidth="192.0" text="Image" />
+          <TableColumn fx:id="Hotel" prefWidth="161.0" text="Hotel" />
+            <TableColumn fx:id="address" prefWidth="148.0" text="Address" />
+            <TableColumn fx:id="details" prefWidth="340.0" text="Details" />
+          <TableColumn fx:id="Rooms" minWidth="0.0" prefWidth="149.0" text="Rooms" />
+            <TableColumn fx:id="amenities" minWidth="0.0" prefWidth="127.0" text="Amenities" />
+            <TableColumn fx:id="Price" prefWidth="149.0" text="Starting Price" />
+            <TableColumn fx:id="rating" minWidth="0.0" prefWidth="163.0" text="Rating" />
         </columns>
       </TableView>
       <Text layoutX="908.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Checkout:">
