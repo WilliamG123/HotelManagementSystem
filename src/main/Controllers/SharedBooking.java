@@ -58,16 +58,23 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private ChoiceBox<String> roomCB;
     private Hotels hotel;
 
-    @FXML void book(ActionEvent event) {
+    @FXML void book(ActionEvent event) throws IOException {
 // TODO: 11/17/2021 write handler method for the book button
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
         //Check to see if user is logged in
+        AnchorPane newScene = null;
         SessionSingleton obj = SessionSingleton.getInstance();
-        if(obj.s == null)
+        if(LoadedUser.getInstance().getUser() == null)
         {
             System.out.println("NO USER LOGGED IN");
+            newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+            Scene scene = new Scene(newScene);
+            Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+
+            window.setScene(scene);
+            window.show();
         }else{
-            System.out.println("USER FIRSTNAME IS "+obj.s);
+            System.out.println("USER FIRSTNAME IS "+LoadedUser.getInstance().getUser().getFirstName());
         }
 
 
