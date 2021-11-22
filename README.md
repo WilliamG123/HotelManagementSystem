@@ -1,4 +1,4 @@
-# EventWithMe
+# Hotel Management System
 
 ## Table of Contents
 1. [Overview](#Overview)
