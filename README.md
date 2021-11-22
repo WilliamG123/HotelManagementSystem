@@ -6,8 +6,14 @@
 1. [Wireframes](#Wireframes)
 
 ## Overview
+
 ### Description
 JavaFx Application that is a hotel booking software developed for use of customers & employees using it
+
+### Team
+Product Manager/Developer - Brandon Muller
+William Galindo - Developer/Database Administrator
+Filiberto Rios - Lead developer
 
 ## User Stories
 
