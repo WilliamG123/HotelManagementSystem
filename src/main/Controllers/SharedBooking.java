@@ -200,7 +200,7 @@ public class SharedBooking extends DBConnection implements Initializable {
 
         for(int i = 0; i < roomTypes.size(); i++) {
             callableStatement.setString(1, roomTypes.get(i).getType());
-            callableStatement.setString(2, hotel.getHotelId());
+            callableStatement.setInt(2, hotel.getHotelId());
             ResultSet rs = callableStatement.executeQuery();
 
             rs.next();
@@ -217,7 +217,7 @@ public class SharedBooking extends DBConnection implements Initializable {
         Connection con = null;
         con = getConnection();
         CallableStatement callableStatement = con.prepareCall("{call hotel.getAllRoomTypes(?)}");
-        callableStatement.setString(1, hotel.getHotelId());
+        callableStatement.setInt(1, hotel.getHotelId());
         ResultSet rs = callableStatement.executeQuery();
 
         //loop through the resultSet & add each room type to the ArrayList

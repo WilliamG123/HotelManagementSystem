@@ -2,6 +2,7 @@
 
 import com.sun.rowset.CachedRowSetImpl;
 import java.sql.*;
+import java.time.LocalDate;
 
 
 public class QUERYS {
@@ -137,6 +138,52 @@ public class QUERYS {
         //Return CachedRowSet
         return crs;
     }
+
+
+    public ResultSet getOverLappingDates(LocalDate checkin, LocalDate checkout, String roomType, int hotelID) throws SQLException, ClassNotFoundException {
+     //CALL `hotel`.`getOverlapDateRanges`('2021-10-01', '2021-11-28', 'Queen' , 4);
+        CallableStatement callableStatement = null;
+        ResultSet resultSet = null;
+        CachedRowSetImpl crs = null;
+        try {
+            //Connect to DB (Establish Oracle Connection)
+            dbConnect();
+
+            //Callable statement is an extension of prepared statement so it prevents against SQL INJECTION
+            callableStatement = conn.prepareCall("{CALL hotel.getOverlapDateRanges(?, ?, ? , ?)}");
+            callableStatement.setDate(1, Date.valueOf(checkin));
+            callableStatement.setDate(2, Date.valueOf(checkout));
+            callableStatement.setString(3, roomType);
+            callableStatement.setInt(4, hotelID);
+
+            //Execute select (query) operation
+            resultSet = callableStatement.executeQuery();
+            //CachedRowSet Implementation
+            //In order to prevent "java.sql.SQLRecoverableException: Closed Connection: next" error
+            //We are using CachedRowSet
+            crs = new CachedRowSetImpl();
+            crs.populate(resultSet);
+        } catch (SQLException e) {
+            System.out.println("Problem occurred at executeQuery operation : " + e);
+            throw e;
+        } finally {
+            if (resultSet != null) {
+                //Close resultSet
+                resultSet.close();
+            }
+            if (callableStatement != null) {
+                //Close Statement
+                callableStatement.close();
+            }
+            //Close connection
+            conn.close();
+        }
+        //Return CachedRowSet
+        return crs;
+    }
+
+
+
 
 //use: returns result set for total amenities for a given hotel name. i.e "The Magnolia All Suites"
     public ResultSet getAmenitiesByHotelName(String hotelName) throws SQLException, ClassNotFoundException {

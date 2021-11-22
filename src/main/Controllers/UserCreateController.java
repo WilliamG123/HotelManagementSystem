@@ -193,7 +193,7 @@ public class UserCreateController extends DBConnection implements Initializable 
             hotel.setRating(rs.getInt("hotel_rating"));
             hotel.setHoteladdr(rs.getString("hotel_address"));
             hotel.setHoteldesc(rs.getString("hotel_desc"));
-            hotel.setHotelId(rs.getString("hotel_id"));
+            hotel.setHotelId(rs.getInt("hotel_id"));
             list.add(hotel);
         }
 

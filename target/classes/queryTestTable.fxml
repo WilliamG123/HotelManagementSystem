@@ -98,5 +98,7 @@
             <Font name="AdobeDevanagari-Regular" size="31.0" />
          </font>
       </Text>
+      <DatePicker fx:id="checkInDP" layoutX="765.0" layoutY="881.0" />
+      <DatePicker fx:id="checkOutDP" layoutX="1014.0" layoutY="881.0" />
     </children>
 </AnchorPane>
