@@ -43,10 +43,10 @@ public class StaffReservationController extends DBConnection implements Initiali
     @FXML private TextField nameTF;
     @FXML private DatePicker checkInDP;
     @FXML private DatePicker checkOutDP;
-    @FXML private Button applyBtn;
+    @FXML private Button applyRBtn;
     @FXML private Button resetBtn;
-    @FXML private Text modifyTF;
-    @FXML private Text deleteTF;
+    @FXML private Button modifyBtn;
+    @FXML private Button deleteBtn;
     @FXML private ObservableList<Reservation> resList;
     private Connection conn;
     private StringBuilder query;
@@ -58,7 +58,6 @@ public class StaffReservationController extends DBConnection implements Initiali
      *****************************************************************/
     @FXML void sceneChange(MouseEvent event) {
         AnchorPane newScene = null;
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
 
         // try block attempts to load a new scene
         try {
@@ -68,18 +67,34 @@ public class StaffReservationController extends DBConnection implements Initiali
             } else if(event.getSource() == logoutTV) {
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
                 System.out.println("Log: StaffRes -> LoginBtn");
-            } else if(event.getSource() == modifyTF) {
-                if(resTable.getSelectionModel().getSelectedItem() == null) {
-                    Toast.makeText(stage, "Error: no reservation selected", 2000, 500, 500);
-                    return;
-                } else {
-                    System.out.println("Log: StaffRes -> ModifyBtn");
-                    Reservation reservation = resTable.getSelectionModel().getSelectedItem();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("StaffResModify.fxml"));
-                    StaffResModify controller = new StaffResModify(reservation, "staff");
-                    loader.setController(controller);
-                    newScene = loader.load();
-                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(newScene);
+        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
+    // handles the modify button when pressed
+    @FXML void modifyHandler(ActionEvent event) {
+        AnchorPane newScene = null;
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
+
+        // try block attempts to load a new scene
+        try {
+            if(resTable.getSelectionModel().getSelectedItem() == null) {
+                Toast.makeText(stage, "Error: no reservation selected", 2000, 500, 500);
+                return;
+            } else {
+                System.out.println("Log: StaffRes -> ModifyBtn");
+                Reservation reservation = resTable.getSelectionModel().getSelectedItem();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("StaffResModify.fxml"));
+                StaffResModify controller = new StaffResModify(reservation, "staff");
+                loader.setController(controller);
+                newScene = loader.load();
             }
         } catch (IOException e) {
             e.printStackTrace();
