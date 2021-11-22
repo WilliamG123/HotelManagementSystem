@@ -11,35 +11,35 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1200.0" style="-fx-border-color: #000000;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserProfileController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="932.0" style="-fx-border-color: #000000;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserProfileController">
    <children>
-      <TextField fx:id="usernameTF" layoutX="143.0" layoutY="70.0" />
-      <TextField fx:id="firstNameTF" layoutX="144.0" layoutY="139.0" />
-      <TextField fx:id="lastNameTF" layoutX="144.0" layoutY="183.0" />
-      <TextField fx:id="phoneTF" layoutX="146.0" layoutY="268.0" />
-      <Text layoutX="54.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:">
+      <TextField fx:id="usernameTF" layoutX="143.0" layoutY="88.0" prefHeight="43.0" prefWidth="216.0" />
+      <TextField fx:id="firstNameTF" layoutX="143.0" layoutY="196.0" prefHeight="43.0" prefWidth="216.0" />
+      <TextField fx:id="lastNameTF" layoutX="572.0" layoutY="196.0" prefHeight="43.0" prefWidth="216.0" />
+      <TextField fx:id="phoneTF" layoutX="572.0" layoutY="317.0" prefHeight="43.0" prefWidth="216.0" />
+      <Text layoutX="51.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="91.86572265625">
          <font>
-            <Font size="15.0" />
+            <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="50.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:">
+      <Text layoutX="44.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:">
          <font>
-            <Font size="15.0" />
+            <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="53.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:">
+      <Text layoutX="474.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:">
          <font>
-            <Font size="15.0" />
+            <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="73.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOB:">
+      <Text layoutX="89.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DOB:">
          <font>
-            <Font size="15.0" />
+            <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="27.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number:">
+      <Text layoutX="436.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number:">
          <font>
-            <Font size="15.0" />
+            <Font size="18.0" />
          </font>
       </Text>
       <HBox alignment="CENTER" prefHeight="54.0" prefWidth="594.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -67,23 +67,28 @@
             </Text>
          </children>
       </HBox>
-      <DatePicker fx:id="dobPicker" layoutX="146.0" layoutY="227.0" />
-      <Button fx:id="modifyBtn" layoutX="73.0" layoutY="329.0" mnemonicParsing="false" onAction="#handleModify" prefHeight="26.0" prefWidth="98.0" text="Modify">
+      <DatePicker fx:id="dobPicker" layoutX="143.0" layoutY="316.0" prefHeight="43.0" prefWidth="216.0" />
+      <Button fx:id="modifyBtn" layoutX="143.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="54.0" prefWidth="135.0" text="Modify">
          <font>
-            <Font size="15.0" />
+            <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="saveBtn" layoutX="224.0" layoutY="330.0" mnemonicParsing="false" onAction="#handleModify" prefHeight="26.0" prefWidth="98.0" text="Save">
+      <Button fx:id="saveBtn" layoutX="431.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="54.0" prefWidth="135.0" text="Save">
          <font>
-            <Font size="15.0" />
+            <Font size="18.0" />
          </font>
       </Button>
-      <Text layoutX="56.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:">
+      <Text layoutX="485.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="91.86572265625">
          <font>
-            <Font size="15.0" />
+            <Font size="18.0" />
          </font>
       </Text>
-      <PasswordField fx:id="passwordField" layoutX="143.0" layoutY="104.0" />
+      <PasswordField fx:id="passwordField" layoutX="572.0" layoutY="88.0" prefHeight="43.0" prefWidth="216.0" />
       <Label fx:id="modifyMsgLabel" layoutX="332.0" layoutY="273.0" />
+      <Button fx:id="toReservationBtn" layoutX="697.0" layoutY="510.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="54.0" prefWidth="135.0" text="Reservations">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

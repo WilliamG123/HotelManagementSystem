@@ -12,27 +12,27 @@
             <Font size="55.0" />
          </font>
       </Label>
-      <Button fx:id="propertyBtn" layoutX="305.0" layoutY="400.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="65.0" prefWidth="418.0" text="Property Management">
+      <Button fx:id="propertyBtn" layoutX="305.0" layoutY="400.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="65.0" prefWidth="418.0" stylesheets="@button.css" text="Property Management">
          <font>
             <Font size="30.0" />
          </font></Button>
-      <Button fx:id="reservationBtn" layoutX="305.0" layoutY="274.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="65.0" prefWidth="418.0" text="Reservation Management">
+      <Button fx:id="reservationBtn" layoutX="305.0" layoutY="274.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="65.0" prefWidth="418.0" stylesheets="@button.css" text="Reservation Management">
          <font>
             <Font size="30.0" />
          </font></Button>
-      <Button fx:id="accountBtn" layoutX="305.0" layoutY="514.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="65.0" prefWidth="418.0" text="Account Management">
+      <Button fx:id="accountBtn" layoutX="305.0" layoutY="514.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="65.0" prefWidth="418.0" stylesheets="@button.css" text="Account Management">
          <font>
             <Font size="30.0" />
          </font></Button>
-      <Button fx:id="logoutButton" layoutX="780.0" layoutY="55.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="38.0" prefWidth="170.0" text="Logout">
-         <font>
-            <Font size="35.0" />
-         </font></Button>
-      <Button fx:id="profileBtn" layoutX="305.0" layoutY="634.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="65.0" prefWidth="418.0" text="My Profile">
+      <Button fx:id="logoutButton" layoutX="780.0" layoutY="55.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="67.0" prefWidth="188.0" stylesheets="@button.css" text="Logout">
          <font>
             <Font size="30.0" />
          </font></Button>
-      <Button fx:id="accountBtn1" layoutX="305.0" layoutY="155.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="61.0" prefWidth="418.0" text="Create Reservation">
+      <Button fx:id="profileBtn" layoutX="305.0" layoutY="634.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="65.0" prefWidth="418.0" stylesheets="@button.css" text="My Profile">
+         <font>
+            <Font size="30.0" />
+         </font></Button>
+      <Button fx:id="accountBtn1" layoutX="305.0" layoutY="155.0" mnemonicParsing="false" onAction="#launchScene" prefHeight="61.0" prefWidth="418.0" stylesheets="@button.css" text="Create Reservation">
          <font>
             <Font size="30.0" />
          </font>
