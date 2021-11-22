@@ -37,7 +37,7 @@ public class UserManageController extends DBConnection implements Initializable 
     @FXML private TextField nameTF;
     @FXML private DatePicker checkInDP;
     @FXML private DatePicker checkOutDP;
-    @FXML private Button applyBtn;
+    @FXML private Button applyRBtn;
     @FXML private Button resetBtn;
     @FXML private Text modifyTF;
     @FXML private Text deleteTF;
@@ -45,32 +45,50 @@ public class UserManageController extends DBConnection implements Initializable 
     private Connection conn;
     private StringBuilder query;
 
+    /*****************************************************************
+     *                     sceneChange Function
+     * @param event
+     * - Handles all button pressing input to various scenes
+     *****************************************************************/
     @FXML void sceneChange(MouseEvent event) {
+        AnchorPane newScene = null;
+
+        // try block attempts to load a new scene
+        try {
+            if (event.getSource() == mainmenuTV) {
+                newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
+                System.out.println("Log: CustManage -> MainMenuBtn");
+            } else if(event.getSource() == logoutTV) {
+                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+                System.out.println("Log: CustManage -> LoginBtn");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(newScene);
+        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
+    // handles the modify button when pressed
+    @FXML void modifyHandler(ActionEvent event) {
         AnchorPane newScene = null;
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
 
         // try block attempts to load a new scene
         try {
-            if (event.getSource() == mainmenuTV) {
-                if (LoadedUser.getInstance().getUser().getType().equals("CUST"))
-                    newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
-                else if (LoadedUser.getInstance().getUser().getType().equals("EMP"))
-                    newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
-            } else if(event.getSource() == logoutTV) {
-                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
-                System.out.println("Log: StaffRes -> LoginBtn");
-            } else if(event.getSource() == modifyTF) {
-                if(resTable.getSelectionModel().getSelectedItem() == null){
-                    Toast.makeText(stage, "Error: no reservation selected", 2000, 500, 500);
-                    return;
-                } else{
-                    System.out.println("Log: StaffRes -> ModifyBtn");
-                    Reservation reservation = resTable.getSelectionModel().getSelectedItem();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("StaffResModify.fxml"));
-                    StaffResModify controller = new StaffResModify(reservation, "customer");
-                    loader.setController(controller);
-                    newScene = loader.load();
-                }
+            if(resTable.getSelectionModel().getSelectedItem() == null) {
+                Toast.makeText(stage, "Error: no reservation selected", 2000, 500, 500);
+                return;
+            } else {
+                System.out.println("Log: StaffRes -> ModifyBtn");
+                Reservation reservation = resTable.getSelectionModel().getSelectedItem();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("StaffResModify.fxml"));
+                StaffResModify controller = new StaffResModify(reservation, "staff");
+                loader.setController(controller);
+                newScene = loader.load();
             }
         } catch (IOException e) {
             e.printStackTrace();

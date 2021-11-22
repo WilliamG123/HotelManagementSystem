@@ -223,6 +223,7 @@ public class SharedBooking extends DBConnection implements Initializable {
         //loop through the resultSet & add each room type to the ArrayList
         while (rs.next()) {
             roomsTypes.add(new Room(rs.getString("type_name")));
+            System.out.println(rs.getString("room_type_desc"));
         }
         return roomsTypes;
     }

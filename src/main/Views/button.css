@@ -14,25 +14,19 @@
 }
 
 #applyBtn {
-    -fx-font-size: 25;
+    -fx-font-size: 30;
     -fx-background-radius: 20;
     -fx-border-radius: 20;
 }
 
 #resetBtn {
-    -fx-font-size: 20;
-    -fx-background-radius: 20;
-    -fx-border-radius: 20;
+    -fx-font-size: 30;
 }
 
 #signupButton {
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
     -fx-font-size: 30;
 }
 
 #backToLoginButton {
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
     -fx-font-size: 30;
 }
