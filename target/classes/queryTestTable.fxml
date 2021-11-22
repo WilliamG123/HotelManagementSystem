@@ -100,5 +100,10 @@
       </Text>
       <DatePicker fx:id="checkInDP" layoutX="765.0" layoutY="881.0" />
       <DatePicker fx:id="checkOutDP" layoutX="1014.0" layoutY="881.0" />
+      <TableView fx:id="typesTV" layoutX="1258.0" layoutY="836.0" prefHeight="422.0" prefWidth="354.0" style="-fx-background-color: rgba(255, 255, 255, .7);">
+         <columns>
+            <TableColumn fx:id="typesTC" prefWidth="402.0" text="Room Types" />
+         </columns>
+      </TableView>
     </children>
 </AnchorPane>
