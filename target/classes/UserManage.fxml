@@ -38,7 +38,7 @@
             </Text>
          </children>
       </HBox>
-      <TableView fx:id="resTable" layoutX="-3.0" layoutY="210.0" prefHeight="482.0" prefWidth="1000.0" stylesheets="@table.css">
+      <TableView fx:id="resTable" layoutX="-3.0" layoutY="210.0" prefHeight="474.0" prefWidth="1000.0" stylesheets="@table.css">
          <columns>
             <TableColumn fx:id="userIDColumn" prefWidth="75.0" text="UserID" />
             <TableColumn fx:id="hotelColumn" prefWidth="75.0" text="Hotel" />
@@ -51,22 +51,22 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextField fx:id="hotelTF" layoutX="148.0" layoutY="101.0" prefHeight="71.0" prefWidth="152.0" promptText="Enter hotel name" />
-      <DatePicker fx:id="checkInDP" layoutX="503.0" layoutY="102.0" prefHeight="71.0" prefWidth="152.0" promptText="Select check in date" />
-      <DatePicker fx:id="checkOutDP" layoutX="681.0" layoutY="101.0" prefHeight="71.0" prefWidth="152.0" promptText="select checkout date" />
-      <Text layoutX="533.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
+      <TextField fx:id="hotelTF" layoutX="148.0" layoutY="101.0" prefHeight="71.0" prefWidth="139.0" promptText="Enter hotel name" />
+      <DatePicker fx:id="checkInDP" layoutX="503.0" layoutY="102.0" prefHeight="71.0" prefWidth="139.0" promptText="Select check in date" />
+      <DatePicker fx:id="checkOutDP" layoutX="681.0" layoutY="101.0" prefHeight="71.0" prefWidth="139.0" promptText="select checkout date" />
+      <Text layoutX="511.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
          <font>
-            <Font size="15.0" />
+            <Font size="20.0" />
          </font>
       </Text>
-      <Text layoutX="702.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
+      <Text layoutX="682.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
          <font>
-            <Font size="15.0" />
+            <Font size="20.0" />
          </font>
       </Text>
       <Button fx:id="applyRBtn" layoutX="862.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="46.0" prefWidth="103.0" stylesheets="@button.css" text="Apply ">
          <font>
-            <Font size="15.0" />
+            <Font size="20.0" />
          </font>
       </Button>
       <Text layoutX="33.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
@@ -77,7 +77,7 @@
       <Text layoutX="24.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text layoutX="201.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
          <font>
-            <Font size="15.0" />
+            <Font size="20.0" />
          </font>
       </Text>
       <Button fx:id="resetBtn" layoutX="862.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="45.0" prefWidth="101.0" stylesheets="@button.css" text="Reset">
@@ -85,18 +85,18 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <TextField fx:id="nameTF" layoutX="327.0" layoutY="101.0" prefHeight="71.0" prefWidth="152.0" promptText="Enter full name" />
-      <Text layoutX="364.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guest name:">
+      <TextField fx:id="nameTF" layoutX="327.0" layoutY="101.0" prefHeight="71.0" prefWidth="139.0" promptText="Enter full name" />
+      <Text layoutX="342.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guest name:">
          <font>
-            <Font size="15.0" />
+            <Font size="20.0" />
          </font>
       </Text>
-      <Button fx:id="deleteBtn" layoutX="289.0" layoutY="719.0" mnemonicParsing="false" onAction="#deleteRes" prefHeight="65.0" prefWidth="151.0" stylesheets="@button.css" text="Delete">
+      <Button fx:id="deleteBtn" layoutX="287.0" layoutY="710.0" mnemonicParsing="false" onAction="#deleteRes" prefHeight="65.0" prefWidth="151.0" stylesheets="@button.css" text="Delete">
          <font>
             <Font size="25.0" />
          </font>
       </Button>
-      <Button fx:id="modifyBtn" layoutX="580.0" layoutY="719.0" mnemonicParsing="false" onAction="#modifyHandler" prefHeight="65.0" prefWidth="151.0" stylesheets="@button.css" text="Modify">
+      <Button fx:id="modifyBtn" layoutX="580.0" layoutY="710.0" mnemonicParsing="false" onAction="#modifyHandler" prefHeight="65.0" prefWidth="151.0" stylesheets="@button.css" text="Modify">
          <font>
             <Font size="25.0" />
          </font>

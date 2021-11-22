@@ -224,27 +224,41 @@ public class UserCreateController extends DBConnection implements Initializable 
 
     }
 
-    @FXML void sceneChange(ActionEvent event) {
+    @FXML void sceneChange(MouseEvent event) {
         AnchorPane newScene = null;
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
 
         try {
             if (event.getSource() == mainmenuTV)
                 newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
             else if (event.getSource() == logoutTV) {
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
-            } else if (event.getSource() == bookBtn) {
-                if (hotelTable.getSelectionModel().getSelectedItem() == null) {
-                    Toast.makeText(stage, "Error: no hotel selected", 2000, 500, 500);
-                    return;
-                } else {
-                    System.out.println("Log: ResCreateController -> SharedBooking");
-                    Hotels hotel = hotelTable.getSelectionModel().getSelectedItem();
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("SharedBooking.fxml"));
-                    SharedBooking controller = new SharedBooking(hotel);
-                    loader.setController(controller);
-                    newScene = loader.load();
-                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(newScene);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
+    // handles the book now button and sends use to shared booking scene
+    @FXML void book(ActionEvent event) {
+        AnchorPane newScene = null;
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
+
+        try {
+            if (hotelTable.getSelectionModel().getSelectedItem() == null) {
+                Toast.makeText(stage, "Error: no hotel selected", 2000, 500, 500);
+                return;
+            } else {
+                System.out.println("Log: ResCreateController -> SharedBooking");
+                Hotels hotel = hotelTable.getSelectionModel().getSelectedItem();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("SharedBooking.fxml"));
+                SharedBooking controller = new SharedBooking(hotel);
+                loader.setController(controller);
+                newScene = loader.load();
             }
         } catch (IOException e) {
             e.printStackTrace();

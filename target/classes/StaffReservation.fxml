@@ -62,12 +62,12 @@
       <DatePicker fx:id="checkOutDP" layoutX="684.0" layoutY="114.0" prefHeight="76.0" prefWidth="151.0" promptText="select checkout date" />
       <Text layoutX="504.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
          <font>
-            <Font size="22.0" />
+            <Font size="20.0" />
          </font>
       </Text>
       <Text layoutX="684.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
          <font>
-            <Font size="22.0" />
+            <Font size="20.0" />
          </font>
       </Text>
       <Button fx:id="applyRBtn" layoutX="874.0" layoutY="91.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="33.0" prefWidth="109.0" stylesheets="@button.css" text="Apply ">
@@ -83,7 +83,7 @@
       <Text layoutX="14.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text layoutX="176.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
          <font>
-            <Font size="22.0" />
+            <Font size="20.0" />
          </font>
       </Text>
       <Button fx:id="resetBtn" layoutX="874.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="44.0" prefWidth="112.0" stylesheets="@button.css" text="Reset">
@@ -97,7 +97,7 @@
          </font></TextField>
       <Text layoutX="322.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guest name:">
          <font>
-            <Font size="22.0" />
+            <Font size="20.0" />
          </font>
       </Text>
       <Button fx:id="modifyBtn" layoutX="582.0" layoutY="710.0" mnemonicParsing="false" onAction="#modifyHandler" prefHeight="65.0" prefWidth="151.0" stylesheets="@button.css" text="Modify">
