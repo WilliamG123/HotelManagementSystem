@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -44,6 +45,9 @@ public class QueryTestTableController extends QUERYS implements Initializable {
     public DatePicker checkInDP;
     @FXML
     public DatePicker checkOutDP;
+    @FXML
+    public TableView typesTV;
+    public TableColumn typesTC;
 
     @FXML
     private TableView<Hotels> hotelTable;
@@ -83,7 +87,7 @@ public class QueryTestTableController extends QUERYS implements Initializable {
     LocalDate RcheckOut;
     LocalDate RcheckIn;
 
-
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public QueryTestTableController() throws ClassNotFoundException {
     }
@@ -137,6 +141,8 @@ public class QueryTestTableController extends QUERYS implements Initializable {
     **/
    EventHandler<MouseEvent> mouseClickedEventHandler = (MouseEvent clickEvent) ->
    {
+       System.out.println(checkOutDP.getValue());
+       System.out.println(selectedDates);
        if (clickEvent.getButton() == MouseButton.PRIMARY) {
            if (!this.selectedDates.contains(this.checkOutDP.getValue())) {
                this.selectedDates.add(checkOutDP.getValue());
