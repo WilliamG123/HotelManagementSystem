@@ -27,28 +27,31 @@ JavaFx Application that is a hotel booking software developed for use of custome
 * Employees can modify dates of any reservation
 * Employees can delete any reservation
 * Employees can access their profile and modify all data except email
-* Employees manage all user accounts
+* Employees add, modify, and delete user account
 * Employees can add, modify, or delete properties
 
 ### 2. Screen Archetypes
 
 * Login
-    * User can login
+    * Customers/Employee can login
 * Register
-    * User can make a new account
-* Event Stream
-    * User can view a list of nearby events
-* My Events
-    * User can view events they signed up for
-* Event Detail (Viewing)
-    * User can sign up to attend an event
-    * User can chat with other attendees
-* Messages
-    * User can privately message people attending
+    * Customers/Employee can create and account
+* Register
+    * Customers/Employee can make a new account
+* Create Resevration
+    * Customers/Employee can view a list of hotels and book a reservation
+* Reservation Management
+    * Customers/Employees can view events they signed up for
 * Profile
-    * User can view and change their displayed name, picture, location, etc.
-* Settings
-    * User can change privacy settings and notification settings
+    * Customers/Employees can view and edit their profiles
+* Property Management
+    * Employees can add, modify, or delete properties from the listing
+* Account Management
+    * Employees can add, modify or delete user accounts
+* Employee Main Menu
+    * Employee main menu to jump to each of their user storyscenes
+* Customer Main Menu 
+    * Customers main menu to jump to each of their user story scenes
 
 ## Wireframes
 
