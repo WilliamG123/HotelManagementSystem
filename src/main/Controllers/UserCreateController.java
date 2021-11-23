@@ -189,13 +189,13 @@ public class UserCreateController extends DBConnection implements Initializable 
         while(rs.next()) {
             //Create a hotels Object , add data to it and finally append it to list
             Hotels hotel = new Hotels();
-            File file = new File("Res/images/hotels/galvez.jpg");
+            File file = new File("Res/images/hotels/" + rs.getString("hotel_image"));
             Image image = new Image(file.toURI().toString());
             ImageView im = new ImageView();
             im.setImage(image);
             im.setPreserveRatio(true);
             im.setFitHeight(150);
-            im.setFitWidth(150);
+            im.setFitWidth(200);
             hotel.setPhoto(im);
             //hotel.setPhoto(new ImageView(new Image(this.getClass().getResourceAsStream("Hyatt.jpg"))));
             hotel.setHotelname(rs.getString("hotel_name"));
