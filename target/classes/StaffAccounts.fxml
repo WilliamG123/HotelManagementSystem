@@ -12,13 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="accountsScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="856.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffAccountsController">
+<AnchorPane fx:id="accountsScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffAccountsController">
    <children>
-      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="920.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1400.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -26,12 +26,12 @@
             </Text>
             <Text fx:id="mainmenuTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
             </Text>
             <Text fx:id="logoutTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -39,40 +39,56 @@
             </Text>
          </children>
       </HBox>
-      <TableView fx:id="usersTable" layoutX="3.0" layoutY="299.0" prefHeight="486.0" prefWidth="920.0" stylesheets="@table.css">
+      <TableView fx:id="usersTable" layoutY="318.0" prefHeight="559.0" prefWidth="1400.0" stylesheets="@table.css">
         <columns>
-          <TableColumn fx:id="firstNameColumn" prefWidth="153.33" text="First Name" />
-          <TableColumn fx:id="lastNameColumn" prefWidth="153.33" text="Last Name" />
-            <TableColumn fx:id="emailColumn" prefWidth="153.33" text="Email" />
-            <TableColumn fx:id="phoneColumn" prefWidth="153.33" text="Phone Number" />
-            <TableColumn fx:id="dobColumn" prefWidth="153.33" text="DOB" />
-            <TableColumn fx:id="typeColumn" prefWidth="150.0" text="Type" />
+          <TableColumn fx:id="firstNameColumn" prefWidth="233.33" text="First Name" />
+          <TableColumn fx:id="lastNameColumn" prefWidth="233.33" text="Last Name" />
+            <TableColumn fx:id="emailColumn" prefWidth="233.33" text="Email" />
+            <TableColumn fx:id="phoneColumn" prefWidth="233.33" text="Phone Number" />
+            <TableColumn fx:id="dobColumn" prefWidth="233.33" text="DOB" />
+            <TableColumn fx:id="typeColumn" prefWidth="233.33" text="Type" />
         </columns>
       </TableView>
-      <Text fx:id="modifyTV" layoutX="167.0" layoutY="832.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify" wrappingWidth="93.341796875">
+      <Text fx:id="modifyTV" layoutX="335.0" layoutY="952.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify">
          <font>
-            <Font size="25.0" />
+            <Font size="35.0" />
          </font>
       </Text>
-      <Text fx:id="createTV" layoutX="406.0" layoutY="828.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Create" wrappingWidth="93.341796875">
+      <Text fx:id="createTV" layoutX="650.0" layoutY="952.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Create">
          <font>
-            <Font size="25.0" />
+            <Font size="35.0" />
          </font>
       </Text>
-      <Text fx:id="deleteTV" layoutX="719.0" layoutY="825.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete" wrappingWidth="93.341796875">
+      <Text fx:id="deleteTV" layoutX="940.0" layoutY="952.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Delete">
          <font>
-            <Font size="25.0" />
+            <Font size="35.0" />
          </font>
       </Text>
-      <TextField fx:id="firstNameSearchField" layoutX="14.0" layoutY="65.0" prefHeight="48.0" prefWidth="222.0" promptText="First Name" stylesheets="@text_field.css" />
-      <TextField fx:id="lastNameSearchField" layoutX="14.0" layoutY="130.0" prefHeight="48.0" prefWidth="222.0" promptText="Last Name" stylesheets="@text_field.css" />
-      <TextField fx:id="emailSearchField" layoutX="14.0" layoutY="201.0" prefHeight="48.0" prefWidth="222.0" promptText="E-mail" stylesheets="@text_field.css" />
-      <TextField fx:id="phoneNumberSearchField" layoutX="336.0" layoutY="130.0" prefHeight="48.0" prefWidth="222.0" stylesheets="@text_field.css" />
-      <DatePicker fx:id="dobSearchPicker" layoutX="340.0" layoutY="65.0" prefHeight="48.0" prefWidth="222.0" promptText="Date of Birth" stylesheets="@text_field.css" />
-      <ComboBox fx:id="typeSearchPicker" layoutX="336.0" layoutY="202.0" prefHeight="48.0" prefWidth="222.0" stylesheets="@text_field.css" />
-      <Text layoutX="354.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
-      <Text layoutX="351.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Type" />
-      <Button fx:id="searchBtn" layoutX="679.0" layoutY="69.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="85.0" prefWidth="110.0" stylesheets="@button.css" text="Search" />
-      <Button fx:id="resetBtn" layoutX="680.0" layoutY="183.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="85.0" prefWidth="110.0" stylesheets="@button.css" text="Reset" />
+      <TextField fx:id="firstNameSearchField" layoutX="52.0" layoutY="142.0" prefHeight="40.0" prefWidth="280.0" promptText="First Name" stylesheets="@text_field.css">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <TextField fx:id="lastNameSearchField" layoutX="52.0" layoutY="245.0" prefHeight="40.0" prefWidth="280.0" promptText="Last Name" stylesheets="@text_field.css">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <TextField fx:id="emailSearchField" layoutX="431.0" layoutY="239.0" prefHeight="40.0" prefWidth="280.0" promptText="E-mail" stylesheets="@text_field.css">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <TextField fx:id="phoneNumberSearchField" layoutX="788.0" layoutY="140.0" prefHeight="40.0" prefWidth="280.0" promptText="Ex: 999-999-9999" stylesheets="@text_field.css">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <DatePicker fx:id="dobSearchPicker" layoutX="431.0" layoutY="140.0" prefHeight="40.0" prefWidth="280.0" promptText="Date of Birth" stylesheets="@text_field.css" />
+      <ComboBox fx:id="typeSearchPicker" layoutX="788.0" layoutY="239.0" prefHeight="40.0" prefWidth="280.0" promptText="Account Type" stylesheets="@text_field.css" />
+      <Button fx:id="searchBtn" layoutX="1143.0" layoutY="130.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="60.0" prefWidth="195.0" stylesheets="@button.css" text="Search">
+         <font>
+            <Font size="25.0" />
+         </font></Button>
+      <Button fx:id="resetBtn" layoutX="1143.0" layoutY="229.0" mnemonicParsing="false" onAction="#handleSearch" prefHeight="60.0" prefWidth="195.0" stylesheets="@staffresetbtncss.css" text="Reset">
+         <font>
+            <Font size="25.0" />
+         </font></Button>
    </children>
 </AnchorPane>
