@@ -28,6 +28,7 @@ public class PropertyCreateController {
     @FXML private Button resetBtn;
     @FXML private Button backBtn;
     @FXML private Label errorMessageLabel;
+    @FXML private AnchorPane anchor;
 
     private final int initialValue = 1;
 
@@ -69,8 +70,6 @@ public class PropertyCreateController {
     }
 
     @FXML private void initialize(){
-        roomTypeArea.setPromptText("Room Type,Count,Starting Room #");
-        amenitiesArea.setPromptText("Amenity (one per line)");
         numberOfRoomsSelector.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 300, initialValue));
     }
 
@@ -87,6 +86,7 @@ public class PropertyCreateController {
 
     private void handleAddProperty(){
         boolean error = false;
+        Stage stage = (Stage) anchor.getScene().getWindow();
         StringBuilder errorString = new StringBuilder();
         String priceText = basePriceField.getText();
         double price = 0.0;
@@ -133,8 +133,10 @@ public class PropertyCreateController {
             errorString.append("\nInvalid property description value");
         }
         if(error){
-            errorMessageLabel.setText(errorString.toString());
-            errorMessageLabel.setTextFill(Color.web("#FF0000"));
+            Toast.makeText(stage, errorString.toString(), 2000, 500, 500);
+            errorString.setLength(0);
+//            errorMessageLabel.setText(errorString.toString());
+//            errorMessageLabel.setTextFill(Color.web("#FF0000"));
             return;
         }
 
@@ -151,26 +153,21 @@ public class PropertyCreateController {
             try{
                 roomCount = Integer.parseInt(roomComponents[1]);
             }catch(NumberFormatException e){
-                errorString.append("\nInvalid room count value");
-                errorMessageLabel.setText(errorString.toString());
-                errorMessageLabel.setTextFill(Color.web("#FF0000"));
+                Toast.makeText(stage, "Invalid room count value", 2000, 500, 500);
                 return;
             }
             try{
                 startingRoomNumber = Integer.parseInt(roomComponents[2]);
             }catch(NumberFormatException e){
-                errorString.append("\nInvalid starting room number value");
-                errorMessageLabel.setTextFill(Color.web("#FF0000"));
-                errorMessageLabel.setText(errorString.toString());
+                errorString.append("Invalid starting room number value");
+                Toast.makeText(stage, "Invalid starting room number value", 2000, 500, 500);
                 return;
             }
             for(int i = 0; i < roomCount; i++){
                 Room room = new Room(startingRoomNumber++, price, roomType, 0, rate);
                 runningCount++;
                 if(runningCount > numberOfRooms){
-                    errorString.append("\nNumber of rooms exceeded the total number of rooms. Nothing added");
-                    errorMessageLabel.setTextFill(Color.web("#FF0000"));
-                    errorMessageLabel.setText(errorString.toString());
+                    Toast.makeText(stage, "Number of rooms exceeded the total number of rooms. Nothing added", 2000, 500, 500);
                     return;
                 }
                 rooms.add(room);
