@@ -1,3 +1,5 @@
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,6 +21,7 @@ public class Property {
     private int numberAmenities;
     private int rating;
     private int numberAvailableRooms;
+    private ImageView photo;
 
     public Property(){
         this.amenitiesAL = new ArrayList<>();
@@ -27,6 +30,7 @@ public class Property {
         this.rooms = new ArrayList<>();
         this.amenitiesSet = new HashSet<>();
         this.typeCountAvailable = new HashMap<>();
+        this.photo = null;
     }
 
     public Property(int propertyId, ArrayList<Room> rooms) {
@@ -211,6 +215,13 @@ public class Property {
 
     public void removeReservation(Reservation reservation){
         this.reservations.remove(reservation);
+    }
+
+    public ImageView getPhoto() {
+        return photo;
+    }
+    public void setPhoto(ImageView photo) {
+        this.photo = photo;
     }
 
     @Override

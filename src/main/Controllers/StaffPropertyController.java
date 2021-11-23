@@ -8,12 +8,15 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -27,6 +30,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
     @FXML private TableColumn<Property, String> nameColumn;
     @FXML private TableColumn<Property, String> roomsColumn;
     @FXML private TableColumn<Property, String> amenitiesColumn;
+    @FXML private TableColumn<Property, String> imageColumn;
     @FXML private ObservableList<Property> propertiesList;
     @FXML private ListView<String> amenitiesLV;
     @FXML private ListView<String> roomsLV;
@@ -104,12 +108,9 @@ public class StaffPropertyController extends DBConnection implements Initializab
     }
 
     private void populateTable() throws SQLException, ClassNotFoundException {
-        CallableStatement callableStatement = conn.prepareCall("{call hotel.getAllHotelsAndAmenities()}");
-        ResultSet newPropSet = callableStatement.executeQuery();
+        addProperties();
 
-        if(newPropSet.next())
-            addProperties(newPropSet);
-
+        imageColumn.setCellValueFactory(new PropertyValueFactory<>("photo"));
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("propertyName"));
         roomsColumn.setCellValueFactory(new PropertyValueFactory<>("numberAvailableRooms"));
         amenitiesColumn.setCellValueFactory(new PropertyValueFactory<>("amenitiesString"));
@@ -118,42 +119,60 @@ public class StaffPropertyController extends DBConnection implements Initializab
 
     }
 
-    private void addProperties(ResultSet rs) throws SQLException {
+    private void addProperties() throws SQLException {
         HashMap<String, Property> propertyHashMap = new HashMap<>();
         ArrayList<String> amenities;
-        do{
-            Property property = propertyHashMap.getOrDefault(rs.getString("hotel_name"), new Property());
-            amenities = property.getAmenitiesAL();
+        CallableStatement callableStatement = conn.prepareCall("{call hotel.getAllHotelsAndAmenities()}");
+        ResultSet rs = callableStatement.executeQuery();
 
-            property.setPropertyId(rs.getInt("hotel_id"));
-            property.setPropertyName(rs.getString("hotel_name"));
-            property.setAddress(rs.getString("hotel_address"));
-            property.setDesc(rs.getString("hotel_desc"));
-            property.setNumberAvailableRooms(rs.getInt("hotel_availrms"));
+        if(rs.next()) {
+            do {
+                Property property = propertyHashMap.getOrDefault(rs.getString("hotel_name"), new Property());
+                amenities = property.getAmenitiesAL();
+
+                if (property.getPhoto() == null) {
+                    File file = new File("Res/images/hotels/" + rs.getString("hotel_image"));
+                    Image image = new Image(file.toURI().toString());
+                    ImageView im = new ImageView();
+                    im.setImage(image);
+                    im.setPreserveRatio(true);
+                    im.setFitHeight(150);
+                    im.setFitWidth(200);
+                    property.setPhoto(im);
+                }
+                property.setPropertyId(rs.getInt("hotel_id"));
+                property.setPropertyName(rs.getString("hotel_name"));
+                property.setAddress(rs.getString("hotel_address"));
+                property.setDesc(rs.getString("hotel_desc"));
+                property.setNumberAvailableRooms(rs.getInt("hotel_availrms"));
 
 
-            amenities.addAll(Arrays.asList(rs.getString("group_concat(DISTINCT Amenities_desc)").split(",")));
+                amenities.addAll(Arrays.asList(rs.getString("group_concat(DISTINCT Amenities_desc)").split(",")));
 
-            property.setAmenitiesAL(amenities);
-            propertyHashMap.put(rs.getString("hotel_name"), property);
-        }while(rs.next());
-
-        propertiesList.addAll(propertyHashMap.values());
+                property.setAmenitiesAL(amenities);
+                propertyHashMap.put(rs.getString("hotel_name"), property);
+            } while (rs.next());
+            propertiesList.addAll(propertyHashMap.values());
+        }
     }
 
     private void deleteProperty() throws SQLException {
         Property property = propertiesTable.getSelectionModel().getSelectedItem();
-        String query = "DELETE FROM hotel WHERE hotel_id=?;";
-        PreparedStatement ps = conn.prepareStatement(query);
-        ps.setInt(1, property.getPropertyId());
-        ps.executeUpdate();
+        if(property != null) {
+            String query = "DELETE FROM hotel WHERE hotel_id=?;";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, property.getPropertyId());
+            ps.executeUpdate();
+        }
     }
 
     private void handleSearch() throws SQLException {
         String propName = hotelTF.getText();
         boolean searchName = !propName.equals("");
         boolean added = false;
-        ObservableList<Property> toSearch = propertiesTable.getItems();
+        propertiesList.clear();
+        addProperties();
+        ObservableList<Property> toSearch = propertiesList;
         ObservableList<Property> found = FXCollections.observableArrayList();
         ObservableList<String> amenitiesSearch = amenitiesLV.getSelectionModel().getSelectedItems();
         ObservableList<String> roomsSearch = roomsLV.getSelectionModel().getSelectedItems();
