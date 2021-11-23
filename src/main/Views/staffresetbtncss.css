@@ -11,5 +11,6 @@
     -fx-border-color: black;
     -fx-border-radius: 30;
     -fx-background-radius: 30;
+    -fx-padding: 10;
     -fx-effect: dropshadow(two-pass-box, rgb(82, 82, 82),5,0.0,0.1,3);
 }
