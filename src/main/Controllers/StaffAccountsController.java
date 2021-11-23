@@ -92,7 +92,6 @@ public class StaffAccountsController extends DBConnection implements Initializab
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        phoneNumberSearchField.setPromptText("Ex: 999-999-9999");
         typeSearchPicker.getItems().add("CUST");
         typeSearchPicker.getItems().add("EMP");
     }
