@@ -64,10 +64,13 @@ public class StaffPropertyController extends DBConnection implements Initializab
     }
 
     @FXML private void handleButtons(ActionEvent event){
-        AnchorPane newScene = null;
         try {
             if (event.getSource() == createBtn) {
-                newScene = FXMLLoader.load(getClass().getResource("PropertyCreate.fxml"));
+                AnchorPane newScene = FXMLLoader.load(getClass().getResource("PropertyCreate.fxml"));
+                Scene scene = new Scene(newScene);
+                Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+                window.setScene(scene);
+                window.show();
             }else if(event.getSource() == deleteBtn){
                 deleteProperty();
                 return;
@@ -84,11 +87,6 @@ public class StaffPropertyController extends DBConnection implements Initializab
             e.printStackTrace();
             return;
         }
-
-        Scene scene = new Scene(newScene);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.show();
     }
 
     @Override
