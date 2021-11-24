@@ -48,7 +48,10 @@ public class StaffModifyController extends DBConnection{
             else if(event.getSource() == logoutTV){
                 System.out.println("StaffModify logout pressed");
                 LoadedUser.getInstance().clearUser();
-                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                LoginController controller = new LoginController();
+                loader.setController(controller);
+                newScene = loader.load();
             }else if(event.getSource() == modifyTV){
                 if (modifyUser()){
                     modifyMsgLabel.setText("Successfully modified user information");

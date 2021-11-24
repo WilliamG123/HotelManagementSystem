@@ -26,6 +26,12 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+/*
+FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                LoginController controller = new LoginController();
+                loader.setController(controller);
+                newScene = loader.load();
+ */
 
 public class LoginController extends User implements Initializable {
     public AnchorPane prompt;
@@ -38,6 +44,13 @@ public class LoginController extends User implements Initializable {
     @FXML public Button exitButton;
     private double xOffset =0; // <-- to move app window freely
     private double yOffset = 0;
+    private Reservation reservation;
+
+    public LoginController() { }
+
+    public LoginController(Reservation reservation) {
+        this.reservation = reservation;
+    }
 
     @FXML private void exit(){
         Platform.exit();

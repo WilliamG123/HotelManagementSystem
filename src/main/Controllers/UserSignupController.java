@@ -40,7 +40,11 @@ public class UserSignupController extends User implements Initializable {
 
 
     @FXML private void toLogin(ActionEvent event) throws IOException {
-        AnchorPane loginScreen = FXMLLoader.load(getClass().getResource("login.fxml"));
+        AnchorPane loginScreen = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        LoginController controller = new LoginController();
+        loader.setController(controller);
+        loginScreen = loader.load();
         Scene scene = new Scene(loginScreen);
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);

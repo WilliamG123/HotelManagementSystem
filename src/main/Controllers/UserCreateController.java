@@ -28,12 +28,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /*****************************************************************
  *                     UserCreateController Class
@@ -243,10 +241,39 @@ public class UserCreateController extends DBConnection implements Initializable 
         AnchorPane newScene = null;
 
         try {
-            if (event.getSource() == mainmenuTV)
+            if (event.getSource() == mainmenuTV) {
+                SessionSingleton obj = SessionSingleton.getInstance();
+                if(LoadedUser.getInstance().getUser() == null) {
+                    ButtonType loginAlertBtn = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+                    ButtonType cancelAlertBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    Alert alert = new Alert(Alert.AlertType.NONE,"You are currently not logged in please do so to access the main menu options", loginAlertBtn, cancelAlertBtn);
+                    alert.setTitle("No User Found");
+                    //alert.setContentText("Please confirm reservation deletion");
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                    // if user confirmed login go login
+                    if(result.orElse(cancelAlertBtn) == loginAlertBtn){
+                        System.out.println("CreateRes Scene -> Login Scene");
+                        System.out.println("NO USER LOGGED IN");
+
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                        LoginController controller = new LoginController();
+                        loader.setController(controller);
+                        newScene = loader.load();
+                        Scene scene = new Scene(newScene);
+                        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+
+                        window.setScene(scene);
+                        window.show();
+                    }
+                    return;
+                }
                 newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
-            else if (event.getSource() == loginoutTV) {
-                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+            } else if (event.getSource() == loginoutTV) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                LoginController controller = new LoginController();
+                loader.setController(controller);
+                newScene = loader.load();
             }
         } catch (IOException e) {
             e.printStackTrace();
