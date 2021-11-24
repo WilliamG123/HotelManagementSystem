@@ -81,17 +81,17 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e2eef8" height="101.0" layoutY="899.0" stroke="BLACK" strokeType="INSIDE" width="1400.0" />
       <TableView fx:id="roomTV" layoutX="14.0" layoutY="492.0" prefHeight="379.0" prefWidth="449.0" stylesheets="@table.css">
         <columns>
-          <TableColumn fx:id="styleColumn" prefWidth="129.0" text="Style" />
-            <TableColumn fx:id="availableColumn" prefWidth="144.0" text="Available" />
-          <TableColumn fx:id="priceColumn" prefWidth="100.0" text="Price" />
+          <TableColumn fx:id="styleColumn" prefWidth="138.99996948242188" text="Style" />
+            <TableColumn fx:id="availableColumn" prefWidth="169.00003051757812" text="Available" />
+          <TableColumn fx:id="priceColumn" prefWidth="127.0" text="Price" />
         </columns>
       </TableView>
-      <Text layoutX="792.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities" underline="true">
+      <Text layoutX="792.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
-      <Text layoutX="129.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms Available" underline="true">
+      <Text layoutX="127.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms Available">
          <font>
             <Font size="28.0" />
          </font>
@@ -108,7 +108,7 @@
             <Font size="28.0" />
          </font>
       </Text>
-      <Text layoutX="634.0" layoutY="471.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Style" underline="true">
+      <Text layoutX="634.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Style">
          <font>
             <Font size="28.0" />
          </font>
@@ -130,7 +130,7 @@
             <TableColumn fx:id="price2Column" prefWidth="116.0" text="Price" />
         </columns>
       </TableView>
-      <Text layoutX="1111.0" layoutY="472.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Cart" underline="true">
+      <Text layoutX="1104.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Cart">
          <font>
             <Font size="28.0" />
          </font>
