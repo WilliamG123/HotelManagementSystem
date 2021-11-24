@@ -76,10 +76,10 @@
             <Font size="28.0" />
          </font>
       </Text>
-      <TextField fx:id="adultsTF" layoutX="1148.0" layoutY="224.0" prefHeight="37.0" prefWidth="227.0" />
-      <TextField fx:id="childrenTF" layoutX="1148.0" layoutY="313.0" prefHeight="37.0" prefWidth="227.0" />
+      <TextField fx:id="adultsTF" layoutX="1148.0" layoutY="224.0" prefHeight="37.0" prefWidth="227.0" stylesheets="@text_field.css" />
+      <TextField fx:id="childrenTF" layoutX="1148.0" layoutY="313.0" prefHeight="37.0" prefWidth="227.0" stylesheets="@text_field.css" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e2eef8" height="101.0" layoutY="899.0" stroke="BLACK" strokeType="INSIDE" width="1400.0" />
-      <TableView fx:id="roomTV" layoutX="14.0" layoutY="492.0" prefHeight="379.0" prefWidth="449.0" stylesheets="@table.css">
+      <TableView fx:id="roomTV" layoutX="14.0" layoutY="426.0" prefHeight="443.0" prefWidth="449.0" stylesheets="@table.css">
         <columns>
           <TableColumn fx:id="styleColumn" prefWidth="138.99996948242188" text="Style" />
             <TableColumn fx:id="availableColumn" prefWidth="169.00003051757812" text="Available" />
@@ -91,24 +91,24 @@
             <Font size="28.0" />
          </font>
       </Text>
-      <Text layoutX="127.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms Available">
+      <Text layoutX="127.0" layoutY="419.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms Available">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
       <ListView fx:id="amenitiesLV" layoutX="740.0" layoutY="61.0" prefHeight="295.0" prefWidth="227.0" stylesheets="@listview.css" />
-      <ChoiceBox fx:id="roomCB" layoutX="540.0" layoutY="500.0" prefHeight="37.0" prefWidth="329.0" stylesheets="@choicebox.css" />
-      <Button fx:id="addRoomBtn" layoutX="536.0" layoutY="570.0" mnemonicParsing="false" onAction="#roomChange" prefHeight="62.0" prefWidth="146.0" stylesheets="@button.css" text="Add">
+      <ChoiceBox fx:id="roomCB" layoutX="538.0" layoutY="426.0" prefHeight="37.0" prefWidth="329.0" stylesheets="@choicebox.css" />
+      <Button fx:id="addRoomBtn" layoutX="534.0" layoutY="496.0" mnemonicParsing="false" onAction="#roomChange" prefHeight="62.0" prefWidth="146.0" stylesheets="@button.css" text="Add">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
-      <Text layoutX="585.0" layoutY="738.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total cost: $000.00">
+      <Text layoutX="585.0" layoutY="629.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total cost: $000.00">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
-      <Text layoutX="634.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Style">
+      <Text layoutX="630.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Style">
          <font>
             <Font size="28.0" />
          </font>
@@ -118,19 +118,19 @@
             <Font size="32.0" />
          </font>
       </Button>
-      <Button fx:id="removeRoomBtn1" layoutX="718.0" layoutY="573.0" mnemonicParsing="false" onAction="#roomChange" prefHeight="59.0" prefWidth="146.0" stylesheets="@button.css" text="Remove">
+      <Button fx:id="removeRoomBtn1" layoutX="716.0" layoutY="499.0" mnemonicParsing="false" onAction="#roomChange" prefHeight="59.0" prefWidth="146.0" stylesheets="@button.css" text="Remove">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
-      <TableView fx:id="cartTV" layoutX="937.0" layoutY="492.0" prefHeight="379.0" prefWidth="449.0" stylesheets="@table.css">
+      <TableView fx:id="cartTV" layoutX="937.0" layoutY="426.0" prefHeight="443.0" prefWidth="449.0" stylesheets="@table.css">
         <columns>
           <TableColumn fx:id="style2Column" prefWidth="137.0" text="Style" />
           <TableColumn fx:id="amount2Column" prefWidth="128.0" text="Amount" />
             <TableColumn fx:id="price2Column" prefWidth="116.0" text="Price" />
         </columns>
       </TableView>
-      <Text layoutX="1104.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Cart">
+      <Text layoutX="1104.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Cart">
          <font>
             <Font size="28.0" />
          </font>
@@ -140,5 +140,20 @@
             <Font size="32.0" />
          </font>
       </Button>
+      <Text layoutX="564.0" layoutY="706.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer information:">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <TextField layoutX="589.0" layoutY="734.0" prefHeight="40.0" prefWidth="227.0" promptText="Name" stylesheets="@text_field.css">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="589.0" layoutY="799.0" prefHeight="40.0" prefWidth="227.0" promptText="Email" stylesheets="@text_field.css">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>

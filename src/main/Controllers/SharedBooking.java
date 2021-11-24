@@ -58,10 +58,11 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private ObservableList<Room> roomTypes;
     @FXML private ObservableList<Room> cartList;
     @FXML private ChoiceBox<String> roomCB;
+
     private Hotels hotel;
+    private Reservation reservation;
 
     @FXML void book(ActionEvent event) throws IOException {
-
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
         //Check to see if user is logged in
         AnchorPane newScene = null;
@@ -77,7 +78,7 @@ public class SharedBooking extends DBConnection implements Initializable {
 
             // if user confirmed login go login
             if(result.orElse(cancelAlertBtn) == loginAlertBtn){
-                System.out.println("CreateRes Scene -> Login Scene");
+                System.out.println("SharedBooking Scene -> Login Scene");
                 System.out.println("NO USER LOGGED IN");
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
                 Scene scene = new Scene(newScene);
@@ -87,7 +88,7 @@ public class SharedBooking extends DBConnection implements Initializable {
                 window.show();
             }
         } else {
-            System.out.println("USER FIRSTNAME IS "+LoadedUser.getInstance().getUser().getFirstName());
+            System.out.println("USER FIRSTNAME IS " + LoadedUser.getInstance().getUser().getFirstName());
 
             // retrieve dates from date pickers
             LocalDate checkin = checkInDP.getValue();
@@ -103,6 +104,8 @@ public class SharedBooking extends DBConnection implements Initializable {
                     return;
                 }
             }
+// TODO: 11/24/2021 check if user is an employee and if so set up input validation for the customer information
+
 
 // TODO: 11/17/2021 needs a query to actually write a reservation to the DB
 
@@ -133,6 +136,12 @@ public class SharedBooking extends DBConnection implements Initializable {
     // constructor that takes in hotel to populate hotel data and account type for login
     public SharedBooking(Hotels hotel) {
         this.hotel = hotel;
+    }
+
+    // constructor for when the scene comes back after logging in to remember user data
+    public SharedBooking(Hotels hotel, Reservation reservation) {
+        this.hotel = hotel;
+        this.reservation = reservation;
     }
 
     @Override
