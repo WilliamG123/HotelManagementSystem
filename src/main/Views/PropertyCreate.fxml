@@ -11,14 +11,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PropertyCreateController">
+<AnchorPane fx:id="anchor" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PropertyCreateController">
    <children>
-      <HBox alignment="CENTER" layoutX="2.0" layoutY="-1.0" prefHeight="54.0" prefWidth="1000.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1405.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
+            <Text onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -26,12 +25,12 @@
             </Text>
             <Text fx:id="mainmenuTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
             </Text>
             <Text fx:id="logoutTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -39,67 +38,73 @@
             </Text>
          </children>
       </HBox>
-      <TextField fx:id="propertyNameField" layoutX="193.0" layoutY="80.0" />
-      <TextField fx:id="propertyAddressField" layoutX="192.0" layoutY="149.0" />
-      <TextArea fx:id="propertyDescArea" layoutX="191.0" layoutY="212.0" prefHeight="200.0" prefWidth="200.0" />
-      <Spinner fx:id="numberOfRoomsSelector" layoutX="198.0" layoutY="462.0" />
-      <Text layoutX="66.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Name:">
+      <TextField fx:id="propertyNameField" layoutX="425.0" layoutY="90.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
+      <TextField fx:id="propertyAddressField" layoutX="425.0" layoutY="177.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
+      <TextArea fx:id="propertyDescArea" layoutX="425.0" layoutY="259.0" prefHeight="280.0" prefWidth="280.0" stylesheets="@text_field.css" />
+      <Spinner fx:id="numberOfRoomsSelector" layoutX="425.0" layoutY="593.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
+      <Text layoutX="152.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Name:">
          <font>
-            <Font size="16.0" />
+            <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="55.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Address:">
+      <Text layoutX="119.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Address:">
          <font>
-            <Font size="16.0" />
+            <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="33.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Description:">
+      <Text layoutX="65.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Description:">
          <font>
-            <Font size="16.0" />
+            <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="54.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Rooms:">
+      <Text layoutX="100.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Rooms:">
          <font>
-            <Font size="16.0" />
+            <Font size="36.0" />
          </font>
       </Text>
-      <TextArea fx:id="roomTypeArea" layoutX="266.0" layoutY="529.0" prefHeight="200.0" prefWidth="235.0" />
-      <Text layoutX="30.0" layoutY="550.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room type, Count, Start Room #:">
+      <TextArea fx:id="roomTypeArea" layoutX="425.0" layoutY="690.0" prefHeight="280.0" prefWidth="280.0" promptText="Room Type,Count,Starting Room #" stylesheets="@text_field.css">
          <font>
-            <Font size="16.0" />
+            <Font size="15.0" />
+         </font></TextArea>
+      <Text layoutX="99.0" layoutY="731.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room type, Count, Start Room #:" wrappingWidth="300.0">
+         <font>
+            <Font size="36.0" />
          </font>
       </Text>
-      <TextArea fx:id="amenitiesArea" layoutX="726.0" layoutY="93.0" prefHeight="200.0" prefWidth="200.0" />
-      <Text layoutX="628.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities:">
+      <TextArea fx:id="amenitiesArea" layoutX="1059.0" layoutY="100.0" prefHeight="280.0" prefWidth="280.0" promptText="Amenity (one per line)" stylesheets="@text_field.css">
          <font>
-            <Font size="16.0" />
+            <Font size="20.0" />
+         </font></TextArea>
+      <Text layoutX="890.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities:">
+         <font>
+            <Font size="36.0" />
          </font>
       </Text>
-      <TextField fx:id="basePriceField" layoutX="736.0" layoutY="366.0" />
-      <Text layoutX="596.0" layoutY="384.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Base Room Price: $">
+      <TextField fx:id="basePriceField" layoutX="1059.0" layoutY="454.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
+      <Text layoutX="753.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Base Room Price: $">
          <font>
-            <Font size="16.0" />
+            <Font size="36.0" />
          </font>
       </Text>
-      <TextField fx:id="weekendRateField" layoutX="734.0" layoutY="437.0" />
-      <Text layoutX="604.0" layoutY="455.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weekend Rate: %">
+      <TextField fx:id="weekendRateField" layoutX="1059.0" layoutY="670.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
+      <Text layoutX="776.0" layoutY="704.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weekend Rate: %">
          <font>
-            <Font size="16.0" />
+            <Font size="36.0" />
          </font>
       </Text>
-      <Button fx:id="addBtn" layoutX="572.0" layoutY="528.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="31.0" prefWidth="116.0" text="Add Property">
+      <Button fx:id="addBtn" layoutX="811.0" layoutY="770.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="60.0" prefWidth="195.0" stylesheets="@button.css" text="Add Property">
          <font>
-            <Font size="16.0" />
+            <Font size="25.0" />
          </font>
       </Button>
-      <Button fx:id="resetBtn" layoutX="717.0" layoutY="528.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="31.0" prefWidth="116.0" text="Reset Fields">
+      <Button fx:id="resetBtn" layoutX="1122.0" layoutY="767.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="60.0" prefWidth="195.0" stylesheets="@staffresetbtncss.css" text="Reset Fields">
          <font>
-            <Font size="16.0" />
+            <Font size="25.0" />
          </font>
       </Button>
-      <Button fx:id="backBtn" layoutX="869.0" layoutY="528.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="31.0" prefWidth="116.0" text="Back">
+      <Button fx:id="backBtn" layoutX="972.0" layoutY="895.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="60.0" prefWidth="195.0" stylesheets="@button.css" text="Back">
          <font>
-            <Font size="16.0" />
+            <Font size="25.0" />
          </font>
       </Button>
       <Label fx:id="errorMessageLabel" layoutX="574.0" layoutY="572.0" />

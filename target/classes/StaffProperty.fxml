@@ -11,13 +11,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffPropertyController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffPropertyController">
    <children>
-      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="1000.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1400.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -25,12 +25,12 @@
             </Text>
             <Text fx:id="mainmenuTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
             </Text>
             <Text fx:id="logoutTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -38,39 +38,55 @@
             </Text>
          </children>
       </HBox>
-      <TableView fx:id="propertiesTable" layoutX="241.0" layoutY="54.0" prefHeight="746.0" prefWidth="761.0" stylesheets="@table.css">
+      <TableView fx:id="propertiesTable" layoutX="400.0" layoutY="74.0" prefHeight="925.0" prefWidth="1000.0" stylesheets="@table.css">
         <columns>
-          <TableColumn fx:id="nameColumn" prefWidth="152.0" text="Name" />
-          <TableColumn fx:id="roomsColumn" prefWidth="152.0" text="# of Available Rooms" />
-            <TableColumn fx:id="amenitiesColumn" prefWidth="455.99993896484375" text="Amenities" />
+            <TableColumn fx:id="imageColumn" prefWidth="250.0" text="Preview" />
+          <TableColumn fx:id="nameColumn" prefWidth="250.0" text="Name" />
+          <TableColumn fx:id="roomsColumn" prefWidth="250.0" text="# of Available Rooms" />
+            <TableColumn fx:id="amenitiesColumn" prefWidth="250.0" text="Amenities" />
         </columns>
       </TableView>
-      <Text layoutX="63.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter by:">
+      <Text layoutX="30.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filter by:">
          <font>
-            <Font size="25.0" />
+            <Font size="36.0" />
          </font>
       </Text>
-      <TextField fx:id="hotelTF" layoutX="25.0" layoutY="151.0" promptText="Name" stylesheets="@text_field.css" />
-      <Text layoutX="30.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Name:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <Text layoutX="30.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms">
+      <TextField fx:id="hotelTF" layoutX="30.0" layoutY="161.0" prefHeight="40.0" prefWidth="335.0" promptText="Name" stylesheets="@text_field.css">
          <font>
             <Font size="20.0" />
+         </font></TextField>
+      <Text layoutX="30.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel Name:">
+         <font>
+            <Font size="26.0" />
          </font>
       </Text>
-      <Text layoutX="25.0" layoutY="461.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
+      <Text layoutX="30.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rooms">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <Text layoutX="30.0" layoutY="568.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <Button fx:id="searchBtn" layoutX="50.0" layoutY="874.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@button.css" text="Search">
          <font>
             <Font size="20.0" />
-         </font>
-      </Text>
-      <Button fx:id="searchBtn" layoutX="17.0" layoutY="693.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="27.0" prefWidth="81.0" stylesheets="@button.css" text="Search" />
-      <Button fx:id="createBtn" layoutX="17.0" layoutY="742.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="27.0" prefWidth="81.0" stylesheets="@button.css" text="Create" />
-      <Button fx:id="deleteBtn" layoutX="129.0" layoutY="742.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="27.0" prefWidth="81.0" stylesheets="@button.css" text="Delete" />
-      <ListView fx:id="amenitiesLV" layoutX="16.0" layoutY="474.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@staffresetbtncss.css" />
-      <ListView fx:id="roomsLV" layoutX="17.0" layoutY="234.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@staffresetbtncss.css" />
-      <Button fx:id="resetBtn" layoutX="129.0" layoutY="693.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="81.0" stylesheets="@staffresetbtncss.css" text="Reset" />
+         </font></Button>
+      <Button fx:id="createBtn" layoutX="51.0" layoutY="935.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@button.css" text="Create">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <Button fx:id="deleteBtn" layoutX="225.0" layoutY="935.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@button.css" text="Delete">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
+      <ListView fx:id="amenitiesLV" layoutX="30.0" layoutY="576.0" prefHeight="280.0" prefWidth="335.0" stylesheets="@staffresetbtncss.css" />
+      <ListView fx:id="roomsLV" layoutX="30.0" layoutY="249.0" prefHeight="280.0" prefWidth="335.0" stylesheets="@staffresetbtncss.css" />
+      <Button fx:id="resetBtn" layoutX="225.0" layoutY="875.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@staffresetbtncss.css" text="Reset">
+         <font>
+            <Font size="20.0" />
+         </font></Button>
    </children>
 </AnchorPane>
