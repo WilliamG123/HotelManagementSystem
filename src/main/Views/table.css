@@ -37,7 +37,7 @@
 
 .table-row-cell {
     -fx-background-color: transparent;
-    -fx-font-size: 15;
+    -fx-font-size: 20;
     -fx-alignment: CENTER;
     -fx-table-cell-border-color:gray;
     -fx-cell-size: 50;
