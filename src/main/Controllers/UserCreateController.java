@@ -13,9 +13,6 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-
-
-
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,9 +22,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
-
-
-
 import javax.swing.text.TabableView;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -50,7 +44,7 @@ import java.util.ResourceBundle;
 public class UserCreateController extends DBConnection implements Initializable {
 
     @FXML private Text mainmenuTV;
-    @FXML private Text logoutTV;
+    @FXML private Text loginoutTV;
     @FXML private DatePicker checkinDP;
     @FXML private DatePicker checkoutDP;
     @FXML private TextField hotelTF;
@@ -73,7 +67,13 @@ public class UserCreateController extends DBConnection implements Initializable 
 
     // checks to see if the user is logged in because they must be to make a reservation
     public void loginCheck() {
-        // TODO: 11/17/2021 make code to check if the user is logged in before proceeding to book a hotel
+// TODO: 11/17/2021 make code to check if the user is logged in before proceeding to book a hotel
+        SessionSingleton obj = SessionSingleton.getInstance();
+        if(LoadedUser.getInstance().getUser() == null) {
+            loginoutTV.setText("Login");
+        } else {
+            loginoutTV.setText("Logout");
+        }
     }
 
     // method clears the filters and reloads the TableView
@@ -128,6 +128,8 @@ public class UserCreateController extends DBConnection implements Initializable 
         possibleWords.add("Sun Palace Inn");
         possibleWords.add("HomeAway Inn");
         possibleWords.add("Rio Inn");
+
+        loginCheck();
 
         TextFields.bindAutoCompletion(hotelTF, possibleWords);
         //run the method
@@ -243,7 +245,7 @@ public class UserCreateController extends DBConnection implements Initializable 
         try {
             if (event.getSource() == mainmenuTV)
                 newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
-            else if (event.getSource() == logoutTV) {
+            else if (event.getSource() == loginoutTV) {
                 newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
             }
         } catch (IOException e) {

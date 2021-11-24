@@ -28,7 +28,7 @@
                   <Font size="35.0" />
                </font>
             </Text>
-            <Text fx:id="logoutTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
+            <Text fx:id="loginoutTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
                <font>
                   <Font size="35.0" />
                </font>

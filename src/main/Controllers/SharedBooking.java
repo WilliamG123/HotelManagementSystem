@@ -18,9 +18,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SharedBooking extends DBConnection implements Initializable {
+
     public static final String REMOVEFROMCART = "removefromcart"; // key to let method know removing from cart
     public static final String ADDTOCART = "addtocart"; // key to let method know adding to cart
     public static final int ERROR = -1; // used for returning error
@@ -59,43 +61,54 @@ public class SharedBooking extends DBConnection implements Initializable {
     private Hotels hotel;
 
     @FXML void book(ActionEvent event) throws IOException {
-// TODO: 11/17/2021 write handler method for the book button
+
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
         //Check to see if user is logged in
         AnchorPane newScene = null;
-       // SessionSingleton obj = SessionSingleton.getInstance();
-        if(LoadedUser.getInstance().getUser() == null)
-        {
-            System.out.println("NO USER LOGGED IN");
-            newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
-            Scene scene = new Scene(newScene);
-            Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        SessionSingleton obj = SessionSingleton.getInstance();
+        if(LoadedUser.getInstance().getUser() == null) {
 
-            window.setScene(scene);
-            window.show();
-        }else{
-            System.out.println("USER FIRSTNAME IS "+LoadedUser.getInstance().getUser().getFirstName());
-        }
+            ButtonType loginAlertBtn = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+            ButtonType cancelAlertBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+            Alert alert = new Alert(Alert.AlertType.NONE,"You are currently not logged in please do so to complete your reservation", loginAlertBtn, cancelAlertBtn);
+            alert.setTitle("Booking Check");
+            //alert.setContentText("Please confirm reservation deletion");
+            Optional<ButtonType> result = alert.showAndWait();
 
+            // if user confirmed login go login
+            if(result.orElse(cancelAlertBtn) == loginAlertBtn){
+                System.out.println("CreateRes Scene -> Login Scene");
+                System.out.println("NO USER LOGGED IN");
+                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+                Scene scene = new Scene(newScene);
+                Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
 
-
-        // retrieve dates from date pickers
-        LocalDate checkin = checkInDP.getValue();
-        LocalDate checkout = checkOutDP.getValue();
-
-        // date picker input validation
-        if(checkin == null || checkout == null) {
-            Toast.makeText(stage, "Error: please select dates before trying to book", 1500, 250, 250);
-            return;
-        } else if(checkin != null && checkout != null) {
-            if(checkin.isAfter(checkout)) {
-                Toast.makeText(stage, "Error: check in date cannot be after checkout", 1500, 250, 250);
-                return;
+                window.setScene(scene);
+                window.show();
             }
-        }
+        } else {
+            System.out.println("USER FIRSTNAME IS "+LoadedUser.getInstance().getUser().getFirstName());
 
-        // call scene change to return to the createResScene
-        sceneChange(event);
+            // retrieve dates from date pickers
+            LocalDate checkin = checkInDP.getValue();
+            LocalDate checkout = checkOutDP.getValue();
+
+            // date picker input validation
+            if(checkin == null || checkout == null) {
+                Toast.makeText(stage, "Error: please select dates before trying to book", 1500, 250, 250);
+                return;
+            } else if(checkin != null && checkout != null) {
+                if(checkin.isAfter(checkout)) {
+                    Toast.makeText(stage, "Error: check in date cannot be after checkout", 1500, 250, 250);
+                    return;
+                }
+            }
+
+// TODO: 11/17/2021 needs a query to actually write a reservation to the DB
+
+            // call scene change to return to the createResScene
+            sceneChange(event);
+        }
     }
 
     private void queryTotal() throws ClassNotFoundException, SQLException {
