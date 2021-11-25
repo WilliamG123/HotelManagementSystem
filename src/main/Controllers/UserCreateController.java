@@ -66,7 +66,7 @@ public class UserCreateController extends DBConnection implements Initializable 
     // checks to see if the user is logged in because they must be to make a reservation
     public void loginCheck() {
 // TODO: 11/17/2021 make code to check if the user is logged in before proceeding to book a hotel
-        SessionSingleton obj = SessionSingleton.getInstance();
+       // SessionSingleton obj = SessionSingleton.getInstance();
         if(LoadedUser.getInstance().getUser() == null) {
             loginoutTV.setText("Login");
         } else {
@@ -242,7 +242,6 @@ public class UserCreateController extends DBConnection implements Initializable 
 
         try {
             if (event.getSource() == mainmenuTV) {
-                SessionSingleton obj = SessionSingleton.getInstance();
                 if(LoadedUser.getInstance().getUser() == null) {
                     ButtonType loginAlertBtn = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
                     ButtonType cancelAlertBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);

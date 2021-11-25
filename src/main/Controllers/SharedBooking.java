@@ -109,7 +109,7 @@ public class SharedBooking extends DBConnection implements Initializable {
         Stage stage = (Stage) anchorPane.getScene().getWindow(); // for displaying Toast error messages
         //Check to see if user is logged in
         AnchorPane newScene = null;
-        SessionSingleton obj = SessionSingleton.getInstance();
+
         if(LoadedUser.getInstance().getUser() == null) {
 
             ButtonType loginAlertBtn = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);

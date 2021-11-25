@@ -177,7 +177,11 @@ public class StaffReservationController extends DBConnection implements Initiali
             LocalDate checkout = checkOutDP.getValue();
             String hotel = hotelTF.getText().toString();
             String name = nameTF.getText().toString();
+            System.out.print(name);
+            System.out.println(hotel);
 
+
+            System.out.println("TESTING");
             if(hotel.equals("") && name.equals("") && checkin == null && checkout == null) {
                 Toast.makeText(stage, "Error: no filter information given", 2000, 500, 500);
             } else if(checkin != null && checkout != null) {
@@ -185,6 +189,7 @@ public class StaffReservationController extends DBConnection implements Initiali
                     Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
                 }
             }
+            System.out.println("TESTING");
 
             Connection con = null;
             try {
@@ -192,21 +197,31 @@ public class StaffReservationController extends DBConnection implements Initiali
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+
             CallableStatement callableStatement = con.prepareCall("{call hotel.ReservationFilter(?, ?, ?, ?)}");
             callableStatement.setString(1, name);
             callableStatement.setString(2, hotel);
             if(checkin != null)
-                callableStatement.setDate(3, Date.valueOf(checkin));
+                callableStatement.setDate(3, Date.valueOf(checkInDP.getValue()));
             else
                 callableStatement.setDate(3, null);
             if(checkout != null)
-                callableStatement.setDate(4, Date.valueOf(checkout));
+                callableStatement.setDate(4, Date.valueOf(checkOutDP.getValue()));
             else
                 callableStatement.setDate(4, null);
             ResultSet rs = callableStatement.executeQuery();
 
             resList.clear();
 
+            while(rs.next()){
+                System.out.println("the results");
+                System.out.println(rs.getString("fname"));
+                System.out.println(rs.getString("hotel_name"));
+
+            }
+
+
+            /**
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
@@ -230,6 +245,7 @@ public class StaffReservationController extends DBConnection implements Initiali
                 resList.add(r);
             }
             resTable.refresh(); */
+
         }
     }
 
