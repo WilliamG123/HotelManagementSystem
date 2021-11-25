@@ -46,5 +46,10 @@
          <font>
             <Font name="System Bold" size="21.0" />
          </font></Button>
+      <Button layoutX="571.0" layoutY="634.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="182.0" stylesheets="@button.css" text="Return">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

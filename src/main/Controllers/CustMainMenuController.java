@@ -44,7 +44,10 @@ public class CustMainMenuController implements Initializable {
                 System.out.println("Property Management Button Pressed!");
             }
             else if (event.getSource() == this.logoutButton) {
-                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                LoginController controller = new LoginController();
+                loader.setController(controller);
+                newScene = loader.load();
                 System.out.println("Property Management Button Pressed!");
             }
             else if (event.getSource() == this.profileBtn) {
