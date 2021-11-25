@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -25,7 +26,6 @@ public class SharedBooking extends DBConnection implements Initializable {
 
     public static final String REMOVEFROMCART = "removefromcart"; // key to let method know removing from cart
     public static final String ADDTOCART = "addtocart"; // key to let method know adding to cart
-    public static final String RESTORECART = "restorecart"; // key to let method know removing from cart
     public static final int ERROR = -1; // used for returning error
     public static final int SUCCESS = 0; // used for returning success
 
@@ -33,8 +33,11 @@ public class SharedBooking extends DBConnection implements Initializable {
     public static final int ROOMS_KEY = 333;
     public static final int  CHECKIN_KEY = 666;
     public static final int CHECKOUT_KEY = 999;
+    public static final int  CHILDREN_KEY = 1200;
+    public static final int ADULT_KEY = 1600;
     public static final int LOGIN_KEY = 100;
 
+    @FXML private AnchorPane anchorPane;
     @FXML private Text hNameTF;
     @FXML private Text hAddressTF;
     @FXML private Text hRatingTF;
@@ -42,8 +45,6 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private Text checkOutTF;
     @FXML private Text infoT;
     @FXML private TextArea descriptionTF;
-    @FXML private TextField adultsTF;
-    @FXML private TextField childrenTF;
     @FXML private TextField nameTF;
     @FXML private TextField emailTF;
     @FXML private DatePicker checkInDP;
@@ -68,18 +69,20 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private ObservableList<Room> roomTypes;
     @FXML private ObservableList<Room> cartList;
     @FXML private ChoiceBox<String> roomCB;
+    @FXML private Spinner<Integer> adultS;
+    @FXML private Spinner<Integer> childrenS;
 
     private Hotels hotel;
     private Reservation resData; // stores data received from login scene
     private boolean recievedInfo; // boolean check if we received data from login
+    private boolean employeeCheck; // checks to see if employee logged in for extra functionality
 
     private Reservation getUserInput() {
         Reservation reservation = new Reservation();
         LocalDate checkin = checkInDP.getValue();
         LocalDate checkout = checkOutDP.getValue();
-// TODO: 11/24/2021 finish this method
-        //int adults =
-        //int children =
+        int adults = adultS.getValue();
+        int children = childrenS.getValue();
 
         if(checkin != null) {
             reservation.setCheckIn(checkin);
@@ -89,11 +92,23 @@ public class SharedBooking extends DBConnection implements Initializable {
             reservation.setCheckOut(checkout);
             reservation.addToCurrent(CHECKOUT_KEY);
         }
+        if(cartList.size() != 0){
+            reservation.setRooms(cartList);
+            reservation.addToCurrent(ROOMS_KEY);
+        }
+        if(adults > 0) {
+            reservation.setAdults(adults);
+            reservation.addToCurrent(ADULT_KEY);
+        }
+        if(children > 0) {
+            reservation.setChildren(children);
+            reservation.addToCurrent(CHILDREN_KEY);
+        }
         return reservation;
     }
 
     @FXML void book(ActionEvent event) throws IOException {
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
+        Stage stage = (Stage) anchorPane.getScene().getWindow(); // for displaying Toast error messages
         //Check to see if user is logged in
         AnchorPane newScene = null;
 
@@ -127,6 +142,8 @@ public class SharedBooking extends DBConnection implements Initializable {
             // retrieve dates from date pickers
             LocalDate checkin = checkInDP.getValue();
             LocalDate checkout = checkOutDP.getValue();
+            String customerName = nameTF.getText().toString();
+            String email = emailTF.getText().toString();
 
             // date picker input validation
             if(checkin == null || checkout == null) {
@@ -138,9 +155,20 @@ public class SharedBooking extends DBConnection implements Initializable {
                     return;
                 }
             }
-// TODO: 11/24/2021 check if user is an employee and if so set up input validation for the customer information
-
-
+            if(cartList.size() == 0) {
+                Toast.makeText(stage, "Error: no rooms selects please to do to book", 1500, 250, 250);
+                return;
+            }
+            if(employeeCheck) {
+                if(customerName.equals("")) {
+                    Toast.makeText(stage, "Error: please enter a customer name to book", 1500, 250, 250);
+                    return;
+                }
+                if(email.equals("")) {
+                    Toast.makeText(stage, "Error: please enter a customer email to book", 1500, 250, 250);
+                    return;
+                }
+            }
 
 // TODO: 11/17/2021 needs a query to actually write a reservation to the DB
 
@@ -185,6 +213,19 @@ public class SharedBooking extends DBConnection implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        if(LoadedUser.getInstance().getUser() != null) {
+            if(LoadedUser.getInstance().getUser().getType().equals("EMP")) {
+                infoT.setVisible(true);
+                nameTF.setVisible(true);
+                emailTF.setVisible(true);
+                employeeCheck = true;
+            }
+        }
+
+        // initializes the cart TableView and observableArrayList
+        cartList = FXCollections.observableArrayList();
+        cartTV.setItems(cartList);
+
         // makes it to where the ListView and TableView items are not clickable (front end)
         amenitiesLV.setMouseTransparent(true);
         amenitiesLV.setFocusTraversable(false);
@@ -224,13 +265,35 @@ public class SharedBooking extends DBConnection implements Initializable {
                 checkInDP.setValue(resData.getCheckIn());
             if(resData.dyanmicData.contains(CHECKOUT_KEY))
                 checkOutDP.setValue(resData.getCheckOut());
+            if(resData.dyanmicData.contains(CHILDREN_KEY)) {
+                SpinnerValueFactory<Integer> valueFactoryC = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, resData.getChildren());
+                childrenS.setValueFactory(valueFactoryC);
+            }
+            if(resData.dyanmicData.contains(ADULT_KEY)) {
+                SpinnerValueFactory<Integer> valueFactoryA = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, resData.getChildren());
+                adultS.setValueFactory(valueFactoryA);
+            }
+            if(resData.dyanmicData.contains(ROOMS_KEY)){
+                for(Room r : resData.getRooms()) {
+                    r.setPrice(r.getPrice() / r.getAmountAvailable());
+                    for(int i = 0; i < r.getAmountAvailable(); i++) {
+                        System.out.println("ADDING ITEM TO CART FROM RESDATA");
+                        System.out.println("Items Price: " + r.getPrice());
+                        cartHandler(r, ADDTOCART);
+                    }
+                }
+                cartTV.refresh();
+            }
         } else {
-            // initializes the cart TableView and observableArrayList
-            cartList = FXCollections.observableArrayList();
-            cartTV.setItems(cartList);
             Label label = new Label("Your cart is empty");
             label.setFont(new Font("Arial", 20));
             cartTV.setPlaceholder(label);
+
+            // initialize spinners
+            SpinnerValueFactory<Integer> valueFactoryA = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0);
+            SpinnerValueFactory<Integer> valueFactoryC = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0);
+            adultS.setValueFactory(valueFactoryA);
+            childrenS.setValueFactory(valueFactoryC);
         }
     }
 
@@ -319,7 +382,7 @@ public class SharedBooking extends DBConnection implements Initializable {
      *   to handle the add or remove from cart depending on the second parameter being ADDTOCART or REMOVEFROMCART
      ****************************************************************************************************************/
     @FXML void roomChange(ActionEvent event) {
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
+        Stage stage = (Stage) anchorPane.getScene().getWindow(); // for displaying Toast error messages
         String choice;
 
         choice = roomCB.getValue();
@@ -332,9 +395,9 @@ public class SharedBooking extends DBConnection implements Initializable {
         for(int i = 0; i < roomTypes.size(); i++) {
             if(roomTypes.get(i).getType().equals(choice)) {
                 if(event.getSource() == addRoomBtn) {
-                    cartHandler(roomTypes.get(i), ADDTOCART, event);
+                    cartHandler(roomTypes.get(i), ADDTOCART);
                 } else {
-                    cartHandler(roomTypes.get(i), REMOVEFROMCART, event);
+                    cartHandler(roomTypes.get(i), REMOVEFROMCART);
                 }
             }
         }
@@ -344,12 +407,10 @@ public class SharedBooking extends DBConnection implements Initializable {
      *                                          cartHandler method
      * @param room - room that user selected used to identify room type in cart
      * @param action - key used to determine whether user adding or removing from cart
-     * @param event - used to initialize stage variable to use Toast messages
      * - if user adding to cart this method adds a new room or increments it if it already exists in cart table
      * - else the user is removing a room from the cart and the method decrements that room in the cart table
      ****************************************************************************************************************/
-    private void cartHandler(Room room, String action, ActionEvent event) {
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+    private void cartHandler(Room room, String action) {
         boolean exists = false;
 
         if(action.equals(REMOVEFROMCART)){
@@ -364,12 +425,14 @@ public class SharedBooking extends DBConnection implements Initializable {
                 }
             }
             if(!exists){
+                Stage stage = (Stage) anchorPane.getScene().getWindow(); // for displaying Toast error messages
                 Toast.makeText(stage, "Error: there is no " + room.getType() + " room in your cart", 2000, 500, 500);
                 return;
             }
-            roomsHandler(room, REMOVEFROMCART, event);
-        } else if(action.equals(ADDTOCART)) {
-            if(roomsHandler(room, ADDTOCART, event) == ERROR){
+            roomsHandler(room, REMOVEFROMCART);
+        } else {
+            if(roomsHandler(room, ADDTOCART) == ERROR){
+                System.out.println("ERROR adding item to cart");
                 return;
             } else {
                 for(int i = 0; i < cartList.size(); i++) {
@@ -385,8 +448,6 @@ public class SharedBooking extends DBConnection implements Initializable {
                     cartList.add(r);
                 }
             }
-        } else if(action.equals(RESTORECART)) {
-            
         }
         cartTV.refresh();
     }
@@ -395,17 +456,16 @@ public class SharedBooking extends DBConnection implements Initializable {
      *                                      roomsHandler method
      * @param room - room that user selected used to identify room type in rooms table
      * @param action - key used to determine whether user adding or removing from cart
-     * @param event - used to initialize stage variable to use Toast messages
      * - if user adding to cart this method decrements the availability of the specified room type from the rooms table
      * - else the user is removing a room from the cart and the method increments that room in the rooms table
      ****************************************************************************************************************/
-    private int roomsHandler(Room room, String action, ActionEvent event) {
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+    private int roomsHandler(Room room, String action) {
 
         if(action.equals(ADDTOCART)){
             for(int i = 0; i < roomTypes.size(); i++){
                 if(room.getType().equals(roomTypes.get(i).getType())) {
                     if(roomTypes.get(i).getAmountAvailable() == 0) {
+                        Stage stage = (Stage) anchorPane.getScene().getWindow(); // for displaying Toast error messages
                         Toast.makeText(stage, "Error: there are no more " + room.getType() + " rooms available", 2000, 500, 500);
                         return ERROR;
                     }

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text fx:id="hNameTF" layoutX="173.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="La Quinta Suites" wrappingWidth="786.8525390625">
          <font>
@@ -76,8 +77,6 @@
             <Font size="28.0" />
          </font>
       </Text>
-      <TextField fx:id="adultsTF" layoutX="1148.0" layoutY="224.0" prefHeight="37.0" prefWidth="227.0" stylesheets="@text_field.css" />
-      <TextField fx:id="childrenTF" layoutX="1148.0" layoutY="313.0" prefHeight="37.0" prefWidth="227.0" stylesheets="@text_field.css" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e2eef8" height="101.0" layoutY="899.0" stroke="BLACK" strokeType="INSIDE" width="1400.0" />
       <TableView fx:id="roomTV" layoutX="14.0" layoutY="426.0" prefHeight="443.0" prefWidth="449.0" stylesheets="@table.css">
         <columns>
@@ -97,13 +96,13 @@
          </font>
       </Text>
       <ListView fx:id="amenitiesLV" layoutX="740.0" layoutY="61.0" prefHeight="295.0" prefWidth="227.0" stylesheets="@listview.css" />
-      <ChoiceBox fx:id="roomCB" layoutX="538.0" layoutY="426.0" prefHeight="37.0" prefWidth="329.0" stylesheets="@choicebox.css" />
+      <ChoiceBox fx:id="roomCB" layoutX="538.0" layoutY="435.0" prefHeight="37.0" prefWidth="329.0" stylesheets="@choicebox.css" />
       <Button fx:id="addRoomBtn" layoutX="534.0" layoutY="496.0" mnemonicParsing="false" onAction="#roomChange" prefHeight="62.0" prefWidth="146.0" stylesheets="@button.css" text="Add">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
-      <Text layoutX="585.0" layoutY="629.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total cost: $000.00">
+      <Text layoutX="585.0" layoutY="639.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total cost: $000.00">
          <font>
             <Font size="28.0" />
          </font>
@@ -140,20 +139,22 @@
             <Font size="32.0" />
          </font>
       </Button>
-      <Text layoutX="564.0" layoutY="706.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer information:">
+      <Text fx:id="infoT" layoutX="564.0" layoutY="706.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer information:" visible="false">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
-      <TextField layoutX="589.0" layoutY="734.0" prefHeight="40.0" prefWidth="227.0" promptText="Name" stylesheets="@text_field.css">
+      <TextField fx:id="nameTF" layoutX="569.0" layoutY="734.0" prefHeight="51.0" prefWidth="271.0" promptText="Name" stylesheets="@text_field.css" visible="false">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField layoutX="589.0" layoutY="799.0" prefHeight="40.0" prefWidth="227.0" promptText="Email" stylesheets="@text_field.css">
+      <TextField fx:id="emailTF" layoutX="569.0" layoutY="809.0" prefHeight="51.0" prefWidth="271.0" promptText="Email" stylesheets="@text_field.css" visible="false">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
+      <Spinner fx:id="adultS" layoutX="1146.0" layoutY="229.0" prefHeight="37.0" prefWidth="227.0" />
+      <Spinner fx:id="childrenS" layoutX="1146.0" layoutY="318.0" prefHeight="37.0" prefWidth="227.0" />
    </children>
 </AnchorPane>
