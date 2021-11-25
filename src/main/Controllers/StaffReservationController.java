@@ -219,7 +219,7 @@ public class StaffReservationController extends DBConnection implements Initiali
             resList.clear();
 
 
-            ResultSetMetaData rsmd = rs.getMetaData();
+            /*ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
                 for (int i = 1; i <= columnsNumber; i++) {
@@ -228,13 +228,10 @@ public class StaffReservationController extends DBConnection implements Initiali
                     System.out.print(columnValue + " " + rsmd.getColumnName(i));
                 }
                 System.out.println("");
-            }
-
-
-
+            }*/
 
             //loop through the resultSet & add each amenity to the ListView
-            /*while(rs.next()) {
+            while(rs.next()) {
                Reservation r = new Reservation();
                r.setName(rs.getString("fname"));
                r.setHotelName(rs.getString("hotel_name"));
@@ -243,11 +240,8 @@ public class StaffReservationController extends DBConnection implements Initiali
                r.setCost(rs.getDouble("total_price"));
                r.setResID(rs.getInt("reservationId"));
                resList.add(r);
-            }*/
+            }
             resTable.refresh();
-
-
-
         }
     }
 
