@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -74,6 +75,7 @@ public class SharedBooking extends DBConnection implements Initializable {
     private Hotels hotel;
     private Reservation resData; // stores data received from login scene
     private boolean recievedInfo; // boolean check if we received data from login
+    private boolean employeeCheck; // checks to see if employee logged in for extra functionality
 
     private Reservation getUserInput() {
         Reservation reservation = new Reservation();
@@ -140,6 +142,8 @@ public class SharedBooking extends DBConnection implements Initializable {
             // retrieve dates from date pickers
             LocalDate checkin = checkInDP.getValue();
             LocalDate checkout = checkOutDP.getValue();
+            String customerName = nameTF.getText().toString();
+            String email = emailTF.getText().toString();
 
             // date picker input validation
             if(checkin == null || checkout == null) {
@@ -151,9 +155,20 @@ public class SharedBooking extends DBConnection implements Initializable {
                     return;
                 }
             }
-// TODO: 11/24/2021 check if user is an employee and if so set up input validation for the customer information
-
-
+            if(cartList.size() == 0) {
+                Toast.makeText(stage, "Error: no rooms selects please to do to book", 1500, 250, 250);
+                return;
+            }
+            if(employeeCheck) {
+                if(customerName.equals("")) {
+                    Toast.makeText(stage, "Error: please enter a customer name to book", 1500, 250, 250);
+                    return;
+                }
+                if(email.equals("")) {
+                    Toast.makeText(stage, "Error: please enter a customer email to book", 1500, 250, 250);
+                    return;
+                }
+            }
 
 // TODO: 11/17/2021 needs a query to actually write a reservation to the DB
 
@@ -197,6 +212,15 @@ public class SharedBooking extends DBConnection implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if(LoadedUser.getInstance().getUser() != null) {
+            if(LoadedUser.getInstance().getUser().getType().equals("EMP")) {
+                infoT.setVisible(true);
+                nameTF.setVisible(true);
+                emailTF.setVisible(true);
+                employeeCheck = true;
+            }
+        }
 
         // initializes the cart TableView and observableArrayList
         cartList = FXCollections.observableArrayList();

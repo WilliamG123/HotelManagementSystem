@@ -96,13 +96,13 @@
          </font>
       </Text>
       <ListView fx:id="amenitiesLV" layoutX="740.0" layoutY="61.0" prefHeight="295.0" prefWidth="227.0" stylesheets="@listview.css" />
-      <ChoiceBox fx:id="roomCB" layoutX="538.0" layoutY="426.0" prefHeight="37.0" prefWidth="329.0" stylesheets="@choicebox.css" />
+      <ChoiceBox fx:id="roomCB" layoutX="538.0" layoutY="435.0" prefHeight="37.0" prefWidth="329.0" stylesheets="@choicebox.css" />
       <Button fx:id="addRoomBtn" layoutX="534.0" layoutY="496.0" mnemonicParsing="false" onAction="#roomChange" prefHeight="62.0" prefWidth="146.0" stylesheets="@button.css" text="Add">
          <font>
             <Font size="28.0" />
          </font>
       </Button>
-      <Text layoutX="585.0" layoutY="629.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total cost: $000.00">
+      <Text layoutX="585.0" layoutY="639.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total cost: $000.00">
          <font>
             <Font size="28.0" />
          </font>
@@ -139,26 +139,21 @@
             <Font size="32.0" />
          </font>
       </Button>
-      <Text fx:id="infoT" layoutX="564.0" layoutY="706.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer information:">
+      <Text fx:id="infoT" layoutX="564.0" layoutY="706.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer information:" visible="false">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
-      <TextField fx:id="nameTF" layoutX="589.0" layoutY="734.0" prefHeight="40.0" prefWidth="227.0" promptText="Name" stylesheets="@text_field.css">
+      <TextField fx:id="nameTF" layoutX="569.0" layoutY="734.0" prefHeight="51.0" prefWidth="271.0" promptText="Name" stylesheets="@text_field.css" visible="false">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="emailTF" layoutX="589.0" layoutY="799.0" prefHeight="40.0" prefWidth="227.0" promptText="Email" stylesheets="@text_field.css">
+      <TextField fx:id="emailTF" layoutX="569.0" layoutY="809.0" prefHeight="51.0" prefWidth="271.0" promptText="Email" stylesheets="@text_field.css" visible="false">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <Text layoutX="562.0" layoutY="678.0" strokeType="OUTSIDE" strokeWidth="0.0" text="// Ignore text stuff below">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Text>
       <Spinner fx:id="adultS" layoutX="1146.0" layoutY="229.0" prefHeight="37.0" prefWidth="227.0" />
       <Spinner fx:id="childrenS" layoutX="1146.0" layoutY="318.0" prefHeight="37.0" prefWidth="227.0" />
    </children>
