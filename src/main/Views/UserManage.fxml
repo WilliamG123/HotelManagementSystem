@@ -11,13 +11,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UserManageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffReservationController">
    <children>
-      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="1000.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+      <HBox alignment="CENTER" prefHeight="77.0" prefWidth="1400.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Reservations">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -25,12 +25,12 @@
             </Text>
             <Text fx:id="mainmenuTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
             </Text>
             <Text fx:id="logoutTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout">
                <font>
-                  <Font size="20.0" />
+                  <Font size="35.0" />
                </font>
                <HBox.margin>
                   <Insets right="10.0" />
@@ -38,67 +38,67 @@
             </Text>
          </children>
       </HBox>
-      <TableView fx:id="resTable" layoutX="-3.0" layoutY="210.0" prefHeight="474.0" prefWidth="1000.0" stylesheets="@table.css">
-         <columns>
-            <TableColumn fx:id="userIDColumn" prefWidth="75.0" text="UserID" />
-            <TableColumn fx:id="hotelColumn" prefWidth="75.0" text="Hotel" />
-            <TableColumn fx:id="checkInColumn" prefWidth="183.0" text="Check in" />
-            <TableColumn fx:id="checkOutColumn" prefWidth="75.0" text="Check out" />
-            <TableColumn fx:id="costColumn" prefWidth="75.0" text="Total Cost" />
-            <TableColumn fx:id="resNumColumn" prefWidth="116.0" text="Reservation #" />
-         </columns>
+      <TableView fx:id="resTable" layoutY="287.0" prefHeight="570.0" prefWidth="1401.0" stylesheets="@table.css">
+        <columns>
+          <TableColumn fx:id="userIDColumn" editable="false" prefWidth="277.0" resizable="false" sortable="false" text="Name" />
+            <TableColumn fx:id="hotelColumn" editable="false" prefWidth="408.0" resizable="false" sortable="false" text="Hotel" />
+            <TableColumn fx:id="checkInColumn" editable="false" prefWidth="208.0" resizable="false" sortable="false" text="Check in" />
+            <TableColumn fx:id="checkOutColumn" editable="false" minWidth="6.0" prefWidth="198.0" resizable="false" sortable="false" text="Check out" />
+            <TableColumn fx:id="costColumn" editable="false" prefWidth="139.0" resizable="false" sortable="false" text="Total Cost" />
+            <TableColumn fx:id="resNumColumn" editable="false" prefWidth="145.0" resizable="false" sortable="false" text="Reservation #" />
+        </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
       </TableView>
-      <TextField fx:id="hotelTF" layoutX="148.0" layoutY="101.0" prefHeight="71.0" prefWidth="139.0" promptText="Enter hotel name" />
-      <DatePicker fx:id="checkInDP" layoutX="503.0" layoutY="102.0" prefHeight="71.0" prefWidth="139.0" promptText="Select check in date" />
-      <DatePicker fx:id="checkOutDP" layoutX="681.0" layoutY="101.0" prefHeight="71.0" prefWidth="139.0" promptText="select checkout date" />
-      <Text layoutX="511.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
+      <TextField fx:id="hotelTF" layoutX="211.0" layoutY="163.0" prefHeight="50.0" prefWidth="274.0" promptText="Enter hotel name">
          <font>
-            <Font size="20.0" />
+            <Font size="14.0" />
+         </font></TextField>
+      <DatePicker fx:id="checkInDP" layoutX="552.0" layoutY="163.0" prefHeight="50.0" prefWidth="274.0" promptText="Select check in date" />
+      <DatePicker fx:id="checkOutDP" layoutX="900.0" layoutY="164.0" prefHeight="50.0" prefWidth="274.0" promptText="select checkout date" />
+      <Text layoutX="596.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
+         <font>
+            <Font size="30.0" />
          </font>
       </Text>
-      <Text layoutX="682.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
+      <Text layoutX="934.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
          <font>
-            <Font size="20.0" />
+            <Font size="30.0" />
          </font>
       </Text>
-      <Button fx:id="applyRBtn" layoutX="862.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="46.0" prefWidth="103.0" stylesheets="@button.css" text="Apply ">
+      <Button fx:id="applyRBtn" layoutX="1225.0" layoutY="104.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="67.0" prefWidth="140.0" stylesheets="@button.css" text="Apply ">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Button>
+      <Text layoutX="60.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="14.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text layoutX="284.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Button fx:id="resetBtn" layoutX="1225.0" layoutY="191.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="67.0" prefWidth="140.0" stylesheets="@button.css" text="Reset">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Text layoutX="33.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
+      <Button fx:id="modifyBtn" layoutX="805.0" layoutY="885.0" mnemonicParsing="false" onAction="#modifyHandler" prefHeight="77.0" prefWidth="159.0" stylesheets="@button.css" text="Modify">
          <font>
-            <Font size="25.0" />
-         </font>
-      </Text>
-      <Text layoutX="24.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="201.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <Button fx:id="resetBtn" layoutX="862.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleFilter" prefHeight="45.0" prefWidth="101.0" stylesheets="@button.css" text="Reset">
-         <font>
-            <Font size="15.0" />
+            <Font size="35.0" />
          </font>
       </Button>
-      <TextField fx:id="nameTF" layoutX="327.0" layoutY="101.0" prefHeight="71.0" prefWidth="139.0" promptText="Enter full name" />
-      <Text layoutX="342.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guest name:">
+      <Button fx:id="deleteBtn" layoutX="493.0" layoutY="886.0" mnemonicParsing="false" onAction="#deleteRes" prefHeight="77.0" prefWidth="159.0" stylesheets="@button.css" text="Delete">
          <font>
-            <Font size="20.0" />
-         </font>
-      </Text>
-      <Button fx:id="deleteBtn" layoutX="287.0" layoutY="710.0" mnemonicParsing="false" onAction="#deleteRes" prefHeight="65.0" prefWidth="151.0" stylesheets="@button.css" text="Delete">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Button>
-      <Button fx:id="modifyBtn" layoutX="580.0" layoutY="710.0" mnemonicParsing="false" onAction="#modifyHandler" prefHeight="65.0" prefWidth="151.0" stylesheets="@button.css" text="Modify">
-         <font>
-            <Font size="25.0" />
+            <Font size="35.0" />
          </font>
       </Button>
    </children>

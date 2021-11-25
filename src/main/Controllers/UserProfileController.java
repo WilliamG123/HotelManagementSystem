@@ -56,10 +56,7 @@ public class UserProfileController extends DBConnection implements Initializable
                 else if (LoadedUser.getInstance().getUser().getType().equals("EMP"))
                     newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
             }else if(event.getSource() == logoutTV){
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
-                LoginController controller = new LoginController();
-                loader.setController(controller);
-                newScene = loader.load();
+                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
             }
         } catch (IOException e) {
             e.printStackTrace();
