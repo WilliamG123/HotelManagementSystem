@@ -37,9 +37,18 @@
             </Text>
          </children>
       </HBox>
-      <TextField fx:id="propertyNameField" layoutX="366.0" layoutY="90.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
-      <TextField fx:id="propertyAddressField" layoutX="366.0" layoutY="177.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
-      <TextArea fx:id="propertyDescArea" layoutX="366.0" layoutY="259.0" prefHeight="280.0" prefWidth="280.0" stylesheets="@text_field.css" />
+      <TextField fx:id="propertyNameField" layoutX="366.0" layoutY="90.0" prefHeight="40.0" prefWidth="280.0" promptText="&lt;Name&gt;" stylesheets="@text_field.css">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <TextField fx:id="propertyAddressField" layoutX="366.0" layoutY="177.0" prefHeight="40.0" prefWidth="280.0" promptText="&lt;Address&gt;" stylesheets="@text_field.css">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <TextArea fx:id="propertyDescArea" layoutX="366.0" layoutY="259.0" prefHeight="280.0" prefWidth="280.0" promptText="&lt;Description&gt;" stylesheets="@text_field.css">
+         <font>
+            <Font size="20.0" />
+         </font></TextArea>
       <Spinner fx:id="numberOfRoomsSelector" layoutX="366.0" layoutY="593.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
       <Text layoutX="93.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Name:">
          <font>
@@ -112,12 +121,12 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <TextArea fx:id="typeDescArea" layoutX="1116.0" layoutY="90.0" prefHeight="280.0" prefWidth="280.0" promptText="Room Type, Description (Enter per room type)" stylesheets="@text_field.css">
+      <TextArea fx:id="typeDescArea" layoutX="1116.0" layoutY="90.0" prefHeight="280.0" prefWidth="280.0" promptText="Room Type, Description (One per line)" stylesheets="@text_field.css">
          <font>
             <Font size="20.0" />
          </font>
       </TextArea>
-      <Text layoutX="716.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Type, Description: (Enter per room type)" wrappingWidth="400.0">
+      <Text layoutX="716.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Type, Description:" wrappingWidth="400.0">
          <font>
             <Font size="36.0" />
          </font>
