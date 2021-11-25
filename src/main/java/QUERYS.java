@@ -185,7 +185,11 @@ public class QUERYS {
 
 
 
-//use: returns result set for total amenities for a given hotel name. i.e "The Magnolia All Suites"
+
+
+
+
+    //use: returns result set for total amenities for a given hotel name. i.e "The Magnolia All Suites"
     public ResultSet getAmenitiesByHotelName(String hotelName) throws SQLException, ClassNotFoundException {
        // if(!hotelExist(hotelName)){
         //   System.out.println("Hotel DOES NOT EXIST!");

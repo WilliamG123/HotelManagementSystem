@@ -59,7 +59,10 @@ public class StaffAccountsController extends DBConnection implements Initializab
                 newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
             else if(event.getSource() == logoutTV){
                 LoadedUser.getInstance().clearUser();
-                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                LoginController controller = new LoginController();
+                loader.setController(controller);
+                newScene = loader.load();
             }else if(event.getSource() == modifyTV){
                 User selectedUser = usersTable.getSelectionModel().getSelectedItem();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("StaffModify.fxml"));

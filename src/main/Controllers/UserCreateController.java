@@ -13,9 +13,6 @@ import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-
-
-
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,21 +22,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
-
-
-
 import javax.swing.text.TabableView;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /*****************************************************************
  *                     UserCreateController Class
@@ -50,7 +42,7 @@ import java.util.ResourceBundle;
 public class UserCreateController extends DBConnection implements Initializable {
 
     @FXML private Text mainmenuTV;
-    @FXML private Text logoutTV;
+    @FXML private Text loginoutTV;
     @FXML private DatePicker checkinDP;
     @FXML private DatePicker checkoutDP;
     @FXML private TextField hotelTF;
@@ -73,7 +65,13 @@ public class UserCreateController extends DBConnection implements Initializable 
 
     // checks to see if the user is logged in because they must be to make a reservation
     public void loginCheck() {
-        // TODO: 11/17/2021 make code to check if the user is logged in before proceeding to book a hotel
+// TODO: 11/17/2021 make code to check if the user is logged in before proceeding to book a hotel
+       // SessionSingleton obj = SessionSingleton.getInstance();
+        if(LoadedUser.getInstance().getUser() == null) {
+            loginoutTV.setText("Login");
+        } else {
+            loginoutTV.setText("Logout");
+        }
     }
 
     // method clears the filters and reloads the TableView
@@ -128,6 +126,8 @@ public class UserCreateController extends DBConnection implements Initializable 
         possibleWords.add("Sun Palace Inn");
         possibleWords.add("HomeAway Inn");
         possibleWords.add("Rio Inn");
+
+        loginCheck();
 
         TextFields.bindAutoCompletion(hotelTF, possibleWords);
         //run the method
@@ -241,10 +241,44 @@ public class UserCreateController extends DBConnection implements Initializable 
         AnchorPane newScene = null;
 
         try {
-            if (event.getSource() == mainmenuTV)
-                newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
-            else if (event.getSource() == logoutTV) {
-                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+            if (event.getSource() == mainmenuTV) {
+                if(LoadedUser.getInstance().getUser() == null) {
+                    ButtonType loginAlertBtn = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+                    ButtonType cancelAlertBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    Alert alert = new Alert(Alert.AlertType.NONE,"You are currently not logged in please do so to access the main menu options", loginAlertBtn, cancelAlertBtn);
+                    alert.setTitle("No User Found");
+                    //alert.setContentText("Please confirm reservation deletion");
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                    // if user confirmed login go login
+                    if(result.orElse(cancelAlertBtn) == loginAlertBtn){
+                        System.out.println("CreateRes Scene -> Login Scene");
+                        System.out.println("NO USER LOGGED IN");
+
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                        LoginController controller = new LoginController();
+                        loader.setController(controller);
+                        newScene = loader.load();
+                        Scene scene = new Scene(newScene);
+                        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+
+                        window.setScene(scene);
+                        window.show();
+                    }
+                    return;
+                }
+
+                if (LoadedUser.getInstance().getUser().getType().equals("EMP")) {
+                    newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
+                } else {
+                    newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
+                }
+
+            } else if (event.getSource() == loginoutTV) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                LoginController controller = new LoginController();
+                loader.setController(controller);
+                newScene = loader.load();
             }
         } catch (IOException e) {
             e.printStackTrace();

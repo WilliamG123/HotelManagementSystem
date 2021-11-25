@@ -44,7 +44,10 @@ public class PropertyCreateController extends DBConnection {
             if(event.getSource() == mainmenuTV){
                 newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
             }else if(event.getSource() == logoutTV){
-                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                LoginController controller = new LoginController();
+                loader.setController(controller);
+                newScene = loader.load();
             }
         }catch(IOException e){
             e.printStackTrace();

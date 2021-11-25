@@ -10,8 +10,7 @@ public class User {
     private LocalDate dob;
     private String type;
 
-    public User() {
-    }
+    public User() { }
 
     public User(String firstName, String lastName, String email, String phoneNumber, LocalDate dob, String password, String type ) {
         this.firstName = firstName;

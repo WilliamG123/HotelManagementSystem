@@ -41,7 +41,10 @@ public class StaffMainMenuController implements Initializable {
                 System.out.println("Log: MainMenu -> reservationBtn");
             }
             else if (event.getSource() == logoutButton) {
-                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                LoginController controller = new LoginController();
+                loader.setController(controller);
+                newScene = loader.load();
                 System.out.println("Log: MainMenu -> logout");
             }
             else if (event.getSource() == accountBtn) {
