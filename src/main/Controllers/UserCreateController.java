@@ -267,7 +267,13 @@ public class UserCreateController extends DBConnection implements Initializable 
                     }
                     return;
                 }
-                newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
+
+                if (LoadedUser.getInstance().getUser().getType().equals("EMP")) {
+                    newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
+                } else {
+                    newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
+                }
+
             } else if (event.getSource() == loginoutTV) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
                 LoginController controller = new LoginController();

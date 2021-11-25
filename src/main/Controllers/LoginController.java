@@ -1,18 +1,15 @@
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -34,7 +31,8 @@ FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
  */
 
 public class LoginController extends User implements Initializable {
-    public AnchorPane prompt;
+
+    public static final int SHARED_BOOKING_KEY = 100;
 
     @FXML private TextField emailLoginField;
     @FXML private PasswordField passwordLoginField;
@@ -42,14 +40,20 @@ public class LoginController extends User implements Initializable {
     @FXML private Button signUpButton;
     @FXML private Label loginMessagePrompt;
     @FXML public Button exitButton;
-    private double xOffset =0; // <-- to move app window freely
-    private double yOffset = 0;
+    public AnchorPane prompt;
     private Reservation reservation;
+    private Hotels hotel;
+    private int fromSharedBooking; // check to see if entering scene was SharedBooking
 
-    public LoginController() { }
+    public LoginController() {
+        this.fromSharedBooking = -1;
+    }
 
-    public LoginController(Reservation reservation) {
+    public LoginController(Hotels hotel, Reservation reservation, int fromSharedBooking) {
+        this.hotel = hotel;
         this.reservation = reservation;
+        this.fromSharedBooking = fromSharedBooking;
+        reservation.printKeys();
     }
 
     @FXML private void exit(){
@@ -71,7 +75,7 @@ public class LoginController extends User implements Initializable {
     }
 
     public void login(ActionEvent event) throws IOException, SQLException, NoSuchAlgorithmException, ClassNotFoundException {
-
+        AnchorPane newScene = null;
 
         String email = emailLoginField.getText();
         String password = Hasher.getInstance("SHA-256").hash(passwordLoginField.getText());
@@ -84,51 +88,22 @@ public class LoginController extends User implements Initializable {
                loginMessagePrompt.setText("Incorrect password");
                 break;
             case 1:
+                FXMLLoader loader;
                 loginMessagePrompt.setText("Great choice!");
                 System.out.println(getType());
-                Parent root;
-                if (LoadedUser.getInstance().getUser().getType().equals("EMP")) {
-                    root = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
-                    Scene MainMenuScene = new Scene(root);//Creating a Scene object and passing in the Parent we just made
-                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    root.setOnMousePressed(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) { xOffset = event.getSceneX();yOffset = event.getSceneY(); }});
-                    root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) { window.setX(event.getScreenX() - xOffset);window.setY(event.getScreenY() - yOffset); }});
-
-                    window.setScene(MainMenuScene);
-                    window.show();
-                }else {
-                    root = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
-                    Scene MainMenuScene = new Scene(root);//Creating a Scene object and passing in the Parent we just made
-                    Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    root.setOnMousePressed(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) {
-                            xOffset = event.getSceneX();
-                            yOffset = event.getSceneY();
-                        }
-                    });
-                    root.setOnMouseDragged(new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent event) {
-                            window.setX(event.getScreenX() - xOffset);
-                            window.setY(event.getScreenY() - yOffset);
-                        }
-                    });
-                    window.setScene(MainMenuScene);
-                    window.show();
-                }
-                new animatefx.animation.RollIn(root).play();
+                if(this.fromSharedBooking == SHARED_BOOKING_KEY) {
+                    loader = new FXMLLoader(getClass().getResource("SharedBooking.fxml"));
+                    SharedBooking controller = new SharedBooking(hotel, reservation);
+                    loader.setController(controller);
+                } else
+                    loader = new FXMLLoader(getClass().getResource("UserCreate.fxml"));
+                newScene = loader.load();
+                Scene scene = new Scene(newScene);
+                Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                window.setScene(scene);
+                window.show();
                 break;
         }
-        /**
-
-
-         **/
-
     }
 
     @Override
