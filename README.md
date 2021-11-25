@@ -23,7 +23,7 @@ JavaFx Application that is a hotel booking software developed for use of custome
 
 * Customers can create an account and login
 * Customers can book reservations via hotel listings
-* Customers can modify dates of their current reservations
+* Customers can modify the dates of their current reservations
 * Customers can delete their reservations
 * Customers can access their profile and modify all data except email
 
@@ -33,7 +33,7 @@ JavaFx Application that is a hotel booking software developed for use of custome
 * Employees can modify dates of any reservation
 * Employees can delete any reservation
 * Employees can access their profile and modify all data except email
-* Employees add, modify, and delete user account
+* Employees add, modify, and delete user accounts
 * Employees can add, modify, or delete properties
 
 ### 2. Screen Archetypes
