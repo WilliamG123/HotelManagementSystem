@@ -11,9 +11,14 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
-public class PropertyCreateController {
+public class PropertyCreateController extends DBConnection {
     @FXML private Text mainmenuTV;
     @FXML private Text logoutTV;
     @FXML private TextField propertyNameField;
@@ -23,14 +28,15 @@ public class PropertyCreateController {
     @FXML private TextArea propertyDescArea;
     @FXML private TextArea roomTypeArea;
     @FXML private TextArea amenitiesArea;
+    @FXML private TextArea typeDescArea;
     @FXML private Spinner<Integer> numberOfRoomsSelector;
     @FXML private Button addBtn;
     @FXML private Button resetBtn;
     @FXML private Button backBtn;
-    @FXML private Label errorMessageLabel;
     @FXML private AnchorPane anchor;
 
     private final int initialValue = 1;
+    Connection conn;
 
     @FXML private void sceneChange(MouseEvent event){
         AnchorPane newScene = null;
@@ -71,6 +77,11 @@ public class PropertyCreateController {
 
     @FXML private void initialize(){
         numberOfRoomsSelector.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 300, initialValue));
+        try {
+            conn = getConnection();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void resetFields(){
@@ -106,15 +117,21 @@ public class PropertyCreateController {
         }
 
         String amenitiesText = amenitiesArea.getText();
-        if(amenitiesText.equals("") || amenitiesText.equals(",")){
+        if(amenitiesText.equals("") || amenitiesText.equals(",") || amenitiesText.equals("\n")){
             error = true;
             errorString.append("\nInvalid amenities value");
         }
 
         String roomTypesText = roomTypeArea.getText();
-        if(roomTypesText.equals("") || roomTypesText.equals(",")){
+        if(roomTypesText.equals("") || roomTypesText.equals(",") || roomTypesText.equals("\n")){
             error = true;
             errorString.append("\nInvalid room type value");
+        }
+
+        String typeDescText = typeDescArea.getText();
+        if(typeDescText.equals("") || typeDescText.equals(",") || typeDescText.equals("\n")){
+            error = true;
+            errorString.append("\nInvalid room type description value");
         }
 
         String propertyNameText = propertyNameField.getText();
@@ -135,8 +152,6 @@ public class PropertyCreateController {
         if(error){
             Toast.makeText(stage, errorString.toString(), 2000, 500, 500);
             errorString.setLength(0);
-//            errorMessageLabel.setText(errorString.toString());
-//            errorMessageLabel.setTextFill(Color.web("#FF0000"));
             return;
         }
 
@@ -147,6 +162,7 @@ public class PropertyCreateController {
         int roomCount;
         int startingRoomNumber;
         ArrayList<Room> rooms = new ArrayList<>();
+        HashMap<String, Integer> typesCount = new HashMap<>();
         for(String roomLine : roomTypes){
             String[] roomComponents = roomLine.split(",");
             roomType = roomComponents[0];
@@ -156,6 +172,7 @@ public class PropertyCreateController {
                 Toast.makeText(stage, "Invalid room count value", 2000, 500, 500);
                 return;
             }
+            typesCount.put(roomComponents[0], roomCount);
             try{
                 startingRoomNumber = Integer.parseInt(roomComponents[2]);
             }catch(NumberFormatException e){
@@ -174,8 +191,39 @@ public class PropertyCreateController {
             }
         }
 
+        HashMap<String, String> roomsDesc = new HashMap<>();
+        for(String lines : typeDescText.split("\n")){
+            String[] components = lines.split(",");
+            if(components.length > 2){
+                Toast.makeText(stage, "Invalid type description value, too many commas\nNothing added",2000, 500, 500);
+                return;
+            }
+            roomsDesc.put(components[0], components[1]);
+        }
+
         String[] amenities = amenitiesText.split("\n");
         Property property = new Property(propertyNameText, propertyDescText, propertyAddressText, amenities, rooms, new ArrayList<>(), 0, numberOfRooms);
-        System.out.println(property);
+        try {
+            CallableStatement callableStatement = conn.prepareCall("{call hotel.CreateNewHotel(?,?,?,?,?,?,?)}");
+            callableStatement.setString(1, property.getPropertyName());
+            callableStatement.setString(2, property.getAddress());
+            callableStatement.setString(3, property.getDesc());
+            callableStatement.setString(4, Integer.toString(property.getNumberRooms()));
+            callableStatement.setInt(5, property.getNumberAmenities());
+            callableStatement.setInt(6, property.getRating());
+            callableStatement.setDouble(7, price);
+            callableStatement.executeQuery();
+
+            callableStatement = conn.prepareCall("{call hotel.updateBulkRoomTypes(?,?,?,?)}");
+            for(String key : roomsDesc.keySet()){
+                callableStatement.setString(1, key);
+                callableStatement.setString(2, roomsDesc.get(key));
+                callableStatement.setDouble(3, price);
+                callableStatement.setInt(4, typesCount.get(key));
+                callableStatement.executeQuery();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
