@@ -242,7 +242,6 @@ public class UserCreateController extends DBConnection implements Initializable 
 
         try {
             if (event.getSource() == mainmenuTV) {
-                SessionSingleton obj = SessionSingleton.getInstance();
                 if(LoadedUser.getInstance().getUser() == null) {
                     ButtonType loginAlertBtn = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
                     ButtonType cancelAlertBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
