@@ -25,17 +25,27 @@ public class SharedBooking extends DBConnection implements Initializable {
 
     public static final String REMOVEFROMCART = "removefromcart"; // key to let method know removing from cart
     public static final String ADDTOCART = "addtocart"; // key to let method know adding to cart
+    public static final String RESTORECART = "restorecart"; // key to let method know removing from cart
     public static final int ERROR = -1; // used for returning error
     public static final int SUCCESS = 0; // used for returning success
+
+    // data retrieval keys
+    public static final int ROOMS_KEY = 333;
+    public static final int  CHECKIN_KEY = 666;
+    public static final int CHECKOUT_KEY = 999;
+    public static final int LOGIN_KEY = 100;
 
     @FXML private Text hNameTF;
     @FXML private Text hAddressTF;
     @FXML private Text hRatingTF;
     @FXML private Text checkInTF;
     @FXML private Text checkOutTF;
+    @FXML private Text infoT;
     @FXML private TextArea descriptionTF;
     @FXML private TextField adultsTF;
     @FXML private TextField childrenTF;
+    @FXML private TextField nameTF;
+    @FXML private TextField emailTF;
     @FXML private DatePicker checkInDP;
     @FXML private DatePicker checkOutDP;
     @FXML private Button addRoomBtn;
@@ -60,7 +70,27 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private ChoiceBox<String> roomCB;
 
     private Hotels hotel;
-    private Reservation reservation;
+    private Reservation resData; // stores data received from login scene
+    private boolean recievedInfo; // boolean check if we received data from login
+
+    private Reservation getUserInput() {
+        Reservation reservation = new Reservation();
+        LocalDate checkin = checkInDP.getValue();
+        LocalDate checkout = checkOutDP.getValue();
+// TODO: 11/24/2021 finish this method
+        //int adults =
+        //int children =
+
+        if(checkin != null) {
+            reservation.setCheckIn(checkin);
+            reservation.addToCurrent(CHECKIN_KEY);
+        }
+        if(checkout != null) {
+            reservation.setCheckOut(checkout);
+            reservation.addToCurrent(CHECKOUT_KEY);
+        }
+        return reservation;
+    }
 
     @FXML void book(ActionEvent event) throws IOException {
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
@@ -78,9 +108,13 @@ public class SharedBooking extends DBConnection implements Initializable {
 
             // if user confirmed login go login
             if(result.orElse(cancelAlertBtn) == loginAlertBtn){
+                Reservation reservation = getUserInput();
                 System.out.println("SharedBooking Scene -> Login Scene");
                 System.out.println("NO USER LOGGED IN");
-                newScene = FXMLLoader.load(getClass().getResource("login.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                LoginController controller = new LoginController(hotel, reservation, LOGIN_KEY);
+                loader.setController(controller);
+                newScene = loader.load();
                 Scene scene = new Scene(newScene);
                 Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
 
@@ -105,6 +139,7 @@ public class SharedBooking extends DBConnection implements Initializable {
                 }
             }
 // TODO: 11/24/2021 check if user is an employee and if so set up input validation for the customer information
+
 
 
 // TODO: 11/17/2021 needs a query to actually write a reservation to the DB
@@ -136,22 +171,19 @@ public class SharedBooking extends DBConnection implements Initializable {
     // constructor that takes in hotel to populate hotel data and account type for login
     public SharedBooking(Hotels hotel) {
         this.hotel = hotel;
+        this.resData = null;
+        this.recievedInfo = false;
     }
 
     // constructor for when the scene comes back after logging in to remember user data
-    public SharedBooking(Hotels hotel, Reservation reservation) {
+    public SharedBooking(Hotels hotel, Reservation resData) {
         this.hotel = hotel;
-        this.reservation = reservation;
+        this.resData = resData;
+        this.recievedInfo = true;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // initializes the cart TableView and observableArrayList
-        cartList = FXCollections.observableArrayList();
-        cartTV.setItems(cartList);
-        Label label = new Label("Your cart is empty");
-        label.setFont(new Font("Arial", 20));
-        cartTV.setPlaceholder(label);
 
         // makes it to where the ListView and TableView items are not clickable (front end)
         amenitiesLV.setMouseTransparent(true);
@@ -185,6 +217,20 @@ public class SharedBooking extends DBConnection implements Initializable {
             e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+
+        if(recievedInfo) {
+            if(resData.dyanmicData.contains(CHECKIN_KEY))
+                checkInDP.setValue(resData.getCheckIn());
+            if(resData.dyanmicData.contains(CHECKOUT_KEY))
+                checkOutDP.setValue(resData.getCheckOut());
+        } else {
+            // initializes the cart TableView and observableArrayList
+            cartList = FXCollections.observableArrayList();
+            cartTV.setItems(cartList);
+            Label label = new Label("Your cart is empty");
+            label.setFont(new Font("Arial", 20));
+            cartTV.setPlaceholder(label);
         }
     }
 
@@ -322,7 +368,7 @@ public class SharedBooking extends DBConnection implements Initializable {
                 return;
             }
             roomsHandler(room, REMOVEFROMCART, event);
-        } else {
+        } else if(action.equals(ADDTOCART)) {
             if(roomsHandler(room, ADDTOCART, event) == ERROR){
                 return;
             } else {
@@ -339,6 +385,8 @@ public class SharedBooking extends DBConnection implements Initializable {
                     cartList.add(r);
                 }
             }
+        } else if(action.equals(RESTORECART)) {
+            
         }
         cartTV.refresh();
     }

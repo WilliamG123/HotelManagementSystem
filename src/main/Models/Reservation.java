@@ -1,4 +1,4 @@
-import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 /*****************************************************************
@@ -17,9 +17,12 @@ public class Reservation {
     private int children;
     private int resID;
     private List<Room> rooms;
+    List<Integer> dyanmicData; // for tracking reservation data across currently implemented between login & sharedbooking
 
     // empty constructor
-    public Reservation(){ }
+    public Reservation() {
+        this.dyanmicData = new ArrayList<>();
+    }
 
     // Constructor specifically made for StaffReservation scene do not change
     public Reservation(String custId, String hotelName, LocalDate checkIn, LocalDate checkOut, double cost, int resID) {
@@ -29,6 +32,7 @@ public class Reservation {
         this.cost = cost;
         this.resID = resID;
         this.custId = custId;
+        this.dyanmicData = new ArrayList<>();
     }
 
     // method for easy printing for debugging purposes
@@ -42,6 +46,14 @@ public class Reservation {
                 "\n\tchildren=" + children +
                 "\n\tresID='" + resID + '\'' +
                 "\n}";
+    }
+
+    public void printKeys() {
+        if(dyanmicData.size() == 0) {
+            System.out.println("No keys");
+        } else {
+            System.out.println(dyanmicData);
+        }
     }
 
     // following methods are all getters and setters for the class variables
@@ -121,4 +133,16 @@ public class Reservation {
     public String getName() {return name;}
 
     public void setName(String name) {this.name = name;}
+
+    public List<Integer> getDyanmicData() {
+        return dyanmicData;
+    }
+
+    public void setDyanmicData(List<Integer> dyanmicData) {
+        this.dyanmicData = dyanmicData;
+    }
+
+    public void addToCurrent(Integer item) {
+        dyanmicData.add(item);
+    }
 }
