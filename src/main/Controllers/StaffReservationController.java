@@ -235,14 +235,14 @@ public class StaffReservationController extends DBConnection implements Initiali
 
             //loop through the resultSet & add each amenity to the ListView
             /*while(rs.next()) {
-                Reservation r = new Reservation();
-                r.setName(rs.getString("fname"));
-                r.setHotelName(rs.getString("hotel_name"));
-                r.setCheckIn(rs.getDate("check_in").toLocalDate());
-                r.setCheckOut(rs.getDate("check_out").toLocalDate());
-                r.setCost(rs.getDouble("total_price"));
-                r.setResID(rs.getInt("reservationId"));
-                resList.add(r);
+               Reservation r = new Reservation();
+               r.setName(rs.getString("fname"));
+               r.setHotelName(rs.getString("hotel_name"));
+               r.setCheckIn(rs.getDate("check_in").toLocalDate());
+               r.setCheckOut(rs.getDate("check_out").toLocalDate());
+               r.setCost(rs.getDouble("total_price"));
+               r.setResID(rs.getInt("reservationId"));
+               resList.add(r);
             }*/
             resTable.refresh();
 
