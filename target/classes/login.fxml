@@ -38,9 +38,9 @@
             <Font name="AdobeDevanagari-Bold" size="80.0" />
          </font>
       </Label>
-      <Label fx:id="loginMessagePrompt" layoutX="678.0" layoutY="768.0" prefHeight="35.0" prefWidth="232.0" textFill="#f80303">
+      <Label fx:id="loginMessagePrompt" layoutX="967.0" layoutY="663.0" prefHeight="35.0" prefWidth="232.0" textFill="#f80303" wrapText="true">
          <font>
-            <Font name="Buxton Sketch" size="14.0" />
+            <Font size="25.0" />
          </font></Label>
       <Button fx:id="exitButton" layoutX="618.0" layoutY="859.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="182.0" stylesheets="@button.css" text="Exit">
          <font>
