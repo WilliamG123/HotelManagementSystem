@@ -185,7 +185,7 @@ public class StaffReservationController extends DBConnection implements Initiali
             String name = nameTF.getText().toString();
             System.out.print(name);
             System.out.println(hotel);
-
+            
             System.out.println("TESTING");
             if(hotel.equals("") && name.equals("") && checkin == null && checkout == null) {
                 Toast.makeText(stage, "Error: no filter information given", 2000, 500, 500);

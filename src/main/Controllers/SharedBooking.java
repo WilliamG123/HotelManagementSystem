@@ -1,6 +1,8 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,11 +10,13 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +25,7 @@ import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.TreeSet;
 
 public class SharedBooking extends DBConnection implements Initializable {
 
@@ -76,7 +81,8 @@ public class SharedBooking extends DBConnection implements Initializable {
     private Reservation resData; // stores data received from login scene
     private boolean recievedInfo; // boolean check if we received data from login
     private boolean employeeCheck; // checks to see if employee logged in for extra functionality
-
+    LocalDate today = LocalDate.now();
+    LocalDate future = LocalDate.now().plusYears(1);
     private Reservation getUserInput() {
         Reservation reservation = new Reservation();
         LocalDate checkin = checkInDP.getValue();
@@ -138,6 +144,8 @@ public class SharedBooking extends DBConnection implements Initializable {
             }
         } else {
             System.out.println("USER FIRSTNAME IS " + LoadedUser.getInstance().getUser().getFirstName());
+            System.out.println("TESTING");
+            System.out.println(cartList.toString());
 
             // retrieve dates from date pickers
             LocalDate checkin = checkInDP.getValue();
@@ -170,6 +178,7 @@ public class SharedBooking extends DBConnection implements Initializable {
                 }
             }
 
+
 // TODO: 11/17/2021 needs a query to actually write a reservation to the DB
 
             // call scene change to return to the createResScene
@@ -184,12 +193,14 @@ public class SharedBooking extends DBConnection implements Initializable {
         Connection con = null;
         con = getConnection();
         CallableStatement callableStatement = con.prepareCall("{call hotel.CalculateTotalByDate(?,?,?,?)}");
-        callableStatement.setString(1, hotel.getHotelname());
-        callableStatement.setString(1, hotel.getHotelname());
-        callableStatement.setString(1, hotel.getHotelname());
-        callableStatement.setString(1, hotel.getHotelname());
+        callableStatement.setDate(1, Date.valueOf(String.valueOf(checkInDP.getValue())));
+        callableStatement.setDate(2, Date.valueOf(String.valueOf(checkOutDP.getValue())));
+        callableStatement.setDouble(3, hotel.getPrice());
+        callableStatement.setInt(4, hotel.getHotelId());
         ResultSet rs = callableStatement.executeQuery();
-
+        while(rs.next()) {
+            System.out.println(rs.getInt("total"));
+        }
         //loop through the resultSet & add each amenity to the ListView
         while(rs.next()) {
             amenitiesLV.getItems().add(rs.getString("Amenities_desc"));
@@ -209,6 +220,8 @@ public class SharedBooking extends DBConnection implements Initializable {
         this.resData = resData;
         this.recievedInfo = true;
     }
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -250,6 +263,21 @@ public class SharedBooking extends DBConnection implements Initializable {
         amount2Column.setCellValueFactory(new PropertyValueFactory<>("amountAvailable"));
         price2Column.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+
+
+        checkInDP.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+
+
+                setDisable(empty || date.compareTo(today) < 0 );
+            }
+        });
+
+
+        checkInDP.setValue(today);
+        checkOutDP.setValue(future);
+
         // call the methods to initialize the amenities ListView & the Rooms TableView
         try {
             populateAmenitiesList();
@@ -259,6 +287,8 @@ public class SharedBooking extends DBConnection implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        restrictDatePicker(checkInDP);
+        restrictDatePicker(checkOutDP);
 
         if(recievedInfo) {
             if(resData.dyanmicData.contains(CHECKIN_KEY))
@@ -296,7 +326,7 @@ public class SharedBooking extends DBConnection implements Initializable {
             childrenS.setValueFactory(valueFactoryC);
         }
     }
-
+//returnBTN
     @FXML void sceneChange(ActionEvent event) {
         AnchorPane newScene = null;
         try{
@@ -314,7 +344,43 @@ public class SharedBooking extends DBConnection implements Initializable {
         window.show();
     }
 
-    // queries DB for hotel amenities using hotel Id and adds each one to a ListView
+    EventHandler<MouseEvent> mouseClickedEventHandler = clickEvent -> {
+        if (clickEvent.getButton() == MouseButton.PRIMARY) {
+            try {
+                populateRoomTable();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        clickEvent.consume();
+    };
+
+    public void restrictDatePicker(DatePicker datePicker) {
+        datePicker.setDayCellFactory((DatePicker param) -> new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null && !empty) {
+                            //...
+                            addEventHandler(MouseEvent.MOUSE_CLICKED, mouseClickedEventHandler);
+                        } else {
+                            //...
+                            removeEventHandler(MouseEvent.MOUSE_CLICKED, mouseClickedEventHandler);
+                        }
+                        if (item.isBefore(today)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #FF4500;");
+                        }
+                    }
+                });
+    }
+
+
+
+
+        // queries DB for hotel amenities using hotel Id and adds each one to a ListView
     public void populateAmenitiesList() throws ClassNotFoundException, SQLException {
         Connection con = null;
         con = getConnection();
@@ -333,8 +399,9 @@ public class SharedBooking extends DBConnection implements Initializable {
     public void populateRoomTable() throws ClassNotFoundException, SQLException {
         Connection con = null;
         con = getConnection();
-        CallableStatement callableStatement = con.prepareCall("{call hotel.getRoomByType(?, ?)}");
-
+        CallableStatement callableStatement = con.prepareCall("{call hotel.getCountTypeAvailRooms(?, ?, ?, ?)}");
+        callableStatement.setDate(3, Date.valueOf(checkInDP.getValue()));
+        callableStatement.setDate(4, Date.valueOf(checkOutDP.getValue()));
         roomTypes = getRoomTypes();
         ObservableList<String> typeStrings = FXCollections.observableArrayList();
 
@@ -348,10 +415,11 @@ public class SharedBooking extends DBConnection implements Initializable {
         for(int i = 0; i < roomTypes.size(); i++) {
             callableStatement.setString(1, roomTypes.get(i).getType());
             callableStatement.setInt(2, hotel.getHotelId());
+
             ResultSet rs = callableStatement.executeQuery();
 
             rs.next();
-            roomTypes.get(i).setAmountAvailable(rs.getInt("count(*)"));
+            roomTypes.get(i).setAmountAvailable(rs.getInt("count"));
             roomTypes.get(i).setPrice(rs.getDouble("room_rate"));
         }
         roomTV.setItems(roomTypes);

@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
@@ -161,6 +162,7 @@ public class QueryTestTableController extends QUERYS implements Initializable {
        this.checkOutDP.show();
        clickEvent.consume();
    };
+
 
 
 
