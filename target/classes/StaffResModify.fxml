@@ -87,7 +87,7 @@
             <Font size="35.0" />
          </font>
       </Text>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dceeff" height="94.0" layoutY="906.0" stroke="BLACK" strokeType="INSIDE" width="1400.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="94.0" layoutY="906.0" stroke="BLACK" strokeType="INSIDE" width="1400.0" />
       <Text fx:id="returnTF" layoutX="1025.0" layoutY="964.0" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Return">
          <font>
             <Font size="39.0" />
