@@ -145,7 +145,27 @@ public class SharedBooking extends DBConnection implements Initializable {
         } else {
             System.out.println("USER FIRSTNAME IS " + LoadedUser.getInstance().getUser().getFirstName());
             System.out.println("TESTING");
-            System.out.println(cartList.toString());
+           // System.out.println(cartList.toString());
+          //  System.out.println(cartList.get(0).getType().toString());
+           // System.out.println(cartList.get(0).getAmountAvailable());
+
+//Requirements for booking a room
+// custID INT, empID INT, HOTEL_ID INT, check_IN DATE, check_OUT DATE, Adults INT, Children INT, RoomType VARCHAR(40), QTY INT
+            System.out.println(LoadedUser.getInstance().getUser().getFirstName());
+            System.out.println(hotel.getHotelId());//HOTEL_ID
+            System.out.println(checkInDP.getValue().toString());
+            System.out.println(checkOutDP.getValue().toString());
+            System.out.println(adultS.getValue().toString());//Adults
+            System.out.println(childrenS.getValue().toString());//Children
+            for(int i = 0; i < cartList.size(); i++) {
+
+                System.out.println(cartList.get(i).getType().toString());//RoomType
+                System.out.println(cartList.get(i).getAmountAvailable());//QTY
+
+                    if(cartList.get(i).getAmountAvailable() == 0) {
+                    System.out.println("NO MORE IN CART");
+                }
+            }
 
             // retrieve dates from date pickers
             LocalDate checkin = checkInDP.getValue();
