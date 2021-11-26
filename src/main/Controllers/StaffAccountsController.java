@@ -262,6 +262,6 @@ public class StaffAccountsController extends DBConnection implements Initializab
             user.setType(rs.getString("usertype"));
             user.setDob(rs.getDate("dob").toLocalDate());
             usersList.add(user);
-        }while(rs.next());
+        } while(rs.next());
     }
 }

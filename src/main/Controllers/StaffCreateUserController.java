@@ -20,6 +20,8 @@ import javafx.scene.control.Label;
 public class StaffCreateUserController {
     @FXML private Text createTV;
     @FXML private Text backTV;
+    @FXML private Text mainmenuTV;
+    @FXML private Text logoutTV;
     @FXML private Label errorLabel;
     @FXML private TextField firstNameField;
     @FXML private TextField lastNameField;
@@ -30,6 +32,28 @@ public class StaffCreateUserController {
     @FXML private DatePicker dobPicker;
     @FXML private ComboBox<String> typePicker;
     private StringBuffer errorMsg;
+
+    @FXML void sceneChange(MouseEvent event) {
+        AnchorPane newScene = null;
+
+        try {
+            if (event.getSource() == mainmenuTV) {
+                newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
+            } else if(event.getSource() == logoutTV) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                LoginController controller = new LoginController();
+                loader.setController(controller);
+                newScene = loader.load();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Scene scene = new Scene(newScene);
+        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
 
     @FXML private void handleTV(MouseEvent event){
         AnchorPane newScene = null;
