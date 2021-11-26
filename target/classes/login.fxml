@@ -7,48 +7,48 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1253.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="emailLoginField" layoutX="587.0" layoutY="234.0" prefHeight="35.0" prefWidth="182.0">
+      <TextField fx:id="emailLoginField" layoutX="587.0" layoutY="272.0" prefHeight="44.0" prefWidth="466.0">
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <PasswordField fx:id="passwordLoginField" layoutX="587.0" layoutY="311.0" prefHeight="44.0" prefWidth="182.0">
+      <PasswordField fx:id="passwordLoginField" layoutX="587.0" layoutY="370.0" prefHeight="44.0" prefWidth="466.0">
          <font>
             <Font size="20.0" />
          </font></PasswordField>
-      <Button fx:id="loginButton" defaultButton="true" layoutX="577.0" layoutY="405.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" stylesheets="@button.css" text="Login">
+      <Button fx:id="loginButton" defaultButton="true" layoutX="624.0" layoutY="480.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="170.0" stylesheets="@button.css" text="Login">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="35.0" />
          </font></Button>
-      <Button fx:id="signUpButton" layoutX="571.0" layoutY="481.0" mnemonicParsing="false" onAction="#toSignup" prefHeight="25.0" prefWidth="182.0" stylesheets="@button.css" text="Sign Up">
+      <Button fx:id="signUpButton" layoutX="618.0" layoutY="603.0" mnemonicParsing="false" onAction="#toSignup" prefHeight="25.0" prefWidth="182.0" stylesheets="@button.css" text="Sign Up">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="35.0" />
          </font></Button>
-      <Label layoutX="480.0" layoutY="234.0" prefHeight="45.0" prefWidth="84.0" text="Email:">
+      <Label layoutX="447.0" layoutY="265.0" prefHeight="58.0" prefWidth="124.0" text="Email:">
          <font>
-            <Font size="30.0" />
+            <Font size="40.0" />
          </font></Label>
-      <Label layoutX="431.0" layoutY="310.0" prefHeight="39.0" prefWidth="133.0" text="Password:">
+      <Label layoutX="376.0" layoutY="363.0" prefHeight="58.0" prefWidth="182.0" text="Password:">
          <font>
-            <Font size="30.0" />
+            <Font size="40.0" />
          </font></Label>
-      <Label layoutX="433.0" layoutY="77.0" prefHeight="57.0" prefWidth="491.0" text="Hotel Management System" textAlignment="CENTER">
+      <Label layoutX="322.0" layoutY="89.0" prefHeight="94.0" prefWidth="851.0" text="Welcome to Hotelverse!" textAlignment="CENTER">
          <font>
-            <Font name="System Bold" size="38.0" />
+            <Font name="AdobeDevanagari-Bold" size="80.0" />
          </font>
       </Label>
       <Label fx:id="loginMessagePrompt" layoutX="678.0" layoutY="768.0" prefHeight="35.0" prefWidth="232.0" textFill="#f80303">
          <font>
             <Font name="Buxton Sketch" size="14.0" />
          </font></Label>
-      <Button fx:id="exitButton" layoutX="571.0" layoutY="558.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="182.0" stylesheets="@button.css" text="Exit">
+      <Button fx:id="exitButton" layoutX="618.0" layoutY="859.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="182.0" stylesheets="@button.css" text="Exit">
          <font>
-            <Font name="System Bold" size="21.0" />
+            <Font name="System Bold" size="35.0" />
          </font></Button>
-      <Button layoutX="571.0" layoutY="634.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="182.0" stylesheets="@button.css" text="Return">
+      <Button layoutX="618.0" layoutY="730.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="182.0" stylesheets="@button.css" text="Return">
          <font>
-            <Font name="System Bold" size="21.0" />
+            <Font name="System Bold" size="35.0" />
          </font>
       </Button>
    </children>

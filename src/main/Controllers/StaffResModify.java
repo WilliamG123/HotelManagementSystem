@@ -39,6 +39,8 @@ public class StaffResModify implements Initializable {
     @FXML private Text returnTF;
     @FXML private Text modDatesTF;
     @FXML private Text deleteTF;
+    @FXML private Text logoutTV;
+    @FXML private Text mainmenuTV;
     @FXML private TextArea roomsTA;
 
     private Reservation reservation;
@@ -101,7 +103,7 @@ public class StaffResModify implements Initializable {
         //System.out.println("Log: StaffResModify Initialized");
 
         // TODO: 11/3/2021 uncomment and fix to initialize all TextViews with the appropriate reservation user data
-        resIdTF.setText("#" + reservation.getResID());
+        resIdTF.setText("Reservation: #" + reservation.getResID());
         hNameTF.setText(reservation.getHotelName());
         //hAddressTF.setText();
         //hRatingTF.setText();
@@ -117,14 +119,26 @@ public class StaffResModify implements Initializable {
 
     @FXML void sceneChange(MouseEvent event) {
         AnchorPane newScene = null;
+
         try {
-            newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
-            Scene scene = new Scene(newScene);
-            Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
-            window.setScene(scene);
-            window.show();
+            if (event.getSource() == mainmenuTV) {
+                if (LoadedUser.getInstance().getUser().getType().equals("CUST"))
+                    newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
+                else if (LoadedUser.getInstance().getUser().getType().equals("EMP"))
+                    newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
+            }else if(event.getSource() == logoutTV){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                LoginController controller = new LoginController();
+                loader.setController(controller);
+                newScene = loader.load();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Scene scene = new Scene(newScene);
+        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 }

@@ -105,7 +105,7 @@
             <Font size="35.0" />
          </font>
       </Button>
-      <Button fx:id="deleteBtn" layoutX="493.0" layoutY="886.0" mnemonicParsing="false" onAction="#deleteRes" prefHeight="77.0" prefWidth="159.0" stylesheets="@button.css" text="Delete">
+      <Button fx:id="deleteBtn" layoutX="450.0" layoutY="885.0" mnemonicParsing="false" onAction="#deleteRes" prefHeight="77.0" prefWidth="159.0" stylesheets="@button.css" text="Delete">
          <font>
             <Font size="35.0" />
          </font>

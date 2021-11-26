@@ -18,7 +18,7 @@
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hotelverse">
                <font>
-                  <Font size="35.0" />
+                  <Font size="40.0" />
                </font>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -26,12 +26,12 @@
             </Text>
             <Text fx:id="mainmenuTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu">
                <font>
-                  <Font size="35.0" />
+                  <Font size="40.0" />
                </font>
             </Text>
             <Text fx:id="logoutTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout">
                <font>
-                  <Font size="35.0" />
+                  <Font size="40.0" />
                </font>
                <HBox.margin>
                   <Insets right="10.0" />

@@ -16,19 +16,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CustMainMenuController implements Initializable {
-    private double xOffset =0;
-    private double yOffset = 0;
 
     @FXML private Button createResBtn;
-
     @FXML private Button manageResBtn;
-
     @FXML private Button profileBtn;
-
     @FXML private Button logoutButton;
-
-    // launches User Reservation Creation sceneS
     @FXML private Label welcomeMessage;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     // launches scenes using a set of if statements to determine btn pressed and launches new scene accordingly
     @FXML void launchScene(ActionEvent event) {

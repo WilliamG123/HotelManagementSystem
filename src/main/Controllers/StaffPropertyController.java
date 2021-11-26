@@ -67,6 +67,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
     }
 
     @FXML private void handleButtons(ActionEvent event){
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
         try {
             if (event.getSource() == createBtn) {
                 AnchorPane newScene = FXMLLoader.load(getClass().getResource("PropertyCreate.fxml"));
@@ -75,6 +76,10 @@ public class StaffPropertyController extends DBConnection implements Initializab
                 window.setScene(scene);
                 window.show();
             }else if(event.getSource() == deleteBtn){
+                if(propertiesTable.getSelectionModel().getSelectedItem() == null) {
+                    Toast.makeText(stage, "Error: no property selected please select one to delete", 2000, 500, 500);
+                    return;
+                }
                 deleteProperty();
                 return;
             }else if(event.getSource() == searchBtn){

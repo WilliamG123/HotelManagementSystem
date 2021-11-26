@@ -53,6 +53,7 @@ public class StaffAccountsController extends DBConnection implements Initializab
 
     @FXML void sceneChange(MouseEvent event) {
         AnchorPane newScene = null;
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
 
         try {
             if (event.getSource() == mainmenuTV)
@@ -64,6 +65,10 @@ public class StaffAccountsController extends DBConnection implements Initializab
                 loader.setController(controller);
                 newScene = loader.load();
             }else if(event.getSource() == modifyTV){
+                if(usersTable.getSelectionModel().getSelectedItem() == null) {
+                    Toast.makeText(stage, "Error: no account selected please select one to modify", 2000, 500, 500);
+                    return;
+                }
                 User selectedUser = usersTable.getSelectionModel().getSelectedItem();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("StaffModify.fxml"));
                 StaffModifyController controller = new StaffModifyController(selectedUser);
@@ -72,6 +77,10 @@ public class StaffAccountsController extends DBConnection implements Initializab
             }else if(event.getSource() == createTV){
                 newScene = FXMLLoader.load(getClass().getResource("StaffCreateUser.fxml"));
             } else if (event.getSource() == deleteTV) {
+                if(usersTable.getSelectionModel().getSelectedItem() == null) {
+                    Toast.makeText(stage, "Error: no account selected please select one to delete", 2000, 500, 500);
+                    return;
+                }
                 handleUserDelete();
                 return;
             }
