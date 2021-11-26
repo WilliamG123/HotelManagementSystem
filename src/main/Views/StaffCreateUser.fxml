@@ -85,7 +85,7 @@
          <font>
             <Font size="25.0" />
          </font></Label>
-      <HBox alignment="CENTER" prefHeight="85.0" prefWidth="1400.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+      <HBox alignment="CENTER" prefHeight="92.0" prefWidth="1400.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hotelverse">
                <font>

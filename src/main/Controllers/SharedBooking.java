@@ -411,6 +411,8 @@ public class SharedBooking extends DBConnection implements Initializable {
                         LoginController controller = new LoginController();
                         loader.setController(controller);
                         newScene = loader.load();
+                    } else {
+                        return;
                     }
                 } else {
                     if (LoadedUser.getInstance().getUser().getType().equals("EMP")) {

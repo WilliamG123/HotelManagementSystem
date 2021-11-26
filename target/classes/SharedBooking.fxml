@@ -156,11 +156,11 @@
       </TextField>
       <Spinner fx:id="adultS" layoutX="1146.0" layoutY="296.0" prefHeight="37.0" prefWidth="227.0" />
       <Spinner fx:id="childrenS" layoutX="1146.0" layoutY="385.0" prefHeight="37.0" prefWidth="227.0" />
-      <HBox alignment="CENTER" layoutX="-2.0" prefHeight="75.0" prefWidth="1405.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+      <HBox alignment="CENTER" prefHeight="77.0" prefWidth="1400.0" spacing="100.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
-            <Text onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotelverse">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hotelverse">
                <font>
-                  <Font size="35.0" />
+                  <Font size="40.0" />
                </font>
                <HBox.margin>
                   <Insets left="10.0" />
@@ -168,12 +168,12 @@
             </Text>
             <Text fx:id="mainmenuTV" onMouseClicked="#topBar" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu">
                <font>
-                  <Font size="35.0" />
+                  <Font size="40.0" />
                </font>
             </Text>
             <Text fx:id="loginoutTV" onMouseClicked="#topBar" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
                <font>
-                  <Font size="35.0" />
+                  <Font size="40.0" />
                </font>
                <HBox.margin>
                   <Insets right="10.0" />
