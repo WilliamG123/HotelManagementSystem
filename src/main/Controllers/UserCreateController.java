@@ -50,10 +50,9 @@ public class UserCreateController extends DBConnection implements Initializable 
     @FXML private TableColumn<Hotels, String> Hotel, details, address, rating, image;
     @FXML private TableColumn<Hotels, Integer> Rooms, amenities;
     @FXML private TableColumn<Hotels, Double> Price;
-    @FXML private Button applyBtn;
+    @FXML private Button applyRBtn;
     @FXML private Button resetBtn;
     @FXML private Button bookBtn;
-    @FXML private TextField cityTF;
     @FXML private ObservableList<Hotels> list;
 
     private ContextMenu entriesPopup;

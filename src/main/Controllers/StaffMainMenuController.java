@@ -21,6 +21,7 @@ public class StaffMainMenuController implements Initializable {
     @FXML private Button reservationBtn;
     @FXML private Button accountBtn;
     @FXML private Button logoutButton;
+    @FXML private Button createResBtn;
     @FXML private Label welcomeMessage;
 
     // launches scenes using a set of if statements to determine btn pressed and launches new scene accordingly
@@ -50,6 +51,9 @@ public class StaffMainMenuController implements Initializable {
             else if (event.getSource() == accountBtn) {
                 newScene = FXMLLoader.load(getClass().getResource("StaffAccounts.fxml"));
                 System.out.println("Log: MainMenu -> accountsBtn");
+            } else if (event.getSource() == createResBtn) {
+                newScene = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
+                System.out.println("Log: MainMenu -> Create Res");
             }
         } catch (IOException e) {
             e.printStackTrace();
