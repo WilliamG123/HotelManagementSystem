@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PropetyModify">
+   <children>
+      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1405.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+         <children>
+            <Text onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotelverse">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Text>
+            <Text fx:id="mainmenuTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Main Menu">
+               <font>
+                  <Font size="35.0" />
+               </font>
+            </Text>
+            <Text fx:id="logoutTV" onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Logout">
+               <font>
+                  <Font size="35.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Text>
+         </children>
+      </HBox>
+      <ImageView fx:id="hotelImage" fitHeight="280.0" fitWidth="280.0" layoutX="56.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true" />
+      <Text layoutX="514.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <TextField fx:id="hotelName" layoutX="630.0" layoutY="105.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
+      <Text layoutX="424.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <TextArea fx:id="hotelDesc" layoutX="624.0" layoutY="218.0" prefHeight="245.0" prefWidth="760.0" stylesheets="@text_field.css" />
+      <Text layoutX="935.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <TextField fx:id="hotelAddress" layoutX="1094.0" layoutY="109.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
+      <Text layoutX="92.0" layoutY="596.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Rooms:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <TextField fx:id="hotelNumAmenities" layoutX="1102.0" layoutY="559.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
+      <Text layoutX="741.0" layoutY="591.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Amenities:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="904.0" layoutY="667.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amenities:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="189.0" layoutY="677.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Types:">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <TextField fx:id="hotelNumRooms" layoutX="420.0" layoutY="562.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
+      <ListView fx:id="amenitiesLV" layoutX="1108.0" layoutY="624.0" prefHeight="280.0" prefWidth="280.0" stylesheets="@listview.css" />
+      <ListView fx:id="roomTypesLV" layoutX="421.0" layoutY="643.0" prefHeight="280.0" prefWidth="280.0" stylesheets="@listview.css" />
+   </children>
+</AnchorPane>

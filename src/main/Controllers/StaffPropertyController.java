@@ -40,6 +40,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
     @FXML private Button resetBtn;
     @FXML private Button searchBtn;
     @FXML private Button deleteBtn;
+    @FXML private Button modifyBtn;
 
     private Connection conn;
 
@@ -90,6 +91,9 @@ public class StaffPropertyController extends DBConnection implements Initializab
                 propertiesList.clear();
                 populateTable();
                 return;
+            }else if(event.getSource() == modifyBtn){
+                Property property = propertiesTable.getSelectionModel().getSelectedItem();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("PropertyModify.fxml"));
             }
         }catch(IOException | SQLException | ClassNotFoundException e){
             e.printStackTrace();
