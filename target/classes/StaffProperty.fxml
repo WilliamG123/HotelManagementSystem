@@ -70,7 +70,7 @@
             <Font size="26.0" />
          </font>
       </Text>
-      <Button fx:id="searchBtn" layoutX="50.0" layoutY="874.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@button.css" text="Search">
+      <Button fx:id="searchBtn" layoutX="50.0" layoutY="874.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@button.css" text="Apply">
          <font>
             <Font size="20.0" />
          </font></Button>

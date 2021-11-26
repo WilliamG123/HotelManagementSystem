@@ -76,7 +76,7 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private ChoiceBox<String> roomCB;
     @FXML private Spinner<Integer> adultS;
     @FXML private Spinner<Integer> childrenS;
-
+    String userID;
     private Hotels hotel;
     private Reservation resData; // stores data received from login scene
     private boolean recievedInfo; // boolean check if we received data from login
@@ -113,7 +113,7 @@ public class SharedBooking extends DBConnection implements Initializable {
         return reservation;
     }
 
-    @FXML void book(ActionEvent event) throws IOException {
+    @FXML void book(ActionEvent event) throws IOException, ClassNotFoundException, SQLException {
         Stage stage = (Stage) anchorPane.getScene().getWindow(); // for displaying Toast error messages
         //Check to see if user is logged in
         AnchorPane newScene = null;
@@ -143,6 +143,7 @@ public class SharedBooking extends DBConnection implements Initializable {
                 window.show();
             }
         } else {
+            System.out.println("USER TYPE IS "+ LoadedUser.getInstance().getUser().getType());
             System.out.println("USER FIRSTNAME IS " + LoadedUser.getInstance().getUser().getFirstName());
             System.out.println("TESTING");
            // System.out.println(cartList.toString());
@@ -151,7 +152,18 @@ public class SharedBooking extends DBConnection implements Initializable {
 
 //Requirements for booking a room
 // custID INT, empID INT, HOTEL_ID INT, check_IN DATE, check_OUT DATE, Adults INT, Children INT, RoomType VARCHAR(40), QTY INT
-            System.out.println(LoadedUser.getInstance().getUser().getFirstName());
+
+            Connection con = null;
+            con = getConnection();
+            CallableStatement callableStatement = con.prepareCall("{call hotel.getID(?,?)}");
+            callableStatement.setString(1,LoadedUser.getInstance().getUser().getFirstName());
+            callableStatement.setString(2,LoadedUser.getInstance().getUser().getType());
+            ResultSet rs = callableStatement.executeQuery();
+            while(rs.next()){
+                userID = rs.getString("ID");
+            }
+            System.out.println(userID);//custID
+            //System.out.println(LoadedUser.getInstance().getUser().getFirstName());
             System.out.println(hotel.getHotelId());//HOTEL_ID
             System.out.println(checkInDP.getValue().toString());
             System.out.println(checkOutDP.getValue().toString());
