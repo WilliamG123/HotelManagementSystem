@@ -15,7 +15,7 @@
    <children>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1400.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Properties">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hotelverse">
                <font>
                   <Font size="35.0" />
                </font>
@@ -70,7 +70,7 @@
             <Font size="26.0" />
          </font>
       </Text>
-      <Button fx:id="searchBtn" layoutX="50.0" layoutY="874.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@button.css" text="Search">
+      <Button fx:id="searchBtn" layoutX="50.0" layoutY="874.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@button.css" text="Apply">
          <font>
             <Font size="20.0" />
          </font></Button>

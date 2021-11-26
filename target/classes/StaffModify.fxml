@@ -14,7 +14,7 @@
    <children>
       <HBox alignment="CENTER" prefHeight="54.0" prefWidth="600.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account Change">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hotelverse">
                <font>
                   <Font size="20.0" />
                </font>

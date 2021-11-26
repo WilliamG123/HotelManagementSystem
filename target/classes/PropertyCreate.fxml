@@ -14,7 +14,7 @@
    <children>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1405.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
-            <Text onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Create">
+            <Text onMouseClicked="#sceneChange" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotelverse">
                <font>
                   <Font size="35.0" />
                </font>
