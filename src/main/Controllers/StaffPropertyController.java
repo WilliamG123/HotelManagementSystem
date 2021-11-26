@@ -94,6 +94,13 @@ public class StaffPropertyController extends DBConnection implements Initializab
             }else if(event.getSource() == modifyBtn){
                 Property property = propertiesTable.getSelectionModel().getSelectedItem();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("PropertyModify.fxml"));
+                PropertyModifyController controller = new PropertyModifyController(property);
+                loader.setController(controller);
+                AnchorPane newScene = loader.load();
+                Scene scene = new Scene(newScene);
+                Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+                window.setScene(scene);
+                window.show();
             }
         }catch(IOException | SQLException | ClassNotFoundException e){
             e.printStackTrace();
