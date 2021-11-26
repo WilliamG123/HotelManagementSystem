@@ -78,7 +78,7 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private ChoiceBox<String> roomCB;
     @FXML private Spinner<Integer> adultS;
     @FXML private Spinner<Integer> childrenS;
-    String userID;
+    int userID;
     private Hotels hotel;
     private Reservation resData; // stores data received from login scene
     private Reservation resSend; // data to be sent to login
@@ -163,7 +163,14 @@ public class SharedBooking extends DBConnection implements Initializable {
             callableStatement.setString(2,LoadedUser.getInstance().getUser().getType());
             ResultSet rs = callableStatement.executeQuery();
             while(rs.next()){
-                userID = rs.getString("ID");
+                userID = rs.getInt("ID");
+            }
+            if(LoadedUser.getInstance().getUser().getType().toString().equals("EMP"))
+            {
+                System.out.println("USER IS A EMPLOYEE WHO IS MAKING THIS RESERVATION");
+
+
+
             }
             System.out.println(userID);//custID
             //System.out.println(LoadedUser.getInstance().getUser().getFirstName());
@@ -172,16 +179,32 @@ public class SharedBooking extends DBConnection implements Initializable {
             System.out.println(checkOutDP.getValue().toString());
             System.out.println(adultS.getValue().toString());//Adults
             System.out.println(childrenS.getValue().toString());//Children
+/**
             for(int i = 0; i < cartList.size(); i++) {
 
-                System.out.println(cartList.get(i).getType().toString());//RoomType
-                System.out.println(cartList.get(i).getAmountAvailable());//QTY
-
+                CallableStatement BookStm = con.prepareCall("{call hotel.BookRooms(?,?,?,?,?,?,?,?,?)}");
+                if(LoadedUser.getInstance().getUser().getType().toString().equals("EMP"))
+                {
+                    System.out.println("USER IS A EMPLOYEE WHO IS MAKING THIS RESERVATION");
+                    BookStm.setInt(1,0);
+                    BookStm.setInt(2,userID);
+                }else {
+                    BookStm.setInt(1, userID);
+                    BookStm.setInt(2, 0);
+                }
+                BookStm.setInt(3,hotel.getHotelId());
+                BookStm.setDate(4, Date.valueOf(checkInDP.getValue()));
+                BookStm.setDate(5,Date.valueOf(checkOutDP.getValue()));
+                BookStm.setString(6,adultS.getValue().toString());
+                BookStm.setString(7,childrenS.getValue().toString());
+                BookStm.setString(8,cartList.get(i).getType().toString());
+                BookStm.setInt(9,cartList.get(i).getAmountAvailable());
+                BookStm.executeQuery();
                     if(cartList.get(i).getAmountAvailable() == 0) {
                     System.out.println("NO MORE IN CART");
                 }
             }
-
+**/
             // retrieve dates from date pickers
             LocalDate checkin = checkInDP.getValue();
             LocalDate checkout = checkOutDP.getValue();
