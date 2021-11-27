@@ -20,6 +20,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.Locale;
@@ -116,7 +117,7 @@ public class SharedBooking extends DBConnection implements Initializable {
         return reservation;
     }
 
-    @FXML void book(ActionEvent event) throws IOException, ClassNotFoundException, SQLException {
+    @FXML void book(ActionEvent event) throws IOException, ClassNotFoundException, SQLException, NoSuchAlgorithmException {
         Stage stage = (Stage) anchorPane.getScene().getWindow(); // for displaying Toast error messages
         //Check to see if user is logged in
         AnchorPane newScene = null;
@@ -154,57 +155,64 @@ public class SharedBooking extends DBConnection implements Initializable {
            // System.out.println(cartList.get(0).getAmountAvailable());
 
 //Requirements for booking a room
-// custID INT, empID INT, HOTEL_ID INT, check_IN DATE, check_OUT DATE, Adults INT, Children INT, RoomType VARCHAR(40), QTY INT
+// custID INT, HOTEL_ID INT, check_IN DATE, check_OUT DATE, Adults INT, Children INT, RoomType VARCHAR(40), QTY INT
 
             Connection con = null;
             con = getConnection();
-            CallableStatement callableStatement = con.prepareCall("{call hotel.getID(?,?)}");
-            callableStatement.setString(1,LoadedUser.getInstance().getUser().getFirstName());
-            callableStatement.setString(2,LoadedUser.getInstance().getUser().getType());
-            ResultSet rs = callableStatement.executeQuery();
-            while(rs.next()){
-                userID = rs.getInt("ID");
-            }
+
             if(LoadedUser.getInstance().getUser().getType().toString().equals("EMP"))
             {
                 System.out.println("USER IS A EMPLOYEE WHO IS MAKING THIS RESERVATION");
 
-
-
             }
-            System.out.println(userID);//custID
-            //System.out.println(LoadedUser.getInstance().getUser().getFirstName());
+
             System.out.println(hotel.getHotelId());//HOTEL_ID
             System.out.println(checkInDP.getValue().toString());
             System.out.println(checkOutDP.getValue().toString());
             System.out.println(adultS.getValue().toString());//Adults
             System.out.println(childrenS.getValue().toString());//Children
-/**
+            //CreateNewUser`(NEW_EMAIL VARCHAR(40), NEW_HASHED_PASSWORD CHAR(40), FNAME VARCHAR(40), USERTYPE VARCHAR(45))
+            CallableStatement CreateNew = con.prepareCall("{call hotel.CreateNewUser(?,?,?,?)}");
+            String TempPW = Hasher.getInstance("SHA-256").hash(emailTF.getText());
+            CreateNew.setString(1, emailTF.getText().toString());
+            CreateNew.setString(2,TempPW);
+            CreateNew.setString(3,nameTF.getText().toString());
+            CreateNew.setString(4,"CUST"); //<-will always be a customer from this scene
+            CreateNew.execute();
+
+
+            CallableStatement callableStatement = con.prepareCall("{call hotel.getID(?,?)}");
+            callableStatement.setString(1,nameTF.getText().toString());
+            callableStatement.setString(2,"CUST");
+            ResultSet rs = callableStatement.executeQuery();
+            while(rs.next()){
+                userID = rs.getInt("ID");
+            }
+
+
+            System.out.println(userID);//custID
+
+
             for(int i = 0; i < cartList.size(); i++) {
 
-                CallableStatement BookStm = con.prepareCall("{call hotel.BookRooms(?,?,?,?,?,?,?,?,?)}");
-                if(LoadedUser.getInstance().getUser().getType().toString().equals("EMP"))
-                {
+                CallableStatement BookStm = con.prepareCall("{call hotel.BookRooms(?,?,?,?,?,?,?,?)}");
+                if(LoadedUser.getInstance().getUser().getType().toString().equals("EMP")) {
                     System.out.println("USER IS A EMPLOYEE WHO IS MAKING THIS RESERVATION");
-                    BookStm.setInt(1,0);
-                    BookStm.setInt(2,userID);
-                }else {
-                    BookStm.setInt(1, userID);
-                    BookStm.setInt(2, 0);
                 }
-                BookStm.setInt(3,hotel.getHotelId());
-                BookStm.setDate(4, Date.valueOf(checkInDP.getValue()));
-                BookStm.setDate(5,Date.valueOf(checkOutDP.getValue()));
-                BookStm.setString(6,adultS.getValue().toString());
-                BookStm.setString(7,childrenS.getValue().toString());
-                BookStm.setString(8,cartList.get(i).getType().toString());
-                BookStm.setInt(9,cartList.get(i).getAmountAvailable());
+                BookStm.setInt(1,userID);
+                BookStm.setInt(2,hotel.getHotelId());
+                BookStm.setDate(3, Date.valueOf(checkInDP.getValue()));
+                BookStm.setDate(4,Date.valueOf(checkOutDP.getValue()));
+                BookStm.setString(5,adultS.getValue().toString());
+                BookStm.setString(6,childrenS.getValue().toString());
+                BookStm.setString(7,cartList.get(i).getType().toString());
+                BookStm.setInt(8,cartList.get(i).getAmountAvailable());
                 BookStm.executeQuery();
                     if(cartList.get(i).getAmountAvailable() == 0) {
                     System.out.println("NO MORE IN CART");
                 }
             }
-**/
+
             // retrieve dates from date pickers
             LocalDate checkin = checkInDP.getValue();
             LocalDate checkout = checkOutDP.getValue();
