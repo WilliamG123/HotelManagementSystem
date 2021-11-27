@@ -92,9 +92,10 @@ public class UserProfileController extends DBConnection implements Initializable
                     ps.setString(1, toModify.getFirstName());
                     ps.setString(2, toModify.getLastName());
                     ps.setString(3, toModify.getPhoneNumber());
-                    ps.setDate(4, Date.valueOf(toModify.getDob()));
-                    ps.setString(5, toModify.getEmail());
-                    ps.executeQuery();
+                    ps.setString(4, toModify.getPassword());
+                    ps.setDate(5, Date.valueOf(toModify.getDob()));
+                    ps.setString(6, toModify.getEmail());
+                    ps.executeUpdate();
                 }
             }catch(NoSuchAlgorithmException | ClassNotFoundException | SQLException e){
                 e.printStackTrace();

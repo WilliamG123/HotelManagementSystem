@@ -93,11 +93,11 @@ public class UserSignupController extends User implements Initializable {
             passwordErrorLabel.setTextFill(Color.web("#FF0000"));
             returnval = false;
         }
-        if(!Validators.isValidEmailAddress(email)){
-            emailErrorLabel.setText("Invalid email format!");
-            emailErrorLabel.setTextFill(Color.web("#FF0000"));
-            returnval = false;
-        }
+//        if(!Validators.isValidEmailAddress(email)){
+//            emailErrorLabel.setText("Invalid email format!");
+//            emailErrorLabel.setTextFill(Color.web("#FF0000"));
+//            returnval = false;
+//        }
         if(!Validators.isValidPhoneNumber(pNum)){
             pNumErrorLabel.setText("Invalid phone number format!");
             pNumErrorLabel.setTextFill(Color.web("#FF0000"));

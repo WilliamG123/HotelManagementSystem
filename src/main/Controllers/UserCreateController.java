@@ -64,7 +64,6 @@ public class UserCreateController extends DBConnection implements Initializable 
 
     // checks to see if the user is logged in because they must be to make a reservation
     public void loginCheck() {
-// TODO: 11/17/2021 make code to check if the user is logged in before proceeding to book a hotel
        // SessionSingleton obj = SessionSingleton.getInstance();
         if(LoadedUser.getInstance().getUser() == null) {
             loginoutTV.setText("Login");

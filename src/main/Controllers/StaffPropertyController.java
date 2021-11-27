@@ -40,6 +40,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
     @FXML private Button resetBtn;
     @FXML private Button searchBtn;
     @FXML private Button deleteBtn;
+    @FXML private Button modifyBtn;
 
     private Connection conn;
 
@@ -58,7 +59,6 @@ public class StaffPropertyController extends DBConnection implements Initializab
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.print("test");
 
         Scene scene = new Scene(newScene);
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
@@ -90,6 +90,16 @@ public class StaffPropertyController extends DBConnection implements Initializab
                 propertiesList.clear();
                 populateTable();
                 return;
+            }else if(event.getSource() == modifyBtn){
+                Property property = propertiesTable.getSelectionModel().getSelectedItem();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("PropetyModify.fxml"));
+                PropertyModifyController controller = new PropertyModifyController(property);
+                loader.setController(controller);
+                AnchorPane newScene = loader.load();
+                Scene scene = new Scene(newScene);
+                Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+                window.setScene(scene);
+                window.show();
             }
         }catch(IOException | SQLException | ClassNotFoundException e){
             e.printStackTrace();

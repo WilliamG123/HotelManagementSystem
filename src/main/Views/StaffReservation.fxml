@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffReservationController">
    <children>
-      <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1400.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
+      <HBox alignment="CENTER" prefHeight="85.0" prefWidth="1400.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hotelverse">
                <font>

@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffPropertyController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StaffPropertyController">
    <children>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1400.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
@@ -70,15 +70,15 @@
             <Font size="26.0" />
          </font>
       </Text>
-      <Button fx:id="searchBtn" layoutX="50.0" layoutY="874.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@button.css" text="Apply">
+      <Button fx:id="searchBtn" layoutX="51.0" layoutY="875.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@button.css" text="Apply">
          <font>
             <Font size="20.0" />
          </font></Button>
-      <Button fx:id="createBtn" layoutX="51.0" layoutY="935.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@button.css" text="Create">
+      <Button fx:id="createBtn" layoutX="5.0" layoutY="935.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="120.0" stylesheets="@button.css" text="Create">
          <font>
             <Font size="20.0" />
          </font></Button>
-      <Button fx:id="deleteBtn" layoutX="225.0" layoutY="935.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="130.0" stylesheets="@button.css" text="Delete">
+      <Button fx:id="deleteBtn" layoutX="138.0" layoutY="935.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="120.0" stylesheets="@button.css" text="Delete">
          <font>
             <Font size="20.0" />
          </font></Button>
@@ -88,5 +88,10 @@
          <font>
             <Font size="20.0" />
          </font></Button>
+      <Button fx:id="modifyBtn" layoutX="272.0" layoutY="935.0" mnemonicParsing="false" onAction="#handleButtons" prefHeight="40.0" prefWidth="120.0" stylesheets="@button.css" text="Modify">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

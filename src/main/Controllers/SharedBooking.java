@@ -49,6 +49,8 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private Text checkInTF;
     @FXML private Text checkOutTF;
     @FXML private Text infoT;
+    @FXML private Text loginoutTV;
+    @FXML private Text mainmenuTV;
     @FXML private TextArea descriptionTF;
     @FXML private TextField nameTF;
     @FXML private TextField emailTF;
@@ -79,6 +81,7 @@ public class SharedBooking extends DBConnection implements Initializable {
     int userID;
     private Hotels hotel;
     private Reservation resData; // stores data received from login scene
+    private Reservation resSend; // data to be sent to login
     private boolean recievedInfo; // boolean check if we received data from login
     private boolean employeeCheck; // checks to see if employee logged in for extra functionality
     LocalDate today = LocalDate.now();
@@ -129,11 +132,11 @@ public class SharedBooking extends DBConnection implements Initializable {
 
             // if user confirmed login go login
             if(result.orElse(cancelAlertBtn) == loginAlertBtn){
-                Reservation reservation = getUserInput();
+                resSend = getUserInput();
                 System.out.println("SharedBooking Scene -> Login Scene");
                 System.out.println("NO USER LOGGED IN");
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
-                LoginController controller = new LoginController(hotel, reservation, LOGIN_KEY);
+                LoginController controller = new LoginController(hotel, resSend, LOGIN_KEY);
                 loader.setController(controller);
                 newScene = loader.load();
                 Scene scene = new Scene(newScene);
@@ -289,6 +292,7 @@ public class SharedBooking extends DBConnection implements Initializable {
                 emailTF.setVisible(true);
                 employeeCheck = true;
             }
+            loginoutTV.setText("Logout");
         }
 
         // initializes the cart TableView and observableArrayList
@@ -347,16 +351,16 @@ public class SharedBooking extends DBConnection implements Initializable {
         restrictDatePicker(checkOutDP);
 
         if(recievedInfo) {
+            SpinnerValueFactory<Integer> valueFactoryC = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, resData.getChildren());
+            SpinnerValueFactory<Integer> valueFactoryA = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, resData.getChildren());
             if(resData.dyanmicData.contains(CHECKIN_KEY))
                 checkInDP.setValue(resData.getCheckIn());
             if(resData.dyanmicData.contains(CHECKOUT_KEY))
                 checkOutDP.setValue(resData.getCheckOut());
             if(resData.dyanmicData.contains(CHILDREN_KEY)) {
-                SpinnerValueFactory<Integer> valueFactoryC = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, resData.getChildren());
                 childrenS.setValueFactory(valueFactoryC);
             }
             if(resData.dyanmicData.contains(ADULT_KEY)) {
-                SpinnerValueFactory<Integer> valueFactoryA = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, resData.getChildren());
                 adultS.setValueFactory(valueFactoryA);
             }
             if(resData.dyanmicData.contains(ROOMS_KEY)){
@@ -369,6 +373,10 @@ public class SharedBooking extends DBConnection implements Initializable {
                     }
                 }
                 cartTV.refresh();
+            } else {
+                Label label = new Label("Your cart is empty");
+                label.setFont(new Font("Arial", 20));
+                cartTV.setPlaceholder(label);
             }
         } else {
             Label label = new Label("Your cart is empty");
@@ -382,7 +390,56 @@ public class SharedBooking extends DBConnection implements Initializable {
             childrenS.setValueFactory(valueFactoryC);
         }
     }
-//returnBTN
+
+    @FXML void topBar(MouseEvent event) {
+        AnchorPane newScene = null;
+        try {
+            if (event.getSource() == mainmenuTV) {
+                if (LoadedUser.getInstance().getUser() == null) {
+                    ButtonType loginAlertBtn = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
+                    ButtonType cancelAlertBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    Alert alert = new Alert(Alert.AlertType.NONE, "You are currently not logged in please do so to access the main menu options", loginAlertBtn, cancelAlertBtn);
+                    alert.setTitle("No User Found");
+                    //alert.setContentText("Please confirm reservation deletion");
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                    // if user confirmed login go login
+                    if (result.orElse(cancelAlertBtn) == loginAlertBtn) {
+                        System.out.println("Shared Booking Scene -> Login Scene");
+                        System.out.println("NO USER LOGGED IN");
+
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                        LoginController controller = new LoginController();
+                        loader.setController(controller);
+                        newScene = loader.load();
+                    } else {
+                        return;
+                    }
+                } else {
+                    if (LoadedUser.getInstance().getUser().getType().equals("EMP")) {
+                        newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
+                    } else {
+                        newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
+                    }
+                }
+            } else if(event.getSource() == loginoutTV) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                resSend = getUserInput();
+                LoginController controller = new LoginController(hotel, resSend, LOGIN_KEY);
+                loader.setController(controller);
+                newScene = loader.load();
+            } else {
+                return;
+            }
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(newScene);
+        Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
     @FXML void sceneChange(ActionEvent event) {
         AnchorPane newScene = null;
         try{
