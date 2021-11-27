@@ -349,19 +349,26 @@ public class SharedBooking extends DBConnection implements Initializable {
         restrictDatePicker(checkInDP);
         restrictDatePicker(checkOutDP);
 
+        SpinnerValueFactory<Integer> valueFactoryC;
+        SpinnerValueFactory<Integer> valueFactoryA;
+
         if(recievedInfo) {
-            SpinnerValueFactory<Integer> valueFactoryC = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, resData.getChildren());
-            SpinnerValueFactory<Integer> valueFactoryA = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, resData.getChildren());
             if(resData.dyanmicData.contains(CHECKIN_KEY))
                 checkInDP.setValue(resData.getCheckIn());
             if(resData.dyanmicData.contains(CHECKOUT_KEY))
                 checkOutDP.setValue(resData.getCheckOut());
-            if(resData.dyanmicData.contains(CHILDREN_KEY)) {
-                childrenS.setValueFactory(valueFactoryC);
-            }
-            if(resData.dyanmicData.contains(ADULT_KEY)) {
-                adultS.setValueFactory(valueFactoryA);
-            }
+
+            if(resData.dyanmicData.contains(CHILDREN_KEY))
+                valueFactoryC = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, resData.getChildren());
+            else
+                valueFactoryC = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0);
+            childrenS.setValueFactory(valueFactoryC);
+
+            if(resData.dyanmicData.contains(ADULT_KEY))
+                valueFactoryA = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, resData.getChildren());
+            else
+                valueFactoryA = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0);
+            adultS.setValueFactory(valueFactoryA);
             if(resData.dyanmicData.contains(ROOMS_KEY)){
                 for(Room r : resData.getRooms()) {
                     r.setPrice(r.getPrice() / r.getAmountAvailable());
@@ -381,10 +388,8 @@ public class SharedBooking extends DBConnection implements Initializable {
             Label label = new Label("Your cart is empty");
             label.setFont(new Font("Arial", 20));
             cartTV.setPlaceholder(label);
-
-            // initialize spinners
-            SpinnerValueFactory<Integer> valueFactoryA = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0);
-            SpinnerValueFactory<Integer> valueFactoryC = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0);
+            valueFactoryA = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0);
+            valueFactoryC = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 50, 0);
             adultS.setValueFactory(valueFactoryA);
             childrenS.setValueFactory(valueFactoryC);
         }
