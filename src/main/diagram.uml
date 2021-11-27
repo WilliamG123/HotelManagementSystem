@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="1121.9705882352941" y="182.86029411764707">com</node>
+    <node x="-68.0" y="228.41176470588238">UserSignupController</node>
+    <node x="652.5" y="281.5992647058823">StaffModifyController</node>
+    <node x="1054.9705882352941" y="136.86029411764707">annotations</node>
+    <node x="53.0" y="-46.67647058823525">UserProfileController</node>
+    <node x="654.5" y="211.6985294117647">StaffPropertyController</node>
+    <node x="1136.9705882352941" y="325.8602941176471">impl</node>
+    <node x="1059.9705882352941" y="376.8602941176471">groovyjarjarasm</node>
+    <node x="-260.2058823529412" y="24.85294117647061">Reservation</node>
+    <node x="1083.9705882352941" y="39.86029411764707">java</node>
+    <node x="-260.2058823529412" y="-133.0">RoomInformation</node>
+    <node x="1076.9705882352941" y="83.86029411764707">javax</node>
+    <node x="1015.4705882352941" y="233.86029411764707">groovyjarjarpicocli</node>
+    <node x="1100.4705882352941" y="279.8602941176471">javafx</node>
+    <node x="657.0" y="343.2647058823529">UserManageController</node>
+    <node x="335.2058823529412" y="-106.69117647058823">SharedBooking</node>
+    <node x="652.5" y="164.1470588235294">PropertyModifyController</node>
+    <node x="227.5588235294117" y="190.70588235294116">CRUD</node>
+    <node x="1271.9705882352941" y="371.8602941176471">oracle</node>
+    <node x="-267.2058823529412" y="561.8823529411766">DBConnect</node>
+    <node x="1271.9705882352941" y="325.8602941176471">google</node>
+    <node x="-272.2058823529412" y="489.0000000000001">LoadedUser</node>
+    <node x="296.0" y="692.5">QUERYS</node>
+    <node x="1245.9705882352941" y="279.8602941176471">META-INF</node>
+    <node x="70.5" y="-106.69117647058823">LoginController</node>
+    <node x="-260.2058823529412" y="380.88235294117646">Hasher</node>
+    <node x="1279.9705882352941" y="-11.139705882352928">groovy</node>
+    <node x="692.5" y="503.5">StaffCreateUserController</node>
+    <node x="-260.2058823529412" y="317.22058823529414">Validators</node>
+    <node x="363.5" y="503.5">StaffMainMenuController</node>
+    <node x="1245.9705882352941" y="233.86029411764707">groovyjarjarcommonscli</node>
+    <node x="1270.9705882352941" y="187.86029411764707">groovyjarjarantlr</node>
+    <node x="539.5" y="799.5">DynamicTable</node>
+    <node x="341.2058823529412" y="49.117647058823536">DBConnection</node>
+    <node x="1258.4705882352941" y="39.86029411764707">netscape</node>
+    <node x="-272.2058823529412" y="681.823529411765">StaffResModify</node>
+    <node x="245.5" y="794.5">QueryTestTableController</node>
+    <node x="-102.88235294117649" y="-80.38235294117646">User</node>
+    <node x="60.352941176470495" y="90.86764705882356">UserCreateController</node>
+    <node x="1276.9705882352941" y="90.86029411764707">sun</node>
+    <node x="-260.2058823529412" y="434.9411764705883">Toast</node>
+    <node x="1270.9705882352941" y="141.86029411764707">animatefx</node>
+    <node x="-260.2058823529412" y="259.55882352941177">Room</node>
+    <node x="-260.2058823529412" y="199.5">Property</node>
+    <node x="759.3529411764705" y="-11.139705882352928">StaffReservationController</node>
+    <node x="-260.2058823529412" y="77.47058823529414">MultiDatePicker</node>
+    <node x="654.5" y="116.59558823529409">PropertyCreateController</node>
+    <node x="970.9705882352941" y="325.8602941176471">org</node>
+    <node x="-260.2058823529412" y="-27.764705882352928">Controller</node>
+    <node x="-260.2058823529412" y="139.44117647058823">QueriesMain</node>
+    <node x="1090.9705882352941" y="-11.139705882352928">jdk</node>
+    <node x="-260.2058823529412" y="621.8529411764707">Hotels</node>
+    <node x="59.0" y="503.5">CustMainMenuController</node>
+    <node x="-260.2058823529412" y="-185.61764705882354">Main</node>
+    <node x="626.0" y="-70.14705882352939">StaffAccountsController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="LoginController" target="User" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="-62.38235294117649" y="-91.19117647058823" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="StaffModifyController" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="414.7058823529412" y="297.0992647058823" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="StaffPropertyController" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="414.7058823529412" y="227.1985294117647" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="UserProfileController" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="148.0" y="64.61764705882354" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="UserCreateController" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="155.3529411764705" y="64.61764705882354" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="QueryTestTableController" target="QUERYS" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="356.0" y="708.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="PropertyCreateController" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="763.0" y="64.61764705882354" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="StaffReservationController" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="872.3529411764705" y="64.61764705882354" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="PropertyModifyController" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="414.7058823529412" y="179.6470588235294" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="UserSignupController" target="User" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="28.5" y="96.45588235294119" />
+      <point x="-7.9705882352940876" y="96.45588235294119" />
+      <point x="-7.9705882352940876" y="-51.0" />
+      <point x="-62.38235294117649" y="-51.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="UserManageController" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="414.7058823529412" y="358.7647058823529" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="SharedBooking" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="424.5" y="-91.19117647058823" />
+      <point x="424.5" y="64.61764705882354" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="CRUD" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="273.0588235294117" y="142.0" />
+      <point x="414.7058823529412" y="142.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="StaffAccountsController" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="730.5" y="64.61764705882354" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.85" showDependencies="false" x="760.0" y="470.4117647058823" />
+  <SelectedNodes>
+    <node>com</node>
+    <node>netscape</node>
+    <node>oracle</node>
+    <node>org</node>
+    <node>annotations</node>
+    <node>google</node>
+    <node>sun</node>
+    <node>META-INF</node>
+    <node>jdk</node>
+    <node>impl</node>
+    <node>groovyjarjarasm</node>
+    <node>java</node>
+    <node>groovy</node>
+    <node>javax</node>
+    <node>animatefx</node>
+    <node>groovyjarjarpicocli</node>
+    <node>groovyjarjarcommonscli</node>
+    <node>javafx</node>
+    <node>groovyjarjarantlr</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
