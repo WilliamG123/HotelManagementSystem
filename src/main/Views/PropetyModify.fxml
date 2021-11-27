@@ -38,7 +38,7 @@
             </Text>
          </children>
       </HBox>
-      <ImageView fx:id="hotelImage" fitHeight="280.0" fitWidth="280.0" layoutX="56.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="hotelImage" fitHeight="350.0" fitWidth="350.0" layoutX="56.0" layoutY="119.0" pickOnBounds="true" preserveRatio="true" />
       <Text layoutX="514.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:">
          <font>
             <Font size="36.0" />
