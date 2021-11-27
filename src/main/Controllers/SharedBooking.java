@@ -155,26 +155,17 @@ public class SharedBooking extends DBConnection implements Initializable {
            // System.out.println(cartList.get(0).getAmountAvailable());
 
 //Requirements for booking a room
-// custID INT, empID INT, HOTEL_ID INT, check_IN DATE, check_OUT DATE, Adults INT, Children INT, RoomType VARCHAR(40), QTY INT
+// custID INT, HOTEL_ID INT, check_IN DATE, check_OUT DATE, Adults INT, Children INT, RoomType VARCHAR(40), QTY INT
 
             Connection con = null;
             con = getConnection();
-            CallableStatement callableStatement = con.prepareCall("{call hotel.getID(?,?)}");
-            callableStatement.setString(1,LoadedUser.getInstance().getUser().getFirstName());
-            callableStatement.setString(2,LoadedUser.getInstance().getUser().getType());
-            ResultSet rs = callableStatement.executeQuery();
-            while(rs.next()){
-                userID = rs.getInt("ID");
-            }
+
             if(LoadedUser.getInstance().getUser().getType().toString().equals("EMP"))
             {
                 System.out.println("USER IS A EMPLOYEE WHO IS MAKING THIS RESERVATION");
 
-
-
             }
-            System.out.println(userID);//custID
-            //System.out.println(LoadedUser.getInstance().getUser().getFirstName());
+
             System.out.println(hotel.getHotelId());//HOTEL_ID
             System.out.println(checkInDP.getValue().toString());
             System.out.println(checkOutDP.getValue().toString());
@@ -188,32 +179,40 @@ public class SharedBooking extends DBConnection implements Initializable {
             CreateNew.setString(3,nameTF.getText().toString());
             CreateNew.setString(4,"CUST"); //<-will always be a customer from this scene
             CreateNew.execute();
-/**
+
+
+            CallableStatement callableStatement = con.prepareCall("{call hotel.getID(?,?)}");
+            callableStatement.setString(1,nameTF.getText().toString());
+            callableStatement.setString(2,"CUST");
+            ResultSet rs = callableStatement.executeQuery();
+            while(rs.next()){
+                userID = rs.getInt("ID");
+            }
+
+
+            System.out.println(userID);//custID
+
+
             for(int i = 0; i < cartList.size(); i++) {
 
-                CallableStatement BookStm = con.prepareCall("{call hotel.BookRooms(?,?,?,?,?,?,?,?,?)}");
-                if(LoadedUser.getInstance().getUser().getType().toString().equals("EMP"))
-                {
+                CallableStatement BookStm = con.prepareCall("{call hotel.BookRooms(?,?,?,?,?,?,?,?)}");
+                if(LoadedUser.getInstance().getUser().getType().toString().equals("EMP")) {
                     System.out.println("USER IS A EMPLOYEE WHO IS MAKING THIS RESERVATION");
-                    BookStm.setInt(1,0);
-                    BookStm.setInt(2,userID);
-                }else {
-                    BookStm.setInt(1, userID);
-                    BookStm.setInt(2, 0);
                 }
-                BookStm.setInt(3,hotel.getHotelId());
-                BookStm.setDate(4, Date.valueOf(checkInDP.getValue()));
-                BookStm.setDate(5,Date.valueOf(checkOutDP.getValue()));
-                BookStm.setString(6,adultS.getValue().toString());
-                BookStm.setString(7,childrenS.getValue().toString());
-                BookStm.setString(8,cartList.get(i).getType().toString());
-                BookStm.setInt(9,cartList.get(i).getAmountAvailable());
+                BookStm.setInt(1,userID);
+                BookStm.setInt(2,hotel.getHotelId());
+                BookStm.setDate(3, Date.valueOf(checkInDP.getValue()));
+                BookStm.setDate(4,Date.valueOf(checkOutDP.getValue()));
+                BookStm.setString(5,adultS.getValue().toString());
+                BookStm.setString(6,childrenS.getValue().toString());
+                BookStm.setString(7,cartList.get(i).getType().toString());
+                BookStm.setInt(8,cartList.get(i).getAmountAvailable());
                 BookStm.executeQuery();
                     if(cartList.get(i).getAmountAvailable() == 0) {
                     System.out.println("NO MORE IN CART");
                 }
             }
-**/
+
             // retrieve dates from date pickers
             LocalDate checkin = checkInDP.getValue();
             LocalDate checkout = checkOutDP.getValue();
