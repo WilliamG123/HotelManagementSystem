@@ -56,7 +56,7 @@ public class UserManageController extends DBConnection implements Initializable 
         // try block attempts to load a new scene
         try {
             if (event.getSource() == mainmenuTV) {
-                newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
+                newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
                 System.out.println("Log: CustManage -> MainMenuBtn");
             } else if(event.getSource() == logoutTV) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
