@@ -37,8 +37,6 @@ public class PropertyModifyController extends DBConnection {
 
     private final Property property;
     private Connection conn;
-    private int numRooms;
-    private StringBuilder query;
 
     public PropertyModifyController(Property property){
         this.property = property;
@@ -90,8 +88,6 @@ public class PropertyModifyController extends DBConnection {
     }
 
     public void initialize(){
-        query = new StringBuilder();
-        numRooms = 0;
         File file = new File("Res/images/hotels/" + property.getPropertyName());
         Image image = new Image(file.toURI().toString());
         ImageView im = new ImageView();
@@ -134,7 +130,6 @@ public class PropertyModifyController extends DBConnection {
         if (rs.next()) {
             do{
                 roomsList.add(rs.getString("type_name"));
-                numRooms++;
             }while(rs.next());
             roomTypesLV.setItems(roomsList);
         }
