@@ -1,13 +1,16 @@
 import java.io.IOException;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,7 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class StaffModifyController extends DBConnection{
+public class StaffModifyController extends DBConnection implements Initializable {
 
     @FXML private Text mainmenuTV;
     @FXML private Text logoutTV;
@@ -62,8 +65,9 @@ public class StaffModifyController extends DBConnection{
                     ps.setString(1, toModify.getFirstName());
                     ps.setString(2, toModify.getLastName());
                     ps.setString(3, toModify.getPhoneNumber());
-                    ps.setDate(4, Date.valueOf(toModify.getDob()));
-                    ps.setString(5, toModify.getEmail());
+                    ps.setString(4, Hasher.getInstance("SHA-256").hash(toModify.getPassword()));
+                    ps.setDate(5, Date.valueOf(toModify.getDob()));
+                    ps.setString(6, toModify.getEmail());
                     ps.execute();
                 }
                 else {
@@ -90,7 +94,7 @@ public class StaffModifyController extends DBConnection{
         String lastName = lastNameField.getText();
         String phoneNumber = phoneNumberField.getText();
         String password = passwordField.getText();
-        String hashed = (password == null) ? null : Hasher.getInstance("SHA-256").hash(password);
+        String hashed = (password == null) ? toModify.getPassword() : Hasher.getInstance("SHA-256").hash(password);
         LocalDate dob = dobPicker.getValue();
 
         if(!Validators.isValidPhoneNumber(phoneNumber)){
@@ -123,15 +127,19 @@ public class StaffModifyController extends DBConnection{
         return modified;
     }
 
-    @FXML
-    void initialize() {
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("STAFF MODIFY CONTROLLER . JAVA ");
         firstNameField.setText(toModify.getFirstName());
         lastNameField.setText(toModify.getLastName());
         passwordField.setText(toModify.getPassword());
+        passwordField.setSkin(passwordField.getSkin());
         emailField.setText(toModify.getEmail());
         phoneNumberField.setText(toModify.getPhoneNumber());
         dobPicker.setValue(toModify.getDob());
-
+        System.out.println("PASSWORD TO USER WE SELECTED "+toModify.getPassword().toString());
         emailField.setEditable(false);
     }
 }

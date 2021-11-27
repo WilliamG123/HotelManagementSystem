@@ -111,6 +111,7 @@ public class UserManageController extends DBConnection implements Initializable 
      *****************************************************************/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("USER MANAGE CONTROLLER . JAVA ");
         // get list of reservations
         resList = FXCollections.observableArrayList();
         query = new StringBuilder();

@@ -86,7 +86,7 @@ public class StaffCreateUserController {
                 LocalDate dob = dobPicker.getValue();
                 String type = typePicker.getValue();
                 User user = new User(fname, lname, email, pnum, dob, password, type);
-                //User.Customer("add", user);
+                User.Customer("add", user);
                 System.out.println(user);
             } catch (NoSuchAlgorithmException e) {
                 e.printStackTrace();

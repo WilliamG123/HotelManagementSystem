@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javax.xml.transform.Result;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -96,19 +97,20 @@ public class StaffAccountsController extends DBConnection implements Initializab
 
     @Override
     public void initialize(URL location, ResourceBundle resources){
+        System.out.println("STAFF ACCOUNTS CONTROLLER . JAVA ");
         usersList = FXCollections.observableArrayList();
         query = new StringBuilder();
         try {
             conn = getConnection();
             populateListView();
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         typeSearchPicker.getItems().add("CUST");
         typeSearchPicker.getItems().add("EMP");
     }
 
-    private void populateListView() throws SQLException {
+    private void populateListView() throws SQLException, NoSuchAlgorithmException {
         query.setLength(0);
         query.append("SELECT * FROM users;");
         ResultSet rs = conn.createStatement().executeQuery(query.toString());
@@ -142,7 +144,7 @@ public class StaffAccountsController extends DBConnection implements Initializab
     }
 
     @FXML
-    private void handleSearch(ActionEvent event) throws SQLException, ClassNotFoundException {
+    private void handleSearch(ActionEvent event) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException {
         if(event.getSource() == resetBtn){
             usersList.clear();
             populateListView();
@@ -252,7 +254,7 @@ public class StaffAccountsController extends DBConnection implements Initializab
         return appended;
     }
 
-    private void addUsers(ResultSet rs) throws SQLException {
+    private void addUsers(ResultSet rs) throws SQLException, NoSuchAlgorithmException {
         do{
             User user = new User();
             user.setFirstName(rs.getString("fname"));
@@ -261,6 +263,7 @@ public class StaffAccountsController extends DBConnection implements Initializab
             user.setPhoneNumber(rs.getString("phone"));
             user.setType(rs.getString("usertype"));
             user.setDob(rs.getDate("dob").toLocalDate());
+            user.setPassword(rs.getString("password"));
             usersList.add(user);
         } while(rs.next());
     }

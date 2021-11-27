@@ -21,7 +21,7 @@ public class DBConnection {
 
 
 
-    public Connection getConnection() throws ClassNotFoundException {
+    public  Connection getConnection() throws ClassNotFoundException {
         System.out.println(jdbcUrl);
         try {
             System.out.println("Loading driver...");
