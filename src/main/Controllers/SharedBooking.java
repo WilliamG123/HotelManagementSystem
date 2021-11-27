@@ -20,6 +20,7 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.Locale;
@@ -116,7 +117,7 @@ public class SharedBooking extends DBConnection implements Initializable {
         return reservation;
     }
 
-    @FXML void book(ActionEvent event) throws IOException, ClassNotFoundException, SQLException {
+    @FXML void book(ActionEvent event) throws IOException, ClassNotFoundException, SQLException, NoSuchAlgorithmException {
         Stage stage = (Stage) anchorPane.getScene().getWindow(); // for displaying Toast error messages
         //Check to see if user is logged in
         AnchorPane newScene = null;
@@ -179,7 +180,14 @@ public class SharedBooking extends DBConnection implements Initializable {
             System.out.println(checkOutDP.getValue().toString());
             System.out.println(adultS.getValue().toString());//Adults
             System.out.println(childrenS.getValue().toString());//Children
-            CallableStatement CreateNew = con.prepareCall("{call hotel.BookRooms(?,?,?,?,?,?,?,?,?)}");
+            //CreateNewUser`(NEW_EMAIL VARCHAR(40), NEW_HASHED_PASSWORD CHAR(40), FNAME VARCHAR(40), USERTYPE VARCHAR(45))
+            CallableStatement CreateNew = con.prepareCall("{call hotel.CreateNewUser(?,?,?,?)}");
+            String TempPW = Hasher.getInstance("SHA-256").hash(emailTF.getText());
+            CreateNew.setString(1, emailTF.getText().toString());
+            CreateNew.setString(2,TempPW);
+            CreateNew.setString(3,nameTF.getText().toString());
+            CreateNew.setString(4,"CUST"); //<-will always be a customer from this scene
+            CreateNew.execute();
 /**
             for(int i = 0; i < cartList.size(); i++) {
 
