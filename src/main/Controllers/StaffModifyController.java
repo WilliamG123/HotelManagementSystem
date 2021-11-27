@@ -64,7 +64,7 @@ public class StaffModifyController extends DBConnection{
                     ps.setString(3, toModify.getPhoneNumber());
                     ps.setDate(4, Date.valueOf(toModify.getDob()));
                     ps.setString(5, toModify.getEmail());
-                    ps.executeQuery();
+                    ps.execute();
                 }
                 else {
                     modifyMsgLabel.setText("No changes made to user information");
@@ -116,6 +116,7 @@ public class StaffModifyController extends DBConnection{
             if(toModify.getDob().compareTo(dob) != 0){
                 toModify.setDob(dob);
                 modified = true;
+
             }
         }
 

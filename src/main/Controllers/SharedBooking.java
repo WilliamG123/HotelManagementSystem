@@ -160,11 +160,7 @@ public class SharedBooking extends DBConnection implements Initializable {
             Connection con = null;
             con = getConnection();
 
-            if(LoadedUser.getInstance().getUser().getType().toString().equals("EMP"))
-            {
-                System.out.println("USER IS A EMPLOYEE WHO IS MAKING THIS RESERVATION");
 
-            }
 
             System.out.println(hotel.getHotelId());//HOTEL_ID
             System.out.println(checkInDP.getValue().toString());
@@ -172,22 +168,36 @@ public class SharedBooking extends DBConnection implements Initializable {
             System.out.println(adultS.getValue().toString());//Adults
             System.out.println(childrenS.getValue().toString());//Children
             //CreateNewUser`(NEW_EMAIL VARCHAR(40), NEW_HASHED_PASSWORD CHAR(40), FNAME VARCHAR(40), USERTYPE VARCHAR(45))
-            CallableStatement CreateNew = con.prepareCall("{call hotel.CreateNewUser(?,?,?,?)}");
-            String TempPW = Hasher.getInstance("SHA-256").hash(emailTF.getText());
-            CreateNew.setString(1, emailTF.getText().toString());
-            CreateNew.setString(2,TempPW);
-            CreateNew.setString(3,nameTF.getText().toString());
-            CreateNew.setString(4,"CUST"); //<-will always be a customer from this scene
-            CreateNew.execute();
+            if(LoadedUser.getInstance().getUser().getType().toString().equals("EMP"))
+            {
+                System.out.println("USER IS A EMPLOYEE WHO IS MAKING THIS RESERVATION");
+                CallableStatement CreateNew = con.prepareCall("{call hotel.CreateNewUser(?,?,?,?)}");
+                String TempPW = Hasher.getInstance("SHA-256").hash(emailTF.getText());
+                CreateNew.setString(1, emailTF.getText().toString());
+                CreateNew.setString(2,TempPW);
+                CreateNew.setString(3,nameTF.getText().toString());
+                CreateNew.setString(4,"CUST"); //<-will always be a customer from this scene
+                CreateNew.execute();
 
-
-            CallableStatement callableStatement = con.prepareCall("{call hotel.getID(?,?)}");
-            callableStatement.setString(1,nameTF.getText().toString());
-            callableStatement.setString(2,"CUST");
-            ResultSet rs = callableStatement.executeQuery();
-            while(rs.next()){
-                userID = rs.getInt("ID");
+                CallableStatement callableStatement = con.prepareCall("{call hotel.getID(?,?)}");
+                callableStatement.setString(1,nameTF.getText().toString());
+                callableStatement.setString(2,"CUST");
+                ResultSet rs = callableStatement.executeQuery();
+                while(rs.next()){
+                    userID = rs.getInt("ID");
+                }
+            }else{
+                CallableStatement callableStatement = con.prepareCall("{call hotel.getID(?,?)}");
+                callableStatement.setString(1,LoadedUser.getInstance().getUser().getFirstName().toString());
+                callableStatement.setString(2,"CUST");
+                ResultSet rs = callableStatement.executeQuery();
+                while(rs.next()){
+                    userID = rs.getInt("ID");
+                }
             }
+
+
+
 
 
             System.out.println(userID);//custID
