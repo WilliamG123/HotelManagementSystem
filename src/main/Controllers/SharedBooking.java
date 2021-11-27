@@ -176,6 +176,7 @@ public class SharedBooking extends DBConnection implements Initializable {
             System.out.println(checkOutDP.getValue().toString());
             System.out.println(adultS.getValue().toString());//Adults
             System.out.println(childrenS.getValue().toString());//Children
+            CallableStatement CreateNew = con.prepareCall("{call hotel.BookRooms(?,?,?,?,?,?,?,?,?)}");
 /**
             for(int i = 0; i < cartList.size(); i++) {
 
