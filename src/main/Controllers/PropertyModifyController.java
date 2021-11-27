@@ -88,21 +88,14 @@ public class PropertyModifyController extends DBConnection {
     }
 
     public void initialize(){
-        File file = new File("Res/images/hotels/" + property.getPropertyName());
-        Image image = new Image(file.toURI().toString());
-        ImageView im = new ImageView();
-        im.setImage(image);
-        im.setPreserveRatio(true);
-        im.setFitHeight(280);
-        im.setFitWidth(280);
-        hotelImage.setImage(im.getImage());
+        hotelImage.setImage(property.getPhoto().getImage());
+        hotelImage = property.getPhoto();
         try {
             initializeAmenities();
             initializeRooms();
         }catch(SQLException e){
             e.printStackTrace();
         }
-//        hotelImage = im;
         hotelName.setText(property.getPropertyName());
         hotelAddress.setText(property.getAddress());
         hotelDesc.setText(property.getDesc());
@@ -136,8 +129,8 @@ public class PropertyModifyController extends DBConnection {
     }
 
     private void handleModify() throws SQLException {
+        Stage stage = (Stage) anchor.getScene().getWindow();
         if(modifiedCheck()){
-            Stage stage = (Stage) anchor.getScene().getWindow();
             String modifiedHotelName = hotelName.getText();
             String modifiedHotelAddress = hotelAddress.getText();
             String modifiedHotelDesc = hotelDesc.getText();
@@ -149,6 +142,8 @@ public class PropertyModifyController extends DBConnection {
             ps.setInt(4, property.getPropertyId());
             ps.executeUpdate();
             Toast.makeText(stage, "Modification successful!", 2000, 500, 500);
+        }else{
+            Toast.makeText(stage, "No modifications made", 2000, 500, 500);
         }
     }
 
