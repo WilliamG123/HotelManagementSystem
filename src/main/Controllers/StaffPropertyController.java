@@ -59,7 +59,6 @@ public class StaffPropertyController extends DBConnection implements Initializab
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.print("test");
 
         Scene scene = new Scene(newScene);
         Stage window = (Stage)((Node) event.getSource()).getScene().getWindow();
@@ -93,7 +92,7 @@ public class StaffPropertyController extends DBConnection implements Initializab
                 return;
             }else if(event.getSource() == modifyBtn){
                 Property property = propertiesTable.getSelectionModel().getSelectedItem();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("PropertyModify.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("PropetyModify.fxml"));
                 PropertyModifyController controller = new PropertyModifyController(property);
                 loader.setController(controller);
                 AnchorPane newScene = loader.load();
