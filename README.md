@@ -4,6 +4,7 @@
 1. [Overview](#Overview)
 1. [User Stories](#User-Stories)
 1. [Wireframes](#Wireframes)
+1. [Interactive Prototype](#Interactive-Prototype)
 
 ## Overview
 
