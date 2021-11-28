@@ -1,3 +1,5 @@
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
@@ -18,10 +20,18 @@ public class Reservation {
     private int resID;
     private List<Room> rooms;
     List<Integer> dyanmicData; // for tracking reservation data across currently implemented between login & sharedbooking
-
+    private ImageView photo;
     // empty constructor
     public Reservation() {
         this.dyanmicData = new ArrayList<>();
+    }
+
+    public ImageView getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(ImageView photo) {
+        this.photo = photo;
     }
 
     // Constructor specifically made for StaffReservation scene do not change
