@@ -20,6 +20,7 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.time.LocalDate;
 
@@ -127,20 +128,27 @@ public class StaffAccountsController extends DBConnection implements Initializab
         usersTable.setItems(usersList);
     }
 
-
-// ...
-
-
-
     private void handleUserDelete() throws SQLException {
         User user = usersTable.getSelectionModel().getSelectedItem();
-        usersList.remove(user);
-        String query = "delete from users where email = ?";
-        PreparedStatement preparedStmt = conn.prepareStatement(query);
-        preparedStmt.setString(1, user.getEmail());
 
-        // execute the preparedstatement
-        preparedStmt.execute();
+        ButtonType deleteBtn = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        Alert alert = new Alert(Alert.AlertType.NONE,"Please confirm the deletion of the user: " + user.getFirstName() + " " + user.getLastName(), deleteBtn, cancelBtn);
+        alert.setTitle("Deletion Confirmation");
+        //alert.setContentText("Please confirm reservation deletion");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        // if user confirmed reservation deletion
+        if(result.orElse(cancelBtn) == deleteBtn){
+            System.out.println("Delete");
+            usersList.remove(user);
+            String query = "delete from users where email = ?";
+            PreparedStatement preparedStmt = conn.prepareStatement(query);
+            preparedStmt.setString(1, user.getEmail());
+
+            // execute the preparedstatement
+            preparedStmt.execute();
+        }
     }
 
     @FXML
