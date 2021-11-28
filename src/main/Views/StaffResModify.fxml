@@ -104,8 +104,8 @@
          </font>
       </Text>
       <TextArea fx:id="roomsTA" editable="false" layoutX="241.0" layoutY="417.0" prefHeight="94.0" prefWidth="448.0" />
-      <DatePicker fx:id="checkInDP" layoutX="246.0" layoutY="571.0" prefHeight="51.0" prefWidth="277.0" />
-      <DatePicker fx:id="checkOutDP" layoutX="246.0" layoutY="676.0" prefHeight="47.0" prefWidth="277.0" />
+      <DatePicker fx:id="checkInDP" layoutX="246.0" layoutY="571.0" prefHeight="51.0" prefWidth="277.0" stylesheets="@date_picker.css" />
+      <DatePicker fx:id="checkOutDP" layoutX="246.0" layoutY="676.0" prefHeight="47.0" prefWidth="277.0" stylesheets="@date_picker.css" />
       <HBox alignment="CENTER" prefHeight="85.0" prefWidth="1400.0" spacing="100.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hotelverse">
