@@ -9,8 +9,8 @@ import java.util.List;
 public interface UserDAO {
 
     public int add(User user)
-            throws SQLException;
-    public void delete(int id)
+            throws SQLException, ClassNotFoundException;
+    public void delete(String email)
             throws SQLException;
     public User getUser(String EMAIL)
             throws SQLException, NoSuchAlgorithmException;

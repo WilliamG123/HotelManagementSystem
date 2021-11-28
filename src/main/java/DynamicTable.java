@@ -52,11 +52,11 @@ public class DynamicTable extends Application {
         try {
             c = DBConnect.connect();
             //SQL FOR SELECTING ALL OF TABLENAME
-            String SQL = "SELECT * from ?";
+            String SQL = "SELECT * from users";
 
             PreparedStatement preparedStatement = c.prepareStatement(SQL);
 
-            preparedStatement.setString(1, "users");
+            //preparedStatement.setString(1, "users");
 
             //ResultSet
             ResultSet rs = preparedStatement.executeQuery();

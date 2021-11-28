@@ -52,6 +52,7 @@ public class SharedBooking extends DBConnection implements Initializable {
     @FXML private Text infoT;
     @FXML private Text loginoutTV;
     @FXML private Text mainmenuTV;
+    @FXML private Text TotalCostTF;
     @FXML private TextArea descriptionTF;
     @FXML private TextField nameTF;
     @FXML private TextField emailTF;
@@ -87,6 +88,7 @@ public class SharedBooking extends DBConnection implements Initializable {
     private boolean employeeCheck; // checks to see if employee logged in for extra functionality
     LocalDate today = LocalDate.now();
     LocalDate future = LocalDate.now().plusMonths(1);
+    double total = 0;
     private Reservation getUserInput() {
         Reservation reservation = new Reservation();
         LocalDate checkin = checkInDP.getValue();
@@ -263,6 +265,8 @@ public class SharedBooking extends DBConnection implements Initializable {
     }
 
     private void queryTotal() throws ClassNotFoundException, SQLException {
+
+        TableColumn<Room, String> price2Column;
 // TODO: 11/18/2021 set up query for getting total cost
         // this code could be helpful to manually calculate it
         // https://stackoverflow.com/questions/4600034/calculate-number-of-weekdays-between-two-dates-in-java
@@ -622,6 +626,8 @@ public class SharedBooking extends DBConnection implements Initializable {
                     exists = true;
                     cartList.get(i).setAmountAvailable(cartList.get(i).getAmountAvailable() - 1);
                     cartList.get(i).setPrice(cartList.get(i).getPrice() - room.getPrice());
+                    total = cartList.get(i).getPrice();
+                    TotalCostTF.setText(String.valueOf(total));
                     if(cartList.get(i).getAmountAvailable() == 0) {
                         cartList.remove(cartList.get(i));
                     }
@@ -640,8 +646,11 @@ public class SharedBooking extends DBConnection implements Initializable {
             } else {
                 for(int i = 0; i < cartList.size(); i++) {
                     if(room.getType().equals(cartList.get(i).getType())) {
+
                         cartList.get(i).setAmountAvailable(cartList.get(i).getAmountAvailable() + 1);
                         cartList.get(i).setPrice(cartList.get(i).getPrice() + room.getPrice());
+                        total = cartList.get(i).getPrice();
+                        TotalCostTF.setText(String.valueOf(total));
                         exists = true;
                         break;
                     }
