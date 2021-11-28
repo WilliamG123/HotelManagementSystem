@@ -126,11 +126,16 @@ public class StaffResModify implements Initializable {
                     newScene = FXMLLoader.load(getClass().getResource("UserMainMenu.fxml"));
                 else if (LoadedUser.getInstance().getUser().getType().equals("EMP"))
                     newScene = FXMLLoader.load(getClass().getResource("StaffMainMenu.fxml"));
-            }else if(event.getSource() == logoutTV){
+            } else if(event.getSource() == logoutTV) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
                 LoginController controller = new LoginController();
                 loader.setController(controller);
                 newScene = loader.load();
+            } else if(event.getSource() == returnTF) {
+                if (LoadedUser.getInstance().getUser().getType().equals("CUST"))
+                    newScene = FXMLLoader.load(getClass().getResource("UserManage.fxml"));
+                else if (LoadedUser.getInstance().getUser().getType().equals("EMP"))
+                    newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
             }
         } catch (IOException e) {
             e.printStackTrace();

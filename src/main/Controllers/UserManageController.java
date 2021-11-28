@@ -149,6 +149,7 @@ public class UserManageController extends DBConnection implements Initializable 
         // set up query for all reservations
         query.setLength(0);
         //getQuery();
+// TODO: 11/27/2021 change query to only get the reservations for the current user
         query.append("SELECT * FROM reservation;");
         // query the database
         ResultSet rs = conn.createStatement().executeQuery(query.toString());
@@ -241,7 +242,6 @@ public class UserManageController extends DBConnection implements Initializable 
             Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
         }
 
-        // TODO: 10/30/2021 need to find out proper query to get hotel name & guest name
         /*if(!hotel.equals("")){
             query.append(" hotelName=?");
             appended = true;
@@ -330,21 +330,6 @@ public class UserManageController extends DBConnection implements Initializable 
             resList.add(res);
             System.out.println(res);
         } while(rs.next());
-
-        // TODO: 11/3/2021 delete once the DB is populated with data
-        // hard coded data since not a lot of DB data
-        LocalDate checkin1 = LocalDate.now();
-        LocalDate checkout1 = checkin1.plusDays(4);
-        LocalDate checkin2 = checkout1.plusDays(10);
-        LocalDate checkout2 = checkin2.plusDays(4);
-        LocalDate checkin3 = checkout2.plusDays(10);
-        LocalDate checkout3 = checkin3.plusDays(4);
-        Reservation w = new Reservation("William", "La Quinta", checkin1, checkout1, 230.50, 123647861);
-        Reservation f = new Reservation("Filberto", "HolidayInn", checkin2, checkout2, 360.29, 978546312);
-        Reservation e = new Reservation("Edgar", "Hilton", checkin3, checkout3, 590.13, 123456789);
-        resList.add(w);
-        resList.add(f);
-        resList.add(e);
     }
 
     // pops up alert dialog window to confirm deletion of reservation and then queries DB to do so
@@ -360,7 +345,7 @@ public class UserManageController extends DBConnection implements Initializable 
         // if user confirmed reservation deletion
         if(result.orElse(cancelBtn) == deleteBtn){
             System.out.println("Delete");
-            // TODO: 11/3/2021 write a query to delete a reservation from the DB
+// TODO: 11/3/2021 write a query to delete a reservation from the DB
         }
 
         resList.clear();
