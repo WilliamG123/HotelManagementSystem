@@ -92,7 +92,7 @@ public class UserProfileController extends DBConnection implements Initializable
                     ps.setString(1, toModify.getFirstName());
                     ps.setString(2, toModify.getLastName());
                     ps.setString(3, toModify.getPhoneNumber());
-                    ps.setString(4, toModify.getPassword());
+                    ps.setString(4, Hasher.getInstance("SHA-256").hash(toModify.getPassword()));
                     ps.setDate(5, Date.valueOf(toModify.getDob()));
                     ps.setString(6, toModify.getEmail());
                     ps.executeUpdate();
@@ -105,9 +105,8 @@ public class UserProfileController extends DBConnection implements Initializable
             try {
                 if (LoadedUser.getInstance().getUser().getType().equals("CUST")) {
                     newScene = FXMLLoader.load(getClass().getResource("UserCreate.fxml"));
-                } else if (LoadedUser.getInstance().getUser().getType().equals("EMP")) {
-                    newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));
-                }
+                }else if (LoadedUser.getInstance().getUser().getType().equals("EMP")) {
+                    newScene = FXMLLoader.load(getClass().getResource("StaffReservation.fxml"));}
             }catch(IOException e){
                 e.printStackTrace();
             }
@@ -126,7 +125,7 @@ public class UserProfileController extends DBConnection implements Initializable
         String lastName = lastNameTF.getText();
         String phoneNumber = phoneTF.getText();
         String password = passwordField.getText();
-        String hashed = (password == null) ? null : Hasher.getInstance("SHA-256").hash(password);
+        String hashed = (password == null) ? toModify.getPassword() : Hasher.getInstance("SHA-256").hash(password);
         LocalDate dob = dobPicker.getValue();
 
         if(!Validators.isValidPhoneNumber(phoneNumber)){
@@ -176,15 +175,17 @@ public class UserProfileController extends DBConnection implements Initializable
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("USER PROFILE CONTROLLER");
         toModify = LoadedUser.getInstance().getUser();
         usernameTF.setText(toModify.getEmail());
         firstNameTF.setText(toModify.getFirstName());
         lastNameTF.setText(toModify.getLastName());
         phoneTF.setText(toModify.getPhoneNumber());
         dobPicker.setValue(toModify.getDob());
+        passwordField.setText(toModify.getPassword());
+        passwordField.setSkin(passwordField.getSkin());
 
         saveBtn.setDisable(true);
-
         usernameTF.setEditable(false);
         firstNameTF.setEditable(false);
         lastNameTF.setEditable(false);
