@@ -1,6 +1,7 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -43,7 +45,8 @@ public class UserManageController extends DBConnection implements Initializable 
     @FXML private ObservableList<Reservation> resList;
     private Connection conn;
     private StringBuilder query;
-
+    LocalDate today = LocalDate.now();
+    LocalDate future = LocalDate.now().plusMonths(1);
     /*****************************************************************
      *                     sceneChange Function
      * @param event
@@ -110,6 +113,18 @@ public class UserManageController extends DBConnection implements Initializable 
      *****************************************************************/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        checkInDP.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+
+
+                setDisable(empty || date.compareTo(today) < 0 );
+            }
+        });
+        restrictDatePicker(checkInDP);
+        restrictDatePicker(checkOutDP);
+
         System.out.println("USER MANAGE CONTROLLER . JAVA ");
         // get list of reservations
         resList = FXCollections.observableArrayList();
@@ -269,7 +284,31 @@ public class UserManageController extends DBConnection implements Initializable 
         checkInDP.setValue(null);
         checkOutDP.setValue(null);
     }
+    EventHandler<MouseEvent> mouseClickedEventHandler = clickEvent -> {
+        if (clickEvent.getButton() == MouseButton.PRIMARY) {
 
+        }
+        clickEvent.consume();
+    };
+    public void restrictDatePicker(DatePicker datePicker) {
+        datePicker.setDayCellFactory((DatePicker param) -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    //...
+                    addEventHandler(MouseEvent.MOUSE_CLICKED, mouseClickedEventHandler);
+                } else {
+                    //...
+                    removeEventHandler(MouseEvent.MOUSE_CLICKED, mouseClickedEventHandler);
+                }
+                if (item.isBefore(today)) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #FF4500;");
+                }
+            }
+        });
+    }
     /*****************************************************************
      *                     addReservations Method
      * @param rs - holds reservations data from DB

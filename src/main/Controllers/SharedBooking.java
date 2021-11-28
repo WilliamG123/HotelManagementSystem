@@ -86,7 +86,7 @@ public class SharedBooking extends DBConnection implements Initializable {
     private boolean recievedInfo; // boolean check if we received data from login
     private boolean employeeCheck; // checks to see if employee logged in for extra functionality
     LocalDate today = LocalDate.now();
-    LocalDate future = LocalDate.now().plusYears(1);
+    LocalDate future = LocalDate.now().plusMonths(1);
     private Reservation getUserInput() {
         Reservation reservation = new Reservation();
         LocalDate checkin = checkInDP.getValue();
