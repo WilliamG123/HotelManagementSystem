@@ -56,10 +56,10 @@
       </TableView>
       <TextField fx:id="hotelTF" layoutX="131.0" layoutY="165.0" prefHeight="50.0" prefWidth="238.0" promptText="Enter hotel name">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font></TextField>
-      <DatePicker fx:id="checkInDP" layoutX="686.0" layoutY="165.0" prefHeight="50.0" prefWidth="238.0" promptText="Select check in date" />
-      <DatePicker fx:id="checkOutDP" layoutX="960.0" layoutY="165.0" prefHeight="50.0" prefWidth="238.0" promptText="select checkout date" />
+      <DatePicker fx:id="checkInDP" layoutX="686.0" layoutY="165.0" prefHeight="50.0" prefWidth="238.0" promptText="Select check in date" stylesheets="@date_picker.css" />
+      <DatePicker fx:id="checkOutDP" layoutX="960.0" layoutY="165.0" prefHeight="50.0" prefWidth="238.0" promptText="select checkout date" stylesheets="@date_picker.css" />
       <Text layoutX="712.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
          <font>
             <Font size="30.0" />
@@ -93,7 +93,7 @@
       </Button>
       <TextField fx:id="nameTF" layoutX="410.0" layoutY="165.0" prefHeight="50.0" prefWidth="238.0" promptText="Enter full name">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font></TextField>
       <Text layoutX="447.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guest name:">
          <font>

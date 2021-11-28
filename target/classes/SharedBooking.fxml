@@ -61,13 +61,13 @@
             <Font size="28.0" />
          </font>
       </Text>
-      <DatePicker fx:id="checkInDP" layoutX="1146.0" layoutY="108.0" prefHeight="37.0" prefWidth="227.0" />
+      <DatePicker fx:id="checkInDP" layoutX="1146.0" layoutY="108.0" prefHeight="37.0" prefWidth="227.0" stylesheets="@date_picker.css" />
       <Text fx:id="checkOutTF" layoutX="992.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out:">
          <font>
             <Font size="28.0" />
          </font>
       </Text>
-      <DatePicker fx:id="checkOutDP" layoutX="1145.0" layoutY="194.0" prefHeight="37.0" prefWidth="227.0" />
+      <DatePicker fx:id="checkOutDP" layoutX="1145.0" layoutY="194.0" prefHeight="37.0" prefWidth="227.0" stylesheets="@date_picker.css" />
       <Text layoutX="1033.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adults:" wrappingWidth="91.78709983825684">
          <font>
             <Font size="28.0" />
