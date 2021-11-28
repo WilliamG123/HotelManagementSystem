@@ -28,7 +28,6 @@ public class UserManageController extends DBConnection implements Initializable 
     @FXML private TableView<Reservation> resTable;
     @FXML private Text mainmenuTV;
     @FXML private Text logoutTV;
-    @FXML private TableColumn<Reservation, String> userIDColumn;
     @FXML private TableColumn<Reservation, String> hotelColumn;
     @FXML private TableColumn<Reservation, String> checkInColumn;
     @FXML private TableColumn<Reservation, String> checkOutColumn;
@@ -159,7 +158,6 @@ public class UserManageController extends DBConnection implements Initializable 
 
         if(rs.next()){
             addReservations(rs);
-            userIDColumn.setCellValueFactory(new PropertyValueFactory<>("custId"));
             hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotelName"));
             checkInColumn.setCellValueFactory(new PropertyValueFactory<>("checkIn"));
             checkOutColumn.setCellValueFactory(new PropertyValueFactory<>("checkOut"));
