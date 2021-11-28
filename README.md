@@ -1,19 +1,26 @@
-# Hotel Management System
+# Hotelverse
 
 ## Table of Contents
 1. [Overview](#Overview)
 1. [User Stories](#User-Stories)
 1. [Wireframes](#Wireframes)
+1. [Interactive Prototype](#Interactive-Prototype)
 
 ## Overview
 
 ### Description
-JavaFx Application that is a hotel booking software developed for use of customers & employees using it
+Hotelverse is a hotel management system that allows an organization’s userbase to make accounts to book and manage reservations at hotels that are listed and managed by the organization. The organization has full control over the software and can manage their properties listed, user reservations, and the account system. 
+
+### Tech Stack
+Hotelverse is a JavaFx program written using Java for the core logic, FXML using SceneBuilder for the front end, and CSS for the front-end styling. Hotelverse’s back-end is powered with a JDBC connection with a MYSQL Google Cloud database through a socket.
 
 ### Team
 * Product Manager/Developer - Brandon Muller
 * William Galindo - Developer/Database Administrator
 * Filiberto Rios - Lead developer
+
+### Notes
+For a in depth look at Hotelverse check out the Hotelverse_Report.docx file
 
 ## User Stories
 

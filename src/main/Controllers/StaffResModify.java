@@ -5,10 +5,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.time.temporal.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -42,7 +46,7 @@ public class StaffResModify implements Initializable {
     @FXML private Text logoutTV;
     @FXML private Text mainmenuTV;
     @FXML private TextArea roomsTA;
-
+    @FXML private ImageView hotelIV;
     private Reservation reservation;
     private String accountType;
 
@@ -114,6 +118,8 @@ public class StaffResModify implements Initializable {
         childrenTF.setText("Children: " + reservation.getChildren());
         //daysTF.setText("Total days: " + reservation.);
         priceTF.setText("Total price: " + reservation.getCost());
+
+        hotelIV.setImage(reservation.getPhoto().getImage());
         //roomsTA.setText();
     }
 

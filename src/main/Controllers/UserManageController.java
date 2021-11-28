@@ -9,12 +9,15 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -25,6 +28,7 @@ import java.util.ResourceBundle;
 
 public class UserManageController extends DBConnection implements Initializable {
 
+
     @FXML private TableView<Reservation> resTable;
     @FXML private Text mainmenuTV;
     @FXML private Text logoutTV;
@@ -33,6 +37,7 @@ public class UserManageController extends DBConnection implements Initializable 
     @FXML private TableColumn<Reservation, String> checkOutColumn;
     @FXML private TableColumn<Reservation, String> costColumn;
     @FXML private TableColumn<Reservation, String> resNumColumn;
+    @FXML private TableColumn<Reservation, String> image;
     @FXML private TextField hotelTF;
     @FXML private TextField resNumTF;
     @FXML private TextField nameTF;
@@ -47,6 +52,7 @@ public class UserManageController extends DBConnection implements Initializable 
     private StringBuilder query;
     LocalDate today = LocalDate.now();
     LocalDate future = LocalDate.now().plusMonths(1);
+    int userID;
     /*****************************************************************
      *                     sceneChange Function
      * @param event
@@ -113,7 +119,6 @@ public class UserManageController extends DBConnection implements Initializable 
      *****************************************************************/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         checkInDP.setDayCellFactory(picker -> new DateCell() {
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
@@ -124,6 +129,12 @@ public class UserManageController extends DBConnection implements Initializable 
         });
         restrictDatePicker(checkInDP);
         restrictDatePicker(checkOutDP);
+        image.setCellValueFactory(new PropertyValueFactory<>("photo"));
+        hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotelName"));
+        checkInColumn.setCellValueFactory(new PropertyValueFactory<>("checkIn"));
+        checkOutColumn.setCellValueFactory(new PropertyValueFactory<>("checkOut"));
+        costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        resNumColumn.setCellValueFactory(new PropertyValueFactory<>("resID"));
 
         System.out.println("USER MANAGE CONTROLLER . JAVA ");
         // get list of reservations
@@ -145,34 +156,31 @@ public class UserManageController extends DBConnection implements Initializable 
      *****************************************************************/
     // TODO: 10/29/2021  Need to read in data and put into listview and then set up the detailed view
     public void populateListView() throws SQLException{
-        // set up query for all reservations
-        query.setLength(0);
-        //getQuery();
-// TODO: 11/27/2021 change query to only get the reservations for the current user
-        query.append("SELECT * FROM reservation;");
-        // query the database
-        ResultSet rs = conn.createStatement().executeQuery(query.toString());
-        ResultSetMetaData rsmd = rs.getMetaData();
-        System.out.println("Log: querying SELECT * FROM reservation");
-        int columnsNumber = rsmd.getColumnCount();
-
-        if(rs.next()){
-            addReservations(rs);
-            hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotelName"));
-            checkInColumn.setCellValueFactory(new PropertyValueFactory<>("checkIn"));
-            checkOutColumn.setCellValueFactory(new PropertyValueFactory<>("checkOut"));
-            costColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
-            resNumColumn.setCellValueFactory(new PropertyValueFactory<>("resID"));
+        Connection con = null;
+        try {
+            con = getConnection();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-        // while loop prints out all result set data
-        /*while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
-                String columnValue = rs.getString(i);
-                System.out.print(columnValue + " " + rsmd.getColumnName(i));
-            }
-            System.out.println("");
-        }*/
+        CallableStatement callableStatement = con.prepareCall("{call hotel.getID(?,?)}");
+        callableStatement.setString(1,LoadedUser.getInstance().getUser().getFirstName().toString());
+        callableStatement.setString(2,"CUST");
+        ResultSet rs = callableStatement.executeQuery();
+        while(rs.next()){
+            userID = rs.getInt("ID");
+        }
+        System.out.println(userID+"<-USER ID");
+
+        CallableStatement cs = con.prepareCall("{call hotel.UserManageFilter(?, ?, ?, ?)}");
+        cs.setInt(1, userID);
+        cs.setString(2, "");
+        cs.setDate(3, null);
+        cs.setDate(4, null);
+        ResultSet rs2 = cs.executeQuery();
+
+        if(rs2.next()){
+            addReservations(rs2);
+        }
 
         resTable.setItems(resList);
     }
@@ -185,99 +193,74 @@ public class UserManageController extends DBConnection implements Initializable 
      *****************************************************************/
     @FXML
     private void handleFilter(ActionEvent event) throws SQLException {
-        if(event.getSource() == resetBtn){
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        if (event.getSource() == resetBtn) {
             resList.clear();
             populateListView();
-        }else{
-            HashMap<Integer, Object> statementValues = new HashMap<>();
-            query.setLength(0);
-            query.append("SELECT * FROM reservation");
+        } else {
+            LocalDate checkin = checkInDP.getValue();
+            LocalDate checkout = checkOutDP.getValue();
+            String hotel = hotelTF.getText().toString();
 
-            if(buildQuery(statementValues, event)){
-                PreparedStatement ps = conn.prepareStatement(query.toString());
-                for(Integer key : statementValues.keySet()) {
-                    Object obj = statementValues.get(key);
-                    if(obj instanceof String) {
-                        ps.setString(key, (String)obj);
-                    }
-                    else if(obj instanceof LocalDate) {
-                        ps.setDate(key, Date.valueOf((LocalDate) obj));
-                    }
-                }
-                System.out.println(ps);
-                ResultSet rs = ps.executeQuery();
-                if(rs.next()){
-                    resList.clear();
-                    addReservations(rs);
-                } else{
-                    System.out.println("no query built");
+            System.out.println(hotel);
+
+            System.out.println("TESTING");
+            if (hotel.equals("")  && checkin == null && checkout == null) {
+                Toast.makeText(stage, "Error: no filter information given", 2000, 500, 500);
+            } else if (checkin != null && checkout != null) {
+                if (checkin.isAfter(checkout)) {
+                    Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
                 }
             }
-            resetSearchFields();
+            System.out.println("TESTING");
+
+            Connection con = null;
+            try {
+                con = getConnection();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            CallableStatement callableStatement = con.prepareCall("{call hotel.UserManageFilter(?, ?, ?, ?)}");
+            callableStatement.setInt(1, userID);
+            System.out.println(userID+"<-USER ID in handle ");
+            callableStatement.setString(2, hotel);
+            if (checkin != null)
+                callableStatement.setDate(3, Date.valueOf(checkInDP.getValue()));
+            else
+                callableStatement.setDate(3, null);
+            if (checkout != null)
+                callableStatement.setDate(4, Date.valueOf(checkOutDP.getValue()));
+            else
+                callableStatement.setDate(4, null);
+            ResultSet rs = callableStatement.executeQuery();
+
+            resList.clear();
+
+            while (rs.next()) {
+                Reservation r = new Reservation();
+                File file = new File("Res/images/hotels/" + rs.getString("hotel_image"));
+                Image image = new Image(file.toURI().toString());
+                ImageView im = new ImageView();
+                im.setImage(image);
+                im.setPreserveRatio(true);
+                im.setFitHeight(150);
+                im.setFitWidth(200);
+                r.setPhoto(im);
+
+                r.setHotelName(rs.getString("hotel_name"));
+                r.setCheckIn(rs.getDate("check_in").toLocalDate());
+                r.setCheckOut(rs.getDate("check_out").toLocalDate());
+                r.setCost(rs.getDouble("total_price"));
+                r.setResID(rs.getInt("reservationId"));
+                resList.add(r);
+
+            }
+            resTable.refresh();
+
         }
+
     }
-
-    /*****************************************************************
-     *                     buildQuery Method
-     * @param statementValues - HashMap holds the position of each query filter element and its corresponding SQL key
-     * - stores the filter TextField data and builds a query string based off of what is entered
-     *****************************************************************/
-    private boolean buildQuery(HashMap<Integer, Object> statementValues, ActionEvent event) {
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow(); // for displaying Toast error messages
-        int pos = 1; // tracks the position of elements in the query linking query questions marks to the corresponding hashmap value
-        boolean appended = false; // tracks whether anything is added or appended
-        query.append(" WHERE");
-
-        // stores filter TextField data
-        LocalDate checkin = checkInDP.getValue();
-        LocalDate checkout = checkOutDP.getValue();
-        String hotel = hotelTF.getText().toString();
-        String name = nameTF.getText().toString();
-
-        if(hotel.equals("") && name.equals("") && checkin == null && checkout == null){
-            Toast.makeText(stage, "Error: no filter information given", 2000, 500, 500);
-        } else if(checkin.isAfter(checkout)){
-            Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
-        }
-
-        /*if(!hotel.equals("")){
-            query.append(" hotelName=?");
-            appended = true;
-            statementValues.put(pos, phoneNumber);
-            pos++;
-        }
-        if(!name.equals("")){
-            if (appended) {
-                query.append(" AND");
-            }
-            query.append(" check_in=?");
-            appended = true;
-            statementValues.put(pos, checkin);
-            pos++;
-        }*/
-        if(checkin != null){
-            if (appended) {
-                query.append(" AND");
-            }
-            query.append(" check_in=?");
-            appended = true;
-            statementValues.put(pos, checkin);
-            pos++;
-        }
-        if(checkout != null){
-            if (appended) {
-                query.append(" AND");
-            }
-            query.append(" check_out=?");
-            appended = true;
-            statementValues.put(pos, checkout);
-            pos++;
-        }
-        query.append(";");
-
-        return appended;
-    }
-
     // method clears text all filter TextFields & Date Pickers
     private void resetSearchFields(){
         hotelTF.clear();
@@ -317,14 +300,19 @@ public class UserManageController extends DBConnection implements Initializable 
     private void addReservations(ResultSet rs) throws SQLException {
         do{
             Reservation res = new Reservation();
-            res.setResID(rs.getInt("reservationId"));
+            File file = new File("Res/images/hotels/" + rs.getString("hotel_image"));
+            Image image = new Image(file.toURI().toString());
+            ImageView im = new ImageView();
+            im.setImage(image);
+            im.setPreserveRatio(true);
+            im.setFitHeight(150);
+            im.setFitWidth(200);
+            res.setPhoto(im);
             res.setCost(rs.getDouble("total_price"));
             res.setCheckIn(rs.getDate("check_in").toLocalDate());
             res.setCheckOut(rs.getDate("check_out").toLocalDate());
-            res.setAdults(rs.getInt("adults"));
-            res.setChildren(rs.getInt("children"));
-            res.setHotelName("FixLater");
-            res.setCustId("Brandon");
+            res.setHotelName(rs.getString("hotel_name"));
+            res.setResID(rs.getInt("reservationId"));
             resList.add(res);
             System.out.println(res);
         } while(rs.next());

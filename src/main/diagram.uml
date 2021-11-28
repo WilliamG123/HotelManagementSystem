@@ -19,6 +19,7 @@
     <node x="1162.8235294117646" y="388.49264705882354">javafx</node>
     <node x="397.5588235294117" y="-68.39705882352939">UserManageController</node>
     <node x="527.9117647058823" y="15.970588235294116">SharedBooking</node>
+    <node x="-36.55882352941177" y="349.20588235294116">UserDAOImplementation</node>
     <node x="596.3823529411764" y="441.1801470588236">PropertyModifyController</node>
     <node x="602.8529411764706" y="77.47058823529414">CRUD</node>
     <node x="1334.3235294117646" y="480.49264705882354">oracle</node>
@@ -43,6 +44,7 @@
     <node x="-40.529411764706" y="-192.9264705882353">User</node>
     <node x="115.3529411764705" y="15.970588235294116">UserCreateController</node>
     <node x="1339.3235294117646" y="199.49264705882354">sun</node>
+    <node x="-75.3235294117647" y="239.97058823529414">UserDAO</node>
     <node x="-260.2058823529412" y="434.9411764705883">Toast</node>
     <node x="1333.3235294117646" y="250.49264705882354">animatefx</node>
     <node x="-260.2058823529412" y="259.55882352941177">Room</node>
@@ -61,6 +63,12 @@
   </nodes>
   <notes />
   <edges>
+    <edge source="UserDAOImplementation" target="DBConnection" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="420.88235294117646" y="364.70588235294116" />
+      <point x="420.88235294117646" y="173.25" />
+      <point x="0.0" y="0.0" />
+    </edge>
     <edge source="LoginController" target="User" relationship="GENERALIZATION">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
@@ -88,6 +96,12 @@
     <edge source="QueryTestTableController" target="QUERYS" relationship="GENERALIZATION">
       <point x="0.0" y="0.0" />
       <point x="356.0" y="708.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="UserDAOImplementation" target="UserDAO" relationship="REALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="72.94117647058823" y="320.6764705882353" />
+      <point x="-18.823529411764696" y="320.6764705882353" />
       <point x="0.0" y="0.0" />
     </edge>
     <edge source="PropertyCreateController" target="DBConnection" relationship="GENERALIZATION">
@@ -130,10 +144,8 @@
       <point x="0.0" y="0.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Compact" zoom="0.85" showDependencies="false" x="760.0" y="253.0" />
-  <SelectedNodes>
-    <node>StaffCreateUserController</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Compact" zoom="0.85" showDependencies="false" x="332.0" y="138.0" />
+  <SelectedNodes />
   <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
