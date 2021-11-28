@@ -43,8 +43,8 @@
             <Font name="AdobeDevanagari-Regular" size="38.0" />
          </font>
       </Text>
-      <DatePicker fx:id="checkinDP" layoutX="536.0" layoutY="177.0" prefHeight="40.0" prefWidth="278.0" />
-      <DatePicker fx:id="checkoutDP" layoutX="865.0" layoutY="177.0" prefHeight="40.0" prefWidth="278.0" />
+      <DatePicker fx:id="checkinDP" layoutX="536.0" layoutY="177.0" prefHeight="40.0" prefWidth="278.0" stylesheets="@date_picker.css" />
+      <DatePicker fx:id="checkoutDP" layoutX="865.0" layoutY="177.0" prefHeight="40.0" prefWidth="278.0" stylesheets="@date_picker.css" />
       <TextField fx:id="hotelTF" layoutX="203.0" layoutY="176.0" prefHeight="40.0" prefWidth="278.0">
          <font>
             <Font size="18.0" />
