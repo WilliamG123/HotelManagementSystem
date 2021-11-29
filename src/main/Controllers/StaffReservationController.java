@@ -284,7 +284,7 @@ public class StaffReservationController extends DBConnection implements Initiali
         // if user confirmed reservation deletion
         if(result.orElse(cancelBtn) == deleteBtn){
             System.out.println("Delete");
-            // TODO: 11/3/2021 write a query to delete a reservation from the DB
+// TODO: 11/3/2021 write a query to delete a reservation from the DB
         }
 
         resList.clear();
