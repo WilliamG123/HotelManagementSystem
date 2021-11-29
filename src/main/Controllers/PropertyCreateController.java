@@ -1,9 +1,15 @@
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -11,14 +17,23 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.net.URL;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 
-public class PropertyCreateController extends DBConnection {
+
+public class PropertyCreateController extends DBConnection implements Initializable {
+    public Button removeRoomBtn1;
+    public Button addRoomBtn;
+    public TableColumn style2Column;
+    public TableColumn amount2Column;
+    public TableView cartTV;
+    public ChoiceBox roomCB;
+    public TableColumn styleColumn;
+    public TableView roomTV;
     @FXML private Text mainmenuTV;
     @FXML private Text logoutTV;
     @FXML private TextField propertyNameField;
@@ -34,9 +49,24 @@ public class PropertyCreateController extends DBConnection {
     @FXML private Button resetBtn;
     @FXML private Button backBtn;
     @FXML private AnchorPane anchor;
+    @FXML private ObservableList<String> cartList;
 
     private final int initialValue = 1;
     Connection conn;
+
+
+    HashMap<String, Object> RType =
+            new HashMap<String, Object>();
+
+    private TableView<ObservableList<StringProperty>> table = new TableView<>();
+    private ArrayList<String> myList = new ArrayList<>();
+    ObservableList<StringProperty> roomTypes = FXCollections.observableArrayList();
+
+
+
+
+
+
 
     @FXML private void sceneChange(MouseEvent event){
         AnchorPane newScene = null;
@@ -59,6 +89,27 @@ public class PropertyCreateController extends DBConnection {
         window.show();
     }
 
+    public void populateRoomTypesTable() throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        con = getConnection();
+        ObservableList<String> typeStrings = FXCollections.observableArrayList();
+        CallableStatement callableStatement = con.prepareCall("{call hotel.getAllRoomTypesThatExist()}");
+        ResultSet rs = callableStatement.executeQuery();
+
+        while(rs.next()){
+
+            typeStrings.add(rs.getString("roomtypes"));
+
+
+        }
+
+        roomCB.setItems(typeStrings);
+        roomTV.setItems(typeStrings);
+
+        style2Column.setCellValueFactory(new PropertyValueFactory<>(typeStrings.toString()));
+    }
+
+
     @FXML private void handleButtons(ActionEvent event){
         if(event.getSource() == addBtn){
             handleAddProperty();
@@ -77,15 +128,12 @@ public class PropertyCreateController extends DBConnection {
             }
         }
     }
+    @FXML void roomChange(ActionEvent event) {
+        Stage stage = (Stage) anchor.getScene().getWindow(); // for displaying Toast error messages
+        String choice;
 
-    @FXML private void initialize(){
-        numberOfRoomsSelector.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 300, initialValue));
-        try {
-            conn = getConnection();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
+
 
     private void resetFields(){
         propertyAddressField.setText("");
@@ -94,8 +142,7 @@ public class PropertyCreateController extends DBConnection {
         amenitiesArea.setText("");
         basePriceField.setText("");
         weekendRateField.setText("");
-        numberOfRoomsSelector.getValueFactory().setValue(initialValue);
-        roomTypeArea.setText("");
+
     }
 
     private void handleAddProperty(){
@@ -125,11 +172,7 @@ public class PropertyCreateController extends DBConnection {
             errorString.append("\nInvalid amenities value");
         }
 
-        String roomTypesText = roomTypeArea.getText();
-        if(roomTypesText.equals("") || roomTypesText.equals(",") || roomTypesText.equals("\n")){
-            error = true;
-            errorString.append("\nInvalid room type value");
-        }
+
 
         String typeDescText = typeDescArea.getText();
         if(typeDescText.equals("") || typeDescText.equals(",") || typeDescText.equals("\n")){
@@ -158,55 +201,13 @@ public class PropertyCreateController extends DBConnection {
             return;
         }
 
-        int numberOfRooms = numberOfRoomsSelector.getValue();
-        int runningCount = 0;
-        String[] roomTypes = roomTypesText.split("\n");
-        String roomType;
-        int roomCount;
-        int startingRoomNumber;
-        ArrayList<Room> rooms = new ArrayList<>();
-        HashMap<String, Integer> typesCount = new HashMap<>();
-        for(String roomLine : roomTypes){
-            String[] roomComponents = roomLine.split(",");
-            roomType = roomComponents[0];
-            try{
-                roomCount = Integer.parseInt(roomComponents[1]);
-            }catch(NumberFormatException e){
-                Toast.makeText(stage, "Invalid room count value", 2000, 500, 500);
-                return;
-            }
-            typesCount.put(roomComponents[0], roomCount);
-            try{
-                startingRoomNumber = Integer.parseInt(roomComponents[2]);
-            }catch(NumberFormatException e){
-                errorString.append("Invalid starting room number value");
-                Toast.makeText(stage, "Invalid starting room number value", 2000, 500, 500);
-                return;
-            }
-            for(int i = 0; i < roomCount; i++){
-                Room room = new Room(startingRoomNumber++, price, roomType, 0, rate);
-                runningCount++;
-                if(runningCount > numberOfRooms){
-                    Toast.makeText(stage, "Number of rooms exceeded the total number of rooms. Nothing added", 2000, 500, 500);
-                    return;
-                }
-                rooms.add(room);
-            }
-        }
 
-        HashMap<String, String> roomsDesc = new HashMap<>();
-        for(String lines : typeDescText.split("\n")){
-            String[] components = lines.split(",");
-            if(components.length > 2){
-                Toast.makeText(stage, "Invalid type description value, too many commas\nNothing added",2000, 500, 500);
-                return;
-            }
-            roomsDesc.put(components[0], components[1]);
-        }
+/**
 
         String[] amenities = amenitiesText.split("\n");
         Property property = new Property(propertyNameText, propertyDescText, propertyAddressText, amenities, rooms, new ArrayList<>(), 0, numberOfRooms);
         try {
+
             CallableStatement callableStatement = conn.prepareCall("{call hotel.CreateNewHotel(?,?,?,?,?,?,?)}");
             callableStatement.setString(1, property.getPropertyName());
             callableStatement.setString(2, property.getAddress());
@@ -218,15 +219,38 @@ public class PropertyCreateController extends DBConnection {
             callableStatement.executeQuery();
 
             callableStatement = conn.prepareCall("{call hotel.updateBulkRoomTypes(?,?,?,?)}");
-            for(String key : roomsDesc.keySet()){
+
                 callableStatement.setString(1, key);
                 callableStatement.setString(2, roomsDesc.get(key));
                 callableStatement.setDouble(3, price);
                 callableStatement.setInt(4, typesCount.get(key));
                 callableStatement.executeQuery();
-            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+ **/
+}
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+
+        System.out.println("PROPERTY CREATE");
+        try {
+            conn = getConnection();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            populateRoomTypesTable();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
