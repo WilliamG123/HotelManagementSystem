@@ -68,6 +68,6 @@ For a in depth look at Hotelverse check out the Hotelverse_Report.docx file
 
 ### Interactive Prototype
 
-//<img src='demo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='demo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
