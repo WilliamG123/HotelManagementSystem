@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
  * - allows employee to modify the dates or delete reservation
  *****************************************************************/
 
-public class StaffResModify implements Initializable {
+public class StaffResModify extends DBConnection implements Initializable {
 
     @FXML private Text hNameTF;
     @FXML private Text hAddressTF;
@@ -48,6 +48,7 @@ public class StaffResModify implements Initializable {
     @FXML private Text mainmenuTV;
     @FXML private TextArea roomsTA;
     @FXML private ImageView hotelIV;
+    private Connection conn;
     private Reservation reservation;
     private String accountType;
 
@@ -87,7 +88,7 @@ public class StaffResModify implements Initializable {
     }
 
     // pops up alert dialog window to confirm deletion of reservation and then queries DB to do so
-    @FXML private void deleteRes() {
+    @FXML private void deleteRes() throws ClassNotFoundException, SQLException {
         System.out.println("Log: StaffResModify -> deleteBtn");
         ButtonType deleteBtn = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -98,7 +99,13 @@ public class StaffResModify implements Initializable {
 
         // if user confirmed reservation deletion
         if(result.orElse(cancelBtn) == deleteBtn){
+            PreparedStatement ps = null;
             System.out.println("Delete");
+            conn= getConnection();
+            ps = conn.prepareStatement("DELETE FROM reservation where reservationId = ?");
+            ps.setInt(1, reservation.getResID());
+            ps.execute();
+            System.out.println("Deleted");
 // TODO: 11/3/2021 write a query to delete a reservation from the DB
         }
     }
@@ -119,6 +126,11 @@ public class StaffResModify implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            conn = getConnection();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         //System.out.println("Log: StaffResModify Initialized");
         resIdTF.setText("Reservation: #" + reservation.getResID());
         hNameTF.setText(reservation.getHotelName());

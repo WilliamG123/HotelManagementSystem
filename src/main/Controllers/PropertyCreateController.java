@@ -3,6 +3,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,6 +36,8 @@ public class PropertyCreateController extends DBConnection implements Initializa
     public TableColumn styleColumn;
     public TableView roomTV;
     public ListView amenitiesLV;
+    public TextArea roomTotals;
+    public Spinner RatingSP;
     @FXML private Text mainmenuTV;
     @FXML private Text logoutTV;
     @FXML private TextField propertyNameField;
@@ -51,16 +54,20 @@ public class PropertyCreateController extends DBConnection implements Initializa
     @FXML private Button backBtn;
     @FXML private AnchorPane anchor;
     @FXML private ObservableList<String> cartList;
-
+    int count;
+    int rating;
+    String type;
     private final int initialValue = 1;
     Connection conn;
     ObservableList<String> typeStrings = FXCollections.observableArrayList();
+    ObservableList<String> values = FXCollections.observableArrayList();
+
 
     HashMap<String, Object> RType =
             new HashMap<String, Object>();
 
     private TableView<ObservableList<StringProperty>> table = new TableView<>();
-    private ArrayList<String> myList = new ArrayList<>();
+    private ArrayList<Integer> myList = new ArrayList<>();
     ObservableList<StringProperty> roomTypes = FXCollections.observableArrayList();
 
 
@@ -100,25 +107,34 @@ public class PropertyCreateController extends DBConnection implements Initializa
         while(rs.next()){
 
             typeStrings.add(rs.getString("roomtypes"));
-            amenitiesLV.getItems().add(rs.getString("roomtypes"));
-
         }
 
 
         roomCB.setItems(typeStrings);
 
 
-
-
     }
+    public void Display(){
+       ;
+    }
+    public void collectInput(){
+        System.out.println("pressed add");
+        type = (String) roomCB.getSelectionModel().getSelectedItem();
+         count = numberOfRoomsSelector.getValue();
+            rating = (int) RatingSP.getValue();
+    }
+
 
 
     @FXML private void handleButtons(ActionEvent event){
         if(event.getSource() == addBtn){
+            collectInput();
             handleAddProperty();
+
         }else if(event.getSource() == resetBtn){
             resetFields();
-        }else if(event.getSource() == backBtn){
+        }
+       else if(event.getSource() == backBtn){
             AnchorPane newScene;
             try{
                 newScene = FXMLLoader.load(getClass().getResource("StaffProperty.fxml"));
@@ -204,40 +220,42 @@ public class PropertyCreateController extends DBConnection implements Initializa
             return;
         }
 
-
-/**
-
         String[] amenities = amenitiesText.split("\n");
-        Property property = new Property(propertyNameText, propertyDescText, propertyAddressText, amenities, rooms, new ArrayList<>(), 0, numberOfRooms);
-        try {
 
+        try {
+//`CreateNewHotel`(HotelName VARCHAR(40), HotelAddress VARCHAR(40), HotelDesc VARCHAR(40), TotalRooms VARCHAR(40), HotelNumOfAmen INT, HotelRating INT, NightlyRate decimal(5,2))
             CallableStatement callableStatement = conn.prepareCall("{call hotel.CreateNewHotel(?,?,?,?,?,?,?)}");
-            callableStatement.setString(1, property.getPropertyName());
-            callableStatement.setString(2, property.getAddress());
-            callableStatement.setString(3, property.getDesc());
-            callableStatement.setString(4, Integer.toString(property.getNumberRooms()));
-            callableStatement.setInt(5, property.getNumberAmenities());
-            callableStatement.setInt(6, property.getRating());
+            callableStatement.setString(1, propertyNameField.getText());
+            callableStatement.setString(2, propertyAddressField.getText());
+            callableStatement.setString(3, propertyDescArea.getText());
+            callableStatement.setString(4, String.valueOf(count));
+            callableStatement.setInt(5, amenities.length);
+            callableStatement.setInt(6, (Integer) RatingSP.getValue());
             callableStatement.setDouble(7, price);
             callableStatement.executeQuery();
-
+//`updateBulkRoomTypes`(TypeName VARCHAR(40), TypeDesc VARCHAR(40), RoomRATE DOUBLE, QTY INT)
             callableStatement = conn.prepareCall("{call hotel.updateBulkRoomTypes(?,?,?,?)}");
 
-                callableStatement.setString(1, key);
-                callableStatement.setString(2, roomsDesc.get(key));
+                callableStatement.setString(1, type);
+                callableStatement.setString(2, propertyDescArea.getText());
                 callableStatement.setDouble(3, price);
-                callableStatement.setInt(4, typesCount.get(key));
+                callableStatement.setInt(4, count);
                 callableStatement.executeQuery();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
- **/
-}
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        final int initialValue = 3;
+
+
+
+
         try {
             populateRoomTypesTable();
         } catch (ClassNotFoundException e) {
@@ -245,8 +263,8 @@ public class PropertyCreateController extends DBConnection implements Initializa
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        cartList = FXCollections.observableArrayList();
-        cartTV.setItems(cartList);
+        //cartList = FXCollections.observableArrayList();
+        //cartTV.setItems(cartList);
 
 
 

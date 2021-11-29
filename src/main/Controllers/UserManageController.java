@@ -323,7 +323,8 @@ public class UserManageController extends DBConnection implements Initializable 
     }
 
     // pops up alert dialog window to confirm deletion of reservation and then queries DB to do so
-    @FXML private void deleteRes() throws SQLException {
+    @FXML private void deleteRes() throws SQLException, ClassNotFoundException {
+        Reservation reservation2Delete = resTable.getSelectionModel().getSelectedItem();
         System.out.println("Log: StaffResManagey -> deleteBtn");
         ButtonType deleteBtn = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -335,6 +336,14 @@ public class UserManageController extends DBConnection implements Initializable 
         // if user confirmed reservation deletion
         if(result.orElse(cancelBtn) == deleteBtn){
             System.out.println("Delete");
+            PreparedStatement ps = null;
+
+
+            conn= getConnection();
+            ps = conn.prepareStatement("DELETE FROM reservation where reservationId = ?");
+            ps.setInt(1, reservation2Delete.getResID());
+            ps.execute();
+            System.out.println("Deleted");
 // TODO: 11/3/2021 write a query to delete a reservation from the DB
         }
 
