@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.sql.*;
 import java.time.temporal.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
@@ -102,6 +103,20 @@ public class StaffResModify implements Initializable {
         }
     }
 
+    String getDays() throws SQLException, ClassNotFoundException {
+        String Days = null;
+        Connection con = DBConnect.getConnection();
+        CallableStatement callableStatement = con.prepareCall("{call hotel.getNumDays(?,?)}");
+        callableStatement.setDate(1, Date.valueOf(checkInDP.getValue()));
+        callableStatement.setDate(2, Date.valueOf(checkOutDP.getValue()));
+        ResultSet rs = callableStatement.executeQuery();
+        while(rs.next()){
+            Days = rs.getString("days");
+        }
+        return Days;
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //System.out.println("Log: StaffResModify Initialized");
@@ -114,7 +129,13 @@ public class StaffResModify implements Initializable {
         checkOutDP.setValue(reservation.getCheckOut());
         adultsTF.setText("Adults: " + reservation.getAdults());
         childrenTF.setText("Children: " + reservation.getChildren());
-        //daysTF.setText("Total days: " + reservation.);
+        try {
+            daysTF.setText("Total days: " + getDays());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         priceTF.setText("Total price: " + reservation.getCost());
 
         hotelIV.setImage(reservation.getPhoto().getImage());

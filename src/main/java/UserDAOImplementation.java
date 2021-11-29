@@ -8,24 +8,22 @@ import java.util.List;
 
 
 
-public class UserDAOImplementation extends DBConnection
-        implements UserDAO {
+public class UserDAOImplementation extends DBConnection implements UserDAO {
 
     Connection con = getConnection();
 
     public UserDAOImplementation() throws ClassNotFoundException {
+
     }
 
     @Override
     public int add(User user)
-            throws SQLException
-    {
-
+            throws SQLException, ClassNotFoundException {
+        Connection con = getConnection();
         String query
                 = "insert into users(email,password,fname,lname,phone,dob,usertype) "
                 + " VALUES (?, ?, ?, ?, ?, ?,?)";
-        PreparedStatement ps
-                = con.prepareStatement(query);
+        PreparedStatement ps = con.prepareStatement(query);
         ps.setString(1, user.getEmail());
         ps.setString(2, user.getPassword());
         ps.setString(3, user.getFirstName());
@@ -38,14 +36,14 @@ public class UserDAOImplementation extends DBConnection
     }
 
     @Override
-    public void delete(int id)
+    public void delete(String email)
             throws SQLException
     {
         String query
-                = "delete from employee where emp_id =?";
+                = "delete from users where email =?";
         PreparedStatement ps
                 = con.prepareStatement(query);
-        ps.setInt(1, id);
+        ps.setString(1, email);
         ps.executeUpdate();
     }
 

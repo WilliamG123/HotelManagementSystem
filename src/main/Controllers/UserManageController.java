@@ -253,6 +253,8 @@ public class UserManageController extends DBConnection implements Initializable 
                 r.setCheckOut(rs.getDate("check_out").toLocalDate());
                 r.setCost(rs.getDouble("total_price"));
                 r.setResID(rs.getInt("reservationId"));
+                r.setAdults(rs.getInt("adults"));
+                r.setChildren(rs.getInt("children"));
                 resList.add(r);
 
             }
@@ -313,6 +315,8 @@ public class UserManageController extends DBConnection implements Initializable 
             res.setCheckOut(rs.getDate("check_out").toLocalDate());
             res.setHotelName(rs.getString("hotel_name"));
             res.setResID(rs.getInt("reservationId"));
+            res.setAdults(rs.getInt("adults"));
+            res.setChildren(rs.getInt("children"));
             resList.add(res);
             System.out.println(res);
         } while(rs.next());
