@@ -1,3 +1,5 @@
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -48,18 +51,94 @@ public class StaffResModify extends DBConnection implements Initializable {
     @FXML private Text mainmenuTV;
     @FXML private TextArea roomsTA;
     @FXML private ImageView hotelIV;
+    @FXML private TextField YorN;
     private Connection conn;
     private Reservation reservation;
     private String accountType;
+    private Hotels hotel;
+    int userID;
+    LocalDate today = LocalDate.now();
+
+    @FXML private ObservableList<Room> roomTypes;
 
     public StaffResModify(Reservation reservation, String accountType) {
         this.reservation = reservation;
         this.accountType = accountType;
         System.out.println("Log: Reservation: \n" + reservation);
     }
+    public void populateRoomTable() throws ClassNotFoundException, SQLException {
+
+        Connection con = null;
+        con = getConnection();
+        CallableStatement callableStatement = con.prepareCall("{call hotel.getCountTypeAvailRooms2(?, ?, ?, ?)}");
+        callableStatement.setDate(3, Date.valueOf(checkInDP.getValue()));
+        callableStatement.setDate(4, Date.valueOf(checkOutDP.getValue()));
+        roomTypes = getRoomTypes();
+        ObservableList<String> typeStrings = FXCollections.observableArrayList();
+
+        for(Room r : roomTypes) {
+            System.out.println(r.getType() + " " + r.getAmountAvailable() + " " + r.getPrice());
+            typeStrings.add(r.getType());
+        }
+
+
+
+        for(int i = 0; i < roomTypes.size(); i++) {
+            callableStatement.setString(1, roomTypes.get(i).getType());
+            callableStatement.setString(2, reservation.getHotelName());
+
+            ResultSet rs = callableStatement.executeQuery();
+
+            rs.next();
+            roomTypes.get(i).setAmountAvailable(rs.getInt("count"));
+            roomTypes.get(i).setPrice(rs.getDouble("room_rate"));
+        }
+
+    }
+    public ObservableList<Room> getRoomTypes() throws ClassNotFoundException, SQLException {
+        ObservableList<Room> roomsTypes = FXCollections.observableArrayList();
+        Connection con = null;
+        con = getConnection();
+        CallableStatement callableStatement = con.prepareCall("{call hotel.getAllRoomTypes2(?)}");
+        callableStatement.setString(1, reservation.getHotelName());
+        ResultSet rs = callableStatement.executeQuery();
+
+        //loop through the resultSet & add each room type to the ArrayList
+        while (rs.next()) {
+            roomsTypes.add(new Room(rs.getString("type_name")));
+            System.out.println(rs.getString("room_type_desc"));
+        }
+        return roomsTypes;
+    }
+    public void restrictDatePicker(DatePicker datePicker) {
+        datePicker.setDayCellFactory((DatePicker param) -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    //...
+                    addEventHandler(MouseEvent.MOUSE_CLICKED, mouseClickedEventHandler);
+                } else {
+                    //...
+                    removeEventHandler(MouseEvent.MOUSE_CLICKED, mouseClickedEventHandler);
+                }
+                if (item.isBefore(today)) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #FF4500;");
+                }
+            }
+        });
+    }
+    EventHandler<MouseEvent> mouseClickedEventHandler = clickEvent -> {
+        if (clickEvent.getButton() == MouseButton.PRIMARY) {
+
+        }
+        clickEvent.consume();
+    };
+
 
     // modifies the dates based on what user puts in date picker
-    @FXML private void modifyDates(MouseEvent event) {
+    @FXML private void modifyDates(MouseEvent event) throws ClassNotFoundException, SQLException {
         System.out.println("Log: StaffResModify -> modifyBtn");
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
 
@@ -73,6 +152,20 @@ public class StaffResModify extends DBConnection implements Initializable {
             Toast.makeText(stage, "Error: Check in date cannot be after checkout", 2000, 500, 500);
         } else if(checkin.equals(reservation.getCheckIn()) && checkout.equals(reservation.getCheckOut())){
             Toast.makeText(stage, "Error: Dates not changed", 2000, 500, 500);
+        }else if(reservation.getCheckIn().isAfter(today)){
+            Toast.makeText(stage, "Error: Sorry cannot change dates for current active reservation", 2000, 500, 500);
+        }else if(reservation.getCheckIn().isBefore(today)){
+            YorN.setText("YES");
+            PreparedStatement ps = null;
+
+
+            conn= getConnection();
+            ps = conn.prepareStatement("UPDATE reservation set check_in = ? , check_out = ? where reservationId = ?");
+            ps.setDate(1, Date.valueOf(checkInDP.getValue()));
+            ps.setDate(1, Date.valueOf(checkOutDP.getValue()));
+            ps.setInt(1, reservation.getResID());
+            ps.execute();
+            System.out.println("Dates Changed");
         }
 
         // TODO: 11/3/2021 ask prof if users can modify dates within 5 days or delete
@@ -126,6 +219,14 @@ public class StaffResModify extends DBConnection implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        checkInDP.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+
+
+                setDisable(empty || date.compareTo(today) < 0 );
+            }
+        });
         try {
             conn = getConnection();
         } catch (ClassNotFoundException e) {
@@ -140,6 +241,9 @@ public class StaffResModify extends DBConnection implements Initializable {
         checkInDP.setValue(reservation.getCheckIn());
         checkOutDP.setValue(reservation.getCheckOut());
         adultsTF.setText("Adults: " + reservation.getAdults());
+        checkInDP.setValue(today);
+        restrictDatePicker(checkInDP);
+        restrictDatePicker(checkOutDP);
         childrenTF.setText("Children: " + reservation.getChildren());
         try {
             daysTF.setText("Total days: " + getDays());
