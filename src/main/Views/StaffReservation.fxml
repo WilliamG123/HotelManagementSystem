@@ -39,15 +39,15 @@
          </children>
       </HBox>
       <TableView fx:id="resTable" layoutY="287.0" prefHeight="570.0" prefWidth="1401.0" stylesheets="@table.css">
-        <columns>
-           <TableColumn fx:id="image" prefWidth="238.0" />
-          <TableColumn fx:id="userIDColumn" editable="false" prefWidth="249.0" resizable="false" sortable="false" text="Name" />
+         <columns>
+            <TableColumn fx:id="image" prefWidth="238.0" />
+            <TableColumn fx:id="userIDColumn" editable="false" prefWidth="249.0" resizable="false" sortable="false" text="Name" />
             <TableColumn fx:id="hotelColumn" editable="false" prefWidth="315.0" resizable="false" sortable="false" text="Hotel" />
             <TableColumn fx:id="checkInColumn" editable="false" prefWidth="142.0" resizable="false" sortable="false" text="Check in" />
             <TableColumn fx:id="checkOutColumn" editable="false" minWidth="6.0" prefWidth="131.0" resizable="false" sortable="false" text="Check out" />
             <TableColumn fx:id="costColumn" editable="false" prefWidth="137.0" resizable="false" sortable="false" text="Total Cost" />
             <TableColumn fx:id="resNumColumn" editable="false" prefWidth="197.0" resizable="false" sortable="false" text="Reservation #" />
-        </columns>
+         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
@@ -55,18 +55,18 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </TableView>
-      <TextField fx:id="hotelTF" layoutX="175.0" layoutY="162.0" prefHeight="50.0" prefWidth="206.0" promptText="Enter hotel name">
+      <TextField fx:id="hotelTF" layoutX="169.0" layoutY="163.0" prefHeight="50.0" prefWidth="214.0" promptText="Enter hotel name">
          <font>
             <Font size="18.0" />
          </font></TextField>
-      <DatePicker fx:id="checkInDP" layoutX="679.0" layoutY="163.0" prefHeight="50.0" prefWidth="206.0" promptText="Select check in date" stylesheets="@date_picker.css" />
-      <DatePicker fx:id="checkOutDP" layoutX="934.0" layoutY="165.0" prefHeight="50.0" prefWidth="206.0" promptText="select checkout date" stylesheets="@date_picker.css" />
-      <Text layoutX="689.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
+      <DatePicker fx:id="checkInDP" layoutX="674.0" layoutY="164.0" prefHeight="50.0" prefWidth="214.0" promptText="Select check in date" stylesheets="@date_picker.css" />
+      <DatePicker fx:id="checkOutDP" layoutX="940.0" layoutY="163.0" prefHeight="50.0" prefWidth="214.0" promptText="select checkout date" stylesheets="@date_picker.css" />
+      <Text layoutX="688.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date:">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
-      <Text layoutX="934.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
+      <Text layoutX="940.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date:">
          <font>
             <Font size="30.0" />
          </font>
@@ -82,7 +82,7 @@
          </font>
       </Text>
       <Text layoutX="14.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="239.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
+      <Text layoutX="237.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel:">
          <font>
             <Font size="30.0" />
          </font>
@@ -102,15 +102,15 @@
             <Font size="35.0" />
          </font>
       </Button>
-      <Text layoutX="442.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guest Name:">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Text>
-      <TextField fx:id="nameTF" layoutX="424.0" layoutY="162.0" prefHeight="50.0" prefWidth="206.0" promptText="Enter guest name">
+      <TextField fx:id="nameTF" layoutX="425.0" layoutY="164.0" prefHeight="50.0" prefWidth="214.0" promptText="Enter guest name">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
+      <Text layoutX="443.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Guest Name:">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
