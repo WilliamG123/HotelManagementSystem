@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchor" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PropertyCreateController">
+<AnchorPane fx:id="anchor" prefHeight="1000.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PropertyCreateController">
    <children>
       <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1405.0" spacing="130.0" style="-fx-background-color: #4A9FEA; -fx-border-color: #000000;">
          <children>
@@ -37,44 +39,29 @@
             </Text>
          </children>
       </HBox>
-      <TextField fx:id="propertyNameField" layoutX="366.0" layoutY="90.0" prefHeight="40.0" prefWidth="280.0" promptText="&lt;Name&gt;" stylesheets="@text_field.css">
+      <TextField fx:id="propertyNameField" layoutX="295.0" layoutY="91.0" prefHeight="40.0" prefWidth="280.0" promptText="&lt;Name&gt;" stylesheets="@text_field.css">
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <TextField fx:id="propertyAddressField" layoutX="366.0" layoutY="177.0" prefHeight="40.0" prefWidth="280.0" promptText="&lt;Address&gt;" stylesheets="@text_field.css">
+      <TextField fx:id="propertyAddressField" layoutX="312.0" layoutY="153.0" prefHeight="40.0" prefWidth="280.0" promptText="&lt;Address&gt;" stylesheets="@text_field.css">
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <TextArea fx:id="propertyDescArea" layoutX="366.0" layoutY="259.0" prefHeight="280.0" prefWidth="280.0" promptText="&lt;Description&gt;" stylesheets="@text_field.css">
+      <TextArea fx:id="propertyDescArea" layoutX="20.0" layoutY="276.0" prefHeight="138.0" prefWidth="432.0" promptText="&lt;Description&gt;" stylesheets="@text_field.css">
          <font>
             <Font size="20.0" />
          </font></TextArea>
-      <Spinner fx:id="numberOfRoomsSelector" layoutX="366.0" layoutY="593.0" prefHeight="40.0" prefWidth="280.0" stylesheets="@text_field.css" />
-      <Text layoutX="93.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Name:">
+      <Text layoutX="14.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Name:">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="60.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Address:">
+      <Text layoutX="14.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Address:">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="6.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Description:">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-      <Text layoutX="41.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of Rooms:">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-      <TextArea fx:id="roomTypeArea" layoutX="366.0" layoutY="690.0" prefHeight="280.0" prefWidth="280.0" promptText="Room Type,Count,Starting Room #" stylesheets="@text_field.css">
-         <font>
-            <Font size="15.0" />
-         </font></TextArea>
-      <Text layoutX="40.0" layoutY="731.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room type, Count, Start Room #:" wrappingWidth="300.0">
+      <Text layoutX="14.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property Description:">
          <font>
             <Font size="36.0" />
          </font>
@@ -121,7 +108,7 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <TextArea fx:id="typeDescArea" layoutX="1116.0" layoutY="90.0" prefHeight="280.0" prefWidth="280.0" promptText="Room Type, Description (One per line)" stylesheets="@text_field.css">
+      <TextArea fx:id="typeDescArea" layoutX="1141.0" layoutY="90.0" prefHeight="132.0" prefWidth="255.0" promptText="Room Type, Description (One per line)" stylesheets="@text_field.css">
          <font>
             <Font size="20.0" />
          </font>
@@ -131,5 +118,32 @@
             <Font size="36.0" />
          </font>
       </Text>
+      <TableView fx:id="roomTV" layoutX="24.0" layoutY="590.0" prefHeight="405.0" prefWidth="255.0" stylesheets="@table.css">
+         <columns>
+            <TableColumn fx:id="styleColumn" prefWidth="246.0" text="Style" />
+         </columns>
+      </TableView>
+      <ChoiceBox fx:id="roomCB" layoutX="41.0" layoutY="501.0" prefHeight="37.0" prefWidth="249.0" stylesheets="@choicebox.css" />
+      <Text layoutX="95.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Style">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <TableView fx:id="cartTV" layoutX="351.0" layoutY="589.0" prefHeight="397.0" prefWidth="281.0" stylesheets="@table.css">
+         <columns>
+            <TableColumn fx:id="style2Column" prefWidth="137.0" text="Style" />
+            <TableColumn fx:id="amount2Column" prefWidth="128.0" text="Amount" />
+         </columns>
+      </TableView>
+      <Button fx:id="addRoomBtn" layoutX="379.0" layoutY="477.0" mnemonicParsing="false"  prefHeight="62.0" prefWidth="146.0" stylesheets="@button.css" text="Add">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
+      <Button fx:id="removeRoomBtn1" layoutX="557.0" layoutY="477.0" mnemonicParsing="false"  prefHeight="59.0" prefWidth="146.0" stylesheets="@button.css" text="Remove">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
