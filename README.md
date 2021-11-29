@@ -3,7 +3,6 @@
 ## Table of Contents
 1. [Overview](#Overview)
 1. [User Stories](#User-Stories)
-1. [Wireframes](#Wireframes)
 1. [Interactive Prototype](#Interactive-Prototype)
 
 ## Overview
@@ -66,12 +65,9 @@ For a in depth look at Hotelverse check out the Hotelverse_Report.docx file
 * Customer Main Menu 
     * Customers main menu to jump to each of their user story scenes
 
-## Wireframes
-
-<img src="WireFramePic.PNG" width=600>
 
 ### Interactive Prototype
 
-//<img src='WireFrame_Walkthrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+//<img src='demo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
