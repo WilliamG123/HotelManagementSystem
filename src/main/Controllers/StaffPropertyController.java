@@ -80,7 +80,17 @@ public class StaffPropertyController extends DBConnection implements Initializab
                     Toast.makeText(stage, "Error: no property selected please select one to delete", 2000, 500, 500);
                     return;
                 }
-                deleteProperty();
+                ButtonType deleteBtn = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
+                ButtonType cancelBtn = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+                Alert alert = new Alert(Alert.AlertType.NONE,"Please confirm the deletion of the property", deleteBtn, cancelBtn);
+                alert.setTitle("Deletion Confirmation");
+                //alert.setContentText("Please confirm reservation deletion");
+                Optional<ButtonType> result = alert.showAndWait();
+
+                // if user confirmed reservation deletion
+                if(result.orElse(cancelBtn) == deleteBtn){
+                    deleteProperty();
+                }
                 return;
             }else if(event.getSource() == searchBtn){
                 handleSearch();
