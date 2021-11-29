@@ -99,7 +99,7 @@ public class StaffResModify implements Initializable {
         // if user confirmed reservation deletion
         if(result.orElse(cancelBtn) == deleteBtn){
             System.out.println("Delete");
-            // TODO: 11/3/2021 write a query to delete a reservation from the DB
+// TODO: 11/3/2021 write a query to delete a reservation from the DB
         }
     }
 
@@ -120,8 +120,6 @@ public class StaffResModify implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //System.out.println("Log: StaffResModify Initialized");
-
-        // TODO: 11/3/2021 uncomment and fix to initialize all TextViews with the appropriate reservation user data
         resIdTF.setText("Reservation: #" + reservation.getResID());
         hNameTF.setText(reservation.getHotelName());
         //hAddressTF.setText();
