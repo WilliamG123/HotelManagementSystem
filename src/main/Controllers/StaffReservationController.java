@@ -246,18 +246,7 @@ public class StaffReservationController extends DBConnection implements Initiali
             resList.clear();
 
 
-            /*ResultSetMetaData rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
-            while (rs.next()) {
-                for (int i = 1; i <= columnsNumber; i++) {
-                    if (i > 1) System.out.print(",  ");
-                    String columnValue = rs.getString(i);
-                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
-                }
-                System.out.println("");
-            }*/
 
-            //loop through the resultSet & add each amenity to the ListView
             while(rs.next()) {
                Reservation r = new Reservation();
                 File file = new File("Res/images/hotels/" + rs.getString("hotel_image"));

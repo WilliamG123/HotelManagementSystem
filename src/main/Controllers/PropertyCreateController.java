@@ -34,6 +34,7 @@ public class PropertyCreateController extends DBConnection implements Initializa
     public ChoiceBox roomCB;
     public TableColumn styleColumn;
     public TableView roomTV;
+    public ListView amenitiesLV;
     @FXML private Text mainmenuTV;
     @FXML private Text logoutTV;
     @FXML private TextField propertyNameField;
@@ -53,7 +54,7 @@ public class PropertyCreateController extends DBConnection implements Initializa
 
     private final int initialValue = 1;
     Connection conn;
-
+    ObservableList<String> typeStrings = FXCollections.observableArrayList();
 
     HashMap<String, Object> RType =
             new HashMap<String, Object>();
@@ -92,21 +93,23 @@ public class PropertyCreateController extends DBConnection implements Initializa
     public void populateRoomTypesTable() throws ClassNotFoundException, SQLException {
         Connection con = null;
         con = getConnection();
-        ObservableList<String> typeStrings = FXCollections.observableArrayList();
+
         CallableStatement callableStatement = con.prepareCall("{call hotel.getAllRoomTypesThatExist()}");
         ResultSet rs = callableStatement.executeQuery();
 
         while(rs.next()){
 
             typeStrings.add(rs.getString("roomtypes"));
-
+            amenitiesLV.getItems().add(rs.getString("roomtypes"));
 
         }
 
-        roomCB.setItems(typeStrings);
-        roomTV.setItems(typeStrings);
 
-        style2Column.setCellValueFactory(new PropertyValueFactory<>(typeStrings.toString()));
+        roomCB.setItems(typeStrings);
+
+
+
+
     }
 
 
@@ -235,6 +238,16 @@ public class PropertyCreateController extends DBConnection implements Initializa
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            populateRoomTypesTable();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        cartList = FXCollections.observableArrayList();
+        cartTV.setItems(cartList);
+
 
 
         System.out.println("PROPERTY CREATE");
@@ -243,13 +256,7 @@ public class PropertyCreateController extends DBConnection implements Initializa
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        try {
-            populateRoomTypesTable();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
 
 
     }
