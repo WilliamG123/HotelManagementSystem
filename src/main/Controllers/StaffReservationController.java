@@ -1,6 +1,7 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,10 +9,15 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -39,6 +45,7 @@ public class StaffReservationController extends DBConnection implements Initiali
     @FXML private TableColumn<Reservation, String> checkOutColumn;
     @FXML private TableColumn<Reservation, String> costColumn;
     @FXML private TableColumn<Reservation, String> resNumColumn;
+    @FXML private TableColumn<Reservation, String> image;
     @FXML private TextField hotelTF;
     @FXML private TextField resNumTF;
     @FXML private TextField nameTF;
@@ -51,7 +58,9 @@ public class StaffReservationController extends DBConnection implements Initiali
     @FXML private ObservableList<Reservation> resList;
     private Connection conn;
     private StringBuilder query;
-
+    LocalDate today = LocalDate.now();
+    LocalDate future = LocalDate.now().plusMonths(1);
+    int userID;
     /*****************************************************************
      *                     sceneChange Function
      * @param event
@@ -118,8 +127,18 @@ public class StaffReservationController extends DBConnection implements Initiali
      *****************************************************************/
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        checkInDP.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
 
+
+                setDisable(empty || date.compareTo(today) < 0 );
+            }
+        });
+        restrictDatePicker(checkInDP);
+        restrictDatePicker(checkOutDP);
         // set cell values
+        image.setCellValueFactory(new PropertyValueFactory<>("photo"));
         userIDColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         hotelColumn.setCellValueFactory(new PropertyValueFactory<>("hotelName"));
         checkInColumn.setCellValueFactory(new PropertyValueFactory<>("checkIn"));
@@ -151,16 +170,24 @@ public class StaffReservationController extends DBConnection implements Initiali
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        CallableStatement callableStatement = con.prepareCall("{call hotel.ReservationFilter(?, ?, ?, ?)}");
-        callableStatement.setString(1, "");
-        callableStatement.setString(2, "");
-        callableStatement.setDate(3, null);
-        callableStatement.setDate(4, null);
+        CallableStatement callableStatement = con.prepareCall("{call hotel.getID(?,?)}");
+        callableStatement.setString(1,LoadedUser.getInstance().getUser().getFirstName().toString());
+        callableStatement.setString(2,"CUST");
         ResultSet rs = callableStatement.executeQuery();
+        while(rs.next()){
+            userID = rs.getInt("ID");
+        }
+        System.out.println(userID+"<-USER ID");
 
-        if(rs.next()){
-            addReservations(rs);
+        CallableStatement cs = con.prepareCall("{call hotel.ReservationFilter(?, ?, ?, ?)}");
+        cs.setString(1, "");
+        cs.setString(2, "");
+        cs.setDate(3, null);
+       cs.setDate(4, null);
+        ResultSet rs2 = cs.executeQuery();
+
+        if(rs2.next()){
+            addReservations(rs2);
         }
 
         resTable.setItems(resList);
@@ -233,6 +260,14 @@ public class StaffReservationController extends DBConnection implements Initiali
             //loop through the resultSet & add each amenity to the ListView
             while(rs.next()) {
                Reservation r = new Reservation();
+                File file = new File("Res/images/hotels/" + rs.getString("hotel_image"));
+                Image image = new Image(file.toURI().toString());
+                ImageView im = new ImageView();
+                im.setImage(image);
+                im.setPreserveRatio(true);
+                im.setFitHeight(150);
+                im.setFitWidth(200);
+                r.setPhoto(im);
                r.setName(rs.getString("fname"));
                r.setHotelName(rs.getString("hotel_name"));
                r.setCheckIn(rs.getDate("check_in").toLocalDate());
@@ -251,6 +286,31 @@ public class StaffReservationController extends DBConnection implements Initiali
         checkInDP.setValue(null);
         checkOutDP.setValue(null);
     }
+    EventHandler<MouseEvent> mouseClickedEventHandler = clickEvent -> {
+        if (clickEvent.getButton() == MouseButton.PRIMARY) {
+
+        }
+        clickEvent.consume();
+    };
+    public void restrictDatePicker(DatePicker datePicker) {
+        datePicker.setDayCellFactory((DatePicker param) -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null && !empty) {
+                    //...
+                    addEventHandler(MouseEvent.MOUSE_CLICKED, mouseClickedEventHandler);
+                } else {
+                    //...
+                    removeEventHandler(MouseEvent.MOUSE_CLICKED, mouseClickedEventHandler);
+                }
+                if (item.isBefore(today)) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #FF4500;");
+                }
+            }
+        });
+    }
 
     /*****************************************************************
      *                     addReservations Method
@@ -260,12 +320,22 @@ public class StaffReservationController extends DBConnection implements Initiali
     private void addReservations(ResultSet rs) throws SQLException {
         do{
             Reservation res = new Reservation();
+            File file = new File("Res/images/hotels/" + rs.getString("hotel_image"));
+            Image image = new Image(file.toURI().toString());
+            ImageView im = new ImageView();
+            im.setImage(image);
+            im.setPreserveRatio(true);
+            im.setFitHeight(150);
+            im.setFitWidth(200);
+            res.setPhoto(im);
             res.setCost(rs.getDouble("total_price"));
             res.setCheckIn(rs.getDate("check_in").toLocalDate());
             res.setCheckOut(rs.getDate("check_out").toLocalDate());
             res.setHotelName(rs.getString("hotel_name"));
             res.setName(rs.getString("fname"));
             res.setResID(rs.getInt("reservationId"));
+            res.setAdults(rs.getInt("adults"));
+            res.setChildren(rs.getInt("children"));
             resList.add(res);
             System.out.println(res);
         } while(rs.next());

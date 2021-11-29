@@ -102,7 +102,7 @@
             <Font size="28.0" />
          </font>
       </Button>
-      <Text layoutX="585.0" layoutY="856.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total cost: $000.00">
+      <Text fx:id="TotalCostTF" layoutX="585.0" layoutY="856.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total cost: $000.00">
          <font>
             <Font size="28.0" />
          </font>
